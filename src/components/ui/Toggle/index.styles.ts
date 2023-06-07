@@ -1,10 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  ToggleContent,
-  ToggleDesc,
-  ToggleProps,
-  ToggleWrapper,
-} from "./index.types";
+import { ToggleContent, ToggleDesc, ToggleWrapper } from "./index.types";
 import theme from "@styles/theme";
 import { css } from "@emotion/react";
 
