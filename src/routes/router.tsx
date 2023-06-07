@@ -29,7 +29,7 @@ const routes = [
     state: "auth",
   },
   {
-    path: "/user:userId",
+    path: "/user/:userId",
     element: <User />,
     state: "user",
   },
