@@ -44,7 +44,7 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
     error ? `${theme.colors.red}` : `${theme.colors.gray}`};
 
   &:focus {
-    border-color: ${theme.colors.black};
+    border-color: ${theme.colors.vert};
     color: ${theme.colors.inherit};
     + .iconBox {
       color: ${theme.colors.black};
@@ -54,6 +54,16 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
     font-size: ${({ placeHolderFontSize, theme }) =>
       theme.fontSize[placeHolderFontSize]};
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      &:disabled {
+        border-color: ${theme.colors.gray};
+        background-color: ${theme.colors.gray};
+        color: ${theme.colors.white};
+      }
+    `}
 `;
 
 export const HelperText = styled.span<Required<TextFieldProps>>`
@@ -68,11 +78,3 @@ export const HelperText = styled.span<Required<TextFieldProps>>`
   font-weight: calc(${({ fontWeight }) => fontWeight} - 200);
   line-height: ${({ lineHeight, theme }) => theme.lineHeight[lineHeight]};
 `;
-// ${({ error }) =>
-// error
-//   ? css`
-//       border-color: ${theme.colors.red};
-//     `
-//   : css`
-//       border-color: ${theme.colors.gray};
-//     `};

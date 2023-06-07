@@ -1,7 +1,13 @@
 import theme from "@styles/theme";
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 
-export type ButtonType = "default" | "blue" | "blue_border";
+export type ButtonType =
+  | "default"
+  | "green"
+  | "green_border"
+  | "blue"
+  | "blue_border"
+  | "red";
 
 export interface ButtonProps {
   /**
@@ -80,6 +86,12 @@ export interface ButtonProps {
    * @default 'auto'
    */
   width?: string;
+
+  /**
+   * Button의 활성/비활성 상태
+   * @default true
+   */
+  disabled?: boolean;
 }
 
 export interface Props
@@ -87,10 +99,4 @@ export interface Props
     ButtonProps {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-
-  /**
-   * Button의 활성/비활성 상태
-   * @default true
-   */
-  disabled?: boolean;
 }

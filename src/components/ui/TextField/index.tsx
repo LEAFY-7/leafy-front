@@ -9,6 +9,7 @@ const TextFiled = React.forwardRef(function TextFiled(
     placeholder = "",
     labelTitle = "",
     onChange,
+    disabled = false,
     error = false,
     helperText = "",
     fontSize = "md",
@@ -52,6 +53,7 @@ const TextFiled = React.forwardRef(function TextFiled(
           type={type}
           value={value}
           error={error}
+          disabled={disabled}
           helperText={helperText}
           placeholder={placeholder}
           fontSize={fontSize}
@@ -66,7 +68,7 @@ const TextFiled = React.forwardRef(function TextFiled(
         />
         <Styled.Icon className="iconBox">{leftIcon}</Styled.Icon>
 
-        {error && (
+        {!disabled && error && (
           <Styled.HelperText
             error={error}
             fontSize={fontSize}

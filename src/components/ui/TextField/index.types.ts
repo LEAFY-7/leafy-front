@@ -57,6 +57,12 @@ export interface TextFieldInputProps extends TextFieldProps {
    * @default xs
    */
   placeHolderFontSize?: keyof typeof theme.fontSize;
+
+  /**
+   * Button의 활성/비활성 상태
+   * @default true
+   */
+  disabled?: boolean;
 }
 export interface TextFieldHelperText
   extends HTMLAttributes<HTMLElement>,
