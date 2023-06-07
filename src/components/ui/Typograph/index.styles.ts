@@ -21,28 +21,28 @@ export const Text = styled.span<Props>`
     switch (variant) {
       case "H1": {
         return css`
+          font-size: ${theme.fontSize.xxxxl};
+          font-weight: ${theme.fontWeight.bold};
+          line-height: ${theme.lineHeight.xxxxl};
+        `;
+      }
+      case "H2": {
+        return css`
           font-size: ${theme.fontSize.xxxl};
           font-weight: ${theme.fontWeight.bold};
           line-height: ${theme.lineHeight.xxxl};
         `;
       }
-      case "H2": {
-        return css`
-          font-size: ${theme.fontSize.xxl};
-          font-weight: ${theme.fontWeight.bold};
-          line-height: ${theme.lineHeight.xxl};
-        `;
-      }
       case "H3": {
         return css`
-          font-size: ${theme.fontSize.xl};
+          font-size: ${theme.fontSize.xxl};
           font-weight: ${theme.fontWeight.semiBold};
-          line-height: ${theme.lineHeight.xl};
+          line-height: ${theme.lineHeight.xxl};
         `;
       }
       case "BODY1": {
         return css`
-          font-size: ${theme.fontSize.xl};
+          font-size: ${theme.fontSize.lg};
           font-weight: ${theme.fontWeight.semiBold};
           line-height: ${theme.lineHeight.lg};
         `;

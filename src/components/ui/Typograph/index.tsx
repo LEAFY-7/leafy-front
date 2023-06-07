@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./index.styles";
-import { Props, TextProps } from "./index.types";
+import { TextProps } from "./index.types";
 
 const Typography = React.forwardRef(function Typography(
   {
