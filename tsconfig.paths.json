@@ -9,7 +9,7 @@
       "@lib/*": ["./lib/*"],
       "@utils/*": ["./utils/*"],
       "@config/*": ["./config/*"],
-      "@hooks": ["./hooks"],
+      "@hooks/*": ["./hooks/*"],
       "@types/*": ["./types/*"]
     }
   }
