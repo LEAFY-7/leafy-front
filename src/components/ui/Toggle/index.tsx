@@ -6,8 +6,8 @@ const Toggle = React.forwardRef(function Toggle(
   {
     on = "on",
     off = "off",
-    onColor = "lgreen",
-    offColor = "green",
+    leftColor = "lgreen",
+    rightColor = "green",
     children,
     ...rest
   }: React.PropsWithChildren<Props>,
@@ -18,8 +18,8 @@ const Toggle = React.forwardRef(function Toggle(
   return (
     <Styled.Wrapper
       isOn={isOn}
-      onColor={onColor}
-      offColor={offColor}
+      leftColor={leftColor}
+      rightColor={rightColor}
       ref={forwardedRef}
       onClick={toggleHandler}
       {...rest}

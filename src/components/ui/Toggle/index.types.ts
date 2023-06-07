@@ -5,8 +5,8 @@ export interface ToggleProps {
   isOn?: boolean;
 }
 export interface ToggleWrapper extends ToggleProps {
-  onColor?: keyof typeof theme.colors;
-  offColor?: keyof typeof theme.colors;
+  leftColor?: keyof typeof theme.colors;
+  rightColor?: keyof typeof theme.colors;
 }
 
 export interface ToggleContent extends ToggleProps {}
