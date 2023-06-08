@@ -1,14 +1,53 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Global, ThemeProvider } from "@emotion/react";
 import theme from "@styles/theme";
 import globalStyle from "@styles/globalStyle";
-import Home from "@pages/Home/Page";
+import MainLayout from "@components/layout/MainLayout";
+import routes from "@routes/router";
+import PageWrapper from "@components/PageWrapper";
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Home />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              {routes.map((route, index) =>
+                route.index ? (
+                  <Route
+                    index
+                    key={index}
+                    element={
+                      route.state ? (
+                        <PageWrapper state={route.state}>
+                          {route.element}
+                        </PageWrapper>
+                      ) : (
+                        route.element
+                      )
+                    }
+                  />
+                ) : (
+                  <Route
+                    path={route.path}
+                    key={index}
+                    element={
+                      route.state ? (
+                        <PageWrapper state={route.state}>
+                          {route.element}
+                        </PageWrapper>
+                      ) : (
+                        route.element
+                      )
+                    }
+                  />
+                )
+              )}
+            </Route>
+          </Routes>
+        </BrowserRouter>
         <Global styles={globalStyle} />
       </ThemeProvider>
     </>

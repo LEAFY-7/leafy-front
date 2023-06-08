@@ -8,8 +8,8 @@ export const Wrapper = styled.div<Required<ToggleWrapper>>`
   cursor: pointer;
   width: 60px;
   height: 30px;
-  background-color: ${({ isOn, onColor, offColor }) =>
-    isOn ? theme.colors[onColor] : theme.colors[offColor]};
+  background-color: ${({ isOn, leftColor, rightColor }) =>
+    isOn ? theme.colors[leftColor] : theme.colors[rightColor]};
   border-radius: 15px;
   position: relative;
   cursor: pointer;
