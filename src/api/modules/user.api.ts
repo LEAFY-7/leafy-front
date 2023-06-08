@@ -10,7 +10,7 @@ const userApiRoutes = {
   signIn: "user/signin",
   signUp: "user/signup",
   getInfo: "user/info",
-  updateInfo: "user/",
+  updateInfo: (userId: string) => `user/${userId}`,
 };
 
 const userApis = {
@@ -61,6 +61,7 @@ const userApis = {
     }
   },
   updateInfo: async ({
+    userId,
     password,
     newPassword,
     confirmNewPassword,
@@ -69,6 +70,7 @@ const userApis = {
     birthDate,
     address,
   }: {
+    userId: string;
     password: string;
     newPassword: string;
     confirmNewPassword: string;
@@ -81,15 +83,18 @@ const userApis = {
     };
   }) => {
     try {
-      const response = await privateClient.put(userApiRoutes.updateInfo, {
-        password,
-        newPassword,
-        confirmNewPassword,
-        displayName,
-        phone,
-        birthDate,
-        address,
-      });
+      const response = await privateClient.put(
+        userApiRoutes.updateInfo(userId),
+        {
+          password,
+          newPassword,
+          confirmNewPassword,
+          displayName,
+          phone,
+          birthDate,
+          address,
+        }
+      );
       return { response };
     } catch (error) {
       const { code, message } = handleError(error);
