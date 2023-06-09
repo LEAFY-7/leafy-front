@@ -5,6 +5,7 @@ import Auth from "@pages/Auth/Page";
 import Chat from "@pages/Chat/Page";
 import User from "@pages/User/Page";
 import NotFound from "@pages/NotFound/Page";
+import ProtectedPage from "@components/ProtectedPage";
 
 export const routesGen = {
   home: "/",
@@ -30,7 +31,11 @@ const routes = [
   },
   {
     path: "/user/:userId",
-    element: <User />,
+    element: (
+      <ProtectedPage>
+        <User />
+      </ProtectedPage>
+    ),
     state: "user",
   },
   {
@@ -51,7 +56,11 @@ const routes = [
 
   {
     path: "/chat",
-    element: <Chat />,
+    element: (
+      <ProtectedPage>
+        <Chat />
+      </ProtectedPage>
+    ),
     state: "chat",
   },
   {
