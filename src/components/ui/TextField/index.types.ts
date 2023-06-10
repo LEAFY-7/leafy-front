@@ -80,7 +80,7 @@ export interface Props
    * @default ""
    */
   value?: string;
-  type: "text" | "password" | "email";
+  type: "text" | "password";
   /**
    * input의 placeHolder
    * @default ""
