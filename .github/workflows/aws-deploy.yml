@@ -19,14 +19,14 @@ jobs: # Job 설정
       - name: Build # 빌드 명령어
         run: npm build:prod
 
-      - name: Configure AWS credentials
+      - name: Configure AWS credentials # GitHub Actions에서 AWS 자격증명을 구성 비밀키로 AWS 리소스에 접근하여 CLI 관련 AWS작업 수행을 도와줌
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2 # 서울
 
-      - name: Configure SSH key
+      - name: Configure SSH key # SSH 키를 사용하여 EC2 인스턴스에 접속 패스워드 인증 방식이면 생략
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
