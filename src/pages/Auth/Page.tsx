@@ -1,7 +1,12 @@
 import React from "react";
+import SignUpForm from "./SignUpForm";
 
 const Auth = () => {
-  return <div>Auth 페이지</div>;
+  return (
+    <div>
+      <SignUpForm />
+    </div>
+  );
 };
 
 export default Auth;
