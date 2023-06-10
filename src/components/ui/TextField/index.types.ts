@@ -74,11 +74,12 @@ export interface Props
   extends HTMLAttributes<HTMLElement>,
     TextFieldProps,
     TextFieldInputProps {
+  hookForm?: boolean;
   /**
    * input의 value
    * @default ""
    */
-  value: string;
+  value?: string;
   type: "text" | "password";
   /**
    * input의 placeHolder

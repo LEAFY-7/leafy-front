@@ -6,6 +6,7 @@ import Chat from "@pages/Chat/Page";
 import User from "@pages/User/Page";
 import NotFound from "@pages/NotFound/Page";
 import ProtectedPage from "@components/ProtectedPage";
+import Example from "@pages/Example/Page";
 
 export const routesGen = {
   home: "/",
@@ -62,6 +63,11 @@ const routes = [
       </ProtectedPage>
     ),
     state: "chat",
+  },
+  {
+    path: "/example",
+    element: <Example />,
+    state: "example",
   },
   {
     path: "/*",
