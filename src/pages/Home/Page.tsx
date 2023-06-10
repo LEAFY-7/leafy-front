@@ -9,6 +9,7 @@ import Typography from "@components/ui/Typograph";
 import Toggle from "@components/ui/Toggle";
 import Textarea from "@components/ui/Textarea";
 import useAutoResizeTextarea from "@hooks/useAutoResizeTextarea";
+import Box from "@components/ui/Box";
 
 /**
  * Page의 관심사 분리 예시 입니다.
@@ -39,8 +40,8 @@ const Home = () => {
     }
   };
   return (
-    <>
-      <Flex>
+    <Box direction="column">
+      <Flex direction="column">
         {/* 버튼 사용 예시 */}
         <Button variant="default">기본</Button>
         <Button variant="blue">button</Button>
@@ -122,6 +123,7 @@ const Home = () => {
             helperIcon={
               error ? <AiOutlineExclamationCircle /> : <HiOutlineCheckCircle />
             }
+            hookForm={false}
           />
 
           <Button variant="blue_border" type="submit">
@@ -148,7 +150,7 @@ const Home = () => {
 
         <Textarea value={value} ref={textareaRef} onChange={handleChange} />
       </Flex>
-    </>
+    </Box>
   );
 };
 
