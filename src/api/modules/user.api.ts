@@ -102,3 +102,4 @@ const userApis = {
     }
   },
 };
+export default userApis;

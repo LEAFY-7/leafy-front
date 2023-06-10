@@ -22,6 +22,7 @@ const TextFiled = React.forwardRef(function TextFiled(
     leftIcon,
     helperIcon,
     children,
+    hookForm = false,
     ...rest
   }: React.PropsWithChildren<Props>,
   forwardedRef: React.Ref<HTMLInputElement>
@@ -49,23 +50,44 @@ const TextFiled = React.forwardRef(function TextFiled(
       )}
 
       <Styled.InputContainer>
-        <Styled.Input
-          type={type}
-          value={value}
-          error={error}
-          disabled={disabled}
-          helperText={helperText}
-          placeholder={placeholder}
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          lineHeight={lineHeight}
-          placeHolderFontSize={placeHolderFontSize}
-          paddingX={paddingX}
-          paddingY={paddingY}
-          onChange={onChange}
-          ref={forwardedRef}
-          radius={radius}
-        />
+        {hookForm ? (
+          <Styled.Input
+            type={type}
+            error={error}
+            disabled={disabled}
+            helperText={helperText}
+            placeholder={placeholder}
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            lineHeight={lineHeight}
+            placeHolderFontSize={placeHolderFontSize}
+            paddingX={paddingX}
+            paddingY={paddingY}
+            onChange={onChange}
+            ref={forwardedRef}
+            radius={radius}
+            {...rest}
+          />
+        ) : (
+          <Styled.Input
+            type={type}
+            value={value}
+            error={error}
+            disabled={disabled}
+            helperText={helperText}
+            placeholder={placeholder}
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            lineHeight={lineHeight}
+            placeHolderFontSize={placeHolderFontSize}
+            paddingX={paddingX}
+            paddingY={paddingY}
+            onChange={onChange}
+            ref={forwardedRef}
+            radius={radius}
+          />
+        )}
+
         <Styled.Icon className="iconBox">{leftIcon}</Styled.Icon>
 
         {!disabled && error && (
