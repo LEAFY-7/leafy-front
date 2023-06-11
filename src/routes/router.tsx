@@ -6,7 +6,6 @@ import Auth from "@pages/Auth/Page";
 import Chat from "@pages/Chat/Page";
 import User from "@pages/User/Page";
 import NotFound from "@pages/NotFound/Page";
-import ProtectedPage from "@components/ProtectedPage";
 import FeedPost from "@pages/Post/page";
 import FeedUpdate from "@pages/Update/Page";
 import Follow from "@pages/Follow/Page";
