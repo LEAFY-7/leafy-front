@@ -29,7 +29,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
           <Component />
         ) : (
           <Navigate
-            to="/login"
+            to="/auth"
             replace
             state={{ from: window.location.pathname }}
           />
