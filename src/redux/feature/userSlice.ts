@@ -1,14 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type Status = "admin" | "normal" | "member";
 type User = {
   id: string;
   username: string;
   displayName: string;
   token: string;
+  status: Status[];
 };
 
-const initialState = {
-  user: null,
+const initialState: { user: User } = {
+  user: {
+    id: "",
+    username: "",
+    displayName: "",
+    token: "",
+    status: ["admin"],
+  },
 };
 
 export const userSlice = createSlice({
