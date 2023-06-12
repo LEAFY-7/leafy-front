@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 
 import theme from "@styles/theme";
 import globalStyle from "@styles/globalStyle";
-import Router from "@routes/router";
+import Router from "@routes/Router";
 
 import "react-toastify/dist/ReactToastify.css";
 
