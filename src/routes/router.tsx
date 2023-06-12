@@ -18,6 +18,7 @@ import PrivateRoute from "@components/PrivateRoute";
 import MainLayout from "@components/layout/MainLayout";
 import Unauthorized from "@components/Unauthorized";
 import Qna from "@pages/QnaDetail/Page";
+import Admin from "@pages/Admin/Page";
 
 export const routesGen = {
   home: "/",
@@ -45,6 +46,7 @@ const Router = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
+        {/* 공용 */}
         {/* 메인 피드 페이지 */}
         <Route index path="/" element={<Home />} />
         {/* 메인 피드 페이지 */}
@@ -73,13 +75,17 @@ const Router = () => {
         <Route path="notice/:noticeId" element={<NoticeDetail />} />
         {/* 공지사항 상세 페이지 */}
 
-        <Route path="unauthorized" element={<Unauthorized />} />
-
         {/* 404 페이지 */}
         <Route path="/*" element={<NotFound />} />
         {/* 404 페이지 */}
 
-        <Route element={<PrivateRoute allowedRoles={["member", "admin"]} />}>
+        {/* 허가 되지않은 페이지 */}
+        <Route path="unauthorized" element={<Unauthorized />} />
+        {/* 허가 되지않은 페이지 */}
+        {/* 공용 */}
+
+        {/* 관리자, 회원 */}
+        <Route element={<PrivateRoute allowedRoles={["admin", "member"]} />}>
           {/* // 피드 작성 페이지 */}
           <Route path="post" element={<FeedPost />} />
           {/* // 피드 작성 페이지 */}
@@ -109,6 +115,13 @@ const Router = () => {
           <Route path="notice/qna/:qnaId" element={<Qna />} />
           {/* Qna 상세페이지 */}
         </Route>
+        {/* 관리자, 회원 */}
+
+        {/* 관리자 */}
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
+        {/* 관리자 */}
       </Route>
     </Routes>
   );
