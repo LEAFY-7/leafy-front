@@ -9,10 +9,9 @@ const PrivateRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
   const location = useLocation();
   const { user } = useSelector((state: RootState) => state.user);
 
-  console.log(user);
   return user.status?.find((role) => allowedRoles?.includes(role)) ? (
     <Outlet />
-  ) : user ? (
+  ) : user.status.includes("member") ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (
     <Navigate to="/auth" state={{ from: location }} replace />

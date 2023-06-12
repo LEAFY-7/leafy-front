@@ -9,14 +9,14 @@ type User = {
   status: Status[];
 };
 
-const initialState = {
+const initialState: { user: User } = {
   user: {
     id: "",
     username: "",
     displayName: "",
     token: "",
-    status: ["normal"],
-  } as User,
+    status: ["admin"],
+  },
 };
 
 export const userSlice = createSlice({
