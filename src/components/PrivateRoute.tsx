@@ -1,41 +1,21 @@
+import React from "react";
 import { RootState } from "@redux/store";
 import { useSelector } from "react-redux";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate, useLocation, Outlet } from "react-router-dom";
 
-// 인증 상태를 확인하는 함수
-const isAuthenticated = (user: any): boolean => {
-  // 로그인 상태를 확인하고 true 또는 false를 반환
-  if (!user) false;
-  return true;
-};
+type AllowedRole = "admin" | "normal" | "member";
 
-// PrivateRoute 컴포넌트
-interface PrivateRouteProps {
-  path: string;
-  component: React.ComponentType;
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
-  component: Component,
-  ...rest
-}) => {
+const PrivateRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
+  const location = useLocation();
   const { user } = useSelector((state: RootState) => state.user);
 
-  return (
-    <Route
-      {...rest}
-      element={
-        isAuthenticated(user) ? (
-          <Component />
-        ) : (
-          <Navigate
-            to="/auth"
-            replace
-            state={{ from: window.location.pathname }}
-          />
-        )
-      }
-    />
+  console.log(user);
+  return user.status?.find((role) => allowedRoles?.includes(role)) ? (
+    <Outlet />
+  ) : user ? (
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/auth" state={{ from: location }} replace />
   );
 };
 export default PrivateRoute;
