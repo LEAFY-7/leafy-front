@@ -67,6 +67,11 @@ export const theme = {
     tablet: `@media only screen and (min-width: ${breakpoint.tablet})`,
     desktop: `@media only screen and (min-width: ${breakpoint.desktop})`,
   },
+  imgSize: {
+    sm: "20px",
+    md: "50px",
+    lg: "60px",
+  },
 };
 
 export default theme;
