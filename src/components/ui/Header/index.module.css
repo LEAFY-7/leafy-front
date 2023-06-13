@@ -1,0 +1,16 @@
+.headerWrapper{
+    height: 80px;
+    width: 1200px;
+}
+.logo {
+    width: 10%;
+}
+.gnb {
+    width: 60%;
+}
+.search {
+    width: 20%;
+}
+.profile{
+    width: 10%;
+}

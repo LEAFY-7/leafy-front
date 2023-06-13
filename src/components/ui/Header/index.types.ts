@@ -18,15 +18,9 @@ export interface LogoProps{
    */
   fontWeight?: CSSProperties["fontWeight"];
 }
-
-export interface GlobalMenuProps {
-    id: number,
-    menu: string,
-    menuLink: string
-}
-
-export interface SignProps{
+export interface ProfileProps{
     isLoggedIn?:boolean,
+    userName?: string
 }
 export interface HeaderProps{
     /**
@@ -52,49 +46,5 @@ export interface HeaderProps{
   paddingY?: number;
 }
 
-export interface HeaderWrapperProps{
-  width: string;
-  height: string;
-    /**
-   * HeaderWrapper display 속성을 설정합니다.
-   *
-   * @default 'flex'
-   */
-  display?: "flex" | "inline-flex";
 
-  /**
-   * HeaderWrapper flex-direction 속성을 설정합니다.
-   *
-   * @default 'row'
-   */
-  direction?: CSSProperties["flexDirection"];
-
-  /**
-   * HeaderWrapper flex-wrap 속성을 설정합니다.
-   *
-   * @default 'nowrap'
-   */
-  wrap?: CSSProperties["flexWrap"];
-
-  /**
-   * HeaderWrapper justify-content 속성을 설정합니다.
-   *
-   * @default 'center'
-   */
-  justifyContent?: CSSProperties["justifyContent"];
-
-  /**
-   * HeaderWrapper align-items 속성을 설정합니다.
-   *
-   * @default 'center'
-   */
-  alignItems?: CSSProperties["alignItems"];
-
-  /**
-   * HeaderWrapper 배경 색상을 설정합니다.
-   *
-   * @default 'inherit'
-   */
-  backgroundColor?: keyof typeof theme.colors;
-}
 export interface Props extends HTMLAttributes<HTMLElement>, HeaderProps {}
