@@ -8,5 +8,6 @@ declare module "@emotion/react" {
     lineHeight: typeof theme.lineHeight;
     breakpoint: typeof theme.breakpoint;
     mediaQuery: typeof theme.mediaQuery;
+    imgSize: typeof theme.imgSize;
   }
 }

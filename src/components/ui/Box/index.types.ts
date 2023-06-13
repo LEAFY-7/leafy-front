@@ -16,13 +16,13 @@ export interface BoxProps {
    * Box의 너비 속성을 설정합니다.
    * @default inherit
    */
-  width?: CSSProperties["width"];
+  width?: CSSProperties["width"] | number;
 
   /**
    * Box의 높이 속성을 설정합니다.
    * @default inherit
    */
-  height?: CSSProperties["height"];
+  height?: CSSProperties["height"] | number;
 
   /**
    * Box의 minHeight 속성을 설정합니다.

@@ -5,9 +5,12 @@ import { ToastContainer } from "react-toastify";
 
 import theme from "@styles/theme";
 import globalStyle from "@styles/globalStyle";
-import Router from "@routes/Router";
+import Router from "@routes/router";
 
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 function App() {
   return (

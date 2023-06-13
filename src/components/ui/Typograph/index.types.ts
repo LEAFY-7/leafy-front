@@ -38,9 +38,9 @@ export interface Props {
   /**
    * Typography 폰트 두께를 설정합니다.
    *
-   * @default 400
+   * @default bold
    */
-  fontWeight: CSSProperties["fontWeight"];
+  fontWeight: keyof typeof theme.fontWeight;
 
   /**
    * Typography 상단을 설정합니다.

@@ -5,8 +5,9 @@ import { BoxProps } from "./index.types";
 export const Box = styled.span<Required<BoxProps>>`
   ${({ as }) => as === "span" && `display: inline-block;`};
 
-  width: ${({ width }) => width};
-  height: ${({ height }) => height};
+  width: ${({ width }) => (typeof width === "number" ? `${width}%` : width)};
+  height: ${({ height }) =>
+    typeof height === "number" ? `${height}%` : height};
   min-width: ${({ minWidth }) => minWidth};
   min-height: ${({ minWidth }) => minWidth};
 
@@ -51,4 +52,6 @@ export const Box = styled.span<Required<BoxProps>>`
   overflow: ${({ overflow }) => overflow};
   gap: ${({ gap }) => gap};
   flex-grow: 1;
+
+  overflow-x: hidden;
 `;
