@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AiOutlineMore, AiOutlineLink, AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineMessage } from "react-icons/md";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
@@ -6,6 +7,9 @@ import { SwiperSlide } from "swiper/react";
 import CustomSiper from "@components/CustomSwiper";
 
 import * as Styled from "./index.styles";
+
+import { setReviewShowState } from "@redux/feature/toggleStateSlice";
+
 import Box from "@components/ui/Box";
 import Button from "@components/ui/Button";
 import Image from "@components/ui/Image";
@@ -13,7 +17,10 @@ import Flex from "@components/ui/Flex";
 import Typography from "@components/ui/Typograph";
 
 import "swiper/swiper-bundle.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@redux/store";
 
+const baseUrl = "http://localhost:3000";
 type HeaderProps = {
   imgUrl?: string;
   displayName?: string;
@@ -41,7 +48,7 @@ const Feed = ({
 }: FeedProps) => {
   return (
     <>
-      <Box borderWidth={1} radius={0} padding="20px" width={100} height={100}>
+      <Box borderWidth={1} padding="20px" width={100} height={100}>
         <FeedHeader displayName={displayName} imgUrl={imgUrl} />
         <FeedContent imgs={imgs} title={title} desc={desc} tag={tag} />
       </Box>
@@ -77,16 +84,25 @@ const FeedContent = ({
   desc,
   tag: tagBox = [""],
 }: React.PropsWithChildren<ContentProps>) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { reviewShow } = useSelector((state: RootState) => state.toggle);
   const [isLike, setIsLike] = useState<boolean>(false);
 
   let comment, likes;
 
   comment = 33333;
-  likes = 3333;
+  likes = 333;
+
+  const handleCopyClipBoard = () =>
+    navigator.clipboard.writeText(`${baseUrl}${location.pathname}`);
 
   const handleLike = () => {
     setIsLike((prev) => !prev);
+  };
+
+  const handleReview = () => {
+    dispatch(setReviewShowState(!reviewShow));
   };
   return (
     <Styled.Content>
@@ -127,7 +143,11 @@ const FeedContent = ({
           )}
         </Flex>
         <Flex>
-          <Button variant="default" leftIcon={<MdOutlineMessage />}>
+          <Button
+            variant="default"
+            onClick={handleReview}
+            leftIcon={<MdOutlineMessage />}
+          >
             {comment > 999 ? "999+" : comment}
           </Button>
           <Button
@@ -138,41 +158,49 @@ const FeedContent = ({
             {likes > 999 ? "999+" : likes}
           </Button>
 
-          <Button variant="default">
+          <Button variant="default" onClick={handleCopyClipBoard}>
             <AiOutlineLink />
           </Button>
         </Flex>
       </Box>
-      <Box>
-        <Button
-          variant="default"
-          rightIcon={<AiOutlinePlus />}
-          onClick={() => setOpen((prev) => !prev)}
-          paddingY={20}
-          paddingX={0}
-        >
-          식물 기록 더보기
-        </Button>
-        {open && (
-          <Flex direction="column">
-            <Typography variant="BODY2" marginBottom={5}>
-              학명
-            </Typography>
-            <Typography variant="BODY2" marginBottom={5}>
-              별명
-            </Typography>
-            <Typography variant="BODY2" marginBottom={5}>
-              온도
-            </Typography>
-            <Typography variant="BODY2" marginBottom={5}>
-              습도
-            </Typography>
-            <Typography variant="BODY2" marginBottom={5}>
-              물주기
-            </Typography>
-          </Flex>
-        )}
-      </Box>
+      <FeedContentMore />
     </Styled.Content>
+  );
+};
+
+const FeedContentMore = ({}) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  return (
+    <Box>
+      <Button
+        variant="default"
+        rightIcon={<AiOutlinePlus />}
+        onClick={() => setOpen((prev) => !prev)}
+        paddingY={20}
+        paddingX={0}
+      >
+        식물 기록 더보기
+      </Button>
+      {open && (
+        <Flex direction="column">
+          <Typography variant="BODY2" marginBottom={5}>
+            학명
+          </Typography>
+          <Typography variant="BODY2" marginBottom={5}>
+            별명
+          </Typography>
+          <Typography variant="BODY2" marginBottom={5}>
+            온도
+          </Typography>
+          <Typography variant="BODY2" marginBottom={5}>
+            습도
+          </Typography>
+          <Typography variant="BODY2" marginBottom={5}>
+            물주기
+          </Typography>
+        </Flex>
+      )}
+    </Box>
   );
 };
