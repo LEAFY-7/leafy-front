@@ -88,17 +88,17 @@ const FeedContent = ({
   const dispatch = useDispatch();
   const { reviewShow } = useSelector((state: RootState) => state.toggle);
   const [isLike, setIsLike] = useState<boolean>(false);
-
-  let comment, likes;
+  const [likes, setLikes] = useState(999);
+  let comment;
 
   comment = 33333;
-  likes = 333;
 
   const handleCopyClipBoard = () =>
     navigator.clipboard.writeText(`${baseUrl}${location.pathname}`);
 
   const handleLike = () => {
     setIsLike((prev) => !prev);
+    setLikes((prev) => prev + 1);
   };
 
   const handleReview = () => {

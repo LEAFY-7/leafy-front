@@ -29,9 +29,6 @@ const FeedDetail = () => {
           <RightSection />
         </Box>
       </Box>
-      {/* <Box as="section" width={100} marginTop={20}>
-        <BottomSection />
-      </Box> */}
     </Flex>
   );
 };
