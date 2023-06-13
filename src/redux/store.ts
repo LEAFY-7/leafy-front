@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import appStateSlice from "./feature/appStateSlice";
 import userSlice from "./feature/userSlice";
-
+import toggleStateSlice from "./feature/toggleStateSlice";
 const store = configureStore({
   reducer: {
-    appState: appStateSlice,
     user: userSlice,
+    appState: appStateSlice,
+    toggle: toggleStateSlice,
   },
 });
 export default store;
