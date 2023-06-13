@@ -24,6 +24,7 @@ const Header = ({userName = ""}:{userName:string}) =>{
 export default Header;
 
 const Logo = () => {
+  const classes = `${Module.logo}`;
   return (
       <Flex className={Module.logo} justifyContent="center" alignItems="center">
         <img src="" alt="logo" />
