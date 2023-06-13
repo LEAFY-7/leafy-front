@@ -63,19 +63,19 @@ const Wrapper = styled.div<{ direction: Direction }>`
   .swiper-pagination-bullet {
     width: 50px;
     border-radius: 0;
-    background-color: ${({ theme }) => theme.colors.green};
+    background-color: ${({ theme }) => theme.colors.gray};
     border: solid;
     border-width: 1px;
-    border-color: ${({ theme }) => theme.colors.bgreen};
+    border-color: ${({ theme }) => theme.colors.black};
   }
 
   & .swiper-button-next,
   & .swiper-button-prev {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.green};
-    color: ${({ theme }) => theme.colors.white};
+    border: solid;
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.black};
     &::after {
       font-size: 1rem;
     }
