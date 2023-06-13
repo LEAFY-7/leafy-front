@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { TextareaProps } from "./index.types";
 
 export const TextArea = styled.textarea<Required<TextareaProps>>`
-  width: ${({ width }) => width};
-  height: ${({ height }) => `${height}px`};
+  width: ${({ width }) => (typeof width === "number" ? `${width}%` : width)};
+  height: ${({ height }) =>
+    typeof height === "number" ? `${height}%` : height};
 
   color: ${({ theme, color }) => theme.colors[color]};
   ::placeholder {

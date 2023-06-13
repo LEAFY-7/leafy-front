@@ -85,7 +85,7 @@ export interface ButtonProps {
    * Button의 width를 설정합니다.
    * @default 'auto'
    */
-  width?: string;
+  width?: CSSProperties["width"];
 
   /**
    * Button의 활성/비활성 상태
