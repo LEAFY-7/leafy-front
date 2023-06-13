@@ -144,13 +144,13 @@ export const Button = styled.button<Required<ButtonProps>>`
       }
       default: {
         return css`
-          border-color: ${theme.colors.inherit};
-          background-color: ${theme.colors.inherit};
-          color: ${theme.colors.black};
+          border-color: ${theme.colors.transparent};
+          background-color: ${theme.colors.transparent};
+          color: ${theme.colors.inherit};
           transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out;
           &:hover {
             border-color: ${theme.colors.transparent};
-            color: ${theme.colors.blue};
+            color: ${theme.colors.skyBlue};
           }
         `;
       }
