@@ -52,7 +52,7 @@ const Router = () => {
         {/* 메인 피드 페이지 */}
 
         {/* 피드 상세 페이지 */}
-        <Route path=":feedId" element={<FeedDetail />} />
+        <Route path="feed/:feedId" element={<FeedDetail />} />
         {/* 피드 상세 페이지 */}
 
         {/* 로그인/회원가입 페이지 */}

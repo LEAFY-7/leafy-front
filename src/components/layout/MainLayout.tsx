@@ -2,20 +2,27 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 import Box from "@components/ui/Box";
+import Flex from "@components/ui/Flex";
 
 const MainLayout = () => {
   return (
     <>
-      <Box display="flex" minHeight="100vh">
+      <Flex display="flex" direction="column">
         {/* Header */}
 
         {/* Header */}
         {/* main */}
-        <Box as="main" display="flex" overflow="hidden" minHeight="100vh">
+        <Box
+          as="main"
+          display="flex"
+          overflow="hidden"
+          minHeight="100vh"
+          margin="0 auto"
+        >
           <Outlet />
         </Box>
         {/* main */}
-      </Box>
+      </Flex>
     </>
   );
 };
