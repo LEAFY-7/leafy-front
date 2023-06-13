@@ -1,6 +1,6 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import CustomSiper from "@components/CustomSwiper";
+import CustomSwiper from "@components/CustomSwiper";
 import Box from "@components/ui/Box";
 import Image from "@components/ui/Image";
 import FeedData from "../../db/feed.json";
@@ -9,7 +9,7 @@ const RightSection = () => {
   return (
     <>
       <Box radius={0} height={100} overflow="hidden" direction="column">
-        <CustomSiper
+        <CustomSwiper
           width="100%"
           height="812px"
           direction="vertical"
@@ -27,7 +27,7 @@ const RightSection = () => {
               />
             </SwiperSlide>
           ))}
-        </CustomSiper>
+        </CustomSwiper>
       </Box>
     </>
   );
