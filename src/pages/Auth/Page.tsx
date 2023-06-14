@@ -1,7 +1,8 @@
 import React from "react";
+import SignInForm from "./SignInForm";
 
 const Auth = () => {
-  return <div>Auth페이지</div>;
+  return <SignInForm/>;
 };
 
 export default Auth;
