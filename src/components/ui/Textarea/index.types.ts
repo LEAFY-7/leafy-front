@@ -98,13 +98,13 @@ export interface TextareaProps {
    * TextArea의 width 속성을 설정합니다.
    * @default inherit
    */
-  width?: CSSProperties["width"];
+  width?: CSSProperties["width"] | number;
 
   /**
    * TextArea의 bottom 속성을 설정합니다.
    * @default inherit
    */
-  height?: CSSProperties["height"];
+  height?: CSSProperties["height"] | number;
 
   /**
    * TextArea 의 배경 색상을 설정합니다.

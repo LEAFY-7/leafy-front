@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import review from "../../db/review.json";
 type Status = "admin" | "normal" | "member";
 type User = {
   id: string;
@@ -9,7 +9,12 @@ type User = {
   status: Status[];
 };
 
-const initialState: { user: User } = {
+interface InitialStateType {
+  user: User;
+  reviewList: any[];
+}
+
+const initialState: InitialStateType = {
   user: {
     id: "",
     username: "",
@@ -17,6 +22,7 @@ const initialState: { user: User } = {
     token: "",
     status: ["admin"],
   },
+  reviewList: [...review.data],
 };
 
 export const userSlice = createSlice({
@@ -34,8 +40,11 @@ export const userSlice = createSlice({
       }
       state.user = action.payload;
     },
+    setReviewList: (state, action) => {
+      state.reviewList = [...state.reviewList, action.payload];
+    },
   },
 });
-export const { setUser } = userSlice.actions;
+export const { setUser, setReviewList } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import { ButtonProps } from "./index.types";
 import theme from "@styles/theme";
 
 export const Button = styled.button<Required<ButtonProps>>`
-  width: ${({ width }) => width};
+  width: ${({ width }) => (typeof width === "number" ? `${width}%` : width)};
   padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`};
   border-width: 1px;
   border-style: solid;

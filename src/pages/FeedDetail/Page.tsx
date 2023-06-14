@@ -6,24 +6,28 @@ import useWindowSize from "@hooks/useWindowSize";
 
 import RightSection from "./RightSection";
 import LeftSection from "./LeftSection";
+import BottomSection from "./BottomSection";
 
 const FeedDetail = () => {
   const { width } = useWindowSize();
 
   return (
-    <Flex as="div" gap={10} style={{ padding: "20px" }}>
-      <Box
-        as="section"
-        width="960px"
-        height={100}
-        marginTop={20}
-        marginRight={2.5}
-        padding="3px"
-      >
-        <LeftSection />
-      </Box>
-      <Box as="section" width="300px" marginLeft={2.5} marginTop={20}>
-        <RightSection />
+    <Flex as="div" direction="column">
+      <Box display="flex">
+        <Box
+          as="section"
+          width="960px"
+          height={100}
+          marginTop={20}
+          marginRight={2.5}
+          padding="3px"
+        >
+          <LeftSection />
+          <BottomSection />
+        </Box>
+        <Box as="section" width="300px" marginLeft={2.5} marginTop={20}>
+          <RightSection />
+        </Box>
       </Box>
     </Flex>
   );
