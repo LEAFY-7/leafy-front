@@ -2,15 +2,18 @@ import React, {useState} from "react";
 import * as Styled from "./index.styles";
 import {ProfileProps, Props} from "./index.types";
 import Module from "./index.module.css";
+import { AiOutlineSearch } from "react-icons/ai";
 
 import Flex from "@components/ui/Flex";
 import Box from "@components/ui/Box";
+import TextFiled from "@components/ui/TextField";
+import Button from "@components/ui/Button";
 
 const Header = ({userName = ""}:{userName:string}) =>{
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   return (
     <>
-      <header>
+      <header className={Module.header}>
         <Flex className={Module.headerWrapper} justifyContent="space-between" alignItems="center">
           <Logo/>
           <GlobalMenuBar/>
@@ -38,12 +41,16 @@ const Search = ({
   placeholder?: string;
 }) => {
   return (
-    <Flex className={Module.search}>
-      <input placeholder={placeholder}></input>
+    <Flex alignItems="center" className={Module.search}>
+      <input className={Module.searchInput} placeholder={placeholder} type="text" onChange={onchange}></input>
+      <Button className={Module.searchButton} variant="default"><AiOutlineSearch/></Button>
     </Flex>
   );
 };
 
+function onchange(){
+
+}
 
 const Profile = ({ 
   isLoggedIn = false, userName = "" 

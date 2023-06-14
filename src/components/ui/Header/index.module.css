@@ -1,16 +1,59 @@
+:root{
+    --green: #6FA545;
+    --bgreen: #1B521B;
+    --vert: #012010;
+    --lgreen: #C9E5AB;
+    --yellow: #E3E06B;
+    --white: #FFFFFF;
+    --black: #050402;
+    --gray: #BEBEBE;
+    --red: #A80000;
+    --ivory: #FFFEFB;
+}
+.header{
+    width: 100%;
+}
 .headerWrapper{
     height: 80px;
     width: 1200px;
+    padding: 0 20px;
 }
 .logo {
     width: 10%;
+    height: 100%;
+    margin-right: 20px;
 }
 .gnb {
-    width: 60%;
+    width: calc(55% - 20px * 3);
+    margin-right: 20px;
 }
 .search {
     width: 20%;
+    margin-right: 20px;
+}
+.searchInput{
+    display: block;
+    width: 90%;
+    height: 30px;
+    border: 1px solid var(--ivory);
+    border-radius: 5px 0px 0px 5px;
+    padding: 5px 10px;
+    background-color: var(--ivory);
+}
+.searchButton{
+    display: block;
+    width: 10%;
+    height: 30px;
+    background-color: var(--ivory);
+    border-radius: 0px 5px 5px 0px;
+}
+.searchButton:nth-child(1){
+    width: 30px;
+    height: 100%;
 }
 .profile{
-    width: 10%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 15%;
 }
