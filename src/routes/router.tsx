@@ -24,7 +24,7 @@ export const routesGen = {
   home: "/",
   feedDetail: (feedId: string) => `/${feedId}`,
   post: "/post",
-  update: (feedId: string) => `/${feedId}`,
+  update: (feedId: string) => `/post/${feedId}`,
   follow: "/follow",
   auth: "/auth",
   user: (userId: string) => `/user/${userId}`,
@@ -34,6 +34,9 @@ export const routesGen = {
   noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
   search: "/search",
   chat: "/chat",
+  unauthorized: "/unauthorized",
+  notFound: "*",
+  userFeed: (userId: string) => `user/${userId}`,
 };
 
 const STATUS = {
@@ -76,7 +79,7 @@ const Router = () => {
         {/* 공지사항 상세 페이지 */}
 
         {/* 404 페이지 */}
-        <Route path="/*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
         {/* 404 페이지 */}
 
         {/* 허가 되지않은 페이지 */}

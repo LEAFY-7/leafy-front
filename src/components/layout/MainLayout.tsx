@@ -1,10 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Box from "@components/ui/Box";
 import Flex from "@components/ui/Flex";
+import SideNavigation from "@components/SideNavigation";
+
+const allowSideNavigationList = ["follow", "post", "chat", "user", "mypage"];
 
 const MainLayout = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <Flex display="flex" direction="column">
@@ -20,6 +25,9 @@ const MainLayout = () => {
           margin="0 auto"
         >
           <Outlet />
+          {allowSideNavigationList.includes(pathname.split("/")[1]) && (
+            <SideNavigation />
+          )}
         </Box>
         {/* main */}
       </Flex>
