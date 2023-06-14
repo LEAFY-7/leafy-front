@@ -1,5 +1,6 @@
 import React from "react";
 
+
 /**
  * Page의 관심사 분리 예시 입니다.
  *
@@ -9,7 +10,9 @@ import React from "react";
  */
 
 const Home = () => {
-  return <div>Home 페이지</div>;
+  return (<div>
+    Home 페이지
+    </div>);
 };
 
 export default Home;
