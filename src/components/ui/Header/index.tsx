@@ -29,12 +29,10 @@ export default Header;
 
 const Logo = () => {
   return (
-    <a href="/">
       <Flex className={Module.logo} justifyContent="center" alignItems="center">
         <img src="" alt="logo" />
         <h1>LEAFY</h1>
       </Flex>
-    </a>
   );
 };
 
@@ -98,14 +96,14 @@ const Profile = ({
           <li>{userName}</li>
         </ul>
       ) : (
-        <div><a href="/auth">로그인/회원가입</a></div>
+        <div>로그인/회원가입</div>
       )}
     </Flex>
   );
 };
 const GlobalMenuBar = () =>{
   return (
-      <nav className={Module.gnb}><a href="/notice">서비스 소개</a></nav>
+      <nav className={Module.gnb}>서비스 소개</nav>
   );
 };
 

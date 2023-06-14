@@ -23,7 +23,8 @@ const MainLayout = () => {
           display="flex"
           overflow="hidden"
           minHeight="100vh"
-          margin="80px auto"
+          margin="0 auto"
+          marginTop={80}
         >
           <Outlet />
           {allowSideNavigationList.includes(pathname.split("/")[1]) && (
