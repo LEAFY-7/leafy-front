@@ -14,9 +14,7 @@ const Header = ({userName = ""}:{userName:string}) =>{
         <Flex className={Module.headerWrapper} justifyContent="space-between" alignItems="center">
           <Logo/>
           <GlobalMenuBar/>
-          <Box>
-            <Search />
-          </Box>
+          <Search />
           <Profile isLoggedIn={isLoggedIn} userName={userName}/>
         </Flex>
       </header>
@@ -26,7 +24,6 @@ const Header = ({userName = ""}:{userName:string}) =>{
 export default Header;
 
 const Logo = () => {
-  const classes = `${Module.logo}`;
   return (
       <Flex className={Module.logo} justifyContent="center" alignItems="center">
         <img src="" alt="logo" />
@@ -40,7 +37,11 @@ const Search = ({
 }: {
   placeholder?: string;
 }) => {
-  return <input placeholder={placeholder}></input>;
+  return (
+    <Flex className={Module.search}>
+      <input placeholder={placeholder}></input>
+    </Flex>
+  );
 };
 
 
@@ -48,7 +49,7 @@ const Profile = ({
   isLoggedIn = false, userName = "" 
 }: ProfileProps) =>{
   return(
-    <Flex>
+    <Flex className={Module.profile}>
       {isLoggedIn ? (
         <ul>
           <li>Icon</li>
@@ -62,9 +63,7 @@ const Profile = ({
 };
 const GlobalMenuBar = () =>{
   return (
-    <ul>
-      <li><a href="/notice">서비스 소개</a></li>
-    </ul>
+      <nav className={Module.gnb}><a href="/notice">서비스 소개</a></nav>
   );
 };
 
