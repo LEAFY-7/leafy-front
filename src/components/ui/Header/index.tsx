@@ -40,10 +40,27 @@ const Search = ({
 }: {
   placeholder?: string;
 }) => {
+  const [show, setShow] = useState<string>("");
   return (
-    <Flex alignItems="center" className={Module.search}>
-      <input className={Module.searchInput} placeholder={placeholder} type="text"/>
-      <Button className={Module.searchButton} variant="default"><AiOutlineSearch/></Button>
+    <Flex 
+    alignItems="center" 
+    className={Module.search}
+    onMouseOver={()=> setShow("Show")}
+    onMouseLeave={()=> setShow("")}
+    >
+      <input 
+      onChange={()=>setShow("Show")}
+      className={`${Module["searchInput"]}${show}`} 
+      placeholder={placeholder} 
+      type="text"
+      />
+      <Button 
+      className={Module.searchButton} 
+      variant="default" 
+      onClick={()=>{}}
+      >
+        <AiOutlineSearch/>
+      </Button>
     </Flex>
   );
 };

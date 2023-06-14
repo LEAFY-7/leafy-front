@@ -31,25 +31,34 @@
     width: 20%;
     margin-right: 20px;
 }
-.searchInput{
+.searchInputShow{
     display: block;
-    width: 90%;
+    width: calc(100% - 30px);
     height: 30px;
     border: 1px solid var(--ivory);
     border-radius: 5px 0px 0px 5px;
     padding: 5px 10px;
     background-color: var(--ivory);
+    transform: scaleX(100%);
+    transition: all 0.5s ease-in-out;
+}
+.searchInput{
+    transform-origin: 100% 50%;
+    transform: translateX(10%);
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
 }
 .searchButton{
     display: block;
-    width: 10%;
+    width: 30px;
     height: 30px;
     background-color: var(--ivory);
     border-radius: 0px 5px 5px 0px;
+    padding: 5px;
 }
-.searchButton:nth-child(1){
-    width: 30px;
-    height: 100%;
+.searchButton div:nth-child(n){
+    width: 20px;
+    height: 20px;
 }
 .profile{
     width: 15%;
