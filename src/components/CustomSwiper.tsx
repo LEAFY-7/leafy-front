@@ -14,6 +14,7 @@ interface CustomSiperProps {
   navigation?: boolean;
   pagiNationView?: boolean;
   pagiNationClick?: boolean;
+  addStyle?: boolean;
 }
 
 const CustomSiper = ({
@@ -25,27 +26,50 @@ const CustomSiper = ({
   navigation = true,
   pagiNationView = true,
   pagiNationClick = true,
+  addStyle = true,
   children,
 }: React.PropsWithChildren<CustomSiperProps>) => {
   return (
-    <Wrapper direction={direction}>
-      <Swiper
-        direction={direction}
-        slidesPerView={slidesPerView}
-        centeredSlides={centeredSlides}
-        grabCursor={true}
-        spaceBetween={10}
-        pagination={{
-          enabled: pagiNationView,
-          clickable: pagiNationClick,
-        }}
-        navigation={navigation}
-        modules={[Navigation, Pagination]}
-        style={{ width, height }}
-      >
-        {children}
-      </Swiper>
-    </Wrapper>
+    <>
+      {addStyle && (
+        <Wrapper direction={direction}>
+          <Swiper
+            direction={direction}
+            slidesPerView={slidesPerView}
+            centeredSlides={centeredSlides}
+            grabCursor={true}
+            spaceBetween={10}
+            pagination={{
+              enabled: pagiNationView,
+              clickable: pagiNationClick,
+            }}
+            navigation={navigation}
+            modules={[Navigation, Pagination]}
+            style={{ width, height }}
+          >
+            {children}
+          </Swiper>
+        </Wrapper>
+      )}
+      {!addStyle && (
+        <Swiper
+          direction={direction}
+          slidesPerView={slidesPerView}
+          centeredSlides={centeredSlides}
+          grabCursor={true}
+          spaceBetween={10}
+          pagination={{
+            enabled: pagiNationView,
+            clickable: pagiNationClick,
+          }}
+          navigation={navigation}
+          modules={[Navigation, Pagination]}
+          style={{ width, height }}
+        >
+          {children}
+        </Swiper>
+      )}
+    </>
   );
 };
 export default CustomSiper;

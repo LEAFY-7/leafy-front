@@ -2,6 +2,7 @@ import React from "react";
 
 import * as Styled from "./index.styles";
 import { Props } from "./index.types";
+import { Link } from "react-router-dom";
 
 const Button = React.forwardRef(function Button(
   {
@@ -21,12 +22,13 @@ const Button = React.forwardRef(function Button(
     width = "auto",
     leftIcon,
     rightIcon,
+    to = "",
     children,
     ...rest
   }: React.PropsWithChildren<Props>,
   forwardedRef: React.Ref<HTMLButtonElement>
 ) {
-  return (
+  const buttonEl = (
     <Styled.Button
       variant={variant}
       disabled={disabled}
@@ -51,6 +53,22 @@ const Button = React.forwardRef(function Button(
         {rightIcon && rightIcon}
       </Styled.InnerWrapper>
     </Styled.Button>
+  );
+  return (
+    <>
+      {to ? (
+        <Link
+          to={to}
+          style={{
+            width: `${typeof width === "number" ? `${width}%` : width}`,
+          }}
+        >
+          {buttonEl}
+        </Link>
+      ) : (
+        <>{buttonEl}</>
+      )}
+    </>
   );
 });
 
