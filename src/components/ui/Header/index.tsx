@@ -42,21 +42,17 @@ const Search = ({
 }) => {
   return (
     <Flex alignItems="center" className={Module.search}>
-      <input className={Module.searchInput} placeholder={placeholder} type="text" onChange={onchange}></input>
+      <input className={Module.searchInput} placeholder={placeholder} type="text"/>
       <Button className={Module.searchButton} variant="default"><AiOutlineSearch/></Button>
     </Flex>
   );
 };
 
-function onchange(){
-
-}
-
 const Profile = ({ 
   isLoggedIn = false, userName = "" 
 }: ProfileProps) =>{
   return(
-    <Flex className={Module.profile}>
+    <Flex className={Module.profile} justifyContent="right" alignItems="center">
       {isLoggedIn ? (
         <ul>
           <li>Icon</li>
