@@ -8,6 +8,7 @@ import Flex from "@components/ui/Flex";
 import Box from "@components/ui/Box";
 import TextFiled from "@components/ui/TextField";
 import Button from "@components/ui/Button";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Header = ({userName = ""}:{userName:string}) =>{
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -41,15 +42,29 @@ const Search = ({
   placeholder?: string;
 }) => {
   const [show, setShow] = useState<string>("");
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+  function handleSearch(event:any){
+    setShow("Show");
+    setQuery(event.target.value);
+    console.log(query);
+  }
+  function handleSubmit(event:any){
+    event.preventDefault();
+    navigate(`/search?keyword=${query}`);
+    setQuery("");
+  }
   return (
+    <form>
     <Flex 
     alignItems="center" 
     className={Module.search}
     onMouseOver={()=> setShow("Show")}
     onMouseLeave={()=> setShow("")}
     >
-      <input 
-      onChange={()=>setShow("Show")}
+      <input
+      value={query}
+      onChange={handleSearch}
       className={`${Module["searchInput"]}${show}`} 
       placeholder={placeholder} 
       type="text"
@@ -57,13 +72,16 @@ const Search = ({
       <Button 
       className={Module.searchButton} 
       variant="default" 
-      onClick={()=>{}}
+      onSubmit={handleSubmit}
       >
         <AiOutlineSearch/>
       </Button>
     </Flex>
+    </form>
   );
 };
+
+
 
 const Profile = ({ 
   isLoggedIn = false, userName = "" 
