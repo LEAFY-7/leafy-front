@@ -96,7 +96,7 @@ const Profile = ({
           <li>{userName}</li>
         </ul>
       ) : (
-        <div>로그인/회원가입</div>
+        <div><a href="/auth">로그인/회원가입</a></div>
       )}
     </Flex>
   );
