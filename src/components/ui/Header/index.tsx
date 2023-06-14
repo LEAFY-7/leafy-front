@@ -29,10 +29,12 @@ export default Header;
 
 const Logo = () => {
   return (
+    <a href="/">
       <Flex className={Module.logo} justifyContent="center" alignItems="center">
         <img src="" alt="logo" />
         <h1>LEAFY</h1>
       </Flex>
+    </a>
   );
 };
 
