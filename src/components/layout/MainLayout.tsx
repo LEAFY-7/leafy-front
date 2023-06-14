@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Box from "@components/ui/Box";
 import Flex from "@components/ui/Flex";
 import SideNavigation from "@components/SideNavigation";
+import Header from "@components/ui/Header"
 
 const allowSideNavigationList = ["follow", "post", "chat", "user", "mypage"];
 
@@ -14,7 +15,7 @@ const MainLayout = () => {
     <>
       <Flex display="flex" direction="column">
         {/* Header */}
-
+        <Header userName="useName"/>
         {/* Header */}
         {/* main */}
         <Box
@@ -22,7 +23,7 @@ const MainLayout = () => {
           display="flex"
           overflow="hidden"
           minHeight="100vh"
-          margin="0 auto"
+          margin="80px auto"
         >
           <Outlet />
           {allowSideNavigationList.includes(pathname.split("/")[1]) && (

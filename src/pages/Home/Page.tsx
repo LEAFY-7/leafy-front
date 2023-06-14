@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@components/ui/Header"
+
 
 /**
  * Page의 관심사 분리 예시 입니다.
@@ -11,7 +11,6 @@ import Header from "@components/ui/Header"
 
 const Home = () => {
   return (<div>
-    <Header userName="useName"/>
     Home 페이지
     </div>);
 };

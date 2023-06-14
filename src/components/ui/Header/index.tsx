@@ -47,7 +47,6 @@ const Search = ({
   function handleSearch(event:any){
     setShow("Show");
     setQuery(event.target.value);
-    console.log(query);
   }
   function handleSubmit(event:any){
     event.preventDefault();
