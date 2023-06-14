@@ -99,4 +99,5 @@ export interface Props
     ButtonProps {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  to?: string;
 }
