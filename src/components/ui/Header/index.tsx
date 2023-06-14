@@ -44,6 +44,8 @@ const Search = ({
   const [show, setShow] = useState<string>("");
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  let focus:boolean = false;
+
   function handleSearch(event:any){
     setShow("Show");
     setQuery(event.target.value);
@@ -59,11 +61,12 @@ const Search = ({
     alignItems="center" 
     className={Module.search}
     onMouseOver={()=> setShow("Show")}
-    onMouseLeave={()=> setShow("")}
     >
       <input
       value={query}
+      onFocus={() => focus=true}
       onChange={handleSearch}
+      onMouseLeave={()=> {if(!focus)setShow("");else{focus = false}}}
       className={`${Module["searchInput"]}${show}`} 
       placeholder={placeholder} 
       type="text"
