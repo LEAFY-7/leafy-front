@@ -5,15 +5,13 @@ import Module from "./index.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import Flex from "@components/ui/Flex";
-import Box from "@components/ui/Box";
-import TextFiled from "@components/ui/TextField";
 import Button from "@components/ui/Button";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
 
 const Header = ({userName = ""}:{userName:string}) =>{
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  let state;
   return (
-    <>
       <header className={Module.header}>
         <Flex className={Module.headerWrapper} justifyContent="space-between" alignItems="center">
           <Logo/>
@@ -22,14 +20,18 @@ const Header = ({userName = ""}:{userName:string}) =>{
           <Profile isLoggedIn={isLoggedIn} userName={userName}/>
         </Flex>
       </header>
-    </>
+    
   );
 }
 export default Header;
 
 const Logo = () => {
+  const navi = useNavigate();
+  function HandleNavi(){
+    navi(`/`);
+  }
   return (
-      <Flex className={Module.logo} justifyContent="center" alignItems="center">
+      <Flex onClick={HandleNavi} className={Module.logo} justifyContent="center" alignItems="center">
         <img src="" alt="logo" />
         <h1>LEAFY</h1>
       </Flex>
@@ -74,7 +76,7 @@ const Search = ({
       <Button 
       className={Module.searchButton} 
       variant="default" 
-      onSubmit={handleSubmit}
+      onClick={handleSubmit}
       >
         <AiOutlineSearch/>
       </Button>
@@ -102,8 +104,13 @@ const Profile = ({
   );
 };
 const GlobalMenuBar = () =>{
+  const navi = useNavigate();
+  function HandleNavi(){
+    navi(`/notice`);
+  }
+  
   return (
-      <nav className={Module.gnb}>서비스 소개</nav>
+      <nav onClick={HandleNavi} className={Module.gnb}>서비스 소개</nav>
   );
 };
 
