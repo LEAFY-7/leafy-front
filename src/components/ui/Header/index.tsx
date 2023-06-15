@@ -49,8 +49,8 @@ const Search = ({
   let focus:boolean = false;
 
   function handleSearch(event:any){
-    setShow("Show");
     setQuery(event.target.value);
+    query !== "" ? setShow("Show") : setShow("");
   }
   function handleSubmit(event:any){
     event.preventDefault();
@@ -58,17 +58,17 @@ const Search = ({
     setQuery("");
   }
   return (
-    <form>
     <Flex 
     alignItems="center" 
     className={Module.search}
-    onMouseOver={()=> setShow("Show")}
+    onMouseOver={()=>{ setShow("Show");}}
+    onMouseLeave={()=> {query !== "" || focus ? setShow("Show") : setShow("");}}
     >
       <input
       value={query}
-      onFocus={() => focus=true}
+      onFocus={() => {setShow("Show"); focus = true}}
+      onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); focus = false}}
       onChange={handleSearch}
-      onMouseLeave={()=> {if(!focus)setShow("");else{focus = false}}}
       className={`${Module["searchInput"]}${show}`} 
       placeholder={placeholder} 
       type="text"
@@ -81,7 +81,6 @@ const Search = ({
         <AiOutlineSearch/>
       </Button>
     </Flex>
-    </form>
   );
 };
 

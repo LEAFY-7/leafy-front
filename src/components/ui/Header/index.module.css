@@ -27,10 +27,12 @@
     width: 10%;
     height: 100%;
     margin-right: 20px;
+    cursor: pointer;
 }
 .gnb {
     width: calc(55% - 20px * 3);
     margin-right: 20px;
+    cursor: pointer;
 }
 .search {
     width: 20%;
@@ -68,4 +70,5 @@
 }
 .profile{
     width: 15%;
+    cursor: pointer;
 }
