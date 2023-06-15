@@ -69,7 +69,7 @@ const Search = ({
       onFocus={() => {setShow("Show"); focus = true}}
       onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); focus = false}}
       onChange={handleSearch}
-      className={`${Module["searchInput"]}${show}`} 
+      className={`${show ? Module.searchInputShow :  Module.searchInput}`}
       placeholder={placeholder} 
       type="text"
       />
