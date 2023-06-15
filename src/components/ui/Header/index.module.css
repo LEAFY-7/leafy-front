@@ -15,12 +15,13 @@
     position: fixed;
     top:0px;
     left:0px;
+    background-color: var(--white);
 }
 .headerWrapper{
+    margin: 0 auto;
     height: 80px;
     width: 1200px;
     padding: 0 20px;
-    background-color: var(--white);
 }
 .logo {
     width: 10%;
