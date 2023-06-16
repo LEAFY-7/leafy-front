@@ -10,8 +10,17 @@ import { Navigate, useNavigate} from "react-router-dom";
 
 const Header = ({userName = ""}:{userName:string}) =>{
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  // scroll시 헤더에 마우스가 없으면 헤더가 올라가는 이벤트
+  const [isTop, setHeaderShow] = useState<boolean>(true);
+
+  function handleHeaderScroll(){
+    const topScroll:number = 300;
+    let currentScroll:number = window.scrollY;
+    currentScroll > topScroll ? setHeaderShow(false) : setHeaderShow(true);
+  }
   return (
-      <header className={Module.header}>
+      <header className={`${isTop ? Module.header : Module.headerHide}`}>
         <Flex className={Module.headerWrapper} justifyContent="space-between" alignItems="center">
           <Logo/>
           <GlobalMenuBar/>
@@ -43,9 +52,9 @@ const Search = ({
   placeholder?: string;
 }) => {
   const [show, setShow] = useState<string>("");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
+  const [focus, setFocus] = useState<boolean>(false);
   const navigate = useNavigate();
-  let focus:boolean = false;
 
   function handleSearch(event:any){
     setQuery(event.target.value);
@@ -65,8 +74,8 @@ const Search = ({
       <Flex alignItems="center">
         <input
         value={query}
-        onFocus={() => {setShow("Show"); focus = true}}
-        onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); focus = false}}
+        onFocus={() => {setShow("Show"); setFocus(true)}}
+        onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); setFocus(false)}}
         onChange={handleSearch}
         className={`${show ? Module.searchInputShow :  Module.searchInput}`}
         placeholder={placeholder} 
