@@ -10,7 +10,6 @@ import { Navigate, useNavigate} from "react-router-dom";
 
 const Header = ({userName = ""}:{userName:string}) =>{
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  let state;
   return (
       <header className={Module.header}>
         <Flex className={Module.headerWrapper} justifyContent="space-between" alignItems="center">
@@ -58,37 +57,42 @@ const Search = ({
     setQuery("");
   }
   return (
-    <Flex 
-    alignItems="center" 
+    <form  
     className={Module.search}
     onMouseOver={()=>{ setShow("Show");}}
     onMouseLeave={()=> {query !== "" || focus ? setShow("Show") : setShow("");}}
     >
-      <input
-      value={query}
-      onFocus={() => {setShow("Show"); focus = true}}
-      onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); focus = false}}
-      onChange={handleSearch}
-      className={`${show ? Module.searchInputShow :  Module.searchInput}`}
-      placeholder={placeholder} 
-      type="text"
-      />
-      <Button 
-      className={Module.searchButton} 
-      variant="default" 
-      onClick={handleSubmit}
-      >
-        <AiOutlineSearch/>
-      </Button>
-    </Flex>
+      <Flex alignItems="center">
+        <input
+        value={query}
+        onFocus={() => {setShow("Show"); focus = true}}
+        onBlur={()=> {query !== ""  ?  setShow("Show") : setShow(""); focus = false}}
+        onChange={handleSearch}
+        className={`${show ? Module.searchInputShow :  Module.searchInput}`}
+        placeholder={placeholder} 
+        type="text"
+        />
+        <Button 
+        className={Module.searchButton} 
+        variant="default" 
+        onClick={handleSubmit}
+        >
+          <AiOutlineSearch/>
+        </Button>
+      </Flex>
+    </form>
   );
 };
 
 
 
 const Profile = ({ 
-  isLoggedIn = false, userName = "" 
+  isLoggedIn = false, userName = "",
 }: ProfileProps) =>{
+  const navi = useNavigate();
+  function HandleNavi(){
+    navi(`/auth`);
+  }
   return(
     <Flex className={Module.profile} justifyContent="right" alignItems="center">
       {isLoggedIn ? (
@@ -97,7 +101,7 @@ const Profile = ({
           <li>{userName}</li>
         </ul>
       ) : (
-        <div>로그인/회원가입</div>
+        <div  onClick={HandleNavi}>로그인/회원가입</div>
       )}
     </Flex>
   );
@@ -107,7 +111,6 @@ const GlobalMenuBar = () =>{
   function HandleNavi(){
     navi(`/notice`);
   }
-  
   return (
       <nav onClick={HandleNavi} className={Module.gnb}>서비스 소개</nav>
   );
