@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Box from "@components/ui/Box";
 import Flex from "@components/ui/Flex";
 import SideNavigation from "@components/SideNavigation";
-import Header from "@components/Header"
+import Header from "@components/Header";
 
 const allowSideNavigationList = ["follow", "post", "chat", "user", "mypage"];
 
@@ -15,7 +15,7 @@ const MainLayout = () => {
     <>
       <Flex display="flex" direction="column">
         {/* Header */}
-        <Header userName="useName"/>
+        <Header userName="useName" />
         {/* Header */}
         {/* main */}
         <Box

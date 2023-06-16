@@ -63,7 +63,7 @@ const CustomSiper = ({
             clickable: pagiNationClick,
           }}
           navigation={navigation}
-          modules={[Navigation, Pagination]}
+          // modules={[Navigation, Pagination]}
           style={{ width, height }}
         >
           {children}

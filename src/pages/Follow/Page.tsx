@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
-import { SwiperSlide } from "swiper/react";
-
-import CustomSiper from "@components/CustomSwiper";
 
 import Flex from "@components/ui/Flex";
 import Box from "@components/ui/Box";
 import Typography from "@components/ui/Typograph";
-import Image from "@components/ui/Image";
 
 import FeedsSections from "./FeedsSection";
-import followList from "../../db/follow.json";
 import FollowUserList from "./FollowUserList";
 import Button from "@components/ui/Button";
 
