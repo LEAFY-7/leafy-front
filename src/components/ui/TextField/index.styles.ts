@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
-import theme from "@styles/theme";
-import { TextFieldProps, TextFieldInputProps } from "./index.types";
+import { TextFieldProps, TextFieldInputProps, IconProps } from "./index.types";
 import { css } from "@emotion/react";
+import theme from "@styles/theme";
 
 export const Wrapper = styled.div<Required<TextFieldProps>>`
   display: flex;
-  width: 100%;
+  flex-direction: column;
   padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`};
-
   font-size: ${({ fontSize, theme }) => theme.fontSize[fontSize]};
   font-weight: ${({ fontWeight }) => fontWeight};
   line-height: ${({ lineHeight, theme }) => theme.lineHeight[lineHeight]};
@@ -20,17 +19,19 @@ export const InputContainer = styled.div`
   position: relative;
 `;
 export const Label = styled.label<Required<TextFieldProps>>`
-  margin-inline: 1em;
   font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
-  padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`};
+  /* margin-inline: 1em; */
+  /* padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`}; */
+  margin-bottom: 1rem;
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.div<Required<IconProps>>`
   position: absolute;
   left: 0;
   top: 10px;
   padding-left: 5px;
-  color: ${theme.colors.gray};
+  color: ${({ disabled, theme }) =>
+    disabled ? theme.colors.white : theme.colors.gray};
 `;
 export const Input = styled.input<Required<TextFieldInputProps>>`
   padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX + 20}px`};
@@ -40,14 +41,14 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
   font-size: ${({ fontSize, theme }) => theme.fontSize[fontSize]};
   font-weight: ${({ fontWeight }) => fontWeight};
   opacity: 1;
-  border-color: ${({ error }) =>
+  border-color: ${({ error, theme }) =>
     error ? `${theme.colors.red}` : `${theme.colors.gray}`};
 
   &:focus {
-    border-color: ${theme.colors.vert};
-    color: ${theme.colors.inherit};
+    border-color: ${({ theme }) => theme.colors.vert};
+    color: ${({ theme }) => theme.colors.inherit};
     + .iconBox {
-      color: ${theme.colors.black};
+      color: ${({ theme }) => theme.colors.black};
     }
   }
   &::placeholder {

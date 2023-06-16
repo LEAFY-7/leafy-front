@@ -23,6 +23,7 @@ const TextFiled = React.forwardRef(function TextFiled(
     helperIcon,
     children,
     hookForm = false,
+    readOnly = false,
     ...rest
   }: React.PropsWithChildren<Props>,
   forwardedRef: React.Ref<HTMLInputElement>
@@ -66,6 +67,7 @@ const TextFiled = React.forwardRef(function TextFiled(
             onChange={onChange}
             ref={forwardedRef}
             radius={radius}
+            readOnly={readOnly}
             {...rest}
           />
         ) : (
@@ -85,10 +87,14 @@ const TextFiled = React.forwardRef(function TextFiled(
             onChange={onChange}
             ref={forwardedRef}
             radius={radius}
+            readOnly={readOnly}
+            {...rest}
           />
         )}
 
-        <Styled.Icon className="iconBox">{leftIcon}</Styled.Icon>
+        <Styled.Icon className="iconBox" disabled={disabled}>
+          {leftIcon}
+        </Styled.Icon>
 
         {!disabled && error && (
           <Styled.HelperText
