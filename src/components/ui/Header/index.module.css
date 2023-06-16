@@ -39,7 +39,7 @@
     width: 20%;
     margin-right: 20px;
 }
-header .searchInputShow{
+header form .searchInputShow{
     display: block;
     width: calc(100% - 30px);
     height: 30px;
@@ -51,7 +51,7 @@ header .searchInputShow{
     transform: translateX(5px);
     transition: all 0.5s ease-in-out;
 }
-header .searchInput{
+header form .searchInput{
     display: block;
     width: calc(100% - 30px);
     height: 30px;
@@ -62,7 +62,7 @@ header .searchInput{
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
-header .searchButton{
+header form .searchButton{
     display: block;
     width: 30px;
     height: 30px;
@@ -70,7 +70,7 @@ header .searchButton{
     border-radius: 5px;
     padding: 5px;
 }
-.searchButton div{
+header form .searchButton div{
     width: 20px;
     height: 20px;
 }
