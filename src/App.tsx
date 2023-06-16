@@ -8,6 +8,7 @@ import globalStyle from "@styles/globalStyle";
 import Router from "@routes/router";
 
 import "react-toastify/dist/ReactToastify.css";
+import "react-calendar/dist/Calendar.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
