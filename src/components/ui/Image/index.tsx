@@ -5,7 +5,7 @@ import * as Styled from "./index.styles";
 import { Props } from "./index.types";
 import useModal from "@hooks/useModal";
 
-const sizeUp = ["icon_sm", "icon_md", "icon_lg"];
+const sizeUp = ["icon_sm", "icon_md", "icon_lg", "default"];
 
 const Image = React.forwardRef(function Image(
   { src, alt, variant, ...rest }: React.PropsWithChildren<Props>,

@@ -2,11 +2,10 @@ import React from "react";
 import { SwiperSlide } from "swiper/react";
 
 import CustomSiper from "@components/CustomSwiper";
-
 import Box from "@components/ui/Box";
 import Typography from "@components/ui/Typograph";
 import Image from "@components/ui/Image";
-
+import { routesGen } from "@routes/router";
 import followList from "../../db/follow.json";
 
 const FollowUserList = () => {
@@ -23,6 +22,7 @@ const FollowUserList = () => {
       {[...followList.data].map((follow, index) => (
         <SwiperSlide key={index}>
           <Box
+            className="slide-item-wrapper"
             display="flex"
             direction="column"
             alignItems="center"
@@ -36,7 +36,10 @@ const FollowUserList = () => {
               alt={`이미지-${index}`}
               variant="icon_md"
             />
-            <Typography>{follow.author.displayName}</Typography>
+
+            <Typography to={routesGen.userFeed(follow.author.displayName)}>
+              {follow.author.displayName}
+            </Typography>
           </Box>
         </SwiperSlide>
       ))}

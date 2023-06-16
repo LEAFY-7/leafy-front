@@ -57,7 +57,7 @@ export const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
-  z-index: 99;
+  z-index: 999;
   top: 0;
   left: 0;
   position: fixed;
@@ -70,7 +70,6 @@ export const Wrapper = styled.div`
   width: 50vw;
   height: 80vh;
   background-color: #fff;
-  z-index: 999;
   position: relative;
 `;
 

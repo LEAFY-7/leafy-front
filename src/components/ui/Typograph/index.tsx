@@ -1,6 +1,7 @@
 import React from "react";
 import * as Styled from "./index.styles";
 import { TextProps } from "./index.types";
+import { Link, useNavigate } from "react-router-dom";
 
 const Typography = React.forwardRef(function Typography(
   {
@@ -21,11 +22,20 @@ const Typography = React.forwardRef(function Typography(
     paddingLeft = 0,
     opacity = 1,
     textAlign = "left",
+    to = "",
+    width = "auto",
+    curLocation = true,
     ...rest
   }: React.PropsWithChildren<TextProps>,
   forwardedRef: React.Ref<HTMLElement>
 ) {
-  return (
+  const navigate = useNavigate();
+
+  const handleUrl = () => {
+    navigate(`/${to}`);
+  };
+
+  const typographyEl = (
     <Styled.Text
       as={as}
       variant={variant}
@@ -44,11 +54,13 @@ const Typography = React.forwardRef(function Typography(
       opacity={opacity}
       textAlign={textAlign}
       ref={forwardedRef}
+      onClick={handleUrl}
       {...rest}
     >
       {children}
     </Styled.Text>
   );
+  return <>{to ? <>{typographyEl}</> : <>{typographyEl}</>}</>;
 });
 
 export default Typography;

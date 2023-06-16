@@ -63,11 +63,15 @@ export interface TextFieldInputProps extends TextFieldProps {
    * @default true
    */
   disabled?: boolean;
+  readOnly?: boolean;
 }
 export interface TextFieldHelperText
   extends HTMLAttributes<HTMLElement>,
     TextFieldProps {
   helperText?: string;
+}
+export interface IconProps {
+  disabled?: boolean;
 }
 
 export interface Props

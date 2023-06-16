@@ -111,6 +111,8 @@ export interface Props {
    * @default 'left'
    */
   textAlign: CSSProperties["textAlign"];
+
+  width?: CSSProperties["width"];
 }
 
 export interface TextProps
@@ -120,4 +122,7 @@ export interface TextProps
         HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement
       >,
       "color"
-    > {}
+    > {
+  to?: string;
+  curLocation?: boolean;
+}

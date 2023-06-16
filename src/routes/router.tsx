@@ -19,6 +19,7 @@ import MainLayout from "@components/layout/MainLayout";
 import Unauthorized from "@components/Unauthorized";
 import Qna from "@pages/QnaDetail/Page";
 import Admin from "@pages/Admin/Page";
+import MyPageEdit from "@pages/MyPage/EditPage";
 
 export const routesGen = {
   home: "/",
@@ -28,7 +29,7 @@ export const routesGen = {
   follow: "/follow",
   auth: "/auth",
   user: (userId: string) => `/user/${userId}`,
-  myPage: "/mypage",
+  myPage: "/mypage/edit",
   setting: "/mypage/setting",
   notice: "/notice",
   noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
@@ -106,9 +107,12 @@ const Router = () => {
           {/* 채팅 페이지 */}
 
           {/* 회원 정보 페이지 */}
-
           <Route path="mypage" element={<MyPage />} />
           {/* 회원 정보 페이지 */}
+
+          {/* 회원 정보 수정 페이지 */}
+          <Route path="mypage/edit" element={<MyPageEdit />} />
+          {/* 회원 정보 수정 페이지 */}
 
           {/* 설정 페이지 */}
           <Route path="mypage/setting" element={<Setting />} />
