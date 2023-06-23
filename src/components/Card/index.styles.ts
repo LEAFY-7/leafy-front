@@ -1,4 +1,4 @@
-import styled from "emotion/styled";
+import styled from "@emotion/styled";
 
 export const ThumbImage = styled.img`
   width: 350px;
