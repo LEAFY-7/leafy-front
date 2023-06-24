@@ -1,25 +1,25 @@
 import type { CSSProperties, ElementType, HTMLAttributes } from "react";
 
-import theme from "styles/theme";
+import stylesConfig from "@configs/style.config";
 
 export interface TextareaProps {
   /**
    * TextArea의 폰트 사이즈를 설정합니다.
    * @default 'regular'
    */
-  fontSize: keyof typeof theme.fontSize;
+  fontSize: keyof typeof stylesConfig.theme.fontSize;
 
   /**
    * TextArea의 폰트 색상을 설정합니다.
    * @default 'inherit'
    */
-  color: keyof typeof theme.colors;
+  color: keyof typeof stylesConfig.theme.colors;
 
   /**
    * TextArea의 폰트 두께를 설정합니다.
    * @default regular
    */
-  fontWeight?: keyof typeof theme.fontWeight;
+  fontWeight?: keyof typeof stylesConfig.theme.fontWeight;
 
   /**
    * TextArea의 bottom 속성을 설정합니다.
@@ -111,14 +111,14 @@ export interface TextareaProps {
    *
    * @default 'inherit'
    */
-  backgroundColor?: keyof typeof theme.colors;
+  backgroundColor?: keyof typeof stylesConfig.theme.colors;
 
   /**
    * TextArea 의 border 색상을 설정합니다.
    * @default 'inherit'
    */
 
-  borderColor?: keyof typeof theme.colors;
+  borderColor?: keyof typeof stylesConfig.theme.colors;
   /**
    * TextArea 의 box Shadow 색상을 설정합니다.
    * @default 'inherit'

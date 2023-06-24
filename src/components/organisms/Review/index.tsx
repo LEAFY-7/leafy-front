@@ -12,6 +12,7 @@ import Textarea from "@components/atoms/Textarea";
 import useAutoResizeTextarea from "@hooks/useAutoResizeTextarea";
 import Flex from "@components/atoms/Group/flex";
 import Button from "@components/atoms/Button/rectangle-button";
+import TextAvatar from "@components/atoms/Avatar/text-avatar";
 
 type HeaderProps = {
   imgUrl?: string;
@@ -68,7 +69,7 @@ const ReviewHeader: React.FC<HeaderProps> = ({ imgUrl, displayName }) => {
     <Styled.Header>
       <Box width={100} display="flex" justifyContent="left" alignItems="center">
         {!imgUrl ? (
-          <Styled.Empty />
+          <TextAvatar text={"오태권"} />
         ) : (
           <Image src={imgUrl} alt="프로필 아이콘" variant={"icon_md"} />
         )}

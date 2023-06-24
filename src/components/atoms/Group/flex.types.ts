@@ -1,5 +1,5 @@
 import type { CSSProperties, ElementType, HTMLAttributes } from "react";
-import theme from "@styles/theme";
+import stylesConfig from "@configs/style.config";
 
 export interface FlexProps {
   /**
@@ -56,7 +56,7 @@ export interface FlexProps {
    *
    * @default 'inherit'
    */
-  backgroundColor?: keyof typeof theme.colors;
+  backgroundColor?: keyof typeof stylesConfig.theme.colors;
 }
 
 export interface Props extends HTMLAttributes<HTMLElement>, FlexProps {}

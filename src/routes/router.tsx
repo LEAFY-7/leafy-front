@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import MainLayout from "@components/layout/MainLayout";
+import DefaultLayout from "@components/layout/MainLayout";
 import PrivateRoute from "@routes/PrivateRoute";
 import Unauthorized from "@routes/Unauthorized";
 
@@ -20,7 +20,7 @@ import Setting from "@pages/Setting/Page";
 import Search from "@pages/Search/Page";
 import Qna from "@pages/QnaDetail/Page";
 import Admin from "@pages/Admin/Page";
-import MyPageEdit from "@pages/MyPage/EditPage";
+import Edit from "@pages/MyPage/EditPage";
 
 export const routesGen = {
   home: "/",
@@ -30,7 +30,8 @@ export const routesGen = {
   follow: "/follow",
   auth: "/auth",
   user: (userId: string) => `/user/${userId}`,
-  myPage: "/mypage/edit",
+  myPage: "/mypage",
+  edit: "/mypage/edit",
   setting: "/mypage/setting",
   notice: "/notice",
   noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
@@ -38,7 +39,7 @@ export const routesGen = {
   chat: "/chat",
   unauthorized: "/unauthorized",
   notFound: "*",
-  userFeed: (userId: string) => `user/${userId}`,
+  userFeed: (userId: string) => `/user/${userId}`,
 };
 
 const STATUS = {
@@ -50,86 +51,44 @@ const STATUS = {
 const Router = () => {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        {/* 공용 */}
-        {/* 메인 피드 페이지 */}
-        <Route index path="/" element={<Home />} />
-        {/* 메인 피드 페이지 */}
-
-        {/* 피드 상세 페이지 */}
-        <Route path="feed/:feedId" element={<FeedDetail />} />
-        {/* 피드 상세 페이지 */}
-
-        {/* 로그인/회원가입 페이지 */}
-        <Route path="auth" element={<Auth />} />
-        {/* 로그인/회원가입 페이지 */}
-
-        {/* 유저 피드 페이지 */}
-        <Route path="user/:userId" element={<User />} />
-        {/* 유저 피드 페이지 */}
-
-        {/* 검색 결과 페이지 */}
-        <Route path="search" element={<Search />} />
-        {/* 검색 결과 페이지 */}
-
-        {/* 공지사항 페이지 */}
-        <Route path="notice" element={<Notice />} />
-        {/* 공지사항 페이지 */}
-
-        {/* 공지사항 상세 페이지 */}
+      <Route element={<DefaultLayout structure="mono" />}>
+        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
+        <Route index path="/" element={<Home />} /> {/* 메인 피드  */}
+        <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
+        <Route path="auth" element={<Auth />} /> {/* 로그인/회원가입 */}
+        <Route path="search" element={<Search />} /> {/* 검색 결과  */}
+        <Route path="notice" element={<Notice />} /> {/* 공지사항  */}
         <Route path="notice/:noticeId" element={<NoticeDetail />} />
-        {/* 공지사항 상세 페이지 */}
-
-        {/* 404 페이지 */}
-        <Route path="*" element={<NotFound />} />
-        {/* 404 페이지 */}
-
-        {/* 허가 되지않은 페이지 */}
-        <Route path="unauthorized" element={<Unauthorized />} />
-        {/* 허가 되지않은 페이지 */}
-        {/* 공용 */}
-
-        {/* 관리자, 회원 */}
+        <Route path="*" element={<NotFound />} /> {/* 404 */}
+        <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
+        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
+        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
         <Route element={<PrivateRoute allowedRoles={["admin", "member"]} />}>
-          {/* // 피드 작성 페이지 */}
-          <Route path="post" element={<FeedPost />} />
-          {/* // 피드 작성 페이지 */}
-
-          {/*  피드 수정 페이지 */}
-          <Route path=":feedId/update" element={<FeedUpdate />} />
-          {/*  피드 수정 페이지 */}
-
-          {/* 팔로우 페이지 */}
-          <Route path="follow" element={<Follow />} />
-          {/* 팔로우 페이지 */}
-
-          {/* 채팅 페이지 */}
-          <Route path="chat" element={<Chat />} />
-          {/* 채팅 페이지 */}
-
-          {/* 회원 정보 페이지 */}
-          <Route path="mypage" element={<MyPage />} />
-          {/* 회원 정보 페이지 */}
-
-          {/* 회원 정보 수정 페이지 */}
-          <Route path="mypage/edit" element={<MyPageEdit />} />
-          {/* 회원 정보 수정 페이지 */}
-
-          {/* 설정 페이지 */}
-          <Route path="mypage/setting" element={<Setting />} />
-          {/* 설정 페이지 */}
-
-          {/* Qna 상세 페이지 */}
-          <Route path="notice/qna/:qnaId" element={<Qna />} />
-          {/* Qna 상세페이지 */}
+          <Route path="feed/:feedId/update" element={<FeedUpdate />} />
+          <Route path="notice/qna/:qnaId" element={<Qna />} /> {/** QNA */}
         </Route>
-        {/* 관리자, 회원 */}
-
-        {/* 관리자 */}
+        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
+        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-          <Route path="admin" element={<Admin />} />
+          <Route path="admin" element={<Admin />} /> {/* 관리자 */}
         </Route>
-        {/* 관리자 */}
+        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
+      </Route>
+
+      <Route element={<DefaultLayout structure="di" />}>
+        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
+        <Route path="user/:userId" element={<User />} /> {/*유저피드*/}
+        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
+        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
+        <Route element={<PrivateRoute allowedRoles={["admin", "member"]} />}>
+          <Route path="post" element={<FeedPost />} /> {/* 피드 작성 */}
+          <Route path="follow" element={<Follow />} /> {/* 팔로우  */}
+          <Route path="chat" element={<Chat />} /> {/* 채팅 */}
+          <Route path="mypage" element={<MyPage />} /> {/* 마이페이지 */}
+          <Route path="mypage/edit" element={<Edit />} /> {/** 회원정보수정 */}
+          <Route path="mypage/setting" element={<Setting />} /> {/* 설정 */}
+        </Route>
+        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
       </Route>
     </Routes>
   );

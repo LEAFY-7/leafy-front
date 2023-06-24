@@ -5,19 +5,19 @@ import type {
   HTMLAttributes,
   ReactNode,
 } from "react";
-import theme from "@styles/theme";
+import styleConfig from "@configs/style.config";
 
 export interface TextFieldProps {
   /**
    * TextField 내의 텍스트 폰트 사이즈를 설정합니다.
    * @default 'md'
    */
-  fontSize?: keyof typeof theme.fontSize;
+  fontSize?: keyof typeof styleConfig.theme.fontSize;
   /**
    * TextField 내의 텍스트 폰트 높이를 설정합니다
    * @default 'md'
    */
-  lineHeight?: keyof typeof theme.lineHeight;
+  lineHeight?: keyof typeof styleConfig.theme.lineHeight;
   /**
    * TextField 내의 텍스트 폰트 두께를 설정합니다.
    * @default 400
@@ -56,7 +56,7 @@ export interface TextFieldInputProps extends TextFieldProps {
    * placeHolder의 font 사이즈
    * @default xs
    */
-  placeHolderFontSize?: keyof typeof theme.fontSize;
+  placeHolderFontSize?: keyof typeof styleConfig.theme.fontSize;
 
   /**
    * Button의 활성/비활성 상태

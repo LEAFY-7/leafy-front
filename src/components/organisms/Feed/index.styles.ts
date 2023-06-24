@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import theme from "@styles/theme";
+import styleConfig from "@configs/style.config";
 
 export const Wrapper = styled.div`
   border: 1px solid #000;
@@ -18,14 +18,14 @@ export const Header = styled.div`
 `;
 
 export const Empty = styled.div`
-  width: ${theme.imgSize.sm};
-  height: ${theme.imgSize.sm};
+  width: ${styleConfig.theme.imgSize.sm};
+  height: ${styleConfig.theme.imgSize.sm};
   border-radius: 50%;
-  background-color: ${theme.colors.gray};
+  background-color: ${styleConfig.theme.colors.gray};
 `;
 export const IconImg = styled.img`
-  width: ${theme.imgSize.sm};
-  height: ${theme.imgSize.sm};
+  width: ${styleConfig.theme.imgSize.sm};
+  height: ${styleConfig.theme.imgSize.sm};
   border-radius: 50%;
 `;
 export const Content = styled.div`
@@ -33,7 +33,7 @@ export const Content = styled.div`
 `;
 
 export const CountStatus = styled.span`
-  background-color: ${theme.colors.red};
+  background-color: ${styleConfig.theme.colors.red};
   width: 20px;
   height: 20px;
   color: white;

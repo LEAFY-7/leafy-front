@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { TextFieldProps, TextFieldInputProps, IconProps } from "./index.types";
 import { css } from "@emotion/react";
-import theme from "@styles/theme";
 
 export const Wrapper = styled.div<Required<TextFieldProps>>`
   display: flex;
@@ -56,7 +55,7 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
       theme.fontSize[placeHolderFontSize]};
   }
 
-  ${({ disabled }) =>
+  ${({ disabled, theme }) =>
     disabled &&
     css`
       &:disabled {
@@ -72,8 +71,8 @@ export const HelperText = styled.span<Required<TextFieldProps>>`
   padding: ${({ paddingX, paddingY }) =>
     `${paddingY - 12}px ${paddingX - 4}px`};
 
-  font-size: ${theme.fontSize.sm};
-  color: ${({ error }) => error && theme.colors.red};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ error, theme }) => error && theme.colors.red};
   text-align: left;
   font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
   font-weight: calc(${({ fontWeight }) => fontWeight} - 200);

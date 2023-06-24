@@ -1,4 +1,4 @@
-import theme, { colors } from "@styles/theme";
+import styleConfig from "./style.config";
 import uiConfigs from "./ui.config";
 
 export const lightTheme = {
@@ -18,8 +18,8 @@ const themeConfigs = {
   custom: ({ mode }: { mode: "dark" | "light" }) => {
     const customPalette =
       mode === themeModes.light
-        ? { ...theme, ["palette"]: lightTheme.palette }
-        : { ...theme, ["palette"]: darkTheme.palette };
+        ? { ...styleConfig.theme, ["palette"]: lightTheme.palette }
+        : { ...styleConfig.theme, ["palette"]: darkTheme.palette };
 
     return customPalette;
   },

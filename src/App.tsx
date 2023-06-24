@@ -3,8 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Global, ThemeProvider } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 
-import theme from "@styles/theme";
-import globalStyle from "@styles/globalStyle";
+import styleConfig from "@configs/style.config";
 import Router from "@routes/router";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -32,7 +31,7 @@ function App() {
         <BrowserRouter>
           <Router />
         </BrowserRouter>
-        <Global styles={globalStyle} />
+        <Global styles={styleConfig.globalStyle} />
       </ThemeProvider>
     </>
   );

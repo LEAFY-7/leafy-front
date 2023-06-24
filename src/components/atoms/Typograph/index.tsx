@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./index.styles";
 import { TextProps } from "./index.types";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "../Wrapper/link-wrapper";
 
 const Typography = React.forwardRef(function Typography(
   {
@@ -29,38 +29,32 @@ const Typography = React.forwardRef(function Typography(
   }: React.PropsWithChildren<TextProps>,
   forwardedRef: React.Ref<HTMLElement>
 ) {
-  const navigate = useNavigate();
-
-  const handleUrl = () => {
-    navigate(`/${to}`);
-  };
-
-  const typographyEl = (
-    <Styled.Text
-      as={as}
-      variant={variant}
-      color={color}
-      fontSize={fontSize}
-      fontWeight={fontWeight}
-      lineHeight={lineHeight}
-      marginTop={marginTop}
-      marginRight={marginRight}
-      marginBottom={marginBottom}
-      marginLeft={marginLeft}
-      paddingTop={paddingTop}
-      paddingRight={paddingRight}
-      paddingBottom={paddingBottom}
-      paddingLeft={paddingLeft}
-      opacity={opacity}
-      textAlign={textAlign}
-      ref={forwardedRef}
-      onClick={handleUrl}
-      {...rest}
-    >
-      {children}
-    </Styled.Text>
+  return (
+    <Link to={to}>
+      <Styled.Text
+        as={as}
+        variant={variant}
+        color={color}
+        fontSize={fontSize}
+        fontWeight={fontWeight}
+        lineHeight={lineHeight}
+        marginTop={marginTop}
+        marginRight={marginRight}
+        marginBottom={marginBottom}
+        marginLeft={marginLeft}
+        paddingTop={paddingTop}
+        paddingRight={paddingRight}
+        paddingBottom={paddingBottom}
+        paddingLeft={paddingLeft}
+        opacity={opacity}
+        textAlign={textAlign}
+        ref={forwardedRef}
+        {...rest}
+      >
+        {children}
+      </Styled.Text>
+    </Link>
   );
-  return <>{to ? <>{typographyEl}</> : <>{typographyEl}</>}</>;
 });
 
 export default Typography;

@@ -1,12 +1,12 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import theme from "@styles/theme";
+import stylesConfig from "@configs/style.config";
 
 export interface ToggleProps {
   isOn?: boolean;
 }
 export interface ToggleWrapper extends ToggleProps {
-  leftColor?: keyof typeof theme.colors;
-  rightColor?: keyof typeof theme.colors;
+  leftColor?: keyof typeof stylesConfig.theme.colors;
+  rightColor?: keyof typeof stylesConfig.theme.colors;
 }
 
 export interface ToggleContent extends ToggleProps {}

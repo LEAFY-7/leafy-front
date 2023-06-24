@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { ToggleContent, ToggleDesc, ToggleWrapper } from "./index.types";
-import theme from "@styles/theme";
 import { css } from "@emotion/react";
 
 export const Wrapper = styled.div<Required<ToggleWrapper>>`
@@ -8,7 +7,7 @@ export const Wrapper = styled.div<Required<ToggleWrapper>>`
   cursor: pointer;
   width: 60px;
   height: 30px;
-  background-color: ${({ isOn, leftColor, rightColor }) =>
+  background-color: ${({ isOn, leftColor, rightColor, theme }) =>
     isOn ? theme.colors[leftColor] : theme.colors[rightColor]};
   border-radius: 15px;
   position: relative;
@@ -16,8 +15,8 @@ export const Wrapper = styled.div<Required<ToggleWrapper>>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${theme.colors.white};
-  font-weight: ${theme.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   padding: 0 5px;
 `;
 
@@ -33,7 +32,7 @@ export const Content = styled.div<Required<ToggleContent>>`
 `;
 
 export const Desc = styled.div<Required<ToggleDesc>>`
-  font-size: ${theme.fontSize.sm};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   flex: 1;
   text-align: ${({ isOn }) => (isOn ? "left" : "right")};
 `;

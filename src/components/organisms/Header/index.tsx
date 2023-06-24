@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import * as Styled from "./index.styles";
-import { ProfileProps, Props } from "./index.types";
-import Module from "./index.module.css";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import Module from "./index.module.css";
+
 import Flex from "@components/atoms/Group/flex";
 import Button from "@components/atoms/Button/rectangle-button";
 
@@ -111,7 +110,13 @@ const Search = ({
   );
 };
 
-const Profile = ({ isLoggedIn = false, userName = "" }: ProfileProps) => {
+const Profile = ({
+  isLoggedIn = false,
+  userName = "",
+}: {
+  isLoggedIn?: boolean;
+  userName?: string;
+}) => {
   const navi = useNavigate();
   function HandleNavi() {
     navi(`/auth`);

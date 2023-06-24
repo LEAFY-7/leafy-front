@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ImageProps } from "./index.types";
-import theme from "@styles/theme";
+import stylesConfig from "@configs/style.config";
 
 export const Img = styled.img<Required<ImageProps>>`
   cursor: pointer;
@@ -9,22 +9,22 @@ export const Img = styled.img<Required<ImageProps>>`
     switch (variant) {
       case "icon_sm": {
         return css`
-          width: ${theme.imgSize.sm};
-          height: ${theme.imgSize.sm};
+          width: ${stylesConfig.theme.imgSize.sm};
+          height: ${stylesConfig.theme.imgSize.sm};
           border-radius: 50%;
         `;
       }
       case "icon_md": {
         return css`
-          width: ${theme.imgSize.md};
-          height: ${theme.imgSize.md};
+          width: ${stylesConfig.theme.imgSize.md};
+          height: ${stylesConfig.theme.imgSize.md};
           border-radius: 50%;
         `;
       }
       case "icon_lg": {
         return css`
-          width: ${theme.imgSize.lg};
-          height: ${theme.imgSize.lg};
+          width: ${stylesConfig.theme.imgSize.lg};
+          height: ${stylesConfig.theme.imgSize.lg};
           border-radius: 50%;
         `;
       }

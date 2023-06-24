@@ -1,6 +1,6 @@
 import type { CSSProperties, ElementType, HTMLAttributes } from "react";
 
-import theme from "../../../styles/theme";
+import styleConfig from "@configs/style.config";
 
 type Typography = "H1" | "H2" | "H3" | "default" | "BODY1" | "BODY2" | "BODY3";
 
@@ -19,28 +19,28 @@ export interface Props {
    *
    * @default 'regular'
    */
-  fontSize: keyof typeof theme.fontSize;
+  fontSize: keyof typeof styleConfig.theme.fontSize;
 
   /**
    * Typography 폰트 높이를 설정합니다.
    *
    * @default 'regular'
    */
-  lineHeight: keyof typeof theme.lineHeight;
+  lineHeight: keyof typeof styleConfig.theme.lineHeight;
 
   /**
    * Typography 색상을 설정합니다.
    *
    * @default 'zinc_700'
    */
-  color: keyof typeof theme.colors;
+  color: keyof typeof styleConfig.theme.colors;
 
   /**
    * Typography 폰트 두께를 설정합니다.
    *
    * @default bold
    */
-  fontWeight: keyof typeof theme.fontWeight;
+  fontWeight: keyof typeof styleConfig.theme.fontWeight;
 
   /**
    * Typography 상단을 설정합니다.
