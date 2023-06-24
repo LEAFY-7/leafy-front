@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
-import Flex from "@components/ui/Flex";
+import Flex from "@components/atoms/Group/flex";
 import Box from "@components/atoms/Box";
 import Typography from "@components/atoms/Typograph";
 
 import FeedsSections from "./FeedsSection";
 import FollowUserList from "./FollowUserList";
-import Button from "Button";
+import RectangleButton from "@components/atoms/Button/rectangle-button";
 
 const Follow = () => {
   const { reviewShow } = useSelector((state: RootState) => state.toggle);
@@ -42,12 +42,12 @@ const Follow = () => {
           alignContent="center"
           style={{ marginBottom: "30px" }}
         >
-          <Button variant="blue" onClick={() => setLatest(true)}>
+          <RectangleButton variant="green" onClick={() => setLatest(true)}>
             최신글
-          </Button>
-          <Button variant="blue" onClick={() => setLatest(false)}>
+          </RectangleButton>
+          <RectangleButton variant="green" onClick={() => setLatest(false)}>
             인기글
-          </Button>
+          </RectangleButton>
         </Flex>
         {latest && <FeedsSections />}
         {/* {!latest && <FeedsSections />} */}

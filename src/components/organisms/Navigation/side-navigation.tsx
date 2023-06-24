@@ -2,7 +2,7 @@ import React from "react";
 
 import { routesGen } from "@routes/router";
 import Box from "@components/atoms/Box";
-import Button from "./atoms/Button/rectangle-button";
+import RectangleButton from "@components/atoms/Button/rectangle-button";
 
 const SideNavigation = () => {
   return (
@@ -17,25 +17,25 @@ const SideNavigation = () => {
     >
       {buttonList.map((button, index) =>
         button.page ? (
-          <Button key={`${button.id}-$${index}`} variant="default">
+          <RectangleButton key={`${button.id}-$${index}`} variant="default">
             {button.name}
-          </Button>
+          </RectangleButton>
         ) : button.state ? (
-          <Button
+          <RectangleButton
             key={`${button.id}-$${index}`}
             to={routesGen.userFeed("a")}
             variant="default"
           >
             {button.name}
-          </Button>
+          </RectangleButton>
         ) : (
-          <Button
+          <RectangleButton
             key={`${button.id}-$${index}`}
             to={routesGen[button.id as ButtonList["id"]] as string}
             variant="default"
           >
             {button.name}
-          </Button>
+          </RectangleButton>
         )
       )}
     </Box>

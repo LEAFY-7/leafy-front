@@ -57,13 +57,6 @@ export interface FlexProps {
    * @default 'inherit'
    */
   backgroundColor?: keyof typeof theme.colors;
-
-  /**
-   * Flex의 gap을 설정합니다.
-   *
-   * @default 0
-   */
-  gap?: number;
 }
 
 export interface Props extends HTMLAttributes<HTMLElement>, FlexProps {}

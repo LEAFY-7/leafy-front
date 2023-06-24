@@ -1,5 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 
+import MainLayout from "@components/layout/MainLayout";
+import PrivateRoute from "@routes/PrivateRoute";
+import Unauthorized from "@routes/Unauthorized";
+
 import Home from "@pages/Home/Page";
 import FeedDetail from "@pages/FeedDetail/Page";
 import Auth from "@pages/Auth/Page";
@@ -14,9 +18,6 @@ import Notice from "@pages/Notice/Page";
 import NoticeDetail from "@pages/NoticeDetail/Page";
 import Setting from "@pages/Setting/Page";
 import Search from "@pages/Search/Page";
-import PrivateRoute from "@components/PrivateRoute";
-import MainLayout from "@components/organisms/layout/MainLayout";
-import Unauthorized from "@components/Unauthorized";
 import Qna from "@pages/QnaDetail/Page";
 import Admin from "@pages/Admin/Page";
 import MyPageEdit from "@pages/MyPage/EditPage";

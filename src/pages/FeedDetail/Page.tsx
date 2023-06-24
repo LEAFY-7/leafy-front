@@ -1,12 +1,12 @@
 import React from "react";
 
 import Box from "@components/atoms/Box";
-import Flex from "@components/ui/Flex";
 import useWindowSize from "@hooks/useWindowSize";
 
 import RightSection from "./RightSection";
 import LeftSection from "./LeftSection";
 import BottomSection from "./BottomSection";
+import Flex from "@components/atoms/Group/flex";
 
 const FeedDetail = () => {
   const { width } = useWindowSize();

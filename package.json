@@ -40,10 +40,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "build:dev": "env-cmd -f .env.development craco start",
-    "build:prod": "env-cmd -f .env.production craco build",
+    "dev": "env-cmd -f .env.development craco start",
+    "build": "env-cmd -f .env.production craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

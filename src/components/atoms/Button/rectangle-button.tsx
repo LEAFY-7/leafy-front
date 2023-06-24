@@ -1,8 +1,69 @@
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ButtonStyleProp } from "./Button";
+import Link from "../Wrapper/link-wrapper";
 
-export const Button = styled.button<ButtonStyleProp>`
+export interface ButtonStyleProp {
+  variant?: "green" | "red" | "green_border" | "default";
+  height: string;
+  padding: string;
+  fontSize: string;
+  radius: string;
+}
+
+interface Props
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    Pick<ButtonStyleProp, "variant"> {
+  size?: "sm" | "md" | "lg";
+  isBorder?: boolean;
+  disabled?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  to?: string;
+}
+
+const RectangleButton = ({
+  variant = "default",
+  size = "md",
+  isBorder = false,
+  disabled,
+  leftIcon,
+  rightIcon,
+  children,
+  to,
+  ...rest
+}: React.PropsWithChildren<Props>) => {
+  const height = size === "sm" ? "2rem" : size === "md" ? "2.5rem" : "3rem";
+  const padding = size === "sm" ? "0.5rem" : size === "md" ? "1rem" : "1.5rem";
+  const fontSize = size === "sm" ? "0.5rem" : size === "md" ? "1rem" : "1.5rem";
+  const radius = size === "sm" ? "0.5rem" : size === "md" ? "0.8rem" : "1rem";
+
+  return (
+    <>
+      <Link to={to}>
+        <Button
+          variant={variant}
+          height={height}
+          padding={padding}
+          fontSize={fontSize}
+          radius={radius}
+          disabled={disabled}
+          {...rest}
+        >
+          <InnerWrapper>
+            {leftIcon && leftIcon}
+            {children}
+            {rightIcon && rightIcon}
+          </InnerWrapper>
+        </Button>
+      </Link>
+    </>
+  );
+};
+
+export default RectangleButton;
+
+const Button = styled.button<ButtonStyleProp>`
   padding-left: ${({ padding }) => padding};
   padding-top: ${({ padding }) => padding};
   padding-right: ${({ padding }) => padding};
@@ -10,7 +71,6 @@ export const Button = styled.button<ButtonStyleProp>`
   border-radius: ${({ radius }) => radius};
   height: ${({ height }) => height};
   font-size: ${({ fontSize }) => fontSize};
-
   border: 1px solid #000;
   outline: none;
   word-break: keep-all;
@@ -117,8 +177,9 @@ export const Button = styled.button<ButtonStyleProp>`
       }
     `}
 `;
-export const InnerWrapper = styled.div`
+const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 `;

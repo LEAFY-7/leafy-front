@@ -1,7 +1,8 @@
 import React from "react";
+
 import Box from "@components/atoms/Box";
-import Flex from "@components/ui/Flex";
 import Typography from "@components/atoms/Typograph";
+import Flex from "@components/atoms/Group/flex";
 
 const MyPage = () => {
   return (

@@ -1,11 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import TextFiled from "@components/molecules/TextField";
-import Flex from "@components/ui/Flex";
-import Button from "Button";
 import { emailRule, passwordRule } from "@utils/validate";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineExclamationCircle, AiOutlineMail } from "react-icons/ai";
+import Flex from "@components/atoms/Group/flex";
+import RectangleButton from "@components/atoms/Button/rectangle-button";
 
 type FormValues = {
   email: string;
@@ -85,9 +85,9 @@ const SignInForm = () => {
           helperIcon={<AiOutlineExclamationCircle />}
           {...register("password", formState.password)}
         />
-        <Button type="submit" variant="green">
+        <RectangleButton type="submit" variant="green">
           로그인
-        </Button>
+        </RectangleButton>
       </Flex>
     </form>
   );

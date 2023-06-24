@@ -4,9 +4,9 @@ import { ProfileProps, Props } from "./index.types";
 import Module from "./index.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 
-import Flex from "@components/ui/Flex";
-import Button from "Button";
 import { Navigate, useNavigate } from "react-router-dom";
+import Flex from "@components/atoms/Group/flex";
+import Button from "@components/atoms/Button/rectangle-button";
 
 const Header = ({ userName = "" }: { userName: string }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

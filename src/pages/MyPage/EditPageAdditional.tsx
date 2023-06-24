@@ -11,11 +11,12 @@ import { SlCalender } from "react-icons/sl";
 import { toast } from "react-toastify";
 
 import TextFiled from "@components/molecules/TextField";
-import Button from "Button";
-import Flex from "@components/ui/Flex";
-import CustomCalender from "@components/CustomCalender";
+
+import CustomCalender from "@components/molecules/Calender/CustomCalender";
 import { emailRule, krRule, passwordRule } from "@utils/validate";
 import Typography from "@components/atoms/Typograph";
+import Flex from "@components/atoms/Group/flex";
+import Button from "@components/atoms/Button/rectangle-button";
 
 type FormValues = {
   displayName: string;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Box from "@components/atoms/Box";
-import Flex from "@components/atoms/Flex";
+import Flex from "@components/atoms/Group/flex";
 import Typography from "@components/atoms/Typograph";
 
 /**

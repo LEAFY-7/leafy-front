@@ -9,13 +9,10 @@ import Box from "@components/atoms/Box";
 import Image from "@components/atoms/Image";
 import Typography from "@components/atoms/Typograph";
 import Textarea from "@components/atoms/Textarea";
-import Button from "Button";
 import useAutoResizeTextarea from "@hooks/useAutoResizeTextarea";
-import Flex from "@components/atoms/Flex";
+import Flex from "@components/atoms/Group/flex";
+import Button from "@components/atoms/Button/rectangle-button";
 
-/**
- * 타입
- */
 type HeaderProps = {
   imgUrl?: string;
   _imgUrl?: string;
@@ -35,9 +32,6 @@ interface ReviewProps extends ReviewItem {
   desc?: string;
 }
 
-/**
- * Review 컴포넌트
- */
 const Review: React.FC<ReviewProps> = ({
   id,
   author: { imgUrl, displayName, _imgUrl },
@@ -112,8 +106,8 @@ const ReviewWrite: React.FC<ReviewWrite> = ({ handleSubmit }) => {
       />
       <Box width={100} display="flex" justifyContent="right">
         <Button
-          width={20}
           variant="red"
+          size="md"
           onClick={onSubmit}
           leftIcon={<BsFillSendFill />}
         >

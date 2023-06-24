@@ -4,21 +4,21 @@ import { AiOutlineMore, AiOutlineLink, AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineMessage } from "react-icons/md";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { SwiperSlide } from "swiper/react";
-import CustomSiper from "@components/CustomSwiper";
+import CustomSiper from "@components/molecules/Carousel/CustomSwiper";
 
 import * as Styled from "./index.styles";
 
 import { setReviewShowState } from "@redux/feature/toggleStateSlice";
 
-import Flex from "@components/atoms/Flex";
+import Flex from "@components/atoms/Group/flex";
 import Box from "@components/atoms/Box";
-import Button from "Button";
 import Image from "@components/atoms/Image";
 import Typography from "@components/atoms/Typograph";
 
 import "swiper/swiper-bundle.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@redux/store";
+import Button from "@components/atoms/Button/rectangle-button";
 
 const baseUrl = "http://localhost:3000";
 type HeaderProps = {
@@ -157,8 +157,6 @@ const FeedContentMore = ({}) => {
         variant="default"
         rightIcon={<AiOutlinePlus />}
         onClick={() => setOpen((prev) => !prev)}
-        paddingY={20}
-        paddingX={0}
       >
         식물 기록 더보기
       </Button>

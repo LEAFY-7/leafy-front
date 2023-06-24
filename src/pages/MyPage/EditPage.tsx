@@ -1,10 +1,10 @@
 import React from "react";
 import Box from "@components/atoms/Box";
-import Flex from "@components/ui/Flex";
 import Typography from "@components/atoms/Typograph";
-import Container from "@components/Container";
 import EditPageRequire from "./EditPageRequire";
 import EditPageAdditional from "./EditPageAdditional";
+import Container from "@components/molecules/Container";
+import Flex from "@components/atoms/Group/flex";
 
 const EditPage = () => {
   return (

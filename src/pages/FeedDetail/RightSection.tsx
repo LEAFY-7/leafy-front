@@ -1,6 +1,6 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiper from "@components/CustomSwiper";
+import CustomSwiper from "@components/molecules/Carousel/CustomSwiper";
 import Box from "@components/atoms/Box";
 import Image from "@components/atoms/Image";
 import FeedData from "../../db/feed.json";
