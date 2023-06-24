@@ -1,6 +1,6 @@
 import React from "react";
 
-import Box from "@components/ui/Box";
+import Box from "@components/atoms/Box";
 import Flex from "@components/ui/Flex";
 import useWindowSize from "@hooks/useWindowSize";
 

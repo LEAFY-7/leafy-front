@@ -36,8 +36,6 @@ export const Box = styled.span<Required<BoxProps>>`
     margin ||
     `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`};
 
-  background-color: ${({ backgroundColor, theme }) =>
-    `${theme.colors[backgroundColor]}!important`};
   background-image: ${({ backgroundImage }) => backgroundImage};
 
   border-radius: ${({ radius }) => `${radius}px`};

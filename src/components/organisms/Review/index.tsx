@@ -5,13 +5,13 @@ import { useDispatch } from "react-redux";
 import { setReviewList } from "@redux/feature/userSlice";
 import * as Styled from "./index.styles";
 
-import Box from "@components/ui/Box";
-import Image from "@components/ui/Image";
-import Typography from "@components/ui/Typograph";
-import Textarea from "@components/ui/Textarea";
-import Button from "@components/ui/Button";
-import Flex from "@components/ui/Flex";
+import Box from "@components/atoms/Box";
+import Image from "@components/atoms/Image";
+import Typography from "@components/atoms/Typograph";
+import Textarea from "@components/atoms/Textarea";
+import Button from "Button";
 import useAutoResizeTextarea from "@hooks/useAutoResizeTextarea";
+import Flex from "@components/atoms/Flex";
 
 /**
  * 타입

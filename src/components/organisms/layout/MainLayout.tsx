@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-import Box from "@components/ui/Box";
-import Flex from "@components/ui/Flex";
+import Box from "@components/atoms/Box";
+import Flex from "@components/atoms/Flex";
 import SideNavigation from "@components/SideNavigation";
-import Header from "@components/Header";
+import Header from "@components/organisms/Header";
 
 const allowSideNavigationList = ["follow", "post", "chat", "user", "mypage"];
 

@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
 import Flex from "@components/ui/Flex";
-import Box from "@components/ui/Box";
-import Typography from "@components/ui/Typograph";
+import Box from "@components/atoms/Box";
+import Typography from "@components/atoms/Typograph";
 
 import FeedsSections from "./FeedsSection";
 import FollowUserList from "./FollowUserList";
-import Button from "@components/ui/Button";
+import Button from "Button";
 
 const Follow = () => {
   const { reviewShow } = useSelector((state: RootState) => state.toggle);

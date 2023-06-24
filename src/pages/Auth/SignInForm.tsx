@@ -1,14 +1,11 @@
-import React from 'react'
+import React from "react";
 import { useForm } from "react-hook-form";
-import TextFiled from "@components/ui/TextField";
-import Flex from '@components/ui/Flex';
-import Button from '@components/ui/Button';
+import TextFiled from "@components/molecules/TextField";
+import Flex from "@components/ui/Flex";
+import Button from "Button";
 import { emailRule, passwordRule } from "@utils/validate";
-import { RiLockPasswordLine } from "react-icons/ri"
-import {
-  AiOutlineExclamationCircle,
-  AiOutlineMail,
-} from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { AiOutlineExclamationCircle, AiOutlineMail } from "react-icons/ai";
 
 type FormValues = {
   email: string;
@@ -16,12 +13,11 @@ type FormValues = {
 };
 
 const SignInForm = () => {
-
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: "",
@@ -63,7 +59,7 @@ const SignInForm = () => {
   };
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data)
+    console.log(data);
   };
 
   return (

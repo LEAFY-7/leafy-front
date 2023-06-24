@@ -10,12 +10,12 @@ import {
 import { SlCalender } from "react-icons/sl";
 import { toast } from "react-toastify";
 
-import TextFiled from "@components/ui/TextField";
-import Button from "@components/ui/Button";
+import TextFiled from "@components/molecules/TextField";
+import Button from "Button";
 import Flex from "@components/ui/Flex";
 import CustomCalender from "@components/CustomCalender";
 import { emailRule, krRule, passwordRule } from "@utils/validate";
-import Typography from "@components/ui/Typograph";
+import Typography from "@components/atoms/Typograph";
 
 type FormValues = {
   displayName: string;

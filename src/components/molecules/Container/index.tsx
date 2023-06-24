@@ -1,8 +1,8 @@
 import React from "react";
-import Box from "./atoms/Box";
-import Flex from "./ui/Flex";
-import Typography from "./atoms/Typograph";
 import styled from "@emotion/styled";
+import Box from "@components/atoms/Box";
+import Flex from "@components/atoms/Flex";
+import Typography from "@components/atoms/Typograph";
 
 /**
  * 디자인 -> 색상 변경 필요

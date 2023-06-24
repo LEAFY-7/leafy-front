@@ -2,9 +2,9 @@ import React from "react";
 import { SwiperSlide } from "swiper/react";
 
 import CustomSiper from "@components/CustomSwiper";
-import Box from "@components/ui/Box";
-import Typography from "@components/ui/Typograph";
-import Image from "@components/ui/Image";
+import Box from "@components/atoms/Box";
+import Typography from "@components/atoms/Typograph";
+import Image from "@components/atoms/Image";
 import { routesGen } from "@routes/router";
 import followList from "../../db/follow.json";
 

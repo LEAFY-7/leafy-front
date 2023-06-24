@@ -10,8 +10,8 @@ import {
 import { RiLockPasswordLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
-import TextFiled from "@components/ui/TextField";
-import Button from "@components/ui/Button";
+import TextFiled from "@components/molecules/TextField";
+import Button from "Button";
 import Flex from "@components/ui/Flex";
 import { emailRule, krRule, passwordRule } from "@utils/validate";
 import userApis from "@api/modules/user.api";

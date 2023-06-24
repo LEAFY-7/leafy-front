@@ -1,10 +1,4 @@
-const breakpoint = {
-  mobile: "320px",
-  tablet: "768px",
-  desktop: "1280px",
-};
-
-const colors = {
+export const colors = {
   inherit: "inherit",
   current: "currentColor",
   transparent: "transparent",
@@ -32,7 +26,15 @@ const colors = {
   ivory: "#FFFEFB",
   skyBlue: "#69969C",
 };
+
+const breakpoint = {
+  mobile: "320px",
+  tablet: "768px",
+  desktop: "1280px",
+};
+
 export const theme = {
+  palette: {},
   colors,
   fontSize: {
     xxs: "8px",

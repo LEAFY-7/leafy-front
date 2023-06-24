@@ -12,8 +12,11 @@ import "react-calendar/dist/Calendar.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import themeConfigs from "@configs/theme.config";
 
 function App() {
+  console.log(themeConfigs.custom({ mode: "light" }));
+
   return (
     <>
       <ToastContainer
@@ -25,7 +28,7 @@ function App() {
         pauseOnFocusLoss
         pauseOnHover
       />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeConfigs.custom({ mode: "light" })}>
         <BrowserRouter>
           <Router />
         </BrowserRouter>

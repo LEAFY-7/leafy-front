@@ -3,8 +3,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
-import Box from "@components/ui/Box";
-import Review from "@components/Review";
+import Box from "@components/atoms/Box";
+import Review from "@components/organisms/Review";
 
 import feedDetail from "../../db/feedDetail.json";
 

@@ -1,8 +1,8 @@
 import React from "react";
 
 import { routesGen } from "@routes/router";
-import Box from "@components/ui/Box";
-import Button from "./ui/Button";
+import Box from "@components/atoms/Box";
+import Button from "../Button";
 
 const SideNavigation = () => {
   return (

@@ -10,11 +10,11 @@ import * as Styled from "./index.styles";
 
 import { setReviewShowState } from "@redux/feature/toggleStateSlice";
 
-import Box from "@components/ui/Box";
-import Button from "@components/ui/Button";
-import Image from "@components/ui/Image";
-import Flex from "@components/ui/Flex";
-import Typography from "@components/ui/Typograph";
+import Flex from "@components/atoms/Flex";
+import Box from "@components/atoms/Box";
+import Button from "Button";
+import Image from "@components/atoms/Image";
+import Typography from "@components/atoms/Typograph";
 
 import "swiper/swiper-bundle.min.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,26 +37,6 @@ interface FeedProps extends ContentProps {
   id?: string;
   author: HeaderProps;
 }
-
-const Feed = ({
-  id,
-  author: { displayName, imgUrl },
-  imgs = [""],
-  title = "",
-  desc = "",
-  tag = [""],
-}: FeedProps) => {
-  return (
-    <>
-      <Box borderWidth={1} padding="20px" width={100} height={100}>
-        <FeedHeader displayName={displayName} imgUrl={imgUrl} />
-        <FeedContent imgs={imgs} title={title} desc={desc} tag={tag} />
-      </Box>
-    </>
-  );
-};
-
-export default Feed;
 
 const FeedHeader = ({ imgUrl, displayName }: HeaderProps) => {
   return (
@@ -204,3 +184,23 @@ const FeedContentMore = ({}) => {
     </Box>
   );
 };
+
+const Feed = ({
+  id,
+  author: { displayName, imgUrl },
+  imgs = [""],
+  title = "",
+  desc = "",
+  tag = [""],
+}: FeedProps) => {
+  return (
+    <>
+      <Box borderWidth={1} padding="20px" width={100} height={100}>
+        <FeedHeader displayName={displayName} imgUrl={imgUrl} />
+        <FeedContent imgs={imgs} title={title} desc={desc} tag={tag} />
+      </Box>
+    </>
+  );
+};
+
+export default Feed;

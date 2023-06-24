@@ -15,7 +15,7 @@ import NoticeDetail from "@pages/NoticeDetail/Page";
 import Setting from "@pages/Setting/Page";
 import Search from "@pages/Search/Page";
 import PrivateRoute from "@components/PrivateRoute";
-import MainLayout from "@components/layout/MainLayout";
+import MainLayout from "@components/organisms/layout/MainLayout";
 import Unauthorized from "@components/Unauthorized";
 import Qna from "@pages/QnaDetail/Page";
 import Admin from "@pages/Admin/Page";
