@@ -1,21 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
+import { Provider } from 'mobx-react';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import initializeStore from './mobx/store';
+import reportWebVitals from './reportWebVitals';
 
-import store from "@redux/store";
-import App from "./App";
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const mobxStore = initializeStore({});
 
-import reportWebVitals from "./reportWebVitals";
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider {...mobxStore}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
 );
 
 reportWebVitals();
