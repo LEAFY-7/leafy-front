@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import review from "../../db/review.json";
-type Status = "admin" | "normal" | "member";
+type Status = "admin" | "member" | "normal";
 type User = {
   id: string;
   username: string;
@@ -20,7 +20,7 @@ const initialState: InitialStateType = {
     username: "",
     displayName: "",
     token: "",
-    status: ["admin"],
+    status: ["member"],
   },
   reviewList: [...review.data],
 };

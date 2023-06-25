@@ -1,6 +1,8 @@
 import React from "react";
+import { css } from "@emotion/react";
 
-
+import Button from "@components/atoms/Button/rectangle-button";
+import Flex from "@components/atoms/Group/flex";
 /**
  * Page의 관심사 분리 예시 입니다.
  *
@@ -10,9 +12,25 @@ import React from "react";
  */
 
 const Home = () => {
-  return (<div>
-    Home 페이지
-    </div>);
+  return (
+    <Flex direction="column">
+      <Button size="sm" variant="green">
+        재사용 버튼
+      </Button>
+      <Button size="sm" variant="green_border">
+        재사용 버튼
+      </Button>
+      <Button size="sm" variant="green_border" disabled>
+        재사용 버튼
+      </Button>
+      <Button size="lg" variant="green_border" disabled>
+        재사용 버튼
+      </Button>
+      <Button size="md" variant="green_border" disabled>
+        재사용 버튼
+      </Button>
+    </Flex>
+  );
 };
 
 export default Home;

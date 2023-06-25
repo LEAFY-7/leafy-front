@@ -1,6 +1,6 @@
 import React from "react";
 
-import Feed from "@components/Feed";
+import Feed from "@components/organisms/Feed";
 import feedDetail from "../../db/feedDetail.json";
 
 const LeftSection = () => {

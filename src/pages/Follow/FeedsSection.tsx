@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
-import Box from "@components/ui/Box";
-import Feed from "@components/Feed";
+import Box from "@components/atoms/Box";
+import Feed from "@components/organisms/Feed";
 
-import Review from "@components/Review";
+import Review from "@components/organisms/Review";
 import feedDetail from "../../db/feedDetail.json";
 
 const FeedSections = () => {

@@ -1,14 +1,11 @@
-import React from 'react'
+import React from "react";
 import { useForm } from "react-hook-form";
-import TextFiled from "@components/ui/TextField";
-import Flex from '@components/ui/Flex';
-import Button from '@components/ui/Button';
+import TextFiled from "@components/molecules/TextField";
 import { emailRule, passwordRule } from "@utils/validate";
-import { RiLockPasswordLine } from "react-icons/ri"
-import {
-  AiOutlineExclamationCircle,
-  AiOutlineMail,
-} from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { AiOutlineExclamationCircle, AiOutlineMail } from "react-icons/ai";
+import Flex from "@components/atoms/Group/flex";
+import RectangleButton from "@components/atoms/Button/rectangle-button";
 
 type FormValues = {
   email: string;
@@ -16,12 +13,11 @@ type FormValues = {
 };
 
 const SignInForm = () => {
-
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: "",
@@ -63,7 +59,7 @@ const SignInForm = () => {
   };
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data)
+    console.log(data);
   };
 
   return (
@@ -89,9 +85,9 @@ const SignInForm = () => {
           helperIcon={<AiOutlineExclamationCircle />}
           {...register("password", formState.password)}
         />
-        <Button type="submit" variant="green">
+        <RectangleButton type="submit" variant="green">
           로그인
-        </Button>
+        </RectangleButton>
       </Flex>
     </form>
   );

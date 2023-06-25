@@ -7,10 +7,10 @@ import {
 } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { toast } from "react-toastify";
-import TextFiled from "@components/ui/TextField";
-import Button from "@components/ui/Button";
-import Flex from "@components/ui/Flex";
+import TextFiled from "@components/molecules/TextField";
 import { emailRule, krEgNumRule, passwordRule } from "@utils/validate";
+import Flex from "@components/atoms/Group/flex";
+import Button from "@components/atoms/Button/rectangle-button";
 
 type FormValues = {
   nickName: string;

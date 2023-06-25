@@ -1,8 +1,8 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiper from "@components/CustomSwiper";
-import Box from "@components/ui/Box";
-import Image from "@components/ui/Image";
+import CustomSwiper from "@components/molecules/Carousel/CustomSwiper";
+import Box from "@components/atoms/Box";
+import Image from "@components/atoms/Image";
 import FeedData from "../../db/feed.json";
 
 const RightSection = () => {

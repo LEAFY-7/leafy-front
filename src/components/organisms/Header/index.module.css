@@ -1,0 +1,92 @@
+:root {
+  --green: #6fa545;
+  --bgreen: #1b521b;
+  --vert: #012010;
+  --lgreen: #c9e5ab;
+  --yellow: #e3e06b;
+  --white: #ffffff;
+  --black: #050402;
+  --gray: #bebebe;
+  --red: #a80000;
+  --ivory: #fffefb;
+}
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  background-color: inherit;
+  transform: translateY(0);
+  transition: all 0.5s ease-in-out;
+}
+.headerHide {
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  background-color: var(--white);
+  transform: translateY(-90%);
+  transition: all 0.5s ease-in-out;
+}
+.headerWrapper {
+  margin: 0 auto;
+  height: 80px;
+  width: 1200px;
+  padding: 0 20px;
+}
+.logo {
+  width: 10%;
+  height: 100%;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.gnb {
+  width: calc(55% - 20px * 3);
+  margin-right: 20px;
+  cursor: pointer;
+}
+.search {
+  width: 20%;
+  margin-right: 20px;
+}
+header form .searchInputShow {
+  display: block;
+  width: calc(100% - 30px);
+  height: 30px;
+  border: 1px solid var(--yellow);
+  border-radius: 5px 0px 0px 5px;
+  padding: 5px 10px;
+  background-color: var(--yellow);
+  opacity: 1;
+  transform: translateX(5px);
+  transition: all 0.5s ease-in-out;
+}
+header form .searchInput {
+  display: block;
+  width: calc(100% - 30px);
+  height: 30px;
+  border: 1px solid var(--yellow);
+  border-radius: 5px 0px 0px 5px;
+  transform-origin: 100% 50%;
+  transform: translateX(10%);
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+header form .searchButton {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: var(--yellow);
+  border-radius: 5px;
+  padding: 5px;
+}
+header form .searchButton div {
+  width: 20px;
+  height: 20px;
+}
+.profile {
+  width: 15%;
+  cursor: pointer;
+}
