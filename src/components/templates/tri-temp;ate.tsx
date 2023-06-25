@@ -13,13 +13,7 @@ const TriTemplate: React.FC<PropsWithChildren<Props>> = ({
   rightSection,
 }) => {
   return (
-    <Box
-      as="main"
-      display="flex"
-      overflow="hidden"
-      minHeight="100vh"
-      margin="0 auto"
-    >
+    <Box as="main" overflow="hidden" minHeight="100vh" margin="0 auto">
       {leftSection && null}
       {middleSection && null}
       {rightSection && null}

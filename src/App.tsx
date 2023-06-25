@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import themeConfigs from "@configs/theme.config";
 
 function App() {
-  console.log(themeConfigs.custom({ mode: "light" }));
+  console.log(themeConfigs.custom({ mode: "dark" }));
 
   return (
     <>

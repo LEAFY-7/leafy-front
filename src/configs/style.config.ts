@@ -1,12 +1,13 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 
-const globalStyle = css`
+const globalStyle = (theme: Theme) => css`
   html,
   body,
   #root {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: ${theme.palette.backgroundColor};
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
       Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
       "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
@@ -75,6 +76,7 @@ export const colors = {
   transparent: "transparent",
   white: "#FFFFFF",
   black: "#050402",
+  dark: "#121212",
   gray: "#BEBEBE",
   red: "#A80000",
   tdred_50: "#FAF2F5",

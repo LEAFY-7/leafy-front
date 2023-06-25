@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdCancel } from "react-icons/md";
 import * as Styled from "./index.styles";
 
 import { Props } from "./index.types";
+import Modal from "@components/molecules/Modal/Modal";
+
 import useModal from "@hooks/useModal";
 
 const sizeUp = ["icon_sm", "icon_md", "icon_lg", "default"];
@@ -18,7 +20,6 @@ const Image = React.forwardRef(function Image(
       closeModal();
     }
   };
-
   return sizeUp.find((img) => variant.includes(img)) ? (
     <>
       <Styled.Img
@@ -30,11 +31,14 @@ const Image = React.forwardRef(function Image(
         {...rest}
       />
       {isOpen && (
-        <Dialog
-          src={src}
-          closeModal={closeModal}
-          handleOverlayClick={handleOverlayClick}
-        />
+        <Modal show={isOpen} onClose={handleOverlayClick}>
+          <Styled.Wrapper>
+            <Styled.ButtonWrapper onClick={closeModal}>
+              <MdCancel size={20} />
+            </Styled.ButtonWrapper>
+            <Styled.DialogImage src={src} />
+          </Styled.Wrapper>
+        </Modal>
       )}
     </>
   ) : (
@@ -51,24 +55,3 @@ const Image = React.forwardRef(function Image(
 });
 
 export default Image;
-
-const Dialog = ({
-  src,
-  closeModal,
-  handleOverlayClick,
-}: {
-  src: string;
-  closeModal: () => void;
-  handleOverlayClick: (event: React.MouseEvent<HTMLDivElement>) => void;
-}) => {
-  return (
-    <Styled.Overlay onClick={handleOverlayClick}>
-      <Styled.Wrapper>
-        <Styled.ButtonWrapper onClick={closeModal}>
-          <MdCancel size={20} />
-        </Styled.ButtonWrapper>
-        <Styled.DialogImage src={src} />
-      </Styled.Wrapper>
-    </Styled.Overlay>
-  );
-};

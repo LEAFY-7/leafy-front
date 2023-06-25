@@ -106,9 +106,9 @@ const Button = styled.button<ButtonStyleProp>`
       }
       case "green_border": {
         return css`
-          border-color: ${theme.colors.lgreen};
-          background-color: ${theme.colors.transparent};
-          color: ${theme.colors.lgreen};
+          border-color: ${theme.palette.greenBorder.borderColor};
+          background-color: ${theme.palette.greenBorder.background};
+          color: ${theme.palette.greenBorder.color};
           transition: background-color 0.25s ease-in-out,
             border-color 0.25s ease-in-out, color 0.25s ease-in-out;
           &:focus {

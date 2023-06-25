@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import DefaultLayout from "@components/layout/MainLayout";
+import DefaultLayout from "@components/layouts/default-layout";
 import PrivateRoute from "@routes/PrivateRoute";
 import Unauthorized from "@routes/Unauthorized";
 
@@ -51,7 +51,7 @@ const STATUS = {
 const Router = () => {
   return (
     <Routes>
-      <Route element={<DefaultLayout structure="mono" />}>
+      <Route element={<DefaultLayout />}>
         {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
         <Route index path="/" element={<Home />} /> {/* 메인 피드  */}
         <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
@@ -61,22 +61,6 @@ const Router = () => {
         <Route path="notice/:noticeId" element={<NoticeDetail />} />
         <Route path="*" element={<NotFound />} /> {/* 404 */}
         <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
-        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
-        <Route element={<PrivateRoute allowedRoles={["admin", "member"]} />}>
-          <Route path="feed/:feedId/update" element={<FeedUpdate />} />
-          <Route path="notice/qna/:qnaId" element={<Qna />} /> {/** QNA */}
-        </Route>
-        {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
-        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
-        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-          <Route path="admin" element={<Admin />} /> {/* 관리자 */}
-        </Route>
-        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
-      </Route>
-
-      <Route element={<DefaultLayout structure="di" />}>
-        {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
         <Route path="user/:userId" element={<User />} /> {/*유저피드*/}
         {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
         {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
@@ -87,8 +71,15 @@ const Router = () => {
           <Route path="mypage" element={<MyPage />} /> {/* 마이페이지 */}
           <Route path="mypage/edit" element={<Edit />} /> {/** 회원정보수정 */}
           <Route path="mypage/setting" element={<Setting />} /> {/* 설정 */}
+          <Route path="feed/:feedId/update" element={<FeedUpdate />} />
+          <Route path="notice/qna/:qnaId" element={<Qna />} /> {/** QNA */}
         </Route>
         {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
+        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+          <Route path="admin" element={<Admin />} /> {/* 관리자 */}
+        </Route>
+        {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
       </Route>
     </Routes>
   );

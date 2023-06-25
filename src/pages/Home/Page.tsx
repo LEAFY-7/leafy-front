@@ -23,6 +23,12 @@ const Home = () => {
       <Button size="sm" variant="green_border" disabled>
         재사용 버튼
       </Button>
+      <Button size="lg" variant="green_border" disabled>
+        재사용 버튼
+      </Button>
+      <Button size="md" variant="green_border" disabled>
+        재사용 버튼
+      </Button>
     </Flex>
   );
 };

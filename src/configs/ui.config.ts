@@ -44,19 +44,20 @@ const uiConfigs = {
       activeBackground: colors.tdred_900,
       activeColor: colors.white,
     },
+    backgroundColor: colors.white,
   },
   dark: {
     green: {
       borderColor: colors.transparent,
       background: colors.transparent,
-      color: colors.lgreen,
+      color: colors.white,
       hoverBackground: colors.bgreen,
       hoverColor: colors.bgreen,
     },
     greenBorder: {
-      borderColor: colors.lgreen,
+      borderColor: colors.white,
       background: colors.transparent,
-      color: colors.lgreen,
+      color: colors.white,
       focusBorder: colors.vert,
       foucsBackground: colors.vert,
       focusColor: colors.white,
@@ -81,6 +82,7 @@ const uiConfigs = {
       activeBackground: colors.green,
       activeColor: colors.white,
     },
+    backgroundColor: colors.dark,
   },
 };
 
