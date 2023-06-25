@@ -12,7 +12,12 @@
       "@hooks/*": ["./hooks/*"],
       "@api/*": ["./api/*"],
       "@types/*": ["./types/*"],
-      "@redux/*": ["./redux/*"]
+      "@redux/*": ["./redux/*"],
+      "@dto/*": ["./dto/*"],
+      "@model/*": ["./model/*"],
+      "@viewModel/*": ["./viewModel/*"],
+      "@store/*": ["./store/*"],
+      "@configs/*": ["./configs/*"]
     }
   }
 }

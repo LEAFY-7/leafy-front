@@ -1,70 +1,40 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Global, ThemeProvider } from "@emotion/react";
-import { ToastContainer } from "react-toastify";
+import { Global, ThemeProvider } from '@emotion/react';
+import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'reflect-metadata';
 
-import theme from "@styles/theme";
-import globalStyle from "@styles/globalStyle";
-import MainLayout from "@components/layout/MainLayout";
-import routes from "@routes/router";
-import PageWrapper from "@components/PageWrapper";
+import styleConfig from '@configs/style.config';
+import Router from '@routes/router';
 
-import "react-toastify/dist/ReactToastify.css";
+import themeConfigs from '@configs/theme.config';
+import 'react-calendar/dist/Calendar.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 function App() {
-  return (
-    <>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnFocusLoss
-        pauseOnHover
-      />
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              {routes.map((route, index) =>
-                route.index ? (
-                  <Route
-                    index
-                    key={index}
-                    element={
-                      route.state ? (
-                        <PageWrapper state={route.state}>
-                          {route.element}
-                        </PageWrapper>
-                      ) : (
-                        route.element
-                      )
-                    }
-                  />
-                ) : (
-                  <Route
-                    path={route.path}
-                    key={index}
-                    element={
-                      route.state ? (
-                        <PageWrapper state={route.state}>
-                          {route.element}
-                        </PageWrapper>
-                      ) : (
-                        route.element
-                      )
-                    }
-                  />
-                )
-              )}
-            </Route>
-          </Routes>
-        </BrowserRouter>
-        <Global styles={globalStyle} />
-      </ThemeProvider>
-    </>
-  );
+    console.log(themeConfigs.custom({ mode: 'dark' }));
+
+    return (
+        <>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                pauseOnHover
+            />
+            <ThemeProvider theme={themeConfigs.custom({ mode: 'light' })}>
+                <BrowserRouter>
+                    <Router />
+                </BrowserRouter>
+                <Global styles={styleConfig.globalStyle} />
+            </ThemeProvider>
+        </>
+    );
 }
 
 export default App;

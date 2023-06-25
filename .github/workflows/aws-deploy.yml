@@ -1,40 +1,40 @@
 name: aws-deploy # Workflow 이름
 on: # Event 감지
-  push:
-    branches: ["main"]
+    push:
+        branches: ['main']
 
 jobs: # Job 설정
-  build:
-    runs-on: ubuntu-latest # 해당 동작들을 돌릴 OS
-    steps: # 실제 main branch에 push하면 동작할 내용들
-      - name: Checkout source code. # 깃허브 레포지토리 체크
-        uses: actions/checkout@v2
+    build:
+        runs-on: ubuntu-latest # 해당 동작들을 돌릴 OS
+        steps: # 실제 main branch에 push하면 동작할 내용들
+            - name: Checkout source code. # 깃허브 레포지토리 체크
+              uses: actions/checkout@v2
 
-      - name: Check Node v # Node v 확인
-        run: node -v
+            - name: Check Node v # Node v 확인
+              run: node -v
 
-      - name: Install Dependencies # 의존성 파일 설치
-        run: npm install
+            - name: Install Dependencies # 의존성 파일 설치
+              run: npm install
 
-      - name: Build # 빌드 명령어
-        run: npm build:prod
+            - name: Build # 빌드 명령어
+              run: npm run build
 
-      - name: Configure AWS credentials # GitHub Actions에서 AWS 자격증명을 구성 비밀키로 AWS 리소스에 접근하여 CLI 관련 AWS작업 수행을 도와줌
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2 # 서울
+            - name: Configure AWS credentials # GitHub Actions에서 AWS 자격증명을 구성 비밀키로 AWS 리소스에 접근하여 CLI 관련 AWS작업 수행을 도와줌
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ap-northeast-2 # 서울
 
-      - name: Configure SSH key # SSH 키를 사용하여 EC2 인스턴스에 접속 패스워드 인증 방식이면 생략
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            - name: Configure SSH key # SSH 키를 사용하여 EC2 인스턴스에 접속 패스워드 인증 방식이면 생략
+              uses: webfactory/ssh-agent@v0.5.3
+              with:
+                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to EC2 # 워크플로우에서 빌드된 파일을 EC2 인스턴스로 전송
-        run: |
-          ssh -o "StrictHostKeyChecking=no" user@your-ec2-instance-ip 'mkdir -p /path/to/destination' 
-          scp -o "StrictHostKeyChecking=no" -r build/* user@your-ec2-instance-ip:/path/to/destination/
+            - name: Deploy to EC2 # 워크플로우에서 빌드된 파일을 EC2 인스턴스로 전송
+              run: |
+                  ssh -o "StrictHostKeyChecking=no" user@your-ec2-instance-ip 'mkdir -p /path/to/destination' 
+                  scp -o "StrictHostKeyChecking=no" -r build/* user@your-ec2-instance-ip:/path/to/destination/
 
 # ssh -o "StrictHostKeyChecking=no" user@your-ec2-instance-ip
 # SSH를 사용해서 EC2 인스턴스에 접속

@@ -1,15 +1,73 @@
-import React from "react";
+import SearchBar from '@components/Search';
+import Typography from '@components/atoms/Typograph';
+import Card from '@components/organisms/Card';
+import styleConfig from '@configs/style.config';
+import styled from '@emotion/styled';
+import useViewModel, { ViewModelName } from '@hooks/useViewModel';
+import { FeedDto } from 'dto/feed/feed.dto';
+import { observer } from 'mobx-react';
+import { useEffect } from 'react';
+import MainViewModel from 'viewModel/main/main.viewModel';
+import SearchViewModel from 'viewModel/search/search.viewModel';
 
-/**
- * Page의 관심사 분리 예시 입니다.
- *
- * 최상위 루트로 폴더를 잡고 페이지가 되는 컴포넌트는 Page로 명명하고
- * 같은 관심사의 컴포넌트는 해당 위치로 경로를 잡아주세요.
- *
- */
+function Home() {
+    const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
+    const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
-const Home = () => {
-  return <div>Home 페이지</div>;
-};
+    useEffect(() => {
+        mainViewModel.getList();
+    }, []);
 
-export default Home;
+    return (
+        <div>
+            <SearchWrap>
+                <TitleWrap>
+                    <Typography
+                        as={'h1'}
+                        variant="H1"
+                        style={{ color: styleConfig.theme.colors.green }}
+                        textAlign="center"
+                    >
+                        식물 정보를 찾고 있나요?
+                    </Typography>
+                    <Typography variant="BODY3" textAlign="center">
+                        실시간 식물 거래 정보를 확인해보세요
+                    </Typography>
+                </TitleWrap>
+                <SearchBar
+                    value={searchViewModel.searchModel.keyword}
+                    onChange={searchViewModel.handleChangeKeyword}
+                    placeholder={'WRITE YOUR PLANT'}
+                />
+            </SearchWrap>
+            <CardWrap>
+                {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                    return <Card item={item} key={`feed_card_${key}`} />;
+                })}
+            </CardWrap>
+        </div>
+    );
+}
+
+export default observer(Home);
+
+const CardWrap = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+`;
+
+const SearchWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+`;
+
+const TitleWrap = styled.div`
+    width: 100%;
+
+    & span {
+        width: 100%;
+    }
+`;

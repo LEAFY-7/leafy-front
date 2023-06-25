@@ -31,7 +31,7 @@ privateClient.interceptors.response.use(
     // 응답이 성공적으로 처리된 경우
     if (response && response.data) {
       console.info("응답을 받았습니다.");
-      return response.data;
+      return response;
     }
     return response;
   },
