@@ -1,5 +1,5 @@
+import styleConfig from '@configs/style.config';
 import styled from '@emotion/styled';
-import theme from '@styles/theme';
 import { CSSProperties, ChangeEventHandler, ReactElement } from 'react';
 
 interface IProps {
@@ -32,13 +32,13 @@ const DefaultInput = styled.input`
     width: 470px;
     height: 60px;
     padding: 16px;
-    font-size: ${theme.fontSize.lg};
-    line-height: ${theme.lineHeight.lg};
+    font-size: ${styleConfig.theme.fontSize.lg};
+    line-height: ${styleConfig.theme.lineHeight.lg};
 
     border-radius: 8px;
-    border: 1px solid ${theme.colors.gray};
+    border: 1px solid ${styleConfig.theme.colors.gray};
 
     &::placeholder {
-        color: ${theme.colors.gray};
+        color: ${styleConfig.theme.colors.gray};
     }
 `;

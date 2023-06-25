@@ -1,4 +1,4 @@
-import Box from '@components/ui/Box';
+import Box from '@components/atoms/Box';
 import { FeedDto } from 'dto/feed/feed.dto';
 import 'swiper/swiper-bundle.min.css';
 import * as Styled from './index.styles';

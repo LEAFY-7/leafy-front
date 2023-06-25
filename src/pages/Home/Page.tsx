@@ -1,9 +1,9 @@
-import Card from '@components/Card';
 import SearchBar from '@components/Search';
-import Typography from '@components/ui/Typograph';
+import Typography from '@components/atoms/Typograph';
+import Card from '@components/organisms/Card';
+import styleConfig from '@configs/style.config';
 import styled from '@emotion/styled';
 import useViewModel, { ViewModelName } from '@hooks/useViewModel';
-import theme from '@styles/theme';
 import { FeedDto } from 'dto/feed/feed.dto';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
@@ -25,7 +25,7 @@ function Home() {
                     <Typography
                         as={'h1'}
                         variant="H1"
-                        style={{ color: theme.colors.green }}
+                        style={{ color: styleConfig.theme.colors.green }}
                         textAlign="center"
                     >
                         식물 정보를 찾고 있나요?
