@@ -19,8 +19,6 @@ export default class MainViewModel extends DefaultViewModel {
     }
 
     getList = () => {
-        //api get
-        //FeedList = mockdata
         runInAction(() => {
             this.feedList = FeedList.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
         });

@@ -10,4 +10,5 @@ export default function useViewModel(viewModelName: ViewModelName) {
 export enum ViewModelName {
     MAIN = 'mainViewModel',
     SEARCH = 'searchViewModel',
+    AUTH = 'authViewModel',
 }
