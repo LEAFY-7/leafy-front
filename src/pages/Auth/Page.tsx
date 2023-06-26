@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import SignInForm from './SignInForm';
-import { Box } from '@components/atoms/Div/box';
+import Box from '@components/atoms/Box';
+import Div from '@components/atoms/Div/div';
 
 const Auth = () => {
+    const ref = useRef(null);
     return (
         <>
-            <Box id="box" width="100%" size="lg" isBorder>
-                하하하
-            </Box>
+            <Box>이전의 박스 컴포넌트</Box>
+
+            <Div id="box" size="lg" isBorder>
+                새로운 박스 컴포넌트
+            </Div>
+            <Div id="greenBox" size="lg" variant="green" isBorder>
+                그린 박스
+            </Div>
         </>
     );
 };
