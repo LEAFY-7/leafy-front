@@ -69,7 +69,7 @@ const ReviewHeader: React.FC<HeaderProps> = ({ imgUrl, displayName }) => {
         <Styled.Header>
             <Box width={100} display="flex" justifyContent="left" alignItems="center">
                 {!imgUrl ? (
-                    <TextAvatar text={'오태권'} />
+                    <TextAvatar text="tk" />
                 ) : (
                     <Image src={imgUrl} alt="프로필 아이콘" variant={'icon_md'} />
                 )}
