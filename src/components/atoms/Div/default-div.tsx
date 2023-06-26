@@ -2,12 +2,13 @@
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 import boxStyles from './div.styles';
-import styleConfig from '@configs/style.config';
+import { theme } from '@configs/style.config';
+import useVariant from '@hooks/useVariant';
 
 interface DivProps extends HTMLAttributes<HTMLDivElement> {
     id: string;
     size?: 'sm' | 'md' | 'lg';
-    variant?: 'green' | 'red' | 'default';
+    variant?: 'green' | 'default';
     isBorder?: boolean;
     display?: 'none' | 'flex' | 'visible' | 'inline-flex';
     justifyContent?: CSSProperties['justifyContent'];
@@ -21,8 +22,8 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
     overflowY?: CSSProperties['overflowY'];
     margin?: CSSProperties['margin'];
     padding?: CSSProperties['padding'];
-    backgroundColor?: keyof typeof styleConfig.theme.colors;
-    color?: keyof typeof styleConfig.theme.colors;
+    backgroundColor?: keyof typeof theme.colors;
+    color?: keyof typeof theme.colors;
     radius?: number;
 }
 
@@ -50,7 +51,7 @@ const Div = React.forwardRef(function Div(
     }: React.PropsWithChildren<DivProps>,
     forwardedRef: React.Ref<HTMLDivElement>,
 ) {
-    const boxVariant = boxStyles.variantStyles[variant] || boxStyles.variantStyles.default;
+    const divVariants = useVariant({ variant: variant, callback: boxStyles.variantStyles });
     const newW = size === 'sm' ? '5rem' : size === 'md' ? '10rem' : '20rem';
     const newH = size === 'sm' ? '5rem' : size === 'md' ? '10rem' : '20rem';
     const padding = size === 'sm' ? '1rem' : size === 'md' ? '1.5rem' : '2rem';
@@ -73,11 +74,11 @@ const Div = React.forwardRef(function Div(
         padding: ${padding};
         flex-direction: ${direction};
         background-color: ${backgroundColor};
-        border-width: ${isBorder && '1px'};
+        border: ${isBorder && 'solid'};
+        border-width: ${isBorder ? '.2rem' : 0};
         border-radius: ${radius};
         font-size: ${fontSize};
-
-        ${boxVariant}
+        ${divVariants}
     `;
     return (
         <div id={id} css={defaultBoxStyle} {...rest} ref={forwardedRef}>

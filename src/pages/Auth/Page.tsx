@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import SignInForm from './SignInForm';
 import Box from '@components/atoms/Box';
-import Div from '@components/atoms/Div/div';
+import Div from '@components/atoms/Div/default-div';
+import RectangleButton from '@components/atoms/Button/rectangle-button';
 
 const Auth = () => {
     const ref = useRef(null);
@@ -15,6 +16,10 @@ const Auth = () => {
             <Div id="greenBox" size="lg" variant="green" isBorder>
                 그린 박스
             </Div>
+            <RectangleButton variant="green" isBorder>
+                버튼
+            </RectangleButton>
+            <RectangleButton variant="red">버튼</RectangleButton>
         </>
     );
 };

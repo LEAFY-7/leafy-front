@@ -1,10 +1,14 @@
+/** @jsxImportSource @emotion/react */
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import useVariant from '@hooks/useVariant';
+import { theme } from '@configs/style.config';
+import buttonStyle from './button.style';
 import LinkWrapper from '../Wrapper/link-wrapper';
 
 export interface ButtonStyleProp {
-    variant?: 'green' | 'red' | 'green_border' | 'default';
+    variant?: 'green' | 'red' | 'default';
     height: string;
     padding: string;
     fontSize: string;
@@ -12,6 +16,7 @@ export interface ButtonStyleProp {
 }
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement>, Pick<ButtonStyleProp, 'variant'> {
+    id?: string;
     size?: 'sm' | 'md' | 'lg';
     isBorder?: boolean;
     disabled?: boolean;
@@ -21,24 +26,69 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement>, Pick<ButtonStyl
 }
 
 const RectangleButton = ({
+    id,
     variant = 'default',
     size = 'md',
     isBorder = false,
-    disabled,
+    disabled = false,
     leftIcon,
     rightIcon,
     children,
     to,
     ...rest
 }: React.PropsWithChildren<Props>) => {
-    const height = size === 'sm' ? '2rem' : size === 'md' ? '2.5rem' : '3rem';
-    const padding = size === 'sm' ? '0.5rem' : size === 'md' ? '1rem' : '1.5rem';
-    const fontSize = size === 'sm' ? '0.5rem' : size === 'md' ? '1rem' : '1.5rem';
-    const radius = size === 'sm' ? '0.5rem' : size === 'md' ? '0.8rem' : '1rem';
+    const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
 
+    const height = size === 'sm' ? '2rem' : size === 'md' ? '2.5rem' : '3rem';
+    const padding = size === 'sm' ? '.5rem' : size === 'md' ? '1rem' : '1.5rem';
+    const fontSize = size === 'sm' ? '.5rem' : size === 'md' ? '1rem' : '1.5rem';
+    const radius = size === 'sm' ? '.3rem' : size === 'md' ? '.6rem' : '.9rem';
+
+    const defaultButtonStyle = css`
+        padding-left: ${padding};
+        padding-top: ${padding};
+        padding-right: ${padding};
+        padding-bottom: ${padding};
+        height: ${height};
+        font-size: ${fontSize};
+        border: 1px solid #000;
+        outline: none;
+        word-break: keep-all;
+        cursor: pointer;
+        border: ${isBorder && 'solid'};
+        border-width: ${isBorder ? '.1rem' : 0};
+        border-radius: ${radius};
+        font-weight: ${theme.fontWeight.bold};
+        ${btnVariant}
+        &:disabled {
+            border-color: ${theme.colors.gray};
+            background-color: ${theme.colors.gray};
+            color: ${theme.colors.white};
+        }
+    `;
+    const innerStyle = css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    `;
     return (
         <LinkWrapper to={to}>
-            <Button
+            <button id={id} disabled={disabled} css={defaultButtonStyle} {...rest}>
+                <div css={innerStyle}>
+                    {leftIcon && leftIcon}
+                    {children}
+                    {rightIcon && rightIcon}
+                </div>
+            </button>
+        </LinkWrapper>
+    );
+};
+
+export default RectangleButton;
+
+{
+    /* <Button
                 variant={variant}
                 height={height}
                 padding={padding}
@@ -52,13 +102,8 @@ const RectangleButton = ({
                     {children}
                     {rightIcon && rightIcon}
                 </InnerWrapper>
-            </Button>
-        </LinkWrapper>
-    );
-};
-
-export default RectangleButton;
-
+            </Button> */
+}
 const Button = styled.button<ButtonStyleProp>`
     padding-left: ${({ padding }) => padding};
     padding-top: ${({ padding }) => padding};
@@ -78,8 +123,8 @@ const Button = styled.button<ButtonStyleProp>`
         switch (variant) {
             case 'green': {
                 return css`
-                    border-color: ${theme.colors.transparent};
-                    background-color: ${theme.colors.transparent};
+                    border-color: ${theme.palette.green.borderColor};
+                    background-color: ${theme.palette.green.background};
                     color: ${theme.palette.green.color};
                     transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out,
                         color 0.25s ease-in-out;
@@ -92,30 +137,6 @@ const Button = styled.button<ButtonStyleProp>`
                         border-color: ${theme.colors.bgreen};
                         background-color: ${theme.colors.bgreen};
                         color: ${theme.colors.white};
-                    }
-                    &:active {
-                        border-color: ${theme.colors.green};
-                        background-color: ${theme.colors.green};
-                        color: ${theme.colors.white};
-                    }
-                `;
-            }
-            case 'green_border': {
-                return css`
-                    border-color: ${theme.palette.greenBorder.borderColor};
-                    background-color: ${theme.palette.greenBorder.background};
-                    color: ${theme.palette.greenBorder.color};
-                    transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out,
-                        color 0.25s ease-in-out;
-                    &:focus {
-                        border-color: ${theme.colors.vert};
-                        background-color: ${theme.colors.vert};
-                        color: ${theme.colors.white};
-                    }
-                    &:hover {
-                        border-color: ${theme.colors.bgreen};
-                        background-color: ${theme.colors.white};
-                        color: ${theme.colors.bgreen};
                     }
                     &:active {
                         border-color: ${theme.colors.green};

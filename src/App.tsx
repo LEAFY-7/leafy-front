@@ -14,8 +14,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 function App() {
-    console.log(themeConfigs.custom({ mode: 'dark' }));
-
     return (
         <>
             <ToastContainer

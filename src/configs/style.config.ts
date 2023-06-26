@@ -129,68 +129,14 @@ export const colors = {
     tdgreen_900: '#0E311F',
 };
 
-const breakpoint = {
+export const breakpoint = {
     mobile: '320px',
     tablet: '768px',
     desktop: '1280px',
 };
 
 export const theme = {
-    palette: {
-        default: {
-            borderColor: colors.gray,
-            background: colors.gray_100,
-            color: colors.black,
-            hoverBorder: colors.gray_200,
-            hoverBackground: colors.gray_300,
-            hoverColor: colors.white,
-        },
-        green: {
-            borderColor: colors.transparent,
-            background: colors.transparent,
-            color: colors.lgreen,
-            focusBorder: colors.vert,
-            focusBackground: colors.vert,
-            focusColor: colors.white,
-            hoverBorder: colors.bgreen,
-            hoverBackground: colors.bgreen,
-            hoverColor: colors.white,
-            activeBorder: colors.green,
-            activeBackground: colors.green,
-            activeColor: colors.white,
-        },
-        greenBorder: {
-            borderColor: colors.lgreen,
-            background: colors.transparent,
-            color: colors.lgreen,
-            focusBorder: colors.vert,
-            focusBackground: colors.vert,
-            focusColor: colors.white,
-            hoverBorder: colors.bgreen,
-            hoverBackground: colors.white,
-            hoverColor: colors.bgreen,
-            activeBorder: colors.green,
-            activeBackground: colors.green,
-            activeColor: colors.white,
-        },
-        red: {
-            borderColor: colors.red,
-            background: colors.red,
-            color: colors.white,
-            focusBorder: colors.red,
-            foucsBackground: colors.red,
-            focusColor: colors.white,
-            hoverBorder: colors.tdred_600,
-            hoverBackground: colors.tdred_600,
-            hoverColor: colors.white,
-            activeBorder: colors.tdred_900,
-            activeBackground: colors.tdred_900,
-            activeColor: colors.white,
-        },
-        style: {
-            backgroundColor: colors.white,
-        },
-    },
+    palette: {},
     colors,
     fontSize: {
         xxs: '8px',
