@@ -1,6 +1,6 @@
 import React from 'react';
 import SideNavigation from '@components/organisms/Navigation/side-navigation';
-import TriTemplate from '@components/templates/tri-temp;ate';
+import TriTemplate from '@components/templates/tri-template';
 
 const Chat = () => {
     return (
