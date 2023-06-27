@@ -1,11 +1,16 @@
 import React from 'react';
-
-import menuConfig from '@configs/menu.config';
 import SideNavigation from '@components/organisms/Navigation/side-navigation';
 import DiTemplate from '@components/templates/di-template';
 
 const MyPage = () => {
-    return <DiTemplate templateWidth="1400px" leftSection={'ddd'} rightSection={<SideNavigation />} />;
+    return (
+        <DiTemplate
+            templateWidth="1280px"
+            variant="1/3"
+            leftSection={<div>회원 정보 페이지</div>}
+            rightSection={<SideNavigation />}
+        />
+    );
 };
 
 export default MyPage;

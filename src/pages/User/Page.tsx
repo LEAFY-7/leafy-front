@@ -6,7 +6,7 @@ const User = () => {
     return (
         <DiTemplate
             variant="1/3"
-            templateWidth={'1400px'}
+            templateWidth={'1280px'}
             leftSection={<div>유저 정보</div>}
             rightSection={<SideNavigation />}
         />

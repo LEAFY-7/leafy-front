@@ -6,7 +6,7 @@ const FeedPost = () => {
     return (
         <DiTemplate
             variant="1/3"
-            templateWidth={'1400px'}
+            templateWidth={'1280px'}
             leftSection={<div>작성페이지</div>}
             rightSection={<SideNavigation />}
         />

@@ -29,10 +29,10 @@ const DiTemplate: React.FC<Props> = ({
             margin="0 auto"
             padding="3rem"
         >
-            <Box as="section" width={leftWidth} height={leftHeight}>
+            <Box as="section" width={leftWidth} height={leftHeight} marginRight={10}>
                 {leftSection}
             </Box>
-            <Box as="section" width={rightWidth} height={rightHeight}>
+            <Box as="section" width={rightWidth} height={rightHeight} marginLeft={10}>
                 {rightSection}
             </Box>
         </Box>

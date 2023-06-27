@@ -1,6 +1,6 @@
 const sideMenuList = [
     {
-        id: 'mypage',
+        id: 'myPage',
         name: '나의 정보',
     },
     {

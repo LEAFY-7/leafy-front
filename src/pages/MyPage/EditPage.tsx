@@ -11,7 +11,7 @@ const EditPage = () => {
     return (
         <DiTemplate
             variant="1/3"
-            templateWidth="1400px"
+            templateWidth="1280px"
             leftSection={
                 <>
                     <Box as="article" width={'1000px'} overflow="hidden" display="flex" direction="column">
