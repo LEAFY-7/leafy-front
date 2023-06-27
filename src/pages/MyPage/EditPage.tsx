@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@components/atoms/Box/default-box';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 import EditPageRequire from './EditPageRequire';
 import EditPageAdditional from './EditPageAdditional';
 import Container from '@components/molecules/Container';

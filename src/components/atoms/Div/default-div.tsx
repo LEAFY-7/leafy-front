@@ -58,13 +58,6 @@ const Div = React.forwardRef(function Div(
 ) {
     const { width: w, height: h, padding, fontSize, radius, borderWidth } = divStyles.sizeBox[size];
     const divVariants = useVariant({ variant: variant, callback: boxStyles.variantStyles });
-    // const newW = size === 'sm' ? '5rem' : size === 'md' ? '10rem' : '20rem';
-    // const newH = size === 'sm' ? '5rem' : size === 'md' ? '10rem' : '20rem';
-    // const padding = size === 'sm' ? '1rem' : size === 'md' ? '1.5rem' : '2rem';
-    // const fontSize = size === 'sm' ? '0.5rem' : size === 'md' ? '1rem' : '1.5rem';
-    // const radius = size === 'sm' ? '0.5rem' : size === 'md' ? '0.8rem' : '1rem';
-
-    console.log(width);
 
     const defaultBoxStyle = css`
         word-break: keep-all;

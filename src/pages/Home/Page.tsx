@@ -1,5 +1,5 @@
 import SearchBar from '@components/Search';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 import Card from '@components/organisms/Card';
 import styleConfig from '@configs/style.config';
 import styled from '@emotion/styled';

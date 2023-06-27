@@ -2,14 +2,14 @@ import React, { ElementType } from 'react';
 import styled from '@emotion/styled';
 import Box from '@components/atoms/Box/default-box';
 import Flex from '@components/atoms/Group/flex';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 
 /**
  * 디자인 -> 색상 변경 필요
  */
 
 interface Props {
-    as?: ElementType;
+    as?: 'div' | 'main' | 'nav' | 'section' | 'article' | 'header';
     header: string;
     headerLine?: boolean;
     marginTop?: number;

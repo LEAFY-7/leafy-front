@@ -11,7 +11,7 @@ import Button from '@components/atoms/Button/rectangle-button';
 import Flex from '@components/atoms/Group/flex';
 import Image from '@components/atoms/Image';
 import Textarea from '@components/atoms/Textarea';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 import useAutoResizeTextarea from '@hooks/useAutoResizeTextarea';
 
 type HeaderProps = {

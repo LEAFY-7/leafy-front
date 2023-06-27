@@ -74,7 +74,10 @@ const uiConfigs = {
             activeBackground: colors.tdred_900,
             activeColor: colors.white,
         },
-        backgroundColor: colors.white,
+        normal: {
+            color: colors.black,
+            backgroundColor: colors.white,
+        },
     },
     dark: {
         default: {
@@ -149,7 +152,10 @@ const uiConfigs = {
             activeBackground: colors.green,
             activeColor: colors.white,
         },
-        backgroundColor: colors.dark,
+        normal: {
+            color: colors.white,
+            backgroundColor: colors.black,
+        },
     },
 };
 

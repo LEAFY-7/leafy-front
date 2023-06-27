@@ -1,12 +1,16 @@
-import React from "react";
-import Link from "../Wrapper/link-wrapper";
+import React from 'react';
+import LinkWrapper from '../Wrapper/link-wrapper';
 
-const TextLogo = () => {
-  return (
-    <Link to="/">
-      <h1>LEAFY</h1>
-    </Link>
-  );
+interface Props {
+    to?: string;
+}
+
+const TextLogo: React.FC<Props> = ({ to = '/' }) => {
+    return (
+        <LinkWrapper to={to}>
+            <h1>LEAFY</h1>
+        </LinkWrapper>
+    );
 };
 
 export default TextLogo;

@@ -12,8 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { isDevelopment, isProduction } from '@utils/env';
 
 function App() {
+    console.log('개발 모드 :', isDevelopment, '배포 모드 : ', isProduction);
     return (
         <>
             <ToastContainer

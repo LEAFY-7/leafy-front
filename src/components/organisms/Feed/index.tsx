@@ -13,7 +13,7 @@ import { setReviewShowState } from '@redux/feature/toggleStateSlice';
 import Flex from '@components/atoms/Group/flex';
 import Box from '@components/atoms/Box/default-box';
 import Image from '@components/atoms/Image';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 
 import 'swiper/swiper-bundle.min.css';
 import { useDispatch, useSelector } from 'react-redux';

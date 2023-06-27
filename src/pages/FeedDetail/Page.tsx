@@ -18,16 +18,12 @@ const FeedDetail = () => {
             templateHeight={100}
             variant="1/3"
             leftSection={
-                <Flex direction="column">
+                <>
                     <LeftSection />
                     <BottomSection />
-                </Flex>
+                </>
             }
-            rightSection={
-                <Flex>
-                    <RightSection />
-                </Flex>
-            }
+            rightSection={<RightSection />}
         />
     );
 };

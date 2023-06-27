@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import DefaultLayout from '@components/layouts/default-layout';
+import DefaultLayout from '@components/organisms/layouts/default-layout';
 import PrivateRoute from '@routes/PrivateRoute';
 import Unauthorized from '@routes/Unauthorized';
 

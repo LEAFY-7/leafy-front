@@ -78,7 +78,7 @@ const SignInForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Flex direction="column">
+            <Flex id="signInForm_wrapper" direction="column">
                 <TextFiled
                     hookForm
                     leftIcon={<AiOutlineMail />}
