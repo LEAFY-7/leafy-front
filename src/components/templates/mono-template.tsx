@@ -1,22 +1,16 @@
-import React, { FC, ReactElement, ReactNode } from "react";
-import Box from "@components/atoms/Box";
+import React, { FC, ReactNode } from 'react';
+import Box from '@components/atoms/Box/default-box';
 
 interface Props {
-  mainSection: ReactNode;
+    mainSection: ReactNode;
 }
 
 const MonoTemplate: FC<Props> = ({ mainSection }) => {
-  return (
-    <Box
-      as="main"
-      display="flex"
-      overflow="hidden"
-      minHeight="100vh"
-      margin="0 auto"
-    >
-      {mainSection}
-    </Box>
-  );
+    return (
+        <Box as="section" overflow="hidden" minHeight="100vh">
+            {mainSection}
+        </Box>
+    );
 };
 
 export default MonoTemplate;

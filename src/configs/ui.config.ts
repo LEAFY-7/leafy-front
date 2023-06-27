@@ -3,6 +3,14 @@ import { colors } from './style.config';
 const uiConfigs = {
     light: {
         default: {
+            borderColor: colors.gray,
+            background: colors.transparent,
+            color: colors.black,
+            hoverBorder: colors.gray_300,
+            hoverBackground: colors.gray_300,
+            hoverColor: colors.white,
+        },
+        gray: {
             borderColor: colors.gray_200,
             background: colors.gray_100,
             color: colors.black,
@@ -70,6 +78,14 @@ const uiConfigs = {
     },
     dark: {
         default: {
+            borderColor: colors.gray,
+            background: colors.transparent,
+            color: colors.white,
+            hoverBorder: colors.gray_300,
+            hoverBackground: colors.gray_300,
+            hoverColor: colors.white,
+        },
+        gray: {
             borderColor: colors.gray,
             background: colors.white,
             color: colors.black,

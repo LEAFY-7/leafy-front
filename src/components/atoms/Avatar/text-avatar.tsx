@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import styled from '@emotion/styled';
+import React, { HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 import { theme } from '@configs/style.config';
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     text: string;
     size?: 'sm' | 'md' | 'lg';
 }
 
-const TextAvatar = ({ text, size = 'md' }: Props) => {
+const TextAvatar = React.forwardRef(function TextAvatar(
+    { text, size = 'md' }: Props,
+    forwardedRef: React.Ref<HTMLDivElement>,
+) {
     const stringToColor = (str: string): string => {
         let hash = 0;
         let i;
@@ -39,7 +41,7 @@ const TextAvatar = ({ text, size = 'md' }: Props) => {
         color: #fff;
     `;
 
-    return <div css={avatarStyle}>{`${text.split(' ')[0][0]}`}</div>;
-};
+    return <div css={avatarStyle} ref={forwardedRef}>{`${text.split(' ')[0][0]}`}</div>;
+});
 
 export default TextAvatar;

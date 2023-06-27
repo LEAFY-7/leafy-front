@@ -5,6 +5,11 @@ export const variantStyles = {
         border-color: ${theme.palette.default.borderColor};
         background-color: ${theme.palette.default.background};
         color: ${theme.palette.default.color};
+    `,
+    gray: (theme: Theme) => css`
+        border-color: ${theme.palette.default.borderColor};
+        background-color: ${theme.palette.default.background};
+        color: ${theme.palette.default.color};
         transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out;
         &:hover {
             background-color: ${theme.palette.default.hoverBackground};
@@ -26,4 +31,47 @@ export const variantStyles = {
     `,
 };
 
-export default { variantStyles };
+const sizeBox = {
+    xs: {
+        width: 3,
+        height: 5,
+        padding: 0.5,
+        fontSize: 0.1,
+        radius: 0.1,
+        borderWidth: 1,
+    },
+    sm: {
+        width: 5,
+        height: 5,
+        padding: 1,
+        fontSize: 0.5,
+        radius: 0.5,
+        borderWidth: 1.2,
+    },
+    md: {
+        width: 10,
+        height: 10,
+        padding: 1.5,
+        fontSize: 1,
+        radius: 0.8,
+        borderWidth: 1.5,
+    },
+    lg: {
+        width: 20,
+        height: 20,
+        padding: 2,
+        fontSize: 1.5,
+        radius: 1,
+        borderWidth: 1.8,
+    },
+    xl: {
+        width: 30,
+        height: 30,
+        padding: 4,
+        fontSize: 2,
+        radius: 1.2,
+        borderWidth: 2,
+    },
+};
+
+export default { variantStyles, sizeBox };

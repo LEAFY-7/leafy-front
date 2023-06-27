@@ -1,7 +1,16 @@
-import React from "react";
+import React from 'react';
+import SideNavigation from '@components/organisms/Navigation/side-navigation';
+import DiTemplate from '@components/templates/di-template';
 
 const User = () => {
-  return <div>유저 정보 </div>;
+    return (
+        <DiTemplate
+            variant="1/3"
+            templateWidth={'1400px'}
+            leftSection={<div>유저 정보</div>}
+            rightSection={<SideNavigation />}
+        />
+    );
 };
 
 export default User;

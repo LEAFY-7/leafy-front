@@ -6,7 +6,7 @@ import { setReviewList } from '@redux/feature/userSlice';
 import * as Styled from './index.styles';
 
 import TextAvatar from '@components/atoms/Avatar/text-avatar';
-import Box from '@components/atoms/Box';
+import Box from '@components/atoms/Box/default-box';
 import Button from '@components/atoms/Button/rectangle-button';
 import Flex from '@components/atoms/Group/flex';
 import Image from '@components/atoms/Image';
