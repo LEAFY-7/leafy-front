@@ -8,8 +8,10 @@ export default function useViewModel(viewModelName: ViewModelName) {
 }
 
 export enum ViewModelName {
+    //키워드 = 'store에 있는 뷰모델 네임'
     MAIN = 'mainViewModel',
     SEARCH = 'searchViewModel',
     AUTH = 'authViewModel',
     DEFAULT = 'defaultViewModel',
+    USER = 'userViewModel',
 }

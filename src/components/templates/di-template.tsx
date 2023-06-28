@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
 import Box from '@components/atoms/Box/default-box';
+import React, { ReactNode } from 'react';
 import templateStyle from './template.style';
 
 interface Props {

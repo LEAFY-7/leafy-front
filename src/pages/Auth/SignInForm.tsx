@@ -1,7 +1,9 @@
 import RectangleButton from '@components/atoms/Button/rectangle-button';
 import Flex from '@components/atoms/Group/flex';
 import TextFiled from '@components/molecules/TextField';
+import useViewModel, { ViewModelName } from '@hooks/useViewModel';
 import { emailRule, krRule, passwordRule } from '@utils/validate';
+import UserViewModel from '@viewModel/user/user.viewModel';
 import { useForm } from 'react-hook-form';
 import { AiOutlineExclamationCircle, AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
@@ -12,6 +14,8 @@ type FormValues = {
 };
 
 const SignInForm = () => {
+    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
+    console.log(userViewModel.user);
     const {
         register,
         handleSubmit,
