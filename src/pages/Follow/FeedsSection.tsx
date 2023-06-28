@@ -1,7 +1,7 @@
 import { RootState } from '@redux/store';
 import { useSelector } from 'react-redux';
 
-import Box from '@components/atoms/Box';
+import Box from '@components/atoms/Box/default-box';
 import Feed from '@components/organisms/Feed';
 
 import Review from '@components/organisms/Review';

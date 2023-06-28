@@ -1,7 +1,7 @@
 name: aws-deploy # Workflow 이름
 on: # Event 감지
     push:
-        branches: ['main']
+        # branches: ['main']
 
 jobs: # Job 설정
     build:

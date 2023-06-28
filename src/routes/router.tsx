@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import DefaultLayout from '@components/layouts/default-layout';
+import DefaultLayout from '@components/organisms/layouts/default-layout';
 import PrivateRoute from '@routes/PrivateRoute';
 import Unauthorized from '@routes/Unauthorized';
 
@@ -21,6 +21,7 @@ import Search from '@pages/Search/Page';
 import Setting from '@pages/Setting/Page';
 import FeedUpdate from '@pages/Update/Page';
 import User from '@pages/User/Page';
+import PageWrapper from '@components/atoms/Wrapper/page-wrapper';
 
 export const routesGen = {
     home: '/',
@@ -53,7 +54,16 @@ const Router = () => {
         <Routes>
             <Route element={<DefaultLayout />}>
                 {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-                <Route index path="/" element={<Home />} /> {/* 메인 피드  */}
+                <Route
+                    index
+                    path="/"
+                    element={
+                        <PageWrapper>
+                            <Home />
+                        </PageWrapper>
+                    }
+                />
+                {/* 메인 피드  */}
                 <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
                 <Route path="auth" element={<Auth />} /> {/* 로그인/회원가입 */}
                 <Route path="search" element={<Search />} /> {/* 검색 결과  */}

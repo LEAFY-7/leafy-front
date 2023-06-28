@@ -1,14 +1,17 @@
-import SearchBar from '@components/Search';
-import Typography from '@components/atoms/Typograph';
-import Card from '@components/organisms/Card';
-import styleConfig from '@configs/style.config';
-import styled from '@emotion/styled';
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
-import { FeedDto } from 'dto/feed/feed.dto';
-import { observer } from 'mobx-react';
 import { useEffect } from 'react';
+import { observer } from 'mobx-react';
+import styled from '@emotion/styled';
+
+import { FeedDto } from 'dto/feed/feed.dto';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
+import useViewModel, { ViewModelName } from '@hooks/useViewModel';
+import styleConfig from '@configs/style.config';
+
+import Typography from '@components/atoms/Typograph/default-typography';
+import Card from '@components/organisms/Card';
+import SearchBar from '@components/Search';
+import MonoTemplate from '@components/templates/mono-template';
 
 function Home() {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
@@ -19,33 +22,39 @@ function Home() {
     }, []);
 
     return (
-        <div>
-            <SearchWrap>
-                <TitleWrap>
-                    <Typography
-                        as={'h1'}
-                        variant="H1"
-                        style={{ color: styleConfig.theme.colors.green }}
-                        textAlign="center"
-                    >
-                        식물 정보를 찾고 있나요?
-                    </Typography>
-                    <Typography variant="BODY3" textAlign="center">
-                        실시간 식물 거래 정보를 확인해보세요
-                    </Typography>
-                </TitleWrap>
-                <SearchBar
-                    value={searchViewModel.searchModel.keyword}
-                    onChange={searchViewModel.handleChangeKeyword}
-                    placeholder={'WRITE YOUR PLANT'}
-                />
-            </SearchWrap>
-            <CardWrap>
-                {mainViewModel.feedList.map((item: FeedDto, key: number) => {
-                    return <Card item={item} key={`feed_card_${key}`} />;
-                })}
-            </CardWrap>
-        </div>
+        <>
+            <MonoTemplate
+                mainSection={
+                    <>
+                        <SearchWrap>
+                            <TitleWrap>
+                                <Typography
+                                    as={'h1'}
+                                    variant="H1"
+                                    style={{ color: styleConfig.theme.colors.green }}
+                                    textAlign="center"
+                                >
+                                    식물 정보를 찾고 있나요?
+                                </Typography>
+                                <Typography variant="BODY3" textAlign="center">
+                                    실시간 식물 거래 정보를 확인해보세요
+                                </Typography>
+                            </TitleWrap>
+                            <SearchBar
+                                value={searchViewModel.searchModel.keyword}
+                                onChange={searchViewModel.handleChangeKeyword}
+                                placeholder={'WRITE YOUR PLANT'}
+                            />
+                        </SearchWrap>
+                        <CardWrap>
+                            {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                                return <Card item={item} key={`feed_card_${key}`} />;
+                            })}
+                        </CardWrap>
+                    </>
+                }
+            />
+        </>
     );
 }
 

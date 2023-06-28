@@ -1,36 +1,33 @@
-import React from "react";
+import React from 'react';
 
-import Box from "@components/atoms/Box";
-import useWindowSize from "@hooks/useWindowSize";
+import Box from '@components/atoms/Box/default-box';
+import useWindowSize from '@hooks/useWindowSize';
 
-import RightSection from "./RightSection";
-import LeftSection from "./LeftSection";
-import BottomSection from "./BottomSection";
-import Flex from "@components/atoms/Group/flex";
+import RightSection from './RightSection';
+import LeftSection from './LeftSection';
+import BottomSection from './BottomSection';
+import Flex from '@components/atoms/Group/flex';
+import DiTemplate from '@components/templates/di-template';
+import DefaultFeed from '@components/organisms/Feed/default-feed';
 
 const FeedDetail = () => {
-  const { width } = useWindowSize();
+    const { width } = useWindowSize();
 
-  return (
-    <Flex as="div" direction="column">
-      <Box display="flex">
-        <Box
-          as="section"
-          width="960px"
-          height={100}
-          marginTop={20}
-          marginRight={2.5}
-          padding="3px"
-        >
-          <LeftSection />
-          <BottomSection />
-        </Box>
-        <Box as="section" width="300px" marginLeft={2.5} marginTop={20}>
-          <RightSection />
-        </Box>
-      </Box>
-    </Flex>
-  );
+    return (
+        <DiTemplate
+            templateWidth="1400px"
+            templateHeight={100}
+            variant="1/3"
+            leftSection={
+                <>
+                    <LeftSection />
+                    <DefaultFeed />
+                    <BottomSection />
+                </>
+            }
+            rightSection={<RightSection />}
+        />
+    );
 };
 
 export default FeedDetail;

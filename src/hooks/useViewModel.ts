@@ -11,4 +11,5 @@ export enum ViewModelName {
     MAIN = 'mainViewModel',
     SEARCH = 'searchViewModel',
     AUTH = 'authViewModel',
+    DEFAULT = 'defaultViewModel',
 }

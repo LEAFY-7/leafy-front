@@ -1,15 +1,16 @@
-import React from "react";
-
-import Box from "@components/atoms/Box";
-import Typography from "@components/atoms/Typograph";
-import Flex from "@components/atoms/Group/flex";
+import React from 'react';
+import SideNavigation from '@components/organisms/Navigation/side-navigation';
+import DiTemplate from '@components/templates/di-template';
 
 const MyPage = () => {
-  return (
-    <Flex as="div" direction="column">
-      마이페이지
-    </Flex>
-  );
+    return (
+        <DiTemplate
+            templateWidth="1280px"
+            variant="1/3"
+            leftSection={<div>회원 정보 페이지</div>}
+            rightSection={<SideNavigation />}
+        />
+    );
 };
 
 export default MyPage;
