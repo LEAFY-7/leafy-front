@@ -8,7 +8,7 @@ import divStyles from './div.styles';
 
 interface DivProps extends HTMLAttributes<HTMLDivElement> {
     id: string;
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant?: 'green' | 'default' | 'gray';
     isBorder?: boolean;
     display?: 'none' | 'flex' | 'visible' | 'inline-flex';
@@ -30,32 +30,29 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
     radius?: number;
 }
 
-const Div = React.forwardRef(function Div(
-    {
-        id,
-        size = 'md',
-        variant = 'default',
-        isBorder = false,
-        display = 'flex',
-        justifyContent = 'center',
-        alignItems = 'center',
-        direction = 'row',
-        width = 'inherit',
-        height = 'inherit',
-        minWidth = 'inherit',
-        maxWidth = 'inherit',
-        maxHeight = 'inherit',
-        minHeight = 'inherit',
-        overflowX = 'hidden',
-        overflowY = 'hidden',
-        margin,
-        backgroundColor = 'inherit',
-        color = 'inherit',
-        children,
-        ...rest
-    }: React.PropsWithChildren<DivProps>,
-    forwardedRef: React.Ref<HTMLDivElement>,
-) {
+const Div = ({
+    id,
+    size = 'md',
+    variant = 'default',
+    isBorder = false,
+    display = 'flex',
+    justifyContent = 'center',
+    alignItems = 'center',
+    direction = 'row',
+    width = 'inherit',
+    height = 'inherit',
+    minWidth = 'inherit',
+    maxWidth = 'inherit',
+    maxHeight = 'inherit',
+    minHeight = 'inherit',
+    overflowX = 'hidden',
+    overflowY = 'hidden',
+    margin,
+    backgroundColor = 'inherit',
+    color = 'inherit',
+    children,
+    ...rest
+}: React.PropsWithChildren<DivProps>) => {
     const { width: w, height: h, padding, fontSize, radius, borderWidth } = divStyles.sizeBox[size];
     const divVariants = useVariant({ variant: variant, callback: boxStyles.variantStyles });
 
@@ -84,9 +81,9 @@ const Div = React.forwardRef(function Div(
         ${divVariants}
     `;
     return (
-        <div id={id} css={defaultBoxStyle} {...rest} ref={forwardedRef}>
+        <div id={id} css={defaultBoxStyle} {...rest}>
             {children}
         </div>
     );
-});
+};
 export default Div;

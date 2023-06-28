@@ -1,28 +1,18 @@
-import styleConfig from "./style.config";
-import uiConfigs from "./ui.config";
+import { themeModes } from '@viewModel/default.viewModel';
+import styleConfig from './style.config';
+import uiConfigs from './ui.config';
 
-export const lightTheme = {
-  palette: uiConfigs.light,
-};
-
-export const darkTheme = {
-  palette: uiConfigs.dark,
-};
-
-export const themeModes = {
-  dark: "dark",
-  light: "light",
+const themes = {
+    light: uiConfigs.light,
+    dark: uiConfigs.dark,
 };
 
 const themeConfigs = {
-  custom: ({ mode }: { mode: "dark" | "light" }) => {
-    const customPalette =
-      mode === themeModes.light
-        ? { ...styleConfig.theme, ["palette"]: lightTheme.palette }
-        : { ...styleConfig.theme, ["palette"]: darkTheme.palette };
-
-    return customPalette;
-  },
+    custom: ({ mode }: { mode: themeModes }) => {
+        return mode === themeModes.light
+            ? { ...styleConfig.theme, ['palette']: themes.light }
+            : { ...styleConfig.theme, ['palette']: themes.dark };
+    },
 };
 
 export default themeConfigs;

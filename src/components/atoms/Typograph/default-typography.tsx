@@ -31,30 +31,27 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     width?: CSSProperties['width'];
 }
 
-const Typography = React.forwardRef(function Typography(
-    {
-        as: Component = 'span',
-        variant = 'H1',
-        children,
-        width = 'inherit',
-        fontSize = 'md',
-        lineHeight = 'md',
-        fontWeight = 'bold',
-        marginTop = 0,
-        marginRight = 0,
-        marginBottom = 0,
-        marginLeft = 0,
-        paddingTop = 0,
-        paddingRight = 0,
-        paddingBottom = 0,
-        paddingLeft = 0,
-        opacity = 1,
-        textAlign = 'left',
-        to = '',
-        ...rest
-    }: React.PropsWithChildren<Props>,
-    forwardedRef: React.Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>,
-) {
+const Typography = ({
+    as: Component = 'span',
+    variant = 'H1',
+    children,
+    width = 'inherit',
+    fontSize = 'md',
+    lineHeight = 'md',
+    fontWeight = 'bold',
+    marginTop = 0,
+    marginRight = 0,
+    marginBottom = 0,
+    marginLeft = 0,
+    paddingTop = 0,
+    paddingRight = 0,
+    paddingBottom = 0,
+    paddingLeft = 0,
+    opacity = 1,
+    textAlign = 'left',
+    to = '',
+    ...rest
+}: React.PropsWithChildren<Props>) => {
     const typographyVariant = useVariant({ variant: variant, callback: typographyStyle.variantStyles });
     const newW = typeof width === 'number' ? `${width}%` : width;
 
@@ -80,6 +77,5 @@ const Typography = React.forwardRef(function Typography(
             </Component>
         </LinkWrapper>
     );
-});
-
+};
 export default Typography;

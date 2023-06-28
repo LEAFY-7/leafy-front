@@ -19,6 +19,7 @@ import 'swiper/swiper-bundle.min.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
 import Button from '@components/atoms/Button/rectangle-button';
+import Div from '@components/atoms/Div/default-div';
 
 const baseUrl = 'http://localhost:3000';
 type HeaderProps = {
@@ -43,7 +44,7 @@ const FeedHeader = ({ imgUrl, displayName }: HeaderProps) => {
         <Styled.Header>
             <Box width={100} display="flex" justifyContent="left" alignItems="center">
                 {!imgUrl ? <Styled.Empty /> : <Image src={imgUrl} alt="프로필 아이콘" variant={'icon_md'} />}
-                <Typography variant="BODY3" marginLeft={20}>
+                <Typography variant="BODY3" to={`/user/${displayName}`} marginLeft={20}>
                     {displayName}
                 </Typography>
             </Box>
@@ -170,10 +171,10 @@ const Feed = ({
 }: FeedProps) => {
     return (
         <>
-            <Box borderWidth={1} padding="20px" width={100}>
+            <Div id="feed" size="xl" variant="default" direction="column" isBorder>
                 <FeedHeader displayName={displayName} imgUrl={imgUrl} />
                 <FeedContent imgs={imgs} title={title} desc={desc} tag={tag} />
-            </Box>
+            </Div>
         </>
     );
 };

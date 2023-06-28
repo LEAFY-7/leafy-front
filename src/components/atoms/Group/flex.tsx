@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { theme } from '@configs/style.config';
 
 export interface FlexProps {
-    as?: 'div' | 'span' | 'main';
+    as?: 'div' | 'span' | 'main' | 'nav';
     display?: 'flex' | 'inline-flex';
     direction?: CSSProperties['flexDirection'];
     wrap?: CSSProperties['flexWrap'];

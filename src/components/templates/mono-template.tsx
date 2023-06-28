@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import Box from '@components/atoms/Box/default-box';
 
 interface Props {
-    templateWidth: string | number;
+    templateWidth?: string | number;
     templateHeight?: string | number;
     mainSection: ReactNode;
 }

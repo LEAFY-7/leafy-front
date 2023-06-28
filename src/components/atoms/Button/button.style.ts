@@ -16,7 +16,7 @@ const variantStyles = {
         border-color: ${theme.palette.green.borderColor};
         background-color: ${theme.palette.green.background};
         color: ${theme.palette.green.color};
-        transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out,
+        transition: background-color 0.35s ease-in-out, border-color 0.555s ease-in-out,
             color 0.25s ease-in-out;
         &:focus {
             border-color: ${theme.palette.green.focusBorder};

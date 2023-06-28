@@ -1,5 +1,30 @@
+import { action, makeObservable, observable, runInAction } from 'mobx';
+
+export enum themeModes {
+    light = 'light',
+    dark = 'dark',
+}
 interface IProps {}
 
 export default class DefaultViewModel {
-    constructor(props: IProps) {}
+    public themeModel = themeModes.light;
+
+    constructor(props: IProps) {
+        makeObservable(this, {
+            themeModel: observable,
+
+            handleThemeMode: action,
+        });
+    }
+
+    handleThemeMode = () => {
+        runInAction(() => {
+            if (this.themeModel === themeModes.dark) {
+                this.themeModel = themeModes.light;
+            } else {
+                this.themeModel = themeModes.dark;
+            }
+            return this;
+        });
+    };
 }

@@ -6,9 +6,9 @@ const uiConfigs = {
             borderColor: colors.gray,
             background: colors.transparent,
             color: colors.black,
-            hoverBorder: colors.gray_300,
-            hoverBackground: colors.gray_300,
-            hoverColor: colors.white,
+            hoverBorder: colors.transparent,
+            hoverBackground: colors.transparent,
+            hoverColor: colors.green,
         },
         gray: {
             borderColor: colors.gray_200,
@@ -22,6 +22,7 @@ const uiConfigs = {
             borderColor: colors.lgreen,
             background: colors.transparent,
             color: colors.lgreen,
+            anotherColor: colors.vigreen_900,
             focusBorder: colors.vert,
             foucsBackground: colors.vert,
             focusColor: colors.white,
@@ -77,6 +78,8 @@ const uiConfigs = {
         normal: {
             color: colors.black,
             backgroundColor: colors.white,
+            borderBottom: colors.green,
+            overlayColor: 'rgba(0, 0, 0, 0.5)',
         },
     },
     dark: {
@@ -85,8 +88,8 @@ const uiConfigs = {
             background: colors.transparent,
             color: colors.white,
             hoverBorder: colors.gray_300,
-            hoverBackground: colors.gray_300,
-            hoverColor: colors.white,
+            hoverBackground: colors.transparent,
+            hoverColor: colors.green,
         },
         gray: {
             borderColor: colors.gray,
@@ -99,7 +102,8 @@ const uiConfigs = {
         green: {
             borderColor: colors.vigreen_100,
             background: colors.vigreen_900,
-            color: colors.white,
+            color: colors.gray_100,
+            anotherColor: colors.gray_300,
             focusBorder: colors.vert,
             foucsBackground: colors.vert,
             focusColor: colors.white,
@@ -155,6 +159,8 @@ const uiConfigs = {
         normal: {
             color: colors.white,
             backgroundColor: colors.black,
+            borderBottom: colors.gray,
+            overlayColor: 'rgba(230, 229, 229, 0.683)',
         },
     },
 };

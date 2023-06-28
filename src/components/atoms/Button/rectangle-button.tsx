@@ -5,7 +5,6 @@ import { theme } from '@configs/style.config';
 import useVariant from '@hooks/useVariant';
 import buttonStyle from './button.style';
 import LinkWrapper from '../Wrapper/link-wrapper';
-import useSizeComposition from '@hooks/useSizeComposition';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
@@ -18,21 +17,18 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
 }
 
-const RectangleButton = React.forwardRef(function RectangleButton(
-    {
-        id,
-        variant = 'default',
-        size = 'md',
-        isBorder = false,
-        disabled = false,
-        leftIcon,
-        rightIcon,
-        children,
-        to,
-        ...rest
-    }: React.PropsWithChildren<Props>,
-    forwardedRef: React.Ref<HTMLButtonElement>,
-) {
+const RectangleButton = ({
+    id,
+    variant = 'default',
+    size = 'md',
+    isBorder = false,
+    disabled = false,
+    leftIcon,
+    rightIcon,
+    children,
+    to,
+    ...rest
+}: React.PropsWithChildren<Props>) => {
     const { height, padding, fontSize, radius, borderWidth } = buttonStyle.sizeBox[size];
     const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
     const defaultButtonStyle = css`
@@ -61,7 +57,7 @@ const RectangleButton = React.forwardRef(function RectangleButton(
 
     return (
         <LinkWrapper to={to}>
-            <button id={id} disabled={disabled} css={defaultButtonStyle} ref={forwardedRef} {...rest}>
+            <button id={id} disabled={disabled} css={defaultButtonStyle} {...rest}>
                 <div css={buttonStyle.innerStyle}>
                     {leftIcon && leftIcon}
                     {children}
@@ -70,6 +66,6 @@ const RectangleButton = React.forwardRef(function RectangleButton(
             </button>
         </LinkWrapper>
     );
-});
+};
 
 export default RectangleButton;

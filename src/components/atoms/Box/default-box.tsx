@@ -4,7 +4,7 @@ import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 import { theme } from '@configs/style.config';
 
-type As = 'div' | 'main' | 'nav' | 'section' | 'article' | 'header' | 'aside';
+type As = 'div' | 'main' | 'nav' | 'section' | 'article' | 'header' | 'aside' | 'ul';
 
 interface BoxProps {
     as?: As;

@@ -13,6 +13,9 @@ const globalStyle = (theme: Theme) => css`
             'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     }
 
+    #root {
+        max-width: 1280px;
+    }
     h1,
     h2,
     h3,
