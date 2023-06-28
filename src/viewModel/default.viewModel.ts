@@ -1,5 +1,5 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
-
+import { ApiModule } from 'modules/api.module';
 export enum themeModes {
     light = 'light',
     dark = 'dark',
@@ -8,8 +8,9 @@ interface IProps {}
 
 export default class DefaultViewModel {
     public themeModel = themeModes.light;
-
+    public api: ApiModule;
     constructor(props: IProps) {
+        this.api = ApiModule.getInstance();
         makeObservable(this, {
             themeModel: observable,
 
