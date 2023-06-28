@@ -2,19 +2,26 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'reflect-metadata';
+import { observer } from 'mobx-react';
+import DefaultViewModel from '@viewModel/default.viewModel';
+import useViewModel, { ViewModelName } from '@hooks/useViewModel';
 
 import styleConfig from '@configs/style.config';
+import themeConfigs from '@configs/theme.config';
+
 import Router from '@routes/router';
 
-import themeConfigs from '@configs/theme.config';
 import 'react-calendar/dist/Calendar.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { isDevelopment, isProduction } from '@utils/env';
+
 function App() {
-    console.log(themeConfigs.custom({ mode: 'dark' }));
+    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
+    console.log('개발 모드 :', isDevelopment, '배포 모드 : ', isProduction);
 
     return (
         <>
@@ -27,7 +34,7 @@ function App() {
                 pauseOnFocusLoss
                 pauseOnHover
             />
-            <ThemeProvider theme={themeConfigs.custom({ mode: 'light' })}>
+            <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
                 <BrowserRouter>
                     <Router />
                 </BrowserRouter>
@@ -37,4 +44,4 @@ function App() {
     );
 }
 
-export default App;
+export default observer(App);

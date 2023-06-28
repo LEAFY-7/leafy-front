@@ -1,4 +1,4 @@
-import { Input } from '@components/ui/Input';
+import { Input } from '@components/atoms/Input';
 import { CSSProperties, ChangeEventHandler, ReactElement } from 'react';
 
 interface IProps {
@@ -9,12 +9,14 @@ interface IProps {
     name?: string;
     style?: CSSProperties;
     placeholder?: string;
+    isFilter?: boolean;
 }
 
 export default function SearchBar(props: IProps): ReactElement {
-    const { value, required, onChange, dataset, name, style, placeholder } = props;
+    const { isFilter = false, value, required, onChange, dataset, name, style, placeholder } = props;
     return (
         <div>
+            {isFilter && <></>}
             <Input
                 value={value}
                 required={required}

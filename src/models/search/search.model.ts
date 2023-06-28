@@ -1,4 +1,4 @@
 export class SearchModel {
-    public category: number = 0;
+    public filter: number = 0;
     public keyword: string = '';
 }

@@ -6,12 +6,12 @@ import { setReviewList } from '@redux/feature/userSlice';
 import * as Styled from './index.styles';
 
 import TextAvatar from '@components/atoms/Avatar/text-avatar';
-import Box from '@components/atoms/Box';
+import Box from '@components/atoms/Box/default-box';
 import Button from '@components/atoms/Button/rectangle-button';
 import Flex from '@components/atoms/Group/flex';
 import Image from '@components/atoms/Image';
 import Textarea from '@components/atoms/Textarea';
-import Typography from '@components/atoms/Typograph';
+import Typography from '@components/atoms/Typograph/default-typography';
 import useAutoResizeTextarea from '@hooks/useAutoResizeTextarea';
 
 type HeaderProps = {
@@ -69,7 +69,7 @@ const ReviewHeader: React.FC<HeaderProps> = ({ imgUrl, displayName }) => {
         <Styled.Header>
             <Box width={100} display="flex" justifyContent="left" alignItems="center">
                 {!imgUrl ? (
-                    <TextAvatar text={'오태권'} />
+                    <TextAvatar text="tk" />
                 ) : (
                     <Image src={imgUrl} alt="프로필 아이콘" variant={'icon_md'} />
                 )}

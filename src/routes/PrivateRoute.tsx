@@ -1,20 +1,20 @@
-import React from "react";
-import { RootState } from "@redux/store";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import React from 'react';
+import { RootState } from '@redux/store';
+import { useSelector } from 'react-redux';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
-type AllowedRole = "admin" | "normal" | "member";
+type AllowedRole = 'admin' | 'normal' | 'member';
 
 const PrivateRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
-  const location = useLocation();
-  const { user } = useSelector((state: RootState) => state.user);
+    const location = useLocation();
+    const { user } = useSelector((state: RootState) => state.user);
 
-  return user.status?.find((role) => allowedRoles?.includes(role)) ? (
-    <Outlet />
-  ) : user.status.includes("member") ? (
-    <Navigate to="/unauthorized" state={{ from: location }} replace />
-  ) : (
-    <Navigate to="/auth" state={{ from: location }} replace />
-  );
+    return user.status?.find((role) => allowedRoles?.includes(role)) ? (
+        <Outlet />
+    ) : user.status.includes('member') ? (
+        <Navigate to="/unauthorized" state={{ from: location }} replace />
+    ) : (
+        <Navigate to="/auth" state={{ from: location }} replace />
+    );
 };
 export default PrivateRoute;

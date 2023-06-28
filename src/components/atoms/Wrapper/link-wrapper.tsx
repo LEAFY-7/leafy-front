@@ -1,22 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { css } from '@emotion/react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
-  to?: string;
+    to?: string;
 }
 
 const LinkWrapper = ({ to, children }: React.PropsWithChildren<Props>) => {
-  return (
-    <>
-      {to ? (
-        <Link to={to} style={{ width: "100%" }}>
-          {children}
-        </Link>
-      ) : (
-        children
-      )}
-    </>
-  );
+    return (
+        <>
+            {to ? (
+                <Link
+                    to={to}
+                    style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                    {children}
+                </Link>
+            ) : (
+                children
+            )}
+        </>
+    );
 };
 
 export default LinkWrapper;
