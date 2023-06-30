@@ -22,6 +22,7 @@ import Setting from '@pages/Setting/Page';
 import FeedUpdate from '@pages/Update/Page';
 import User from '@pages/User/Page';
 import PageWrapper from '@components/atoms/Wrapper/page-wrapper';
+import Temp from '@pages/temp';
 
 export const routesGen = {
     home: '/',
@@ -50,19 +51,17 @@ const STATUS = {
 };
 
 const Router = () => {
+    const home = (
+        <PageWrapper>
+            <Home />
+        </PageWrapper>
+    );
+
     return (
         <Routes>
             <Route element={<DefaultLayout />}>
                 {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-                <Route
-                    index
-                    path="/"
-                    element={
-                        <PageWrapper>
-                            <Home />
-                        </PageWrapper>
-                    }
-                />
+                <Route index path="/" element={home} />
                 {/* 메인 피드  */}
                 <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
                 <Route path="auth" element={<Auth />} /> {/* 로그인/회원가입 */}
@@ -72,6 +71,7 @@ const Router = () => {
                 <Route path="*" element={<NotFound />} /> {/* 404 */}
                 <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
                 <Route path="user/:userId" element={<User />} /> {/*유저피드*/}
+                <Route path="temp" element={<Temp />} />
                 {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
                 {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
                 <Route element={<PrivateRoute allowedRoles={['admin', 'member']} />}>

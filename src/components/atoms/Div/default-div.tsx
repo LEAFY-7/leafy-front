@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
-import { css } from '@emotion/react';
+import { SerializedStyles, css } from '@emotion/react';
 import boxStyles from './div.styles';
 import { theme } from '@configs/style.config';
 import useVariant from '@hooks/useVariant';
