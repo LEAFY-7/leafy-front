@@ -12,7 +12,7 @@ import Flex from '@components/atoms/Group/flex';
 import Image from '@components/atoms/Image';
 import Textarea from '@components/atoms/Textarea';
 import Typography from '@components/atoms/Typograph/default-typography';
-import useAutoResizeTextarea from '@hooks/useAutoResizeTextarea';
+import useAutoResizeTextarea from '@hooks/useAutoResize';
 
 type HeaderProps = {
     imgUrl?: string;
@@ -82,7 +82,7 @@ const ReviewHeader: React.FC<HeaderProps> = ({ imgUrl, displayName }) => {
 };
 
 const ReviewWrite: React.FC<ReviewWrite> = ({ handleSubmit }) => {
-    const { value, textareaRef, handleChange } = useAutoResizeTextarea();
+    const { value, textRef: textareaRef, handleChange } = useAutoResizeTextarea({});
 
     const onSubmit = async () => {
         await handleSubmit(value);
