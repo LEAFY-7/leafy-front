@@ -21,7 +21,6 @@ const Follow = () => {
     return (
         <DiTemplate
             variant="1/3"
-            templateWidth={'1280px'}
             leftSection={
                 <Flex id="left_section_wrapper" direction="column">
                     <Typography variant="BODY3" marginTop={20}>
