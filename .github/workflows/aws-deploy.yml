@@ -27,6 +27,9 @@ jobs:
               env:
                   REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
 
+            - name: Clean build
+              run: npm run clean
+
             - name: Build
               run: npm run build
 
