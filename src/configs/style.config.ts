@@ -15,6 +15,7 @@ const globalStyle = (theme: Theme) => css`
 
     #root {
         max-width: 1280px;
+        margin: 0 auto;
     }
     h1,
     h2,

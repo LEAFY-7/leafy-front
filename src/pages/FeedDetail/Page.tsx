@@ -15,8 +15,6 @@ const FeedDetail = () => {
 
     return (
         <DiTemplate
-            templateWidth="1400px"
-            templateHeight={100}
             variant="1/3"
             leftSection={
                 <>

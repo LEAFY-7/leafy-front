@@ -7,7 +7,6 @@ import Typography from '@components/atoms/Typograph/default-typography';
 const NotFound = () => {
     return (
         <MonoTemplate
-            templateWidth={'1280px'}
             mainSection={
                 <Div id="notfound" height={100}>
                     <Typography variant="H1">페이지를 찾을 수 없습니다.</Typography>

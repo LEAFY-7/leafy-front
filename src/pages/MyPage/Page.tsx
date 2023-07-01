@@ -5,7 +5,6 @@ import DiTemplate from '@components/templates/di-template';
 const MyPage = () => {
     return (
         <DiTemplate
-            templateWidth="1280px"
             variant="1/3"
             leftSection={<div>회원 정보 페이지</div>}
             rightSection={<SideNavigation />}
