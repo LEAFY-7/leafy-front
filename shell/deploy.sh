@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /home/ec2-user/leafy-front
+
 npm install
 
 npm run build
