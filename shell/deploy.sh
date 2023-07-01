@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir /home/ec2-user/leafy-front/build/
-
 npm install
+
+mkdir /home/ec2-user/leafy-front/build/
 
 npm run build
 
