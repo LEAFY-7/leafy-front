@@ -21,6 +21,15 @@ jobs:
             - name: Install Dependencies
               run: npm install
 
+            - name: Generate Environment Variables File for Production
+              run: |
+                  echo "REACT_APP_MODE=$REACT_APP_MODE" >> .env.production
+              env:
+                  REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
+
+            - name: Clean build
+              run: npm run clean
+
             - name: Build
               run: npm run build
 
