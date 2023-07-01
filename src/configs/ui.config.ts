@@ -2,6 +2,9 @@ import { colors } from './style.config';
 
 const uiConfigs = {
     light: {
+        style: {
+            linearGradient: `linear-gradient(rgba(0, 0, 0, 0.4) 10%, transparent 100%)`,
+        },
         default: {
             borderColor: colors.gray,
             background: colors.transparent,
@@ -83,6 +86,9 @@ const uiConfigs = {
         },
     },
     dark: {
+        style: {
+            linearGradient: `linear-gradient(rgba(255, 255, 255, 0.4) 0%, transparent 100%)`,
+        },
         default: {
             borderColor: colors.gray,
             background: colors.transparent,

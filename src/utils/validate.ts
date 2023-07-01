@@ -6,8 +6,26 @@
 export const krRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,16}/; // 한글 정규 표현식
 export const onlyKrEgRule = /^[a-zA-Z가-힣]+$/; // 한글과 영어만 허용
 export const krEgNumRule = /^[a-zA-Z가-힣0-9]+$/; // 한글, 영어 숫자 허용
-export const emailRule =
-  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; //이메일 정규 표현식
+export const emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; //이메일 정규 표현식
 
-export const passwordRule =
-  /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 비밀번호 정규 표현식
+export const passwordRule = /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 비밀번호 정규 표현식
+
+export default { krRule, onlyKrEgRule, krEgNumRule, emailRule, passwordRule };
+
+const VALIDATE_TYPES = {
+    krRule: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,16}/,
+    onlyKrEgRule: /^[a-zA-Z가-힣]+$/,
+    krEgNumRule: /^[a-zA-Z가-힣0-9]+$/,
+    emailRule: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+    passwordRule: /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+} as const;
+
+export const EXPORT_VALIDATE_TYPES = [
+    VALIDATE_TYPES.krRule,
+    VALIDATE_TYPES.onlyKrEgRule,
+    VALIDATE_TYPES.emailRule,
+    VALIDATE_TYPES.krEgNumRule,
+    VALIDATE_TYPES.passwordRule,
+] as const;
+
+export type ValidateRuleType = typeof EXPORT_VALIDATE_TYPES;

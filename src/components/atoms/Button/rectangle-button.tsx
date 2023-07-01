@@ -10,6 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant?: 'green' | 'red' | 'default';
+    fontSize?: keyof typeof theme.fontSize | 'default';
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
@@ -23,13 +24,14 @@ const RectangleButton = ({
     size = 'md',
     isBorder = false,
     disabled = false,
+    fontSize = 'default',
     leftIcon,
     rightIcon,
     children,
     to,
     ...rest
 }: React.PropsWithChildren<Props>) => {
-    const { height, padding, fontSize, radius, borderWidth } = buttonStyle.sizeBox[size];
+    const { height, padding, fontSize: newFontSize, radius, borderWidth } = buttonStyle.sizeBox[size];
     const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
     const defaultButtonStyle = css`
         padding-left: ${padding + 'rem'};
@@ -37,7 +39,7 @@ const RectangleButton = ({
         padding-right: ${padding + 'rem'};
         padding-bottom: ${padding + 'rem'};
         height: ${height + 'rem'};
-        font-size: ${fontSize + 'rem'};
+        font-size: ${fontSize === 'default' ? newFontSize + 'rem' : theme.fontSize[fontSize]};
         border: 1px solid #000;
         outline: none;
         word-break: keep-all;

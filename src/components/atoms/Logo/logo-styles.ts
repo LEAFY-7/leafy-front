@@ -21,5 +21,8 @@ export const variantStyles = {
     green: (theme: Theme) => css`
         color: ${theme.palette.greenFill.color};
     `,
+    black: (theme: Theme) => css`
+        color: ${theme.colors.black};
+    `,
 };
 export default { variantStyles };
