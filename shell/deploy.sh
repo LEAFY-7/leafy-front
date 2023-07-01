@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "REACT_APP_MODE value: $REACT_APP_MODE"
+
 cd /home/ec2-user/leafy-front
 
 npm install
