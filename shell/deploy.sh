@@ -4,8 +4,6 @@ cd /home/ec2-user/leafy-front
 
 npm install
 
-npm audit fix --force
-
 npm run build
 
 npx serve -s build
