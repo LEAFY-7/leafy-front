@@ -34,7 +34,7 @@ function Home() {
                                     style={{ color: styleConfig.theme.colors.green }}
                                     textAlign="center"
                                 >
-                                    식물 정보를 찾고 있나요?
+                                    식물 정보를 찾고있나요?
                                 </Typography>
                                 <Typography variant="BODY3" textAlign="center">
                                     실시간 식물 거래 정보를 확인해보세요
