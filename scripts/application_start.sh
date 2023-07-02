@@ -6,7 +6,7 @@ npm install
 
 npm run build
 
-npx serve -n -s build
+npm run serve
 
 aws s3 sync build/ s3://bucket-leafy
 
