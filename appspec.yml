@@ -17,7 +17,7 @@ environment:
         REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }} >> .env.production
 
 hooks:
-    ApplicationStart:
+    AfterInstall:
         - location: shell/deploy.sh
-          timeout: 100
+          timeout: 60
           runas: ec2-user
