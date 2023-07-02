@@ -6,7 +6,7 @@ on:
 env:
     S3_BUCKET_NAME: bucket-leafy
     CODE_DEPLOY_APPLICATION_NAME: my-codedeploy-app
-    CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-group
+    CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-front-group
 
 jobs:
     build:
@@ -18,14 +18,15 @@ jobs:
             - name: Check Node v
               run: node -v
 
-            - name: Install Dependencies
-              run: npm install
-
             - name: Generate Environment Variables File for Production
               run: |
-                  echo "REACT_APP_MODE=$REACT_APP_MODE" >> .env.production
+                  echo "REACT_APP_MODE=${{ secrets.REACT_APP_MODE }}" >> .env.development
+                  echo "REACT_APP_MODE=${{ secrets.REACT_APP_MODE }}" >> .env.production
               env:
                   REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
+
+            - name: Install Dependencies
+              run: npm install
 
             - name: Clean build
               run: npm run clean
