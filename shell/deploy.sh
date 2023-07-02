@@ -1,14 +1,12 @@
 #!/bin/bash
 
-echo "REACT_APP_MODE value: $REACT_APP_MODE"
-
 cd /home/ec2-user/leafy-front
 
 npm install
 
 npm run build
 
-npx serve -s build
+npx serve -n -s build
 
 aws s3 sync build/ s3://bucket-leafy
 

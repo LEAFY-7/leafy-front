@@ -55,7 +55,7 @@
         "test": "craco test",
         "eject": "react-scripts eject",
         "clean": "rm -rf build",
-        "serve": "serve -s build"
+        "serve": "serve -n -s build"
     },
     "eslintConfig": {
         "extends": [

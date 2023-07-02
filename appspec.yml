@@ -14,7 +14,7 @@ permissions:
 
 environment:
     variables:
-        REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
+        REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }} >> .env.production
 
 hooks:
     ApplicationStart:
