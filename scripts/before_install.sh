@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # 이전 빌드의 서버 프로세스 종료
 killall node
 
