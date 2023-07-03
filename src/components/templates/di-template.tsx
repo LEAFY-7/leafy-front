@@ -9,12 +9,7 @@ interface Props {
     rightSection: ReactNode;
 }
 
-const DiTemplate = ({
-    variant = '1/1',
-
-    leftSection,
-    rightSection,
-}: Props) => {
+const DiTemplate = ({ variant = '1/1', leftSection, rightSection }: Props) => {
     const { leftWidth, rightWidth, leftHeight, rightHeight } = templateStyle.variantStyles.di[variant];
 
     return (

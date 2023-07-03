@@ -8,16 +8,12 @@ import CustomSiper from 'components/molecules/Carousel/CustomSwiper';
 
 import * as Styled from './index.styles';
 
-import { setReviewShowState } from 'redux/feature/toggleStateSlice';
-
 import Flex from 'components/atoms/Group/flex';
 import Box from 'components/atoms/Box/default-box';
 import Image from 'components/atoms/Image';
 import Typography from 'components/atoms/Typograph/default-typography';
 
 import 'swiper/swiper-bundle.min.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
 import Button from 'components/atoms/Button/rectangle-button';
 import Div from 'components/atoms/Div/default-div';
 
@@ -57,8 +53,6 @@ const FeedHeader = ({ imgUrl, displayName }: HeaderProps) => {
 
 const FeedContent = ({ imgs, title, desc, tag: tagBox = [''] }: React.PropsWithChildren<ContentProps>) => {
     const location = useLocation();
-    const dispatch = useDispatch();
-    const { reviewShow } = useSelector((state: RootState) => state.toggle);
     const [isLike, setIsLike] = useState<boolean>(false);
     const [likes, setLikes] = useState(999);
     let comment;
@@ -72,9 +66,6 @@ const FeedContent = ({ imgs, title, desc, tag: tagBox = [''] }: React.PropsWithC
         setLikes((prev) => prev + 1);
     };
 
-    const handleReview = () => {
-        dispatch(setReviewShowState(!reviewShow));
-    };
     return (
         <Styled.Content>
             <CustomSiper slidesPerView={2} centeredSlides={false} width="100%" height="max-content">
@@ -109,7 +100,7 @@ const FeedContent = ({ imgs, title, desc, tag: tagBox = [''] }: React.PropsWithC
                     )}
                 </Flex>
                 <Flex>
-                    <Button variant="default" onClick={handleReview} leftIcon={<MdOutlineMessage />}>
+                    <Button variant="default" leftIcon={<MdOutlineMessage />}>
                         {comment > 999 ? '999+' : comment}
                     </Button>
                     <Button

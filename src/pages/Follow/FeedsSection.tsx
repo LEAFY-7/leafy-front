@@ -1,16 +1,13 @@
-import { RootState } from '@redux/store';
-import { useSelector } from 'react-redux';
-
+import React from 'react';
 import Box from 'components/atoms/Box/default-box';
 import Feed from 'components/organisms/Feed';
 
 import Review from 'components/organisms/Review';
 import feedDetail from 'db/feedDetail.json';
+import review from 'db/review.json';
 
 const FeedSections = () => {
-    const { reviewShow } = useSelector((state: RootState) => state.toggle);
-    const { reviewList } = useSelector((state: RootState) => state.user);
-
+    const reviewShow = true;
     return (
         <>
             <Feed
@@ -24,7 +21,7 @@ const FeedSections = () => {
             {reviewShow && (
                 <Box borderWidth={1} marginTop={10} height={100}>
                     <Review variant="me" author={feedDetail.author!} id={feedDetail.id!} />
-                    {reviewList.map((review, index) => (
+                    {review.data.map((review, index) => (
                         <Review key={index} variant="people" {...review} />
                     ))}
                 </Box>

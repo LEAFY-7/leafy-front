@@ -1,8 +1,6 @@
 import React from 'react';
 import { BsFillSendFill } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
 
-import { setReviewList } from 'redux/feature/userSlice';
 import * as Styled from './index.styles';
 
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
@@ -40,18 +38,7 @@ const Review: React.FC<ReviewProps> = ({
     review = '',
     desc = '',
 }) => {
-    const dispatch = useDispatch();
-
-    const handleSubmit = (value: string) => {
-        dispatch(
-            setReviewList({
-                id,
-                author: { _imgUrl, imgUrl, displayName },
-                imgUrl,
-                desc: value,
-            }),
-        );
-    };
+    const handleSubmit = (value: string) => {};
 
     return (
         <Box>

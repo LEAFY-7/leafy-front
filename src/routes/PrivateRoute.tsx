@@ -1,13 +1,26 @@
 import React from 'react';
-import { RootState } from 'redux/store';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
+type Status = 'admin' | 'member' | 'normal';
+type User = {
+    id: string;
+    username: string;
+    displayName: string;
+    token: string;
+    status: Status[];
+};
+
+const user: User = {
+    id: '',
+    username: '',
+    displayName: '',
+    token: '',
+    status: ['admin'],
+};
 type AllowedRole = 'admin' | 'normal' | 'member';
 
 const PrivateRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
     const location = useLocation();
-    const { user } = useSelector((state: RootState) => state.user);
 
     return user.status?.find((role) => allowedRoles?.includes(role)) ? (
         <Outlet />
