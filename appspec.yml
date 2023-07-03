@@ -17,10 +17,6 @@ environment:
         REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }} >> .env.production
 
 hooks:
-    BeforeInstall:
-        - location: scripts/before_install.sh
-          timeout: 300
-          runas: ec2-user
     AfterInstall:
         - location: scripts/after_Install.sh
           timeout: 300
