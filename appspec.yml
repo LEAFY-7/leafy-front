@@ -12,8 +12,16 @@ permissions:
       owner: ec2-user
       group: ec2-user
 
+environment:
+    variables:
+        REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }} >> .env.production
+
 hooks:
+    AfterInstall:
+        - location: scripts/after_Install.sh
+          timeout: 300
+          runas: ec2-user
     ApplicationStart:
-        - location: shell/deploy.sh
-          timeout: 60
+        - location: scripts/application_start.sh
+          timeout: 400
           runas: ec2-user

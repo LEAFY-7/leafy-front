@@ -14,11 +14,11 @@ import Card from '@components/organisms/Card';
 import MonoTemplate from '@components/templates/mono-template';
 
 function Home() {
-    const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
+    // const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
     const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
-        mainViewModel.getList();
+        // mainViewModel.getList();
     }, []);
 
     return (
@@ -34,7 +34,7 @@ function Home() {
                                     style={{ color: styleConfig.theme.colors.green }}
                                     textAlign="center"
                                 >
-                                    식물 정보를 찾고 있나요?
+                                    식물 정보를 찾고있나요?
                                 </Typography>
                                 <Typography variant="BODY3" textAlign="center">
                                     실시간 식물 거래 정보를 확인해보세요
@@ -47,9 +47,9 @@ function Home() {
                             />
                         </SearchWrap>
                         <CardWrap>
-                            {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                            {/* {mainViewModel.feedList.map((item: FeedDto, key: number) => {
                                 return <Card item={item} key={`feed_card_${key}`} />;
-                            })}
+                            })} */}
                         </CardWrap>
                     </>
                 }
