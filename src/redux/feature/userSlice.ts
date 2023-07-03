@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import review from '../../db/review.json';
+import review from 'db/review.json';
 type Status = 'admin' | 'member' | 'normal';
 type User = {
     id: string;

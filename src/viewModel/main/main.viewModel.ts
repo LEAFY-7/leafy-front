@@ -1,6 +1,6 @@
-import FeedList from '@db/feed.json';
-import { FeedDto } from '@dto/feed/feed.dto';
-import DefaultViewModel from '@viewModel/default.viewModel';
+import FeedList from 'db/feed.json';
+import { FeedDto } from 'dto/feed/feed.dto';
+import DefaultViewModel from 'viewModel/default.viewModel';
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import { action, makeObservable, observable, runInAction } from 'mobx';

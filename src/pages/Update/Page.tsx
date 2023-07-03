@@ -1,6 +1,6 @@
-import SideNavigation from '@components/organisms/Navigation/side-navigation';
-import DiTemplate from '@components/templates/di-template';
 import React from 'react';
+import SideNavigation from 'components/organisms/Navigation/side-navigation';
+import DiTemplate from 'components/templates/di-template';
 
 const FeedUpdate = () => {
     return (

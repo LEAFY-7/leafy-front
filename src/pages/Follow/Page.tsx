@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-import { RootState } from '@redux/store';
+import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 
 import FollowUserList from './FollowUserList';
 import FeedSections from './FeedsSection';
 
-import Box from '@components/atoms/Box/default-box';
-import Flex from '@components/atoms/Group/flex';
-import Typography from '@components/atoms/Typograph/default-typography';
-import RoundButton from '@components/atoms/Button/round-button';
-import SideNavigation from '@components/organisms/Navigation/side-navigation';
-import DiTemplate from '@components/templates/di-template';
+import Box from 'components/atoms/Box/default-box';
+import Flex from 'components/atoms/Group/flex';
+import Typography from 'components/atoms/Typograph/default-typography';
+import RoundButton from 'components/atoms/Button/round-button';
+import SideNavigation from 'components/organisms/Navigation/side-navigation';
+import DiTemplate from 'components/templates/di-template';
 
 const Follow = () => {
     const { reviewShow } = useSelector((state: RootState) => state.toggle);

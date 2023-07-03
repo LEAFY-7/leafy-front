@@ -1,13 +1,13 @@
 import React from 'react';
-import useToggle from '@hooks/useToggle';
+import useToggle from 'hooks/useToggle';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
-import Div from '@components/atoms/Div/default-div';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import TextLogo from '@components/atoms/Logo/text-logo';
-import MonoTemplate from '@components/templates/mono-template';
-import Typography from '@components/atoms/Typograph/default-typography';
+import Div from 'components/atoms/Div/default-div';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import TextLogo from 'components/atoms/Logo/text-logo';
+import MonoTemplate from 'components/templates/mono-template';
+import Typography from 'components/atoms/Typograph/default-typography';
 
 const Auth = () => {
     const { isOn: toggle, handler } = useToggle();

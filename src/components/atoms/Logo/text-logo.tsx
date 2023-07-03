@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import LinkWrapper from '../Wrapper/link-wrapper';
-import useVariant from '@hooks/useVariant';
+import useVariant from 'hooks/useVariant';
 import logoStyles from './logo-styles';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
 
 interface Props {
     to?: string;

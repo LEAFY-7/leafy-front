@@ -7,13 +7,13 @@ import { AiOutlineExclamationCircle, AiOutlineUserDelete } from 'react-icons/ai'
 import { SlCalender } from 'react-icons/sl';
 import { toast } from 'react-toastify';
 
-import TextFiled from '@components/molecules/TextField';
+import TextFiled from 'components/molecules/TextField';
 
-import CustomCalender from '@components/molecules/Calender/CustomCalender';
-import { emailRule, krRule, passwordRule } from '@utils/validate';
-import Typography from '@components/atoms/Typograph/default-typography';
-import Flex from '@components/atoms/Group/flex';
-import Button from '@components/atoms/Button/rectangle-button';
+import CustomCalender from 'components/molecules/Calender/CustomCalender';
+import { emailRule, krRule, passwordRule } from 'utils/validate';
+import Typography from 'components/atoms/Typograph/default-typography';
+import Flex from 'components/atoms/Group/flex';
+import Button from 'components/atoms/Button/rectangle-button';
 
 type FormValues = {
     displayName: string;

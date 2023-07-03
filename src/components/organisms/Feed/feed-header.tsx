@@ -4,12 +4,12 @@ import { css } from '@emotion/react';
 
 import { AiOutlineMore } from 'react-icons/ai';
 
-import Div from '@components/atoms/Div/default-div';
-import Image from '@components/atoms/Image';
-import { theme } from '@configs/style.config';
-import Typography from '@components/atoms/Typograph/default-typography';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import DefaultDropdown from '@components/molecules/Dropdown/default-dropdown';
+import Div from 'components/atoms/Div/default-div';
+import Image from 'components/atoms/Image';
+import { theme } from 'configs/style.config';
+import Typography from 'components/atoms/Typograph/default-typography';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import DefaultDropdown from 'components/molecules/Dropdown/default-dropdown';
 
 interface Props {
     imgUrl?: string;

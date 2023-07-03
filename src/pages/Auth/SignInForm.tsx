@@ -1,16 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import UserViewModel from '@viewModel/user/user.viewModel';
+import UserViewModel from 'viewModel/user/user.viewModel';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { AiOutlineExclamationCircle, AiOutlineMail } from 'react-icons/ai';
 
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
-import formConfig from '@configs/form.config';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import formConfig from 'configs/form.config';
 
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import Flex from '@components/atoms/Group/flex';
-import TextFiled from '@components/molecules/TextField';
-import Div from '@components/atoms/Div/default-div';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import TextFiled from 'components/molecules/TextField';
+import Div from 'components/atoms/Div/default-div';
 
 type FormValues = {
     email: string;

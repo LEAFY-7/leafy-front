@@ -6,7 +6,6 @@
         "@types/react": "^18.2.8",
         "@types/react-dom": "^18.2.4",
         "@types/react-router-dom": "^5.3.3",
-        "craco-alias": "^3.0.1",
         "eslint": "^8.43.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-import": "^2.27.5",
@@ -15,7 +14,6 @@
         "eslint-plugin-react-hooks": "^4.6.0"
     },
     "dependencies": {
-        "@craco/craco": "^7.0.0-alpha.9",
         "@emotion/css": "^11.11.0",
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
@@ -50,12 +48,12 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "craco start",
-        "start:dev": "env-cmd -f .env.development craco start",
-        "start:prod": "env-cmd -f .env.production craco start",
-        "build:dev": "env-cmd -f .env.development craco build",
-        "build:prod": "env-cmd -f .env.production craco build",
-        "test": "craco test",
+        "start": "react-scripts start",
+        "start:dev": "env-cmd -f .env.development react-scripts start",
+        "start:prod": "env-cmd -f .env.production react-scripts start",
+        "build:dev": "env-cmd -f .env.development react-scripts build",
+        "build:prod": "env-cmd -f .env.production react-scripts build",
+        "test": "react-scripts test",
         "eject": "react-scripts eject",
         "clean": "rm -rf build",
         "serve": "serve -s build"

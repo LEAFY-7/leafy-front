@@ -3,9 +3,9 @@ import { MdCancel } from 'react-icons/md';
 import * as Styled from './index.styles';
 
 import { Props } from './index.types';
-import Modal from '@components/molecules/Modal/default-modal';
+import Modal from 'components/molecules/Modal/default-modal';
 
-import useModal from '@hooks/useModal';
+import useModal from 'hooks/useModal';
 
 const sizeUp = ['icon_sm', 'icon_md', 'icon_lg', 'default'];
 

@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineUserDelete } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
-import TextFiled from '@components/molecules/TextField';
-import { emailRule, krEgNumRule, passwordRule } from '@utils/validate';
-import Flex from '@components/atoms/Group/flex';
-import Button from '@components/atoms/Button/rectangle-button';
+import TextFiled from 'components/molecules/TextField';
+import { emailRule, krEgNumRule, passwordRule } from 'utils/validate';
+import Flex from 'components/atoms/Group/flex';
+import Button from 'components/atoms/Button/rectangle-button';
 
 type FormValues = {
     nickName: string;

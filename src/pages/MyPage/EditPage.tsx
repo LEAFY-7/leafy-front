@@ -1,11 +1,11 @@
 import React from 'react';
-import Box from '@components/atoms/Box/default-box';
-import Typography from '@components/atoms/Typograph/default-typography';
+import Box from 'components/atoms/Box/default-box';
+import Typography from 'components/atoms/Typograph/default-typography';
 import EditPageRequire from './EditPageRequire';
 import EditPageAdditional from './EditPageAdditional';
-import Container from '@components/molecules/Container';
-import DiTemplate from '@components/templates/di-template';
-import SideNavigation from '@components/organisms/Navigation/side-navigation';
+import Container from 'components/molecules/Container';
+import DiTemplate from 'components/templates/di-template';
+import SideNavigation from 'components/organisms/Navigation/side-navigation';
 
 const EditPage = () => {
     return (

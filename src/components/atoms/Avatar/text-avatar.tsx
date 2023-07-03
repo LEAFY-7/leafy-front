@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
     text: string;

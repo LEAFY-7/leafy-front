@@ -4,22 +4,22 @@ import { AiOutlineMore, AiOutlineLink, AiOutlinePlus } from 'react-icons/ai';
 import { MdOutlineMessage } from 'react-icons/md';
 import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
 import { SwiperSlide } from 'swiper/react';
-import CustomSiper from '@components/molecules/Carousel/CustomSwiper';
+import CustomSiper from 'components/molecules/Carousel/CustomSwiper';
 
 import * as Styled from './index.styles';
 
-import { setReviewShowState } from '@redux/feature/toggleStateSlice';
+import { setReviewShowState } from 'redux/feature/toggleStateSlice';
 
-import Flex from '@components/atoms/Group/flex';
-import Box from '@components/atoms/Box/default-box';
-import Image from '@components/atoms/Image';
-import Typography from '@components/atoms/Typograph/default-typography';
+import Flex from 'components/atoms/Group/flex';
+import Box from 'components/atoms/Box/default-box';
+import Image from 'components/atoms/Image';
+import Typography from 'components/atoms/Typograph/default-typography';
 
 import 'swiper/swiper-bundle.min.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@redux/store';
-import Button from '@components/atoms/Button/rectangle-button';
-import Div from '@components/atoms/Div/default-div';
+import { RootState } from 'redux/store';
+import Button from 'components/atoms/Button/rectangle-button';
+import Div from 'components/atoms/Div/default-div';
 
 const baseUrl = 'http://localhost:3000';
 type HeaderProps = {

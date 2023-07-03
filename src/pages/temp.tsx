@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import MonoTemplate from '@components/templates/mono-template';
-import Div from '@components/atoms/Div/default-div';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import EffectiveButton from '@components/atoms/Button/effective-button';
+import MonoTemplate from 'components/templates/mono-template';
+import Div from 'components/atoms/Div/default-div';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import EffectiveButton from 'components/atoms/Button/effective-button';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 // 연습장

@@ -2,8 +2,8 @@
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { SerializedStyles, css } from '@emotion/react';
 import boxStyles from './div.styles';
-import { theme } from '@configs/style.config';
-import useVariant from '@hooks/useVariant';
+import { theme } from 'configs/style.config';
+import useVariant from 'hooks/useVariant';
 import divStyles from './div.styles';
 
 interface DivProps extends HTMLAttributes<HTMLDivElement> {

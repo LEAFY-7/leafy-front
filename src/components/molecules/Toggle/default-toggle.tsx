@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
 
-import useToggle from '@hooks/useToggle';
+import useToggle from 'hooks/useToggle';
 import { css } from '@emotion/react';
 
 interface ToggleProps {

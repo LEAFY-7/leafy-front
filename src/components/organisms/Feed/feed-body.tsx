@@ -1,5 +1,5 @@
 import React from 'react';
-import Div from '@components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/default-div';
 
 interface Props {
     imgs?: string[];

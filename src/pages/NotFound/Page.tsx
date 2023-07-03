@@ -1,8 +1,8 @@
 import React from 'react';
-import MonoTemplate from '@components/templates/mono-template';
-import Div from '@components/atoms/Div/default-div';
+import MonoTemplate from 'components/templates/mono-template';
+import Div from 'components/atoms/Div/default-div';
 
-import Typography from '@components/atoms/Typograph/default-typography';
+import Typography from 'components/atoms/Typograph/default-typography';
 
 const NotFound = () => {
     return (

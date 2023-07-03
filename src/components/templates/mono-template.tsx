@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import Box from '@components/atoms/Box/default-box';
+import Box from 'components/atoms/Box/default-box';
 
 interface Props {
     mainSection: ReactNode;

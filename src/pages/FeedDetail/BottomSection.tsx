@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import { RootState } from '@redux/store';
+import { RootState } from 'redux/store';
 
-import Box from '@components/atoms/Box/default-box';
-import Review from '@components/organisms/Review';
+import Box from 'components/atoms/Box/default-box';
+import Review from 'components/organisms/Review';
 
-import feedDetail from '../../db/feedDetail.json';
+import feedDetail from 'db/feedDetail.json';
 
 const BottomSection = () => {
     const { reviewShow } = useSelector((state: RootState) => state.toggle);

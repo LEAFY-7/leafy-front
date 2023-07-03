@@ -1,6 +1,6 @@
 import React from 'react';
 import type { CSSProperties, ChangeEvent, ElementType, HTMLAttributes, ReactNode } from 'react';
-import styleConfig from '@configs/style.config';
+import styleConfig from 'configs/style.config';
 
 export interface TextFieldProps {
     fontSize?: keyof typeof styleConfig.theme.fontSize;

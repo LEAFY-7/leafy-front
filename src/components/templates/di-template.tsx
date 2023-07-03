@@ -1,5 +1,5 @@
-import Box from '@components/atoms/Box/default-box';
 import React, { ReactNode } from 'react';
+import Box from 'components/atoms/Box/default-box';
 import templateStyle from './template.style';
 
 interface Props {
@@ -9,12 +9,12 @@ interface Props {
     rightSection: ReactNode;
 }
 
-const DiTemplate: React.FC<Props> = ({
+const DiTemplate = ({
     variant = '1/1',
 
     leftSection,
     rightSection,
-}) => {
+}: Props) => {
     const { leftWidth, rightWidth, leftHeight, rightHeight } = templateStyle.variantStyles.di[variant];
 
     return (

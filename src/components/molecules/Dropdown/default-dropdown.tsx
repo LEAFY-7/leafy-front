@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 
-import useToggle from '@hooks/useToggle';
+import useToggle from 'hooks/useToggle';
 
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import Div from '@components/atoms/Div/default-div';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Div from 'components/atoms/Div/default-div';
 import DropdownMenu from './dropdown-menu';
 
 interface Props {

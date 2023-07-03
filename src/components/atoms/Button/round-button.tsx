@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
-import useVariant from '@hooks/useVariant';
+import { theme } from 'configs/style.config';
+import useVariant from 'hooks/useVariant';
 import buttonStyle from './button.style';
 import LinkWrapper from '../Wrapper/link-wrapper';
 

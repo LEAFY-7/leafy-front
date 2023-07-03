@@ -1,11 +1,11 @@
 import { RootState } from '@redux/store';
 import { useSelector } from 'react-redux';
 
-import Box from '@components/atoms/Box/default-box';
-import Feed from '@components/organisms/Feed';
+import Box from 'components/atoms/Box/default-box';
+import Feed from 'components/organisms/Feed';
 
-import Review from '@components/organisms/Review';
-import feedDetail from '../../db/feedDetail.json';
+import Review from 'components/organisms/Review';
+import feedDetail from 'db/feedDetail.json';
 
 const FeedSections = () => {
     const { reviewShow } = useSelector((state: RootState) => state.toggle);

@@ -2,17 +2,17 @@ import React from 'react';
 import { BsFillSendFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 
-import { setReviewList } from '@redux/feature/userSlice';
+import { setReviewList } from 'redux/feature/userSlice';
 import * as Styled from './index.styles';
 
-import TextAvatar from '@components/atoms/Avatar/text-avatar';
-import Box from '@components/atoms/Box/default-box';
-import Button from '@components/atoms/Button/rectangle-button';
-import Flex from '@components/atoms/Group/flex';
-import Image from '@components/atoms/Image';
-import Textarea from '@components/atoms/Textarea';
-import Typography from '@components/atoms/Typograph/default-typography';
-import useAutoResizeTextarea from '@hooks/useAutoResize';
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
+import Box from 'components/atoms/Box/default-box';
+import Button from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import Image from 'components/atoms/Image';
+import Textarea from 'components/atoms/Textarea';
+import Typography from 'components/atoms/Typograph/default-typography';
+import useAutoResizeTextarea from 'hooks/useAutoResize';
 
 type HeaderProps = {
     imgUrl?: string;

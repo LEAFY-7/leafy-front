@@ -2,16 +2,16 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 
-import styleConfig from '@configs/style.config';
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
+import styleConfig from 'configs/style.config';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { FeedDto } from 'dto/feed/feed.dto';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
-import Typography from '@components/atoms/Typograph/default-typography';
-import SearchBar from '@components/molecules/Search';
-import Card from '@components/organisms/Card';
-import MonoTemplate from '@components/templates/mono-template';
+import Typography from 'components/atoms/Typograph/default-typography';
+import SearchBar from 'components/molecules/Search';
+import Card from 'components/organisms/Card';
+import MonoTemplate from 'components/templates/mono-template';
 
 function Home() {
     // const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);

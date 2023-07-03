@@ -1,5 +1,5 @@
-import Box from '@components/atoms/Box/default-box';
-import Div from '@components/atoms/Div/default-div';
+import Box from 'components/atoms/Box/default-box';
+import Div from 'components/atoms/Div/default-div';
 import React from 'react';
 
 interface Props {
