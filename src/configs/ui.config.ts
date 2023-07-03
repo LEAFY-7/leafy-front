@@ -4,6 +4,30 @@ const uiConfigs = {
     light: {
         style: {
             linearGradient: `linear-gradient(rgba(0, 0, 0, 0.4) 10%, transparent 100%)`,
+            text: {
+                whiteColor: colors.white,
+                blackColor: colors.black,
+            },
+            primary: {
+                borderColor: colors.turquoise_300,
+                backgroundColor: colors.turquoise,
+            },
+            secondary: {
+                borderColor: colors.turquoise_300,
+                backgroundColor: colors.turquoise_50,
+            },
+            tertiary: {
+                borderColor: colors.purple_100,
+                backgroundColor: colors.purple,
+            },
+            quaternary: {
+                borderColor: colors.navy_100,
+                backgroundColor: colors.navy,
+            },
+            important: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.red,
+            },
         },
         default: {
             borderColor: colors.gray,
@@ -17,8 +41,8 @@ const uiConfigs = {
             borderColor: colors.gray_200,
             background: colors.gray_100,
             color: colors.black,
-            hoverBorder: colors.gray_300,
-            hoverBackground: colors.gray_300,
+            hoverBorder: colors.gray_100,
+            hoverBackground: colors.gray_100,
             hoverColor: colors.white,
         },
         green: {
@@ -93,7 +117,7 @@ const uiConfigs = {
             borderColor: colors.gray,
             background: colors.transparent,
             color: colors.white,
-            hoverBorder: colors.gray_300,
+            hoverBorder: colors.gray_100,
             hoverBackground: colors.transparent,
             hoverColor: colors.green,
         },
@@ -109,7 +133,7 @@ const uiConfigs = {
             borderColor: colors.vigreen_100,
             background: colors.vigreen_900,
             color: colors.gray_100,
-            anotherColor: colors.gray_300,
+            anotherColor: colors.gray_100,
             focusBorder: colors.vert,
             foucsBackground: colors.vert,
             focusColor: colors.white,

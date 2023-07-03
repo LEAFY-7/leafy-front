@@ -9,7 +9,7 @@ import LinkWrapper from '../Wrapper/link-wrapper';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'green' | 'red' | 'default';
+    variant?: 'green' | 'red' | 'default' | 'primary';
     fontSize?: keyof typeof theme.fontSize | 'default';
     isBorder?: boolean;
     disabled?: boolean;
@@ -47,7 +47,7 @@ const RectangleButton = ({
         cursor: pointer;
         border: ${isBorder && 'solid'};
         border-width: ${isBorder ? borderWidth + 'px' : 0};
-        border-radius: ${radius + 'rem'};
+        border-radius: 15px;
         font-weight: ${theme.fontWeight.bold};
         ${btnVariant}
         &:disabled {

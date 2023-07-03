@@ -4,7 +4,9 @@ cd /home/ec2-user/leafy-front
 
 npm install
 
-npm run build
+npm run clean
+
+npm run build:prod
 
 nohup npm run serve >/dev/null 2>&1 &
 
