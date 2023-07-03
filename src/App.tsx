@@ -17,11 +17,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { isDevelopment, isProduction } from 'utils/env';
+import { isDevelopment, isLocal, isProduction } from 'utils/env';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
-    console.log('개발 모드 :', isDevelopment, '배포 모드 : ', isProduction);
+    console.log('로컬 환경 : ', isLocal);
+    console.log('개발 모드 : ', isDevelopment);
+    console.log('배포 모드 : ', isProduction);
 
     return (
         <>
