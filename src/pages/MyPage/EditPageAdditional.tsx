@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import DaumPostcode from 'react-daum-postcode';
 
 import { AiOutlineExclamationCircle, AiOutlineUserDelete } from 'react-icons/ai';
 import { SlCalender } from 'react-icons/sl';
@@ -10,8 +9,7 @@ import { toast } from 'react-toastify';
 import TextFiled from 'components/molecules/TextField';
 
 import CustomCalender from 'components/molecules/Calender/CustomCalender';
-import { emailRule, krRule, passwordRule } from 'utils/validate';
-import Typography from 'components/atoms/Typograph/default-typography';
+import formConfig from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import Button from 'components/atoms/Button/rectangle-button';
 
@@ -25,16 +23,11 @@ type FormValues = {
 const EditPageAdditional = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-    const [visible, setVisible] = useState(false); // 우편번호 컴포넌트의 노출여부 상태
-
-    const [isPopupOpen, setPopupOpen] = useState(false);
     const [address, setAddress] = useState('');
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -45,23 +38,6 @@ const EditPageAdditional = () => {
         },
     });
 
-    const formState = {
-        name: {
-            required: '이름 입력은 필수 입니다.',
-            minLength: {
-                value: 2,
-                message: '최소 2자리 이상 입력하셔야 합니다.',
-            },
-            maxLength: {
-                value: 20,
-                message: '최대 20자리 이하 입력하세야 합니다.',
-            },
-            pattern: {
-                value: krRule,
-                message: '이름은 한글만 작성해주세요.',
-            },
-        },
-    };
     const onSubmit = async (data: FormValues) => {
         toast.success('회원가입이 성공하였습니다.');
     };
@@ -82,12 +58,7 @@ const EditPageAdditional = () => {
     const toggleCalendar = () => {
         setShowCalendar(!showCalendar);
     };
-    console.log(selectedDate);
 
-    /**
-     *
-     * 주소
-     */
     const handleChangeAddress = () => {};
 
     const handleComplete = (data: any) => {
@@ -107,7 +78,7 @@ const EditPageAdditional = () => {
                         helperText={errors.displayName?.message}
                         helperIcon={<AiOutlineExclamationCircle />}
                         disabled
-                        {...register('displayName', formState.name)}
+                        {...register('displayName', formConfig.signFormState.name)}
                     />
                     {!showCalendar && (
                         <TextFiled
@@ -136,7 +107,6 @@ const EditPageAdditional = () => {
                     readOnly
                     labelTitle="주소"
                 />
-                <DaumPostcode onComplete={handleComplete} autoClose />;
                 <Button type="submit" variant="green">
                     확인
                 </Button>

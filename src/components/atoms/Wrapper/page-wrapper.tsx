@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, useEffect } from 'react';
-import FlowerAnimation from '../Animation/flower-animation';
+import FlowerAnimation from 'components/atoms/Animation/flower-animation';
 import useToggle from 'hooks/useToggle';
 
 interface Props extends HTMLAttributes<HTMLElement> {}

@@ -1,4 +1,4 @@
-import React, { ElementType } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Box from 'components/atoms/Box/default-box';
 import Flex from 'components/atoms/Group/flex';

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { theme } from 'configs/style.config';
 import useVariant from 'hooks/useVariant';
 import buttonStyle from './button.style';
-import LinkWrapper from '../Wrapper/link-wrapper';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;

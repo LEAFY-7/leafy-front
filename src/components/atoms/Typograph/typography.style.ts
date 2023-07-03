@@ -1,4 +1,3 @@
-import { theme } from '@configs/style.config';
 import { Theme, css } from '@emotion/react';
 
 const variantStyles = {
