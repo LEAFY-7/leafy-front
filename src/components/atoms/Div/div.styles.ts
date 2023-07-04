@@ -32,6 +32,14 @@ export const variantStyles = {
 };
 
 const sizeBox = {
+    default: {
+        width: 'none',
+        height: 'none',
+        padding: 1,
+        fontSize: 1,
+        radius: 0.8,
+        borderWidth: 1.5,
+    },
     xs: {
         width: 5,
         height: 5,
@@ -49,24 +57,24 @@ const sizeBox = {
         borderWidth: 1.2,
     },
     md: {
-        width: 15,
-        height: 15,
+        width: 20,
+        height: 20,
         padding: 1.5,
         fontSize: 1,
         radius: 0.8,
         borderWidth: 1.5,
     },
     lg: {
-        width: 25,
-        height: 25,
+        width: 40,
+        height: 40,
         padding: 2,
         fontSize: 1.5,
         radius: 1,
         borderWidth: 1.8,
     },
     xl: {
-        width: 35,
-        height: 35,
+        width: 60,
+        height: 60,
         padding: 3,
         fontSize: 2,
         radius: 1.2,
