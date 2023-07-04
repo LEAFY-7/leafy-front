@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineUserDelete } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
-import formConfig from '@configs/form.config';
+import formConfig from 'configs/form.config';
 
-import Flex from '@components/atoms/Group/flex';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import TextFiled from '@components/molecules/TextField';
-import Div from '@components/atoms/Div/default-div';
+import Flex from 'components/atoms/Group/flex';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import TextFiled from 'components/molecules/TextField';
+import Div from 'components/atoms/Div/default-div';
 
 type FormValues = {
     displayName: string;

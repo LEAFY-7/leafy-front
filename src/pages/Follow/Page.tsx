@@ -1,21 +1,15 @@
 import { useState } from 'react';
-
-import { RootState } from '@redux/store';
-import { useSelector } from 'react-redux';
-
 import FollowUserList from './FollowUserList';
 import FeedSections from './FeedsSection';
 
-import Box from '@components/atoms/Box/default-box';
-import Flex from '@components/atoms/Group/flex';
-import Typography from '@components/atoms/Typograph/default-typography';
-import RoundButton from '@components/atoms/Button/round-button';
-import SideNavigation from '@components/organisms/Navigation/side-navigation';
-import DiTemplate from '@components/templates/di-template';
+import Box from 'components/atoms/Box/default-box';
+import Flex from 'components/atoms/Group/flex';
+import Typography from 'components/atoms/Typograph/default-typography';
+import RoundButton from 'components/atoms/Button/round-button';
+import SideNavigation from 'components/organisms/Navigation/side-navigation';
+import DiTemplate from 'components/templates/di-template';
 
 const Follow = () => {
-    const { reviewShow } = useSelector((state: RootState) => state.toggle);
-    const { reviewList } = useSelector((state: RootState) => state.user);
     const [latest, setLatest] = useState<boolean>(true);
 
     return (
@@ -32,7 +26,7 @@ const Follow = () => {
                         {/* 구독 슬라이더 */}
                     </Box>
                     {/* 피드 섹션 */}
-                    <Box as="section" width={100} height={100} marginTop={20}>
+                    <Box as="section" width="873px" height={100} marginTop={20}>
                         <Flex
                             id="feed_section_wrapper"
                             justifyContent="center"

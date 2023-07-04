@@ -1,4 +1,4 @@
-import validate from '@utils/validate';
+import validate from 'utils/validate';
 const signFormState = {
     name: {
         required: '이름 입력은 필수 입니다.',

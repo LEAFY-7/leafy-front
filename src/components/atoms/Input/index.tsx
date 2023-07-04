@@ -1,4 +1,4 @@
-import styleConfig from '@configs/style.config';
+import styleConfig from 'configs/style.config';
 import styled from '@emotion/styled';
 import { CSSProperties, ChangeEventHandler, ReactElement } from 'react';
 

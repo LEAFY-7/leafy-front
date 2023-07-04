@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
-import { SerializedStyles, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import boxStyles from './div.styles';
-import { theme } from '@configs/style.config';
-import useVariant from '@hooks/useVariant';
+import { theme } from 'configs/style.config';
+import useVariant from 'hooks/useVariant';
 import divStyles from './div.styles';
 
 interface DivProps extends HTMLAttributes<HTMLDivElement> {
     id: string;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     variant?: 'green' | 'default' | 'gray';
     isBorder?: boolean;
     display?: 'none' | 'flex' | 'visible' | 'inline-flex';
@@ -32,7 +32,7 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
 
 const Div = ({
     id,
-    size = 'md',
+    size = 'default',
     variant = 'default',
     isBorder = false,
     display = 'flex',
@@ -62,8 +62,8 @@ const Div = ({
         display: ${display};
         justify-content: ${justifyContent ? justifyContent : 'flex-start'};
         align-items: ${alignItems ? alignItems : 'flex-start'};
-        width: ${width === 'inherit' ? w : typeof width === 'number' ? `${width}%` : width};
-        height: ${height === 'inherit' ? h : typeof height === 'number' ? `${height}%` : height};
+        width: ${width === 'inherit' ? w + 'rem' : typeof width === 'number' ? `${width}%` : width};
+        height: ${height === 'inherit' ? h + 'rem' : typeof height === 'number' ? `${height}%` : height};
         max-width: ${typeof maxHeight === 'number' ? `${maxHeight}%` : maxHeight};
         max-height: ${typeof maxHeight === 'number' ? `${maxHeight}%` : maxHeight};
         min-width: ${typeof minWidth === 'number' ? `${minWidth}%` : minWidth};

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
+import React, { useState, useRef, useEffect, useCallback, ChangeEvent } from 'react';
 
 interface Props {
     height?: number;
@@ -12,6 +12,28 @@ const useAutoResize = ({ height, width, maximumWidth = 100, maximumHeight = 100 
     const textRef = useRef<HTMLTextAreaElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const adjustInputWidth = useCallback(() => {
+        if (inputRef.current) {
+            inputRef.current.style.width = !width ? 'auto' : width + 'px';
+            inputRef.current.style.width = `${Math.min(inputRef.current.scrollWidth, maximumWidth)}px`;
+        }
+    }, [width, maximumWidth]);
+
+    const adjustTextareaHeight = useCallback(() => {
+        if (textRef.current) {
+            textRef.current.style.height = !height ? 'auto' : height + 'px';
+
+            const maxHeight = Math.min(textRef.current.scrollHeight, maximumHeight);
+            if (textRef.current.value && textRef.current.offsetHeight < maxHeight) {
+                textRef.current.style.height = `${maxHeight}px`;
+            }
+        }
+    }, [height, maximumHeight]);
+
+    const handleChange = useCallback((event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setValue(event.target.value);
+    }, []);
+
     useEffect(() => {
         if (value && textRef.current) {
             adjustTextareaHeight();
@@ -20,24 +42,7 @@ const useAutoResize = ({ height, width, maximumWidth = 100, maximumHeight = 100 
         if (value && inputRef.current) {
             adjustInputWidth();
         }
-    }, [value]);
-
-    const adjustInputWidth = () => {
-        if (inputRef.current) {
-            inputRef.current.style.width = typeof width === undefined ? 'auto' : width + 'px';
-            inputRef.current.style.width = `${Math.min(inputRef.current.scrollWidth, maximumWidth)}px`;
-        }
-    };
-    const adjustTextareaHeight = () => {
-        if (textRef.current) {
-            textRef.current.style.height = typeof height === undefined ? 'auto' : height + 'px';
-            textRef.current.style.height = `${Math.min(textRef.current.scrollHeight, maximumHeight)}px`;
-        }
-    };
-
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
+    }, [value, adjustTextareaHeight, adjustInputWidth]);
 
     return {
         value,
@@ -46,4 +51,5 @@ const useAutoResize = ({ height, width, maximumWidth = 100, maximumHeight = 100 
         handleChange,
     };
 };
+
 export default useAutoResize;

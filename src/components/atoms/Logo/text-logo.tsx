@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import LinkWrapper from '../Wrapper/link-wrapper';
-import useVariant from '@hooks/useVariant';
-import logoStyles from './logo-styles';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
+import useVariant from 'hooks/useVariant';
+import logoStyles from './logo-styles';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props {
     to?: string;
-    variant: 'green' | 'default' | 'gray' | 'black';
+    variant: 'primary' | 'secondary' | 'default';
     fontSize?: keyof typeof theme.fontSize;
     onClick?: () => void;
 }
 const TextLogo = ({
     to = '/',
-    variant = 'green',
+    variant = 'default',
     fontSize = 'md',
     children,
     onClick,

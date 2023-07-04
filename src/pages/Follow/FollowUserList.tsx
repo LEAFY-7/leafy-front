@@ -1,14 +1,14 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-import { routesGen } from '@routes/router';
+import { routesGen } from 'routes/router';
 
-import CustomSiper from '@components/molecules/Carousel/CustomSwiper';
-import Box from '@components/atoms/Box/default-box';
-import Typography from '@components/atoms/Typograph/default-typography';
-import Image from '@components/atoms/Image';
+import CustomSiper from 'components/molecules/Carousel/CustomSwiper';
+import Box from 'components/atoms/Box/default-box';
+import Typography from 'components/atoms/Typograph/default-typography';
+import Image from 'components/atoms/Image';
 
-import followList from '../../db/follow.json';
+import followList from 'db/follow.json';
 
 const FollowUserList = () => {
     return (

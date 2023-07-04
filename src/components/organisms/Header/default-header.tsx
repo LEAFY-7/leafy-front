@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { css, useTheme, keyframes } from '@emotion/react';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
-import DefaultViewModel from '@viewModel/default.viewModel';
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
-import { theme } from '@configs/style.config';
+import DefaultViewModel from 'viewModel/default.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { theme } from 'configs/style.config';
 import headerStyle from './header.style';
-import useMouseEvent from '@hooks/useMouseEvent';
-import useAutoResize from '@hooks/useAutoResize';
+import useMouseEvent from 'hooks/useMouseEvent';
+import useAutoResize from 'hooks/useAutoResize';
 
-import Flex from '@components/atoms/Group/flex';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import TextLogo from '@components/atoms/Logo/text-logo';
-import Box from '@components/atoms/Box/default-box';
-import Div from '@components/atoms/Div/default-div';
-import Toggle from '@components/molecules/Toggle/default-toggle';
+import Flex from 'components/atoms/Group/flex';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import TextLogo from 'components/atoms/Logo/text-logo';
+import Box from 'components/atoms/Box/default-box';
+import Div from 'components/atoms/Div/default-div';
+import Toggle from 'components/molecules/Toggle/default-toggle';
 
 type UserInfo = {
     email: string;
@@ -84,7 +84,13 @@ const RightMenu = ({ ...userInfo }: UserInfo) => {
     return (
         <>
             <Search />
-            <Toggle on={'☀️'} off={'🌙'} onToggle={defaultViewModel.handleThemeMode} />
+            <Toggle
+                variant="primary"
+                on={'☀️'}
+                off={'🌙'}
+                onToggle={defaultViewModel.handleThemeMode}
+                darkMode
+            />
             {!userInfo && (
                 <RectangleButton variant="default" fontSize="sm" leftIcon={<AiOutlineUser />}>
                     {userInfo.displayName}
@@ -103,7 +109,6 @@ const RightMenu = ({ ...userInfo }: UserInfo) => {
 
 const Search = () => {
     const navigate = useNavigate();
-    // const [keyword, setKeyword] = useState('');
     const { value: keyword, inputRef, handleChange } = useAutoResize({ width: 200, maximumWidth: 500 });
     const { isShow, handleMouseEnter, handleMouseLeave, handleShow } = useMouseEvent();
 
@@ -111,11 +116,6 @@ const Search = () => {
         if (!isShow) return;
         navigate(`/search?keyword=${keyword}`);
     };
-
-    // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     const { value } = e.target;
-    //     setKeyword(value);
-    // };
 
     const defaultInputStyle = css`
         display: ${isShow ? 'block' : 'none'};
@@ -145,6 +145,7 @@ const Search = () => {
                     onMouseEnter={handleMouseEnter}
                     placeholder={'검색어를 입력해주세요.'}
                     onClick={handleShow}
+                    onKeyPress={handleSearch}
                     css={defaultInputStyle}
                     ref={inputRef}
                 />

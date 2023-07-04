@@ -1,5 +1,5 @@
 import React from 'react';
-import Div from '@components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/default-div';
 import FeedHeader from './feed-header';
 import FeedBody from './feed-body';
 import FeedFooter from './feed-footer';

@@ -1,28 +1,28 @@
 import { Route, Routes } from 'react-router-dom';
 
-import DefaultLayout from '@components/organisms/layouts/default-layout';
-import PrivateRoute from '@routes/PrivateRoute';
-import Unauthorized from '@routes/Unauthorized';
+import DefaultLayout from 'components/organisms/layouts/default-layout';
+import PrivateRoute from 'routes/PrivateRoute';
+import Unauthorized from 'routes/Unauthorized';
 
-import Admin from '@pages/Admin/Page';
-import Auth from '@pages/Auth/Page';
-import Chat from '@pages/Chat/Page';
-import FeedDetail from '@pages/FeedDetail/Page';
-import Follow from '@pages/Follow/Page';
-import Home from '@pages/Home/Page';
-import Edit from '@pages/MyPage/EditPage';
-import MyPage from '@pages/MyPage/Page';
-import NotFound from '@pages/NotFound/Page';
-import Notice from '@pages/Notice/Page';
-import NoticeDetail from '@pages/NoticeDetail/Page';
-import FeedPost from '@pages/Post/page';
-import Qna from '@pages/QnaDetail/Page';
-import Search from '@pages/Search/Page';
-import Setting from '@pages/Setting/Page';
-import FeedUpdate from '@pages/Update/Page';
-import User from '@pages/User/Page';
-import PageWrapper from '@components/atoms/Wrapper/page-wrapper';
-import Temp from '@pages/temp';
+import Admin from 'pages/Admin/Page';
+import Auth from 'pages/Auth/Page';
+import Chat from 'pages/Chat/Page';
+import FeedDetail from 'pages/FeedDetail/Page';
+import Follow from 'pages/Follow/Page';
+import Home from 'pages/Home/Page';
+import Edit from 'pages/MyPage/EditPage';
+import MyPage from 'pages/MyPage/Page';
+import NotFound from 'pages/NotFound/Page';
+import Notice from 'pages/Notice/Page';
+import NoticeDetail from 'pages/NoticeDetail/Page';
+import FeedPost from 'pages/Post/page';
+import Qna from 'pages/QnaDetail/Page';
+import Search from 'pages/Search/Page';
+import Setting from 'pages/Setting/Page';
+import FeedUpdate from 'pages/Update/Page';
+import User from 'pages/User/Page';
+import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
+import Temp from 'pages/temp';
 
 export const routesGen = {
     home: '/',

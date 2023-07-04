@@ -1,8 +1,8 @@
-import AuthViewModel from '@viewModel/auth/auth.viewModel';
-import DefaultViewModel from '@viewModel/default.viewModel';
-import MainViewModel from '@viewModel/main/main.viewModel';
-import SearchViewModel from '@viewModel/search/search.viewModel';
-import UserViewModel from '@viewModel/user/user.viewModel';
+import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import DefaultViewModel from 'viewModel/default.viewModel';
+import MainViewModel from 'viewModel/main/main.viewModel';
+import SearchViewModel from 'viewModel/search/search.viewModel';
+import UserViewModel from 'viewModel/user/user.viewModel';
 import { configure } from 'mobx';
 
 let store: any = null;
