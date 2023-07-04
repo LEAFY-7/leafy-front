@@ -4,4 +4,4 @@
 killall node
 
 # 포트 해제
-lsof -ti :3000 | xargs kill
+lsof -ti :80 | xargs kill
