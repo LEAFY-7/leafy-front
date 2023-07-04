@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# 이전 빌드의 서버 프로세스 종료
-killall node
+sudo killall node || true 
 
-# 포트 해제
-lsof -ti :80 | xargs kill
+lsof -ti :80 | xargs -r kill
