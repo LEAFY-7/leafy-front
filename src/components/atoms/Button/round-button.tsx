@@ -9,7 +9,7 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'green' | 'red' | 'default';
+    variant?: 'green' | 'default';
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
