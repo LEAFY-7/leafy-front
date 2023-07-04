@@ -1,23 +1,37 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import MonoTemplate from 'components/templates/mono-template';
 import Div from 'components/atoms/Div/default-div';
+import CheckboxWrapper from 'components/atoms/CheckBox/default-checkBox';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import EffectiveButton from 'components/atoms/Button/effective-button';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import styled from '@emotion/styled';
+import Dialog from 'components/atoms/Dialog/default-dialog';
+import WaterModal from 'components/molecules/Modal/water-modal';
+import Textarea from 'components/atoms/Textarea/default-textarea';
+import useAutoResize from 'hooks/useAutoResize';
+import Flex from 'components/atoms/Group/flex';
 
 // 연습장
 const Temp = () => {
     const [isChecked, setIsChecked] = React.useState(false);
+    const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickDialog = () => {
+        console.log('오픈>>>>');
+
+        setOpen((prev) => !prev);
+    };
 
     return (
         <>
             <MonoTemplate
                 mainSection={
-                    <Div id="temp" direction="column">
-                        <Div id="temp" height="100px">
+                    <Flex direction="column">
+                        <Div id="temp" height="100px" size="xl">
                             <EffectiveButton variant="primary" leftIcon={<RiLockPasswordLine />}>
-                                버튼
+                                버튼dd
                             </EffectiveButton>
                             <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
@@ -28,14 +42,60 @@ const Temp = () => {
                             <EffectiveButton variant="quaternary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
                             </EffectiveButton>
-                            <EffectiveButton variant="important" leftIcon={<RiLockPasswordLine />}>
-                                클릭입니다.
+                            <EffectiveButton
+                                variant="important"
+                                leftIcon={<RiLockPasswordLine />}
+                                onClick={handleClickDialog}
+                            >
+                                모달
                             </EffectiveButton>
                         </Div>
-                        <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />} isBorder>
+                        <EffectiveButton
+                            variant="secondary"
+                            size="lg"
+                            leftIcon={<RiLockPasswordLine />}
+                            isBorder
+                        >
                             버튼 버튼 버튼 버튼 버튼
                         </EffectiveButton>
-                    </Div>
+                        <EffectiveButton variant="secondary">버튼 버튼 버튼 버튼 버튼</EffectiveButton>
+                        <CheckboxWrapper
+                            id="checkbox-1"
+                            isChecked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        >
+                            <CheckboxWrapper.Label>체크박스</CheckboxWrapper.Label>
+                            <CheckboxWrapper.Checkbox variant="primary" />
+                        </CheckboxWrapper>
+
+                        <Textarea value={value} onChange={handleChange} ref={textareaRef} />
+                        <WaterModal
+                            open={open}
+                            onOpenChange={setOpen}
+                            toggleEl={<EffectiveButton variant="secondary">모달 버튼</EffectiveButton>}
+                            header={<h2>모달 제목</h2>}
+                        >
+                            <p>
+                                가장 아래에 지정된 흰색이 깔려있습니다. 그 위에 물방울 그라데이션이 들어가
+                                있는 div가 있는 형태 입니다.
+                            </p>
+                        </WaterModal>
+                        <Div id="1" size="xs" variant="green" style={{ marginBottom: '10px' }}>
+                            xs
+                        </Div>
+                        <Div id="2" size="sm" variant="green" style={{ marginBottom: '10px' }}>
+                            sm
+                        </Div>
+                        <Div id="3" size="md" variant="green" style={{ marginBottom: '10px' }}>
+                            md
+                        </Div>
+                        <Div id="4" size="lg" variant="green" style={{ marginBottom: '10px' }}>
+                            lg
+                        </Div>
+                        <Div id="5" size="xl" variant="green" style={{ marginBottom: '10px' }}>
+                            xl
+                        </Div>
+                    </Flex>
                 }
             />
         </>
@@ -44,63 +104,33 @@ const Temp = () => {
 
 export default Temp;
 
-{
-    /* <CheckboxWrapper
-                        id="checkbox-1"
-                        isChecked={isChecked}
-                        onChange={() => setIsChecked(!isChecked)}
-                    >
-                        <CheckboxWrapper.Checkbox />
-                        <CheckboxWrapper.Label>체크박스 만들기</CheckboxWrapper.Label>
-                    </CheckboxWrapper> */
-}
+const Overlay = styled(Dialog.Overlay)`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+`;
 
-// width: 400px;
-// height: 400px;
-// border: 1px solid lightgray;
-// margin: 0 auto;
-// background-image: repeating-radial-gradient(
-//     farthest-corner at 100px 100px,
-//     darkorange 30%,
-//     yellow 60%
-// );
-/* &:hover::before {
-            content: '';
-            position: absolute;
-            background: yellow;
-            left: 10px;
-            width: 10px;
-            height: 10px;
-            border-radius: 40% 60% 26% 74% / 61% 28% 72% 39%;
-            transform: scale(0.5) translate(30px, -5px);
-            border-radius: 45% 55% 68% 32% / 49% 28% 72% 51%;
-        } */
+const Content = styled(Dialog.Content)`
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
-// &:hover::before {
-//     font-size: 1px;
-//     content: '';
-//     position: absolute;
-//     left: 2px;
-//     top: 2px;
-//     width: 20px;
-//     height: 20px;
-//     background-color: transparent;
-//     border-radius: 66% 34% 49% 51% / 66% 56% 44% 34%;
-//     box-shadow: inset 3px 5px 5px rgba(0, 0, 0, 0.07), 5px 5px 10px rgba(0, 0, 0, 0.1),
-//         5px 5px 5px rgba(255, 255, 255, 0.05), inset -3px -5px 10px rgba(255, 255, 255, 1);
-//     transition: all 0.5s ease-out;
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 600px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #fff;
+        color: #1e1e1e;
+    }
 
-// }
-
-/* &::after {
-                content: '';
-                position: absolute;
-                right: 2px;
-                bottom: 2px;
-                width: 20px;
-                height: 20px;
-                background: transparent;
-                border-radius: 35% 65% 61% 39% / 58% 48% 52% 42%;
-                box-shadow: inset -3px 3px 3px rgba(0, 0, 0, 0.05), 5px 5px 8px rgba(0, 0, 0, 0.1),
-                    5px 5px 5px rgba(255, 255, 255, 0.05), inset -3px 5px 8px rgba(255, 255, 255, 1);
-            } */
+    .content-toggle-container {
+        display: flex;
+        justify-content: end;
+    }
+`;

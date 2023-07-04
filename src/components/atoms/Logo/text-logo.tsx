@@ -8,13 +8,13 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props {
     to?: string;
-    variant: 'green' | 'default' | 'gray' | 'black';
+    variant: 'primary' | 'secondary' | 'default';
     fontSize?: keyof typeof theme.fontSize;
     onClick?: () => void;
 }
 const TextLogo = ({
     to = '/',
-    variant = 'green',
+    variant = 'default',
     fontSize = 'md',
     children,
     onClick,

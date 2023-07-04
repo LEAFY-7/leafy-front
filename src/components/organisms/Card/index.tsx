@@ -19,7 +19,7 @@ const Card = ({ item }: CardProps) => {
                 <p>{item.id}</p>
             </Styled.AuthorBox>
             <Styled.TagBox>
-                {item.tag.map((tag: string, key: number) => {
+                {item.tag?.map((tag: string, key: number) => {
                     return <p key={key}>{`#${tag}`}</p>;
                 })}
             </Styled.TagBox>

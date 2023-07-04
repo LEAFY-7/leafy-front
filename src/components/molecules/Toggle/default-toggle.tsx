@@ -1,36 +1,35 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { theme } from 'configs/style.config';
-
+import useVariant from 'hooks/useVariant';
 import useToggle from 'hooks/useToggle';
 import { css } from '@emotion/react';
+import toggleStyle from './toggle.style';
 
-interface ToggleProps {
+interface Props extends HTMLAttributes<HTMLElement> {
     isOn?: boolean;
-}
-interface ToggleWrapper extends ToggleProps {
     leftColor?: keyof typeof theme.colors;
     rightColor?: keyof typeof theme.colors;
-}
-interface ToggleContent extends ToggleProps {}
-
-interface ToggleDesc extends ToggleProps {}
-interface Props extends HTMLAttributes<HTMLElement>, ToggleWrapper {
+    variant?: 'primary' | 'default';
     on: string | ReactNode;
     off: string | ReactNode;
     onToggle?: () => void;
+    darkMode?: boolean;
 }
 
 const Toggle = ({
     on = 'on',
     off = 'off',
-    leftColor = 'lgreen',
-    rightColor = 'green',
+    variant = 'primary',
+    leftColor = 'turquoise',
+    rightColor = 'turquoise_50',
     onToggle,
+    darkMode = false,
     children,
     ...rest
 }: Props) => {
+    const toggleVariant = useVariant({ variant: variant, callback: toggleStyle.variantStyles });
+
     const { isOn, handler } = useToggle(onToggle);
 
     const wrapperStyle = css`
@@ -48,6 +47,7 @@ const Toggle = ({
         color: ${theme.colors.white};
         font-weight: ${theme.fontWeight.bold};
         padding: 0 5px;
+        ${darkMode && toggleVariant}
     `;
 
     const contentStyle = css`

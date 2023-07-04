@@ -8,7 +8,7 @@ import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
 import Image from 'components/atoms/Image';
-import Textarea from 'components/atoms/Textarea';
+import Textarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
 import useAutoResizeTextarea from 'hooks/useAutoResize';
 
@@ -93,7 +93,7 @@ const ReviewWrite: React.FC<ReviewWrite> = ({ handleSubmit }) => {
                 paddingBottom={30}
             />
             <Box width={100} display="flex" justifyContent="right">
-                <Button variant="red" size="md" onClick={onSubmit} leftIcon={<BsFillSendFill />}>
+                <Button variant="important" size="md" onClick={onSubmit} leftIcon={<BsFillSendFill />}>
                     입력
                 </Button>
             </Box>

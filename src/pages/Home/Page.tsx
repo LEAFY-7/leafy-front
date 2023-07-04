@@ -14,11 +14,11 @@ import Card from 'components/organisms/Card';
 import MonoTemplate from 'components/templates/mono-template';
 
 function Home() {
-    // const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
+    const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
     const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
-        // mainViewModel.getList();
+        mainViewModel.getList();
     }, []);
 
     return (
@@ -47,9 +47,9 @@ function Home() {
                             />
                         </SearchWrap>
                         <CardWrap>
-                            {/* {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                            {mainViewModel.feedList.map((item: FeedDto, key: number) => {
                                 return <Card item={item} key={`feed_card_${key}`} />;
-                            })} */}
+                            })}
                         </CardWrap>
                     </>
                 }
