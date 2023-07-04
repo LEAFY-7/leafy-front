@@ -2,10 +2,10 @@ import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 import CustomSwiper from 'components/molecules/Carousel/CustomSwiper';
 import Box from 'components/atoms/Box/default-box';
-import FeedData from '../../db/feed.json';
 import Card from 'components/organisms/Card';
 import { FeedDto } from 'dto/feed/feed.dto';
 import Div from 'components/atoms/Div/default-div';
+import FeedData from 'db/feed.json';
 
 const RightSection = () => {
     return (
@@ -20,10 +20,8 @@ const RightSection = () => {
                     navigation={false}
                     pagiNationView={false}
                 >
-                    {FeedData.data.map((feed: FeedDto, index) => (
-                        <SwiperSlide key={index}>
-                            <Card item={feed} />
-                        </SwiperSlide>
+                    {FeedData?.data?.map((feed: FeedDto, index) => (
+                        <SwiperSlide key={index}>{/* <Card item={feed} /> */}</SwiperSlide>
                     ))}
                 </CustomSwiper>
             </Div>

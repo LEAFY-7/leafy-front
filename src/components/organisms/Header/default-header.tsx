@@ -84,7 +84,13 @@ const RightMenu = ({ ...userInfo }: UserInfo) => {
     return (
         <>
             <Search />
-            <Toggle on={'☀️'} off={'🌙'} onToggle={defaultViewModel.handleThemeMode} />
+            <Toggle
+                variant="primary"
+                on={'☀️'}
+                off={'🌙'}
+                onToggle={defaultViewModel.handleThemeMode}
+                darkMode
+            />
             {!userInfo && (
                 <RectangleButton variant="default" fontSize="sm" leftIcon={<AiOutlineUser />}>
                     {userInfo.displayName}
@@ -103,7 +109,6 @@ const RightMenu = ({ ...userInfo }: UserInfo) => {
 
 const Search = () => {
     const navigate = useNavigate();
-    // const [keyword, setKeyword] = useState('');
     const { value: keyword, inputRef, handleChange } = useAutoResize({ width: 200, maximumWidth: 500 });
     const { isShow, handleMouseEnter, handleMouseLeave, handleShow } = useMouseEvent();
 
@@ -111,11 +116,6 @@ const Search = () => {
         if (!isShow) return;
         navigate(`/search?keyword=${keyword}`);
     };
-
-    // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     const { value } = e.target;
-    //     setKeyword(value);
-    // };
 
     const defaultInputStyle = css`
         display: ${isShow ? 'block' : 'none'};
@@ -145,6 +145,7 @@ const Search = () => {
                     onMouseEnter={handleMouseEnter}
                     placeholder={'검색어를 입력해주세요.'}
                     onClick={handleShow}
+                    onKeyPress={handleSearch}
                     css={defaultInputStyle}
                     ref={inputRef}
                 />

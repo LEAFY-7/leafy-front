@@ -29,6 +29,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     opacity?: number;
     textAlign?: CSSProperties['textAlign'];
     width?: CSSProperties['width'];
+    fontFamily?: 'bombaram';
 }
 
 const Typography = ({
@@ -49,14 +50,16 @@ const Typography = ({
     paddingLeft = 0,
     opacity = 1,
     textAlign = 'left',
+    fontFamily,
     to = '',
     ...rest
 }: React.PropsWithChildren<Props>) => {
     const typographyVariant = useVariant({ variant: variant, callback: typographyStyle.variantStyles });
-    const newW = typeof width === 'number' ? `${width}%` : width;
+    const newWidth = typeof width === 'number' ? `${width}%` : width;
 
     const defaultTypographyStyle = css`
         display: ${Component === 'span' && 'inline-block'};
+        font-family: ${fontFamily && fontFamily};
         margin-top: ${marginTop + 'px'};
         margin-right: ${marginRight + 'px'};
         margin-bottom: ${marginBottom + 'px'};
@@ -67,7 +70,7 @@ const Typography = ({
         padding-left: ${paddingLeft + 'px'};
         opacity: ${opacity};
         text-align: ${textAlign};
-        width: ${newW};
+        width: ${newWidth};
         ${typographyVariant}
     `;
     return (

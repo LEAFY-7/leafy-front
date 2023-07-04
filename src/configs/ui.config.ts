@@ -4,9 +4,17 @@ const uiConfigs = {
     light: {
         style: {
             linearGradient: `linear-gradient(rgba(0, 0, 0, 0.4) 10%, transparent 100%)`,
+            boxShadow: 'none',
+
             text: {
                 whiteColor: colors.white,
                 blackColor: colors.black,
+                primaryColor: colors.turquoise,
+                secondary: colors.turquoise_50,
+            },
+            default: {
+                borderColor: colors.gray_100,
+                backgroundColor: colors.transparent,
             },
             primary: {
                 borderColor: colors.turquoise_300,
@@ -112,6 +120,38 @@ const uiConfigs = {
     dark: {
         style: {
             linearGradient: `linear-gradient(rgba(255, 255, 255, 0.4) 0%, transparent 100%)`,
+            boxShadow: 'inset 0px 0px 5px 5px rgba(255, 255, 255, 0.1)',
+
+            text: {
+                whiteColor: colors.black,
+                blackColor: colors.white,
+                primaryColor: colors.white,
+                secondary: colors.white_100,
+            },
+            default: {
+                borderColor: colors.gray_100,
+                backgroundColor: colors.transparent,
+            },
+            primary: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.transparent,
+            },
+            secondary: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.white,
+            },
+            tertiary: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.white,
+            },
+            quaternary: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.white,
+            },
+            important: {
+                borderColor: colors.white_300,
+                backgroundColor: colors.red,
+            },
         },
         default: {
             borderColor: colors.gray,

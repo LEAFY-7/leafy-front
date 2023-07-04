@@ -162,7 +162,7 @@ const Feed = ({
 }: FeedProps) => {
     return (
         <>
-            <Div id="feed" size="xl" variant="default" direction="column" isBorder>
+            <Div id="feed" width={100} size="xl" variant="default" direction="column" isBorder>
                 <FeedHeader displayName={displayName} imgUrl={imgUrl} />
                 <FeedContent imgs={imgs} title={title} desc={desc} tag={tag} />
             </Div>

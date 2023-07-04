@@ -12,7 +12,7 @@ export default class DefaultViewModel {
     public api: ApiModule;
 
     constructor(props: IProps) {
-        // this.api = ApiModule.getInstance();
+        this.api = ApiModule.getInstance();
         makeObservable(this, {
             themeModel: observable,
             handleThemeMode: action,

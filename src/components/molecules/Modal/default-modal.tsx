@@ -1,11 +1,30 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import reactDom from 'react-dom';
 import styled from '@emotion/styled';
 
-interface ModalProps {
+type ModalContextProps = {
+    id?: string;
     show?: boolean;
     onClose: (event: React.MouseEvent<HTMLDivElement>) => void;
-}
+};
+
+type ModalProps = ModalContextProps & React.PropsWithChildren<{}>;
+
+const ModalContext = React.createContext<Required<ModalContextProps>>({
+    id: '',
+    show: false,
+    onClose: () => {},
+});
+
+const useModalContext = () => {
+    const context = React.useContext(ModalContext);
+    return context;
+};
+
+const ModalWrapper = ({ id, show, onClose, children }: ModalProps) => {
+    const value = { id, show, onClose };
+    return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
+};
 
 const ModalPortal = ({ children }: { children: ReactNode }) => {
     const el = document.getElementById('modal');
