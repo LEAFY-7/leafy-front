@@ -6,7 +6,7 @@ npm install
 
 npm run clean
 
-npm run build:prod
+npm run build
 
 nohup npm run serve >/dev/null 2>&1 &
 
