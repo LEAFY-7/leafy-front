@@ -53,7 +53,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "clean": "rm -rf build",
-        "serve": "serve -l 80 -s build"
+        "serve": "serve -s build"
     },
     "eslintConfig": {
         "extends": [
