@@ -1,33 +1,20 @@
 import { Theme, css } from '@emotion/react';
 
-export const variantStyles = {
+const variantStyles = {
     default: (theme: Theme) => css`
         border-color: ${theme.palette.default.borderColor};
         background-color: ${theme.palette.default.background};
         color: ${theme.palette.default.color};
     `,
-    gray: (theme: Theme) => css`
+    primary: (theme: Theme) => css`
+        border-color: ${theme.global.green.value};
+        background-color: ${theme.global.green.value};
+        color: ${theme.palette.default.color};
+    `,
+    secondary: (theme: Theme) => css`
         border-color: ${theme.palette.default.borderColor};
         background-color: ${theme.palette.default.background};
         color: ${theme.palette.default.color};
-        transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out;
-        &:hover {
-            background-color: ${theme.palette.default.hoverBackground};
-            border-color: ${theme.palette.default.hoverBorder};
-            color: ${theme.palette.default.hoverColor};
-        }
-    `,
-    green: (theme: Theme) => css`
-        border-color: ${theme.palette.greenFill.borderColor}!important;
-        background-color: ${theme.palette.greenFill.background};
-        color: ${theme.palette.greenFill.color};
-        transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out,
-            color 0.25s ease-in-out;
-        &:hover {
-            border-color: ${theme.palette.greenFill.hoverBorder};
-            background-color: ${theme.palette.greenFill.hoverBackground};
-            color: ${theme.palette.greenFill.hoverColor};
-        }
     `,
 };
 
@@ -82,4 +69,47 @@ const sizeBox = {
     },
 };
 
-export default { variantStyles, sizeBox };
+const dropSizeBox = {
+    xxs: {
+        width: 40,
+        height: 40,
+        shadow: 10,
+    },
+    xs: {
+        width: 70,
+        height: 70,
+        shadow: 12,
+    },
+    sm: {
+        width: 100,
+        height: 100,
+        shadow: 15,
+    },
+    md: {
+        width: 120,
+        height: 120,
+        shadow: 18,
+    },
+    lg: {
+        width: 150,
+        height: 150,
+        shadow: 20,
+    },
+    xl: {
+        width: 180,
+        height: 180,
+        shadow: 25,
+    },
+    xxl: {
+        width: 200,
+        height: 200,
+        shadow: 30,
+    },
+    xxxl: {
+        width: 350,
+        height: 350,
+        shadow: 30,
+    },
+};
+
+export default { variantStyles, sizeBox, dropSizeBox };

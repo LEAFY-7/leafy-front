@@ -18,7 +18,8 @@
       "@model/*": ["./model/*"],
       "@viewModel/*": ["./viewModel/*"],
       "@store/*": ["./store/*"],
-      "@configs/*": ["./configs/*"]
+      "@configs/*": ["./configs/*"],
+      "@modules/*": ["./modules/*"]
     }
   }
 }

@@ -5,12 +5,13 @@ import stylesConfig from 'configs/style.config';
 
 export const Img = styled.img<Required<ImageProps>>`
     cursor: pointer;
-    ${({ variant }) => {
+    ${({ variant, theme }) => {
         switch (variant) {
             case 'icon_sm': {
                 return css`
                     width: ${stylesConfig.theme.imgSize.sm};
                     height: ${stylesConfig.theme.imgSize.sm};
+
                     border-radius: 50%;
                 `;
             }

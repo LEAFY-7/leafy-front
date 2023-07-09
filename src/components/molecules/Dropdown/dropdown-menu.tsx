@@ -5,7 +5,7 @@ import Div from 'components/atoms/Div/default-div';
 interface Props {
     options: string[];
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'green' | 'default' | 'gray';
+    variant?: 'default' | 'primary' | 'secondary';
 }
 
 const DropdownMenu = ({ options, variant = 'default', size = 'md', ...rest }: Props) => {
