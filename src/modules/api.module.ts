@@ -10,7 +10,7 @@ export class ApiModule {
     private tokenType: string = 'Bearer';
     private token: string = '';
     private commonHeader;
-    private baseUrl = 'https://url.url/api';
+    private baseUrl = 'http://www.leafyer.com:8080/api';
     private constructor(props?) {
         this.commonHeader = {
             'Content-Type': 'application/json',

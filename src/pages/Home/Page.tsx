@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { FeedDto } from 'dto/feed/feed.dto';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
@@ -17,7 +17,7 @@ function Home() {
     const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
-        mainViewModel.getList();
+        mainViewModel.getMainData();
     }, []);
 
     return (
