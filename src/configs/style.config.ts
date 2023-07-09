@@ -1,4 +1,7 @@
 import { Theme, css } from '@emotion/react';
+import token from 'figma/token.json';
+
+const { global } = token;
 
 const globalStyle = (theme: Theme) => css`
     html,
@@ -152,6 +155,7 @@ export const breakpoint = {
 };
 
 export const theme = {
+    global: global,
     palette: {},
     colors,
     fontSize: {

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import type { HTMLAttributes, ReactNode } from 'react';
+import { css } from '@emotion/react';
 import { theme } from 'configs/style.config';
 import useVariant from 'hooks/useVariant';
 import useToggle from 'hooks/useToggle';
-import { css } from '@emotion/react';
 import toggleStyle from './toggle.style';
 
 interface Props extends HTMLAttributes<HTMLElement> {

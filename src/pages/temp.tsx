@@ -1,16 +1,21 @@
 import React from 'react';
-import MonoTemplate from 'components/templates/mono-template';
-import Div from 'components/atoms/Div/default-div';
-import CheckboxWrapper from 'components/atoms/CheckBox/default-checkBox';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
-import EffectiveButton from 'components/atoms/Button/effective-button';
-import { RiLockPasswordLine } from 'react-icons/ri';
 import styled from '@emotion/styled';
+import axios from 'axios';
+import { RiLockPasswordLine } from 'react-icons/ri';
+
+import Div from 'components/atoms/Div/default-div';
+import CheckboxWrapper from '@components/atoms/CheckBox/headlesst-checkBox';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import EffectiveButton from 'components/atoms/Button/effective-button';
 import Dialog from 'components/atoms/Dialog/default-dialog';
 import WaterModal from 'components/molecules/Modal/water-modal';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import useAutoResize from 'hooks/useAutoResize';
-import Flex from 'components/atoms/Group/flex';
+import DefaultDrop from 'components/atoms/Div/drop-div';
+
+import MonoTemplate from 'components/templates/mono-template';
+import Toggle from '@components/atoms/Flyout/headless-flyout';
 
 // 연습장
 const Temp = () => {
@@ -18,11 +23,23 @@ const Temp = () => {
     const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
     const [open, setOpen] = React.useState(false);
 
+    const [error, setError] = React.useState<any>();
     const handleClickDialog = () => {
-        console.log('오픈>>>>');
-
         setOpen((prev) => !prev);
     };
+
+    const handleClick = async () => {
+        try {
+            // 의도적으로 에러를 내는 요청을 보냅니다.
+            const response = await axios.get('https://example.com/error');
+            console.log(response.data);
+        } catch (error) {
+            // 에러가 발생하면 에러를 처리합니다.
+            setError(error);
+        }
+    };
+
+    if (error) throw new Error(error);
 
     return (
         <>
@@ -30,8 +47,12 @@ const Temp = () => {
                 mainSection={
                     <Flex direction="column">
                         <Div id="temp" height="100px" size="xl">
-                            <EffectiveButton variant="primary" leftIcon={<RiLockPasswordLine />}>
-                                버튼dd
+                            <EffectiveButton
+                                variant="primary"
+                                leftIcon={<RiLockPasswordLine />}
+                                onClick={handleClick}
+                            >
+                                에러 요청 보내기
                             </EffectiveButton>
                             <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
@@ -59,18 +80,19 @@ const Temp = () => {
                             버튼 버튼 버튼 버튼 버튼
                         </EffectiveButton>
                         <EffectiveButton variant="secondary">버튼 버튼 버튼 버튼 버튼</EffectiveButton>
-                        <CheckboxWrapper
+                        {/* <CheckboxWrapper
                             id="checkbox-1"
                             isChecked={isChecked}
                             onChange={() => setIsChecked(!isChecked)}
                         >
                             <CheckboxWrapper.Label>체크박스</CheckboxWrapper.Label>
                             <CheckboxWrapper.Checkbox variant="primary" />
-                        </CheckboxWrapper>
+                        </CheckboxWrapper> */}
 
                         <Textarea value={value} onChange={handleChange} ref={textareaRef} />
                         <WaterModal
                             open={open}
+                            handleModal={handleClickDialog}
                             onOpenChange={setOpen}
                             toggleEl={<EffectiveButton variant="secondary">모달 버튼</EffectiveButton>}
                             header={<h2>모달 제목</h2>}
@@ -80,21 +102,30 @@ const Temp = () => {
                                 있는 div가 있는 형태 입니다.
                             </p>
                         </WaterModal>
-                        <Div id="1" size="xs" variant="green" style={{ marginBottom: '10px' }}>
+
+                        <Div id="1" size="xs" variant="primary" style={{ marginBottom: '10px' }}>
                             xs
                         </Div>
-                        <Div id="2" size="sm" variant="green" style={{ marginBottom: '10px' }}>
+                        <Div id="2" size="sm" variant="primary" style={{ marginBottom: '10px' }}>
                             sm
                         </Div>
-                        <Div id="3" size="md" variant="green" style={{ marginBottom: '10px' }}>
+                        <Div id="3" size="md" variant="primary" style={{ marginBottom: '10px' }}>
                             md
                         </Div>
-                        <Div id="4" size="lg" variant="green" style={{ marginBottom: '10px' }}>
+                        <Div id="4" size="lg" variant="primary" style={{ marginBottom: '10px' }}>
                             lg
                         </Div>
-                        <Div id="5" size="xl" variant="green" style={{ marginBottom: '10px' }}>
+                        <Div id="5" size="xl" variant="primary" style={{ marginBottom: '10px' }}>
                             xl
                         </Div>
+                        <DefaultDrop size="xxs" />
+                        <DefaultDrop size="xs" />
+                        <DefaultDrop size="sm" />
+                        <DefaultDrop size="md" />
+                        <DefaultDrop size="lg" />
+                        <DefaultDrop size="xl" />
+                        <DefaultDrop size="xxl" />
+                        <DefaultDrop size="xxxl" />
                     </Flex>
                 }
             />

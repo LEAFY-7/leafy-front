@@ -1,11 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import PrivateRoute from 'routes/PrivateRoute';
 import Unauthorized from 'routes/Unauthorized';
 
-import pageUrlConfig from '@configs/pageUrl.config';
-import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 import Admin from 'pages/Admin/Page';
 import Auth from 'pages/Auth/Page';
 import Chat from 'pages/Chat/Page';
@@ -20,10 +18,14 @@ import NoticeDetail from 'pages/NoticeDetail/Page';
 import FeedPost from 'pages/Post/page';
 import Qna from 'pages/QnaDetail/Page';
 import Search from 'pages/Search/Page';
-import Setting from 'pages/Setting/Page';
 import FeedUpdate from 'pages/Update/Page';
 import User from 'pages/User/Page';
-import Temp from 'pages/temp';
+import Temp from 'pages/Temp/Page';
+import TempDetail from 'pages/TempDetail/Page';
+import Practice from 'pages/temp';
+import ErrorBoundary from './ErrorBoundary';
+
+import pageUrlConfig from 'configs/pageUrl.config';
 
 export const routesGen = {
     home: '/',
@@ -33,9 +35,8 @@ export const routesGen = {
     follow: '/follow',
     auth: '/auth',
     user: (userId: string) => `/user/${userId}`,
-    myPage: '/mypage',
+    mypage: '/mypage',
     edit: '/mypage/edit',
-    setting: '/mypage/setting',
     notice: '/notice',
     noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
     search: '/search',
@@ -43,57 +44,52 @@ export const routesGen = {
     unauthorized: '/unauthorized',
     notFound: '*',
     userFeed: (userId: string) => `/user/${userId}`,
+    temp: '/temp',
+    tempDetail: (tempId: string) => `/temp/${tempId}`,
 };
 
-const STATUS = {
-    ADMIN: 'admin',
-    NORMAL: 'normal',
-    MEMBER: 'member',
-};
-
-const Router = () => {
-    const home = (
-        <PageWrapper>
-            <Home />
-        </PageWrapper>
-    );
-
-    return (
-        <Routes>
-            <Route element={<DefaultLayout />}>
-                {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-                <Route index path="/" element={home} />
-                {/* 메인 피드  */}
-                <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
-                <Route path={pageUrlConfig.auth} element={<Auth />} /> {/* 로그인/회원가입 */}
-                <Route path="search" element={<Search />} /> {/* 검색 결과  */}
-                <Route path="notice" element={<Notice />} /> {/* 공지사항  */}
-                {/* <Route path="notice/:noticeId" element={<NoticeDetail />} /> */}
-                <Route path={`${pageUrlConfig.notice}/:noticeId`} element={<NoticeDetail />} />
-                <Route path="*" element={<NotFound />} /> {/* 404 */}
-                <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
-                <Route path="user/:userId" element={<User />} /> {/*유저피드*/}
-                <Route path="temp" element={<Temp />} />
-                {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-                {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
-                <Route element={<PrivateRoute allowedRoles={['admin', 'member']} />}>
-                    <Route path="post" element={<FeedPost />} /> {/* 피드 작성 */}
-                    <Route path="follow" element={<Follow />} /> {/* 팔로우  */}
-                    <Route path="chat" element={<Chat />} /> {/* 채팅 */}
-                    <Route path="mypage" element={<MyPage />} /> {/* 마이페이지 */}
-                    <Route path="mypage/edit" element={<Edit />} /> {/** 회원정보수정 */}
-                    <Route path="mypage/setting" element={<Setting />} /> {/* 설정 */}
-                    <Route path="feed/:feedId/update" element={<FeedUpdate />} />
-                    <Route path="notice/qna/:qnaId" element={<Qna />} /> {/** QNA */}
-                </Route>
-                {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
-                {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
-                <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-                    <Route path="admin" element={<Admin />} /> {/* 관리자 */}
-                </Route>
-                {/* ------------- 페이지 접근 권한 - 관리자 ------------- */}
-            </Route>
-        </Routes>
-    );
-};
-export default Router;
+const routeConfig = [
+    {
+        path: pageUrlConfig.main,
+        element: <DefaultLayout />,
+        children: [
+            { path: '', element: <Home /> },
+            { path: `${pageUrlConfig.feed}/:feedId`, element: <FeedDetail /> },
+            { path: pageUrlConfig.auth, element: <Auth /> },
+            { path: pageUrlConfig.search, element: <Search /> },
+            { path: pageUrlConfig.notice, element: <Notice /> },
+            { path: `${pageUrlConfig}/:noticeId`, element: <NoticeDetail /> },
+            { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
+            { path: `${pageUrlConfig.user}/:userId`, element: <User /> },
+            { path: pageUrlConfig.notFound, element: <NotFound /> },
+            {
+                path: 'practice',
+                element: (
+                    <ErrorBoundary>
+                        <Practice />
+                    </ErrorBoundary>
+                ),
+            },
+            {
+                element: <PrivateRoute allowedRoles={['admin', 'member']} />,
+                children: [
+                    { path: pageUrlConfig.post, element: <FeedPost /> },
+                    { path: pageUrlConfig.follow, element: <Follow /> },
+                    { path: pageUrlConfig.chat, element: <Chat /> },
+                    { path: pageUrlConfig.myPage, element: <MyPage /> },
+                    { path: pageUrlConfig.edit, element: <Edit /> },
+                    { path: `${pageUrlConfig.feed}/:feedId/update`, element: <FeedUpdate /> },
+                    { path: `${pageUrlConfig.notice}/qna/:qnaId`, element: <Qna /> },
+                    { path: `${pageUrlConfig.temp}`, element: <Temp /> },
+                    { path: `${pageUrlConfig}/:tempId`, element: <TempDetail /> },
+                ],
+            },
+            {
+                element: <PrivateRoute allowedRoles={['admin']} />,
+                children: [{ path: pageUrlConfig.admin, element: <Admin /> }],
+            },
+        ],
+    },
+];
+const routers = createBrowserRouter(routeConfig);
+export default routers;

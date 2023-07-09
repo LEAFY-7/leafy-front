@@ -1,6 +1,7 @@
 class PageUrlConfig {
     public notFound = '*';
     public main = '/';
+    public feed = '/feed';
     public feedDetail = `/feed/detail`;
     public post = '/post';
     public update = `/post/edit`;
@@ -15,6 +16,8 @@ class PageUrlConfig {
     public search = '/search';
     public chat = '/chat';
     public unauthorized = '/unauthorized';
+    public temp = '/temp';
+    public admin = '/admin';
 
     addParams(url: string, params: Array<any>) {
         let querystring = [];

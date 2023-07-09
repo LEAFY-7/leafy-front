@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { CheckBoxProps } from './index.types';
 
-export const CheckBox = styled.input<Required<CheckBoxProps>>`
+type Props = {
+    variant?: 'primary' | 'secondary' | 'important' | 'default';
+};
+export const CheckBox = styled.input<Required<Props>>`
     appearance: none;
     width: 20px;
     height: 20px;

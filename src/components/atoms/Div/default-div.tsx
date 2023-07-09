@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import boxStyles from './div.styles';
 import { theme } from 'configs/style.config';
 import useVariant from 'hooks/useVariant';
 import divStyles from './div.styles';
@@ -9,7 +8,7 @@ import divStyles from './div.styles';
 interface DivProps extends HTMLAttributes<HTMLDivElement> {
     id: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
-    variant?: 'green' | 'default' | 'gray';
+    variant?: 'default' | 'primary' | 'secondary';
     isBorder?: boolean;
     display?: 'none' | 'flex' | 'visible' | 'inline-flex';
     justifyContent?: CSSProperties['justifyContent'];
@@ -54,7 +53,7 @@ const Div = ({
     ...rest
 }: React.PropsWithChildren<DivProps>) => {
     const { width: w, height: h, padding, fontSize, radius, borderWidth } = divStyles.sizeBox[size];
-    const divVariants = useVariant({ variant: variant, callback: boxStyles.variantStyles });
+    const divVariants = useVariant({ variant: variant, callback: divStyles.variantStyles });
 
     const defaultBoxStyle = css`
         word-break: keep-all;
