@@ -13,10 +13,10 @@ type ModalPropsType = ModalProps & React.PropsWithChildren<{}>;
 const WaterModal = ({ open = false, onOpenChange = undefined, children }: ModalPropsType) => {
     return (
         <>
-            <Toggle open={open} onOpenChange={onOpenChange}>
+            {/* <Toggle open={open} onOpenChange={onOpenChange}>
                 <Toggle.Content>a</Toggle.Content>
                 <Toggle.Toggle>d</Toggle.Toggle>
-            </Toggle>
+            </Toggle> */}
         </>
     );
 };

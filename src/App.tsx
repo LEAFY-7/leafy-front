@@ -1,5 +1,5 @@
 import { Global, ThemeProvider } from '@emotion/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { ToastContainer } from 'react-toastify';
 import 'reflect-metadata';
@@ -18,6 +18,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { isDevelopment, isLocal, isProduction } from 'utils/env';
+import routers from 'routes/router';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
@@ -37,9 +38,7 @@ function App() {
                 pauseOnHover
             />
             <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
-                <BrowserRouter>
-                    <Router />
-                </BrowserRouter>
+                <RouterProvider router={routers} />;
                 <Global styles={styleConfig.globalStyle} />
             </ThemeProvider>
         </>
