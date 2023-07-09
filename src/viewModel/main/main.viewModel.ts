@@ -1,9 +1,8 @@
+import { plainToInstance } from 'class-transformer';
 import FeedList from 'db/feed.json';
 import { FeedDto } from 'dto/feed/feed.dto';
+import { action, makeObservable, observable } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
-import { AxiosError, AxiosResponse } from 'axios';
-import { plainToInstance } from 'class-transformer';
-import { action, makeObservable, observable, runInAction } from 'mobx';
 
 interface IProps {}
 
