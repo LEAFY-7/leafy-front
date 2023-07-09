@@ -35,7 +35,7 @@ function DialogWrapper({
     return <DialogContext.Provider value={values}>{children}</DialogContext.Provider>;
 }
 
-function DialogToggle({ children, onClick }: PropsWithChildren<DialogToggleProps>) {
+function DialogToggle({ children, onClick, ...rest }: PropsWithChildren<DialogToggleProps>) {
     const { isOpen, toggle } = useContext(DialogContext);
 
     const handleClick = () => {
