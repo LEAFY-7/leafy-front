@@ -16,7 +16,7 @@ import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextLogo from 'components/atoms/Logo/text-logo';
 import Box from 'components/atoms/Box/default-box';
 import Div from 'components/atoms/Div/default-div';
-import Toggle from 'components/molecules/Toggle/default-toggle';
+import Toggle from '@components/atoms/Switch/default-toggle';
 
 type UserInfo = {
     email: string;
