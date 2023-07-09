@@ -1,8 +1,5 @@
 import React from 'react';
 import * as Styled from './index.styles';
-import { CheckBoxProps } from './index.types';
-import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
 
 type CheckboxContextProps = {
     id: string;
@@ -10,7 +7,10 @@ type CheckboxContextProps = {
     onChange: () => void;
 };
 
-type CheckboxProps = CheckboxContextProps & React.PropsWithChildren<{}>;
+type CheckboxProps = CheckboxContextProps &
+    React.PropsWithChildren<{
+        variant?: 'primary' | 'secondary' | 'important' | 'default';
+    }>;
 
 const CheckboxContext = React.createContext<Required<CheckboxContextProps>>({
     id: '',
@@ -32,15 +32,9 @@ const CheckboxWrapper = ({ id, isChecked, onChange, children }: CheckboxProps) =
     );
 };
 
-const Checkbox = ({ variant = 'primary', ...props }: React.PropsWithChildren<CheckBoxProps>) => {
+const Checkbox = ({ variant = 'primary', ...rest }: CheckboxProps) => {
     const { id, isChecked, onChange } = useCheckboxContext();
 
-    // const defaultCheckBoxStyle = css`
-    //     width: 20px;
-    //     height: 20px;
-    //     border-color: ${theme.colors.turquoise};
-    //     background-color: ${theme.colors.turquoise};
-    // `;
     return (
         <Styled.CheckBox
             type="checkbox"
@@ -48,7 +42,7 @@ const Checkbox = ({ variant = 'primary', ...props }: React.PropsWithChildren<Che
             id={id}
             checked={isChecked}
             onChange={onChange}
-            {...props}
+            {...rest}
         />
     );
 };
