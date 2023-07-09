@@ -4,6 +4,8 @@ import DefaultLayout from 'components/organisms/layouts/default-layout';
 import PrivateRoute from 'routes/PrivateRoute';
 import Unauthorized from 'routes/Unauthorized';
 
+import pageUrlConfig from '@configs/pageUrl.config';
+import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 import Admin from 'pages/Admin/Page';
 import Auth from 'pages/Auth/Page';
 import Chat from 'pages/Chat/Page';
@@ -21,7 +23,6 @@ import Search from 'pages/Search/Page';
 import Setting from 'pages/Setting/Page';
 import FeedUpdate from 'pages/Update/Page';
 import User from 'pages/User/Page';
-import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 import Temp from 'pages/temp';
 
 export const routesGen = {
@@ -64,10 +65,11 @@ const Router = () => {
                 <Route index path="/" element={home} />
                 {/* 메인 피드  */}
                 <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
-                <Route path="auth" element={<Auth />} /> {/* 로그인/회원가입 */}
+                <Route path={pageUrlConfig.auth} element={<Auth />} /> {/* 로그인/회원가입 */}
                 <Route path="search" element={<Search />} /> {/* 검색 결과  */}
                 <Route path="notice" element={<Notice />} /> {/* 공지사항  */}
-                <Route path="notice/:noticeId" element={<NoticeDetail />} />
+                {/* <Route path="notice/:noticeId" element={<NoticeDetail />} /> */}
+                <Route path={`${pageUrlConfig.notice}/:noticeId`} element={<NoticeDetail />} />
                 <Route path="*" element={<NotFound />} /> {/* 404 */}
                 <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
                 <Route path="user/:userId" element={<User />} /> {/*유저피드*/}

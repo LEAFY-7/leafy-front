@@ -8,7 +8,9 @@ npm run clean
 
 npm run build
 
-nohup npm run serve &
-
 aws s3 sync build/ s3://bucket-leafy
+
+screen -dmS leafy
+
+screen -S leafy -X stuff 'sudo nohup npm run serve & > /dev/null 2> /dev/null < /dev/null &\n'
 

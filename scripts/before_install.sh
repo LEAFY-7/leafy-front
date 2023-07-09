@@ -2,4 +2,4 @@
 
 sudo killall node || true 
 
-lsof -ti :80 | xargs -r kill
+lsof -ti :3000| xargs -r kill
