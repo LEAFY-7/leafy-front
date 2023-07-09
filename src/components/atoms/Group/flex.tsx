@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
 
 export interface FlexProps {
     as?: 'div' | 'span' | 'main' | 'nav';

@@ -1,22 +1,14 @@
-import Box from '@components/atoms/Box/default-box';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import Box from 'components/atoms/Box/default-box';
 import templateStyle from './template.style';
 
 interface Props {
     variant?: '1/1' | '1/2' | '1/3' | '1/4';
-    templateWidth: string | number;
-    templateHeight?: string | number;
     leftSection: ReactNode;
     rightSection: ReactNode;
 }
 
-const DiTemplate: React.FC<Props> = ({
-    variant = '1/1',
-    templateWidth = 'inherit',
-    templateHeight = 'inherit',
-    leftSection,
-    rightSection,
-}) => {
+const DiTemplate = ({ variant = '1/1', leftSection, rightSection }: Props) => {
     const { leftWidth, rightWidth, leftHeight, rightHeight } = templateStyle.variantStyles.di[variant];
 
     return (
@@ -24,8 +16,9 @@ const DiTemplate: React.FC<Props> = ({
             as="main"
             display="flex"
             justifyContent="center"
-            width={templateWidth}
-            height={templateHeight}
+            width={100}
+            height={100}
+            minHeight="100vh"
             margin="0 auto"
             padding="3rem"
         >

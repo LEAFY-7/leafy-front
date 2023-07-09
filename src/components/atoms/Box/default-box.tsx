@@ -2,7 +2,7 @@
 import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from '@configs/style.config';
+import { theme } from 'configs/style.config';
 
 type As = 'div' | 'main' | 'nav' | 'section' | 'article' | 'header' | 'aside' | 'ul';
 

@@ -1,4 +1,4 @@
-import Box from '@components/atoms/Box/default-box';
+import Box from 'components/atoms/Box/default-box';
 import { FeedDto } from 'dto/feed/feed.dto';
 import 'swiper/swiper-bundle.min.css';
 import * as Styled from './index.styles';
@@ -19,7 +19,7 @@ const Card = ({ item }: CardProps) => {
                 <p>{item.id}</p>
             </Styled.AuthorBox>
             <Styled.TagBox>
-                {item.tag.map((tag: string, key: number) => {
+                {item.tag?.map((tag: string, key: number) => {
                     return <p key={key}>{`#${tag}`}</p>;
                 })}
             </Styled.TagBox>

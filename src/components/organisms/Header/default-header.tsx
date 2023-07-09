@@ -1,21 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { css, useTheme, keyframes } from '@emotion/react';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
-import Module from './index.module.css';
-
-import Flex from '@components/atoms/Group/flex';
-import Button from '@components/atoms/Button/rectangle-button';
-import Toggle from '@components/molecules/Toggle/default-toggle';
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
-import DefaultViewModel from '@viewModel/default.viewModel';
-import TextLogo from '@components/atoms/Logo/text-logo';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import Box from '@components/atoms/Box/default-box';
-import Div from '@components/atoms/Div/default-div';
-import { css, useTheme } from '@emotion/react';
+import DefaultViewModel from 'viewModel/default.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { theme } from 'configs/style.config';
 import headerStyle from './header.style';
+import useMouseEvent from 'hooks/useMouseEvent';
+import useAutoResize from 'hooks/useAutoResize';
+
+import Flex from 'components/atoms/Group/flex';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import TextLogo from 'components/atoms/Logo/text-logo';
+import Box from 'components/atoms/Box/default-box';
+import Div from 'components/atoms/Div/default-div';
+import Toggle from 'components/molecules/Toggle/default-toggle';
+
+type UserInfo = {
+    email: string;
+    displayName: string;
+};
 
 const userInfo = {
     email: 'test@test.com',
@@ -25,122 +31,128 @@ const userInfo = {
 const Header = () => {
     const theme = useTheme();
     const headerTheme = headerStyle.header(theme);
-    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
-
     const [isLoggedIn, setIsLoggedIn] = useState(userInfo);
-
-    // scroll시 헤더에 마우스가 없으면 헤더가 올라가는 이벤트
-    const [isTop, setHeaderShow] = useState<boolean>(true);
-    const handleHeaderScroll = () => {
-        const topScroll: number = 300;
-        let currentScroll: number = window.scrollY;
-        currentScroll > topScroll ? setHeaderShow(false) : setHeaderShow(true);
-    };
 
     const defaultHeaderStyles = css`
         z-index: 999;
         top: 0;
         position: fixed;
         left: 0;
-        padding: 8px calc((100% - 1280px) / 2);
+        padding: 0px calc((100% - 1280px) / 2);
         ${headerTheme}
+    `;
+    const divStyle = css`
+        padding: 0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     `;
 
     return (
         <>
             <Box as="header" width={100} css={defaultHeaderStyles}>
                 <Flex as="nav" justifyContent="space-between" alignItems="center">
-                    <Div id="left_menu">
-                        <Logo />
-                        <GlobalMenuBar />
+                    <Div id="left_menu" css={divStyle}>
+                        <LeftMenu />
                     </Div>
-                    <Div id="right_menu">
-                        <Search />
-                        <Toggle on={'☀️'} off={'🌙'} onToggle={defaultViewModel.handleThemeMode} />
-                        {!isLoggedIn && (
-                            <RectangleButton leftIcon={<AiOutlineUser />}>
-                                {isLoggedIn.displayName}
-                            </RectangleButton>
-                        )}
-                        {isLoggedIn && <Profile />}
+                    <Div id="right_menu" css={divStyle}>
+                        <RightMenu {...isLoggedIn} />
                     </Div>
                 </Flex>
             </Box>
-            <Div height="120px" id={'temp'} />
+            <Div id={'temp'} height="80px" />
         </>
     );
 };
 export default Header;
 
-const Logo = () => {
+const LeftMenu = () => {
     return (
-        <Flex>
-            {/* <img src="" alt="logo" /> */}
-            <TextLogo variant="default">LEAFY</TextLogo>
-        </Flex>
+        <>
+            <TextLogo variant="default" fontSize="xxxl">
+                LEAFY
+            </TextLogo>
+            <RectangleButton to="/notice" size="md" fontSize="sm">
+                서비스소개
+            </RectangleButton>
+        </>
     );
 };
-const GlobalMenuBar = () => {
+
+const RightMenu = ({ ...userInfo }: UserInfo) => {
+    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
+
     return (
-        <RectangleButton to="/notice" size="md">
-            서비스 소개
-        </RectangleButton>
+        <>
+            <Search />
+            <Toggle
+                variant="primary"
+                on={'☀️'}
+                off={'🌙'}
+                onToggle={defaultViewModel.handleThemeMode}
+                darkMode
+            />
+            {!userInfo && (
+                <RectangleButton variant="default" fontSize="sm" leftIcon={<AiOutlineUser />}>
+                    {userInfo.displayName}
+                </RectangleButton>
+            )}
+            {userInfo && (
+                <Flex justifyContent="right">
+                    <RectangleButton to="/auth" size="md" fontSize="sm">
+                        로그인 / 회원가입
+                    </RectangleButton>
+                </Flex>
+            )}
+        </>
     );
 };
 
 const Search = () => {
-    const [show, setShow] = useState<string>('');
-    const [query, setQuery] = useState<string>('');
-    const [focus, setFocus] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { value: keyword, inputRef, handleChange } = useAutoResize({ width: 200, maximumWidth: 500 });
+    const { isShow, handleMouseEnter, handleMouseLeave, handleShow } = useMouseEvent();
 
-    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setQuery(value);
-        query !== '' ? setShow('Show') : setShow('');
+    const handleSearch = () => {
+        if (!isShow) return;
+        navigate(`/search?keyword=${keyword}`);
     };
-    const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        navigate(`/search?keyword=${query}`);
-        setQuery('');
-    };
+
+    const defaultInputStyle = css`
+        display: ${isShow ? 'block' : 'none'};
+        width: calc(100%-30px);
+        height: 40px;
+        border: 1px solid ${theme.colors.green};
+        border-radius: 50px;
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: opacity 0.3s, transform 0.3s;
+        animation: ${headerStyle.slideIn} 0.6s ease-out forwards;
+        flex-grow: 1;
+        padding-left: 1rem;
+        padding-right: 2rem;
+    `;
+
+    const btnStyle = css`
+        padding-left: 3rem;
+    `;
     return (
-        <form
-            onMouseOver={() => setShow('Show')}
-            onMouseLeave={() => (query !== '' || focus ? setShow('Show') : setShow(''))}
-            onSubmit={handleSubmit}
-        >
-            <Flex alignItems="center">
+        // onMouseLeave={handleMouseLeave}
+        <>
+            <Flex alignItems="center" onClick={handleShow} onMouseLeave={handleMouseLeave}>
                 <input
-                    value={query}
-                    onFocus={() => {
-                        setShow('Show');
-                        setFocus(true);
-                    }}
-                    onBlur={() => {
-                        query !== '' ? setShow('Show') : setShow('');
-                        setFocus(false);
-                    }}
-                    onChange={handleSearch}
-                    className={`${show ? Module.searchInputShow : Module.searchInput}`}
+                    value={keyword}
+                    onChange={handleChange}
+                    onMouseEnter={handleMouseEnter}
                     placeholder={'검색어를 입력해주세요.'}
-                    type="text"
+                    onClick={handleShow}
+                    onKeyPress={handleSearch}
+                    css={defaultInputStyle}
+                    ref={inputRef}
                 />
-
-                <RectangleButton className={Module.searchButton} variant="default" type="submit">
+                <RectangleButton variant="default" type="submit" onClick={handleSearch} css={btnStyle}>
                     <AiOutlineSearch />
                 </RectangleButton>
             </Flex>
-        </form>
-    );
-};
-
-const Profile = () => {
-    return (
-        <Flex justifyContent="right">
-            <RectangleButton to="/auth" size="md">
-                로그인/회원가입
-            </RectangleButton>
-        </Flex>
+        </>
     );
 };

@@ -1,8 +1,8 @@
-import { UserDto } from '@dto/user/user.dto';
 import { AxiosResponse } from 'axios';
-import { plainToInstance } from 'class-transformer';
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import DefaultViewModel from '../default.viewModel';
+import { plainToInstance } from 'class-transformer';
+import { UserDto } from 'dto/user/user.dto';
+import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 

@@ -1,27 +1,29 @@
 import { Route, Routes } from 'react-router-dom';
 
-import DefaultLayout from '@components/organisms/layouts/default-layout';
-import PrivateRoute from '@routes/PrivateRoute';
-import Unauthorized from '@routes/Unauthorized';
+import DefaultLayout from 'components/organisms/layouts/default-layout';
+import PrivateRoute from 'routes/PrivateRoute';
+import Unauthorized from 'routes/Unauthorized';
 
 import pageUrlConfig from '@configs/pageUrl.config';
-import Admin from '@pages/Admin/Page';
-import Auth from '@pages/Auth/Page';
-import Chat from '@pages/Chat/Page';
-import FeedDetail from '@pages/FeedDetail/Page';
-import Follow from '@pages/Follow/Page';
-import Home from '@pages/Home/Page';
-import Edit from '@pages/MyPage/EditPage';
-import MyPage from '@pages/MyPage/Page';
-import NotFound from '@pages/NotFound/Page';
-import Notice from '@pages/Notice/Page';
-import NoticeDetail from '@pages/NoticeDetail/Page';
-import FeedPost from '@pages/Post/page';
-import Qna from '@pages/QnaDetail/Page';
-import Search from '@pages/Search/Page';
-import Setting from '@pages/Setting/Page';
-import FeedUpdate from '@pages/Update/Page';
-import User from '@pages/User/Page';
+import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
+import Admin from 'pages/Admin/Page';
+import Auth from 'pages/Auth/Page';
+import Chat from 'pages/Chat/Page';
+import FeedDetail from 'pages/FeedDetail/Page';
+import Follow from 'pages/Follow/Page';
+import Home from 'pages/Home/Page';
+import Edit from 'pages/MyPage/EditPage';
+import MyPage from 'pages/MyPage/Page';
+import NotFound from 'pages/NotFound/Page';
+import Notice from 'pages/Notice/Page';
+import NoticeDetail from 'pages/NoticeDetail/Page';
+import FeedPost from 'pages/Post/page';
+import Qna from 'pages/QnaDetail/Page';
+import Search from 'pages/Search/Page';
+import Setting from 'pages/Setting/Page';
+import FeedUpdate from 'pages/Update/Page';
+import User from 'pages/User/Page';
+import Temp from 'pages/temp';
 
 export const routesGen = {
     home: '/',
@@ -50,19 +52,17 @@ const STATUS = {
 };
 
 const Router = () => {
+    const home = (
+        <PageWrapper>
+            <Home />
+        </PageWrapper>
+    );
+
     return (
         <Routes>
             <Route element={<DefaultLayout />}>
                 {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
-                <Route
-                    index
-                    path="/"
-                    element={
-                        // <PageWrapper>
-                        <Home />
-                        // </PageWrapper>
-                    }
-                />
+                <Route index path="/" element={home} />
                 {/* 메인 피드  */}
                 <Route path="feed/:feedId" element={<FeedDetail />} /> {/* 피드 상세*/}
                 <Route path={pageUrlConfig.auth} element={<Auth />} /> {/* 로그인/회원가입 */}
@@ -73,6 +73,7 @@ const Router = () => {
                 <Route path="*" element={<NotFound />} /> {/* 404 */}
                 <Route path="unauthorized" element={<Unauthorized />} /> {/* 허가x */}
                 <Route path="user/:userId" element={<User />} /> {/*유저피드*/}
+                <Route path="temp" element={<Temp />} />
                 {/* ------------- 페이지 접근 권한 - 공통 ------------- */}
                 {/* ------------- 페이지 접근 권한 - 관리자 멤버 ------------- */}
                 <Route element={<PrivateRoute allowedRoles={['admin', 'member']} />}>

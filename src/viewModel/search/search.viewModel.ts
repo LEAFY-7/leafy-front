@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { ChangeEvent } from 'react';
-import { SearchModel } from '../../models/search/search.model';
-import DefaultViewModel from '../default.viewModel';
+import { SearchModel } from 'models/search/search.model';
+import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 

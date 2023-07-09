@@ -2,16 +2,16 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 
-import styleConfig from '@configs/style.config';
-import useViewModel, { ViewModelName } from '@hooks/useViewModel';
+import styleConfig from 'configs/style.config';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { FeedDto } from 'dto/feed/feed.dto';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
-import Typography from '@components/atoms/Typograph/default-typography';
-import SearchBar from '@components/molecules/Search';
-import Card from '@components/organisms/Card';
-import MonoTemplate from '@components/templates/mono-template';
+import Typography from 'components/atoms/Typograph/default-typography';
+import SearchBar from 'components/molecules/Search';
+import Card from 'components/organisms/Card';
+import MonoTemplate from 'components/templates/mono-template';
 
 function Home() {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
@@ -34,7 +34,7 @@ function Home() {
                                     style={{ color: styleConfig.theme.colors.green }}
                                     textAlign="center"
                                 >
-                                    식물 정보를 찾고 있나요?
+                                    식물 정보를 찾고있나요?
                                 </Typography>
                                 <Typography variant="BODY3" textAlign="center">
                                     실시간 식물 거래 정보를 확인해보세요

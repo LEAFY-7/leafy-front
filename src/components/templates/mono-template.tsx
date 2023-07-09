@@ -1,15 +1,13 @@
-import React, { FC, ReactNode } from 'react';
-import Box from '@components/atoms/Box/default-box';
+import { ReactNode } from 'react';
+import Box from 'components/atoms/Box/default-box';
 
 interface Props {
-    templateWidth?: string | number;
-    templateHeight?: string | number;
     mainSection: ReactNode;
 }
 
-const MonoTemplate: FC<Props> = ({ templateWidth = 'inherit', templateHeight = 'inherit', mainSection }) => {
+const MonoTemplate = ({ mainSection }: Props) => {
     return (
-        <Box as="main" width={templateWidth} height={templateHeight} margin="0 auto" padding="3rem">
+        <Box as="main" width={100} height={100} minHeight="100vh" padding="3rem">
             {mainSection}
         </Box>
     );

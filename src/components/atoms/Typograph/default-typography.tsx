@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
-import LinkWrapper from '../Wrapper/link-wrapper';
 import { css } from '@emotion/react';
 
-import styleConfig from '@configs/style.config';
-import useVariant from '@hooks/useVariant';
 import typographyStyle from './typography.style';
+import styleConfig from 'configs/style.config';
+import useVariant from 'hooks/useVariant';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 type Typography = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
 
@@ -29,6 +29,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     opacity?: number;
     textAlign?: CSSProperties['textAlign'];
     width?: CSSProperties['width'];
+    fontFamily?: 'bombaram';
 }
 
 const Typography = ({
@@ -49,14 +50,16 @@ const Typography = ({
     paddingLeft = 0,
     opacity = 1,
     textAlign = 'left',
+    fontFamily,
     to = '',
     ...rest
 }: React.PropsWithChildren<Props>) => {
     const typographyVariant = useVariant({ variant: variant, callback: typographyStyle.variantStyles });
-    const newW = typeof width === 'number' ? `${width}%` : width;
+    const newWidth = typeof width === 'number' ? `${width}%` : width;
 
     const defaultTypographyStyle = css`
         display: ${Component === 'span' && 'inline-block'};
+        font-family: ${fontFamily && fontFamily};
         margin-top: ${marginTop + 'px'};
         margin-right: ${marginRight + 'px'};
         margin-bottom: ${marginBottom + 'px'};
@@ -67,7 +70,7 @@ const Typography = ({
         padding-left: ${paddingLeft + 'px'};
         opacity: ${opacity};
         text-align: ${textAlign};
-        width: ${newW};
+        width: ${newWidth};
         ${typographyVariant}
     `;
     return (

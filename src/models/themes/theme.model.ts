@@ -1,3 +1,3 @@
-export class SearchModel {
+export class themeModel {
     public mode: 'dark' | 'light' = 'light';
 }

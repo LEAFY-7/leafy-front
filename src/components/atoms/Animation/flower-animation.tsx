@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Theme, css, useTheme } from '@emotion/react';
-import Flex from '../Group/flex';
+import Flex from 'components/atoms/Group/flex';
 
 const FlowerAnimation = () => {
     const theme = useTheme();

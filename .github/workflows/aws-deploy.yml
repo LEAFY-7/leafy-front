@@ -1,55 +1,59 @@
-name: aws-deploy # Workflow 이름
-on: # Event 감지
+name: aws-deploy
+on:
     push:
-        # branches: ['main']
+        branches: ['main']
 
-jobs: # Job 설정
+env:
+    S3_BUCKET_NAME: bucket-leafy
+    CODE_DEPLOY_APPLICATION_NAME: my-codedeploy-app
+    CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-second-group
+
+jobs:
     build:
-        runs-on: ubuntu-latest # 해당 동작들을 돌릴 OS
-        steps: # 실제 main branch에 push하면 동작할 내용들
-            - name: Checkout source code. # 깃허브 레포지토리 체크
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code.
               uses: actions/checkout@v2
 
-            - name: Check Node v # Node v 확인
+            - name: Check Node v
               run: node -v
 
-            - name: Install Dependencies # 의존성 파일 설치
+            - name: Generate Environment Variables File for Production
+              run: |
+                  echo "REACT_APP_MODE=${{ secrets.REACT_APP_MODE }}" >> .env.production
+                  echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env.production
+              env:
+                  REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
+                  REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+
+            - name: Install Dependencies
               run: npm install
 
-            - name: Build # 빌드 명령어
+            - name: Clean build
+              run: npm run clean
+
+            - name: Build
               run: npm run build
 
-            - name: Configure AWS credentials # GitHub Actions에서 AWS 자격증명을 구성 비밀키로 AWS 리소스에 접근하여 CLI 관련 AWS작업 수행을 도와줌
+            - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v1
               with:
                   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  aws-region: ap-northeast-2 # 서울
+                  aws-region: ap-northeast-2
 
-            - name: Configure SSH key # SSH 키를 사용하여 EC2 인스턴스에 접속 패스워드 인증 방식이면 생략
-              uses: webfactory/ssh-agent@v0.5.3
-              with:
-                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-            - name: Deploy to EC2 # 워크플로우에서 빌드된 파일을 EC2 인스턴스로 전송
+            - name: Upload to AWS S3
               run: |
-                  ssh -o "StrictHostKeyChecking=no" user@your-ec2-instance-ip 'mkdir -p /path/to/destination' 
-                  scp -o "StrictHostKeyChecking=no" -r build/* user@your-ec2-instance-ip:/path/to/destination/
+                  aws deploy push \
+                  --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+                  --ignore-hidden-files \
+                  --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+                  --source .
 
-# ssh -o "StrictHostKeyChecking=no" user@your-ec2-instance-ip
-# SSH를 사용해서 EC2 인스턴스에 접속
-# user : EC2 인스턴스에 접속할 사용자 계정
-# your-ec2-instance-ip : EC2 인서튼스의 IP주소
-# -o "StrictHostKeyChecking=no : 호스트 키 확인을 비활성화하여 자동으로 EC2 인스턴스의 호스트 키를 신뢰하도록 설정
-# mkdir -p /path/to/destination : EC2 인스턴스에 있는 /path/to/destination 디렉토리를 생성, 이 디렉토리는 빌드된 파일들을 저장할 경로
-# -p : p 옵션은 디렉토리가 이미 존재하는 경우에도 오류가 발생하지 않도록 합니다.
-
-# scp -o "StrictHostKeyChecking=no" -r build/* user@your-ec2-instance-ip:/path/to/destination/
-# 로컬에서 빌드된 파일들을 EC2 인스턴스의 /path/to/destination/ 디렉토리로 복사
-# scp : 파일과 디렉토리를 복사하는데 사용
-# -o "StrictHostKeyChecking=no : 호스트 키 확인을 비활성화하여 자동으로 EC2 인스턴스의 호스트 키를 신뢰하도록 설정
-# -r : 디렉토리를 재귀적으로 복사
-
-# user@your-ec2-instance-ip : 실제 EC2 인스턴스의 사용자 계정과 IP 조소로 변경
-# /path/to/destination/ : 전송할 디렉토리 경로로 수정
-
+            - name: Code Deploy
+              run: |
+                  aws deploy create-deployment \
+                  --deployment-config-name CodeDeployDefault.AllAtOnce \
+                  --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+                  --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+                  --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip

@@ -1,9 +1,9 @@
-import Box from '@components/atoms/Box/default-box';
-import RectangleButton from '@components/atoms/Button/rectangle-button';
-import Flex from '@components/atoms/Group/flex';
-import menuConfig from '@configs/menu.config';
 import pageUrlConfig from '@configs/pageUrl.config';
-import { routesGen } from '@routes/router';
+import Box from 'components/atoms/Box/default-box';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import menuConfig from 'configs/menu.config';
+import { routesGen } from 'routes/router';
 
 const myId = 'myId-asdsad';
 
