@@ -1,5 +1,5 @@
+import { ApiModule } from '@modules/api.module';
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import { ApiModule } from 'modules/api.module';
 export enum themeModes {
     light = 'light',
     dark = 'dark',

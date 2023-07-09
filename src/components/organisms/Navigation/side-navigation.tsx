@@ -1,9 +1,9 @@
-import React from 'react';
-import { routesGen } from '@routes/router';
 import Box from '@components/atoms/Box/default-box';
 import RectangleButton from '@components/atoms/Button/rectangle-button';
-import menuConfig from '@configs/menu.config';
 import Flex from '@components/atoms/Group/flex';
+import menuConfig from '@configs/menu.config';
+import pageUrlConfig from '@configs/pageUrl.config';
+import { routesGen } from '@routes/router';
 
 const myId = 'myId-asdsad';
 
@@ -26,7 +26,7 @@ const SideNavigation = () => {
                         </RectangleButton>
                     </Flex>
                 ) : state ? (
-                    <RectangleButton key={`${id}-$${index}`} to={routesGen.userFeed(myId)}>
+                    <RectangleButton key={`${id}-$${index}`} to={`${pageUrlConfig.user}/${myId}`}>
                         {name}
                     </RectangleButton>
                 ) : (
