@@ -1,16 +1,3 @@
-export const preventBack = (key, callback) => {
-    switch (key) {
-        case 'start': {
-            history.pushState(null, '', location.href);
-            window.addEventListener('popstate', callback);
-            break;
-        }
-        case 'end': {
-            window.removeEventListener('popstate', callback);
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-};
+export function colorSelector(key, token) {
+    return token.find((t) => t.description === key).value;
+}

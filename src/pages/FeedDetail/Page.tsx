@@ -8,7 +8,7 @@ import LeftSection from './LeftSection';
 import BottomSection from './BottomSection';
 import Flex from 'components/atoms/Group/flex';
 import DiTemplate from 'components/templates/di-template';
-import DefaultFeed from 'components/organisms/Feed/default-feed';
+import Feed from 'components/organisms/Feed';
 import Div from 'components/atoms/Div/default-div';
 
 const FeedDetail = () => {
@@ -20,7 +20,7 @@ const FeedDetail = () => {
             leftSection={
                 <Div id="feed_section" width="800px" height={100} direction="column">
                     <LeftSection />
-                    <DefaultFeed />
+                    {/* <Feed /> */}
                     <BottomSection />
                 </Div>
             }

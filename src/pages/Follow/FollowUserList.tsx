@@ -1,7 +1,6 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
-
-import { routesGen } from 'routes/router';
+import { routesGen } from 'configs/route.config';
 
 import CustomSiper from 'components/molecules/Carousel/CustomSwiper';
 import Box from 'components/atoms/Box/default-box';

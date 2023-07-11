@@ -78,7 +78,7 @@ const FeedContent = ({ imgs, title, desc, tag: tagBox = [''] }: React.PropsWithC
             <Typography variant="H2" marginBottom={20}>
                 {title}
             </Typography>
-            <Typography variant="BODY3" color="gray" style={{ fontWeight: 900 }}>
+            <Typography variant="BODY3" color="grey" style={{ fontWeight: 900 }}>
                 {desc}
             </Typography>
 

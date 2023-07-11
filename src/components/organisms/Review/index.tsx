@@ -93,7 +93,7 @@ const ReviewWrite: React.FC<ReviewWrite> = ({ handleSubmit }) => {
                 paddingBottom={30}
             />
             <Box width={100} display="flex" justifyContent="right">
-                <Button variant="important" size="md" onClick={onSubmit} leftIcon={<BsFillSendFill />}>
+                <Button size="md" onClick={onSubmit} leftIcon={<BsFillSendFill />}>
                     입력
                 </Button>
             </Box>

@@ -87,7 +87,7 @@ const SignUpForm = () => {
                 <Div id="submit_btn" width={100} size="xs">
                     <RectangleButton
                         type="submit"
-                        variant="green"
+                        variant="primary"
                         isBorder
                         disabled={isSubmitting}
                         style={{ width: '100%' }}

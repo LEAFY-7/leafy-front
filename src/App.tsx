@@ -1,5 +1,5 @@
 import { Global, ThemeProvider } from '@emotion/react';
-import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { ToastContainer } from 'react-toastify';
 import 'reflect-metadata';
@@ -8,8 +8,7 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 import styleConfig from 'configs/style.config';
 import themeConfigs from 'configs/theme.config';
-
-import Router from 'routes/router';
+import routers from 'configs/route.config';
 
 import 'react-calendar/dist/Calendar.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,13 +17,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { isDevelopment, isLocal, isProduction } from 'utils/env';
-import routers from 'routes/router';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
     console.log('로컬 환경 : ', isLocal);
     console.log('개발 모드 : ', isDevelopment);
     console.log('배포 모드 : ', isProduction);
+
+    console.log(themeConfigs.custom({ mode: defaultViewModel.themeModel }));
 
     return (
         <>

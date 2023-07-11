@@ -15,13 +15,32 @@ import useAutoResize from 'hooks/useAutoResize';
 import DefaultDrop from 'components/atoms/Div/drop-div';
 
 import MonoTemplate from 'components/templates/mono-template';
-import Toggle from '@components/atoms/Flyout/headless-flyout';
+
+import Flyout from 'components/atoms/Flyout/headless-flyout';
+
+const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+unknown printer took a galley of type and scrambled it to make a type specimen
+book. It has survived not only five centuries, but also the leap into electronic
+typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+with desktop publishing software like Aldus PageMaker including versions of Lorem
+Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+an unknown printer took a galley of type and scrambled it to make a type specimen
+book. It has survived not only five centuries, but also the leap into electronic
+typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+with desktop publishing software like Aldus PageMaker including versions of Lorem
+Ipsum.`;
 
 // 연습장
 const Temp = () => {
     const [isChecked, setIsChecked] = React.useState(false);
     const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
     const [open, setOpen] = React.useState(false);
+
+    const [toggle, setToggle] = React.useState(false);
 
     const [error, setError] = React.useState<any>();
     const handleClickDialog = () => {
@@ -57,7 +76,7 @@ const Temp = () => {
                             <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
                             </EffectiveButton>
-                            <EffectiveButton variant="tertiary" leftIcon={<RiLockPasswordLine />}>
+                            {/* <EffectiveButton variant="tertiary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
                             </EffectiveButton>
                             <EffectiveButton variant="quaternary" leftIcon={<RiLockPasswordLine />}>
@@ -69,7 +88,7 @@ const Temp = () => {
                                 onClick={handleClickDialog}
                             >
                                 모달
-                            </EffectiveButton>
+                            </EffectiveButton> */}
                         </Div>
                         <EffectiveButton
                             variant="secondary"
@@ -103,29 +122,82 @@ const Temp = () => {
                             </p>
                         </WaterModal>
 
-                        <Div id="1" size="xs" variant="primary" style={{ marginBottom: '10px' }}>
+                        <Div id="1" size="xs" variant="default" marginBottom={1}>
                             xs
                         </Div>
-                        <Div id="2" size="sm" variant="primary" style={{ marginBottom: '10px' }}>
+                        <Div id="1" size="xs" variant="primary" marginBottom={1}>
+                            xs
+                        </Div>
+                        <Div id="2" size="sm" variant="primary" marginBottom={1}>
                             sm
                         </Div>
-                        <Div id="3" size="md" variant="primary" style={{ marginBottom: '10px' }}>
+                        <Div id="3" size="md" variant="primary" marginBottom={1}>
                             md
                         </Div>
-                        <Div id="4" size="lg" variant="primary" style={{ marginBottom: '10px' }}>
+                        <Div id="4" size="lg" variant="primary" marginBottom={1}>
                             lg
                         </Div>
-                        <Div id="5" size="xl" variant="primary" style={{ marginBottom: '10px' }}>
+                        <Div id="5" size="xl" variant="primary" marginBottom={1}>
                             xl
                         </Div>
-                        <DefaultDrop size="xxs" />
+
+                        <Div id="7" size="xs" variant="translucent" marginBottom={1}>
+                            trans
+                        </Div>
+                        <Div id="8" size="sm" variant="translucent" marginBottom={1}>
+                            translucent sm
+                        </Div>
+                        <Div id="9" size="md" variant="translucent" marginBottom={1}>
+                            translucent md
+                        </Div>
+                        <Div id="10" size="lg" variant="translucent" marginBottom={1}>
+                            {text}
+                        </Div>
+                        <Div id="11" size="xl" variant="translucent" alignItems="flex-start" marginBottom={1}>
+                            {text}
+                        </Div>
+                        <Div id="12" width={100} variant="translucent" marginBottom={1}>
+                            default
+                        </Div>
+
+                        <Div
+                            id="9"
+                            width="70%"
+                            direction="column"
+                            variant="translucent"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            marginBottom={1}
+                        >
+                            <Div id="9" size="sm" variant="translucent">
+                                Lorem
+                            </Div>
+                            <Div id="9" size="md" variant="translucent">
+                                Lorem Ipsum
+                            </Div>
+
+                            <Div id="9" size="lg" variant="translucent">
+                                Lorem Ipsum is simply dumm
+                            </Div>
+                        </Div>
+                        {/* <DefaultDrop size="xxs" />
                         <DefaultDrop size="xs" />
                         <DefaultDrop size="sm" />
                         <DefaultDrop size="md" />
                         <DefaultDrop size="lg" />
                         <DefaultDrop size="xl" />
                         <DefaultDrop size="xxl" />
-                        <DefaultDrop size="xxxl" />
+                        <DefaultDrop size="xxxl" /> */}
+
+                        <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
+                            <Flyout.Toggle>토글버튼</Flyout.Toggle>
+                            <Flyout.List>
+                                <Flyout.Item>1</Flyout.Item>
+                                <Flyout.Item>2</Flyout.Item>
+                                <Flyout.Item>3</Flyout.Item>
+                                <Flyout.Item>4</Flyout.Item>
+                            </Flyout.List>
+                        </Flyout>
                     </Flex>
                 }
             />

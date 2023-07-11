@@ -85,9 +85,7 @@ const EditPageRequire = () => {
                         {...register('confirmPassword', formConfig.signFormState.confirmPassword(onValidate))}
                     />
                 </Flex>
-                <Button type="submit" variant="green">
-                    확인
-                </Button>
+                <Button type="submit">확인</Button>
             </Flex>
         </form>
     );

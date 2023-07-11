@@ -7,7 +7,7 @@ interface Props {
 
 const MonoTemplate = ({ mainSection }: Props) => {
     return (
-        <Box as="main" width={100} height={100} minHeight="100vh" padding="3rem">
+        <Box as="main" width={100} height={100} minHeight="100vh" padding="3rem" radius={0}>
             {mainSection}
         </Box>
     );

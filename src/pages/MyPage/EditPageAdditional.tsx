@@ -107,9 +107,7 @@ const EditPageAdditional = () => {
                     readOnly
                     labelTitle="주소"
                 />
-                <Button type="submit" variant="green">
-                    확인
-                </Button>
+                <Button type="submit">확인</Button>
             </Flex>
         </form>
     );
