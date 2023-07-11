@@ -9,7 +9,7 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'important' | 'default';
+    variant?: 'primary' | 'secondary' | 'default';
     fontSize?: keyof typeof theme.fontSize | 'default';
     isBorder?: boolean;
     disabled?: boolean;
@@ -147,8 +147,8 @@ const EffectiveButton = ({
 
         &:disabled {
             box-shadow: none;
-            border-color: ${theme.colors.gray};
-            background-color: ${theme.colors.gray};
+            border-color: ${theme.colors.grey};
+            background-color: ${theme.colors.grey};
             color: ${theme.colors.white};
             &::before,
             ::after {

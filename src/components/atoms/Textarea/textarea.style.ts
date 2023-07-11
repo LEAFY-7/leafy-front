@@ -2,24 +2,24 @@ import { Theme, css } from '@emotion/react';
 
 const variantStyles = {
     default: (theme: Theme) => css`
-        border-color: ${theme.palette.style.default.borderColor};
-        background-color: ${theme.palette.style.default.backgroundColor};
-        color: ${theme.palette.style.text.blackColor};
+        border-color: ${theme.palette.global.default.borderColor};
+        background-color: ${theme.palette.global.default.backgroundColor};
+        color: ${theme.palette.global.text.blackColor};
     `,
     primary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.primary.borderColor};
-        background-color: ${theme.palette.style.primary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
+        border-color: ${theme.palette.global.primary.borderColor};
+        background-color: ${theme.palette.global.primary.backgroundColor};
+        color: ${theme.palette.global.text.whiteColor};
     `,
     secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.secondary.borderColor};
-        background-color: ${theme.palette.style.secondary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
+        border-color: ${theme.palette.global.secondary.borderColor};
+        background-color: ${theme.palette.global.secondary.backgroundColor};
+        color: ${theme.palette.global.text.whiteColor};
     `,
     important: (theme: Theme) => css`
-        border-color: ${theme.palette.style.important.borderColor};
-        background-color: ${theme.palette.style.important.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
+        border-color: ${theme.palette.global.important.borderColor};
+        background-color: ${theme.palette.global.important.backgroundColor};
+        color: ${theme.palette.global.text.whiteColor};
     `,
 };
 

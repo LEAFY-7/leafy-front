@@ -36,9 +36,9 @@ const DefaultInput = styled.input`
     line-height: ${styleConfig.theme.lineHeight.lg};
 
     border-radius: 8px;
-    border: 1px solid ${styleConfig.theme.colors.gray};
+    border: 1px solid ${styleConfig.theme.colors.grey};
 
     &::placeholder {
-        color: ${styleConfig.theme.colors.gray};
+        color: ${styleConfig.theme.colors.grey};
     }
 `;

@@ -9,7 +9,7 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'green' | 'default';
+    variant?: 'primary' | 'secondary' | 'default';
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
@@ -53,8 +53,8 @@ const RoundButton = React.forwardRef(function CircleButton(
         font-weight: ${theme.fontWeight.bold};
         ${btnVariant}
         &:disabled {
-            border-color: ${theme.colors.gray};
-            background-color: ${theme.colors.gray};
+            border-color: ${theme.colors.grey};
+            background-color: ${theme.colors.grey};
             color: ${theme.colors.white};
         }
     `;

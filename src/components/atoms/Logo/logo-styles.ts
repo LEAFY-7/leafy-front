@@ -3,8 +3,8 @@ export const variantStyles = {
     default: (theme: Theme) => css`
         background: linear-gradient(
             45deg,
-            ${theme.palette.style.text.primaryColor} 50%,
-            ${theme.palette.style.text.primaryColor} 50%
+            ${theme.palette.global.text.primaryColor} 50%,
+            ${theme.palette.global.text.primaryColor} 50%
         );
         background-clip: text;
         -webkit-background-clip: text;
@@ -14,8 +14,8 @@ export const variantStyles = {
     primary: (theme: Theme) => css`
         background: linear-gradient(
             45deg,
-            ${theme.palette.style.text.primaryColor} 50%,
-            ${theme.palette.style.text.secondaryColor} 50%
+            ${theme.palette.global.text.primaryColor} 50%,
+            ${theme.palette.global.text.secondaryColor} 50%
         );
         background-clip: text;
         -webkit-background-clip: text;
@@ -25,8 +25,8 @@ export const variantStyles = {
     secondary: (theme: Theme) => css`
         background: linear-gradient(
             45deg,
-            ${theme.palette.style.text.secondaryColor} 50%,
-            ${theme.palette.style.text.primaryColor} 50%
+            ${theme.palette.global.text.secondaryColor} 50%,
+            ${theme.palette.global.text.primaryColor} 50%
         );
         background-clip: text;
         -webkit-background-clip: text;

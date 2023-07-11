@@ -9,7 +9,7 @@ type CheckboxContextProps = {
 
 type CheckboxProps = CheckboxContextProps &
     React.PropsWithChildren<{
-        variant?: 'primary' | 'secondary' | 'important' | 'default';
+        variant?: 'primary' | 'secondary' | 'default';
     }>;
 
 const CheckboxContext = React.createContext<Required<CheckboxContextProps>>({

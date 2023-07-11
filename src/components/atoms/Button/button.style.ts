@@ -1,57 +1,42 @@
 import { Theme, css } from '@emotion/react';
 
 const variantStyles = {
-    green: (theme: Theme) => css`
-        border-color: ${theme.palette.green.borderColor};
-        background-color: ${theme.palette.green.background};
-        color: ${theme.palette.green.color};
-        transition: background-color 0.35s ease-in-out, border-color 0.555s ease-in-out,
-            color 0.25s ease-in-out;
-        &:focus {
-            border-color: ${theme.palette.green.focusBorder};
-            background-color: ${theme.palette.green.foucsBackground};
-            color: ${theme.palette.green.focusColor};
-        }
-        &:hover {
-            border-color: ${theme.palette.green.hoverBorder};
-            background-color: ${theme.palette.green.hoverBackground};
-            color: ${theme.palette.green.hoverColor};
-        }
-        &:active {
-            border-color: ${theme.palette.green.activeBorder};
-            background-color: ${theme.palette.green.activeBackground};
-            color: ${theme.palette.green.activeColor};
-        }
-    `,
+    // green: (theme: Theme) => css`
+    //     border-color: ${theme.palette.green.borderColor};
+    //     background-color: ${theme.palette.green.background};
+    //     color: ${theme.palette.green.color};
+    //     transition: background-color 0.35s ease-in-out, border-color 0.555s ease-in-out,
+    //         color 0.25s ease-in-out;
+    //     &:focus {
+    //         border-color: ${theme.palette.green.focusBorder};
+    //         background-color: ${theme.palette.green.foucsBackground};
+    //         color: ${theme.palette.green.focusColor};
+    //     }
+    //     &:hover {
+    //         border-color: ${theme.palette.green.hoverBorder};
+    //         background-color: ${theme.palette.green.hoverBackground};
+    //         color: ${theme.palette.green.hoverColor};
+    //     }
+    //     &:active {
+    //         border-color: ${theme.palette.green.activeBorder};
+    //         background-color: ${theme.palette.green.activeBackground};
+    //         color: ${theme.palette.green.activeColor};
+    //     }
+    // `,
     default: (theme: Theme) => css`
-        border-color: ${theme.palette.style.default.borderColor};
-        background-color: ${theme.palette.style.default.backgroundColor};
-        color: ${theme.palette.style.text.blackColor};
+        border-color: ${theme.palette.global.default.borderColor};
+        background-color: ${theme.palette.global.default.backgroundColor};
+        color: ${theme.palette.global.text.blackColor};
     `,
     primary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.primary.borderColor};
-        background-color: ${theme.palette.style.primary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
+        border-color: ${theme.palette.global.primary.borderColor};
+        background-color: ${theme.palette.global.primary.backgroundColor};
+        color: ${theme.palette.global.text.whiteColor};
     `,
     secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.secondary.borderColor};
-        background-color: ${theme.palette.style.secondary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
-    `,
-    tertiary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.tertiary.borderColor};
-        background-color: ${theme.palette.style.tertiary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
-    `,
-    quaternary: (theme: Theme) => css`
-        border-color: ${theme.palette.style.quaternary.borderColor};
-        background-color: ${theme.palette.style.quaternary.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
-    `,
-    important: (theme: Theme) => css`
-        border-color: ${theme.palette.style.important.borderColor};
-        background-color: ${theme.palette.style.important.backgroundColor};
-        color: ${theme.palette.style.text.whiteColor};
+        border-color: ${theme.palette.global.secondary.borderColor};
+        background-color: ${theme.palette.global.secondary.background};
+        color: ${theme.palette.global.text.whiteColor};
     `,
 };
 

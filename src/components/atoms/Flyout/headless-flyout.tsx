@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 interface FlyoutContextProps {
     open: boolean;
-    Flyout: React.Dispatch<React.SetStateAction<boolean>>;
+    toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 type FlyoutWrapperProps = FlyoutContextProps & React.PropsWithChildren<{}>;
 
-export const FlyoutContext = React.createContext<FlyoutContextProps>({
+const FlyoutContext = React.createContext<FlyoutContextProps>({
     open: false,
-    Flyout: () => {},
+    toggle: () => {},
 });
 
 const useFlyoutContext = () => {
@@ -16,17 +16,17 @@ const useFlyoutContext = () => {
     return context;
 };
 
-const FlyoutWrapper = ({ children }: FlyoutWrapperProps) => {
-    const [open, Flyout] = React.useState(false);
+const Flyout = ({ children }: FlyoutWrapperProps) => {
+    const [open, toggle] = React.useState(false);
 
-    const providerValue = { open, Flyout };
+    const providerValue = { open, toggle };
 
     return <FlyoutContext.Provider value={providerValue}>{children}</FlyoutContext.Provider>;
 };
 
-const Flyout = ({ children }: { children: React.ReactNode }) => {
-    const { open, Flyout } = useContext(FlyoutContext);
-    return <div onClick={() => Flyout(!open)}>{children}</div>;
+const FlyoutToggle = ({ children }: { children: React.ReactNode }) => {
+    const { open, toggle } = useContext(FlyoutContext);
+    return <div onClick={() => toggle(!open)}>{children}</div>;
 };
 
 const FlyoutList = ({ children }) => {
@@ -38,14 +38,14 @@ const FlyoutItem = ({ children }) => {
     return <li>{children}</li>;
 };
 
-FlyoutWrapper.Flyout = Flyout;
-FlyoutWrapper.List = FlyoutList;
-FlyoutWrapper.Item = FlyoutItem;
+Flyout.Toggle = FlyoutToggle;
+Flyout.List = FlyoutList;
+Flyout.Item = FlyoutItem;
 
-export default FlyoutWrapper;
+export default Flyout;
 
-export const DefaultFlyout = Object.assign(FlyoutWrapper, {
-    Flyout: Flyout,
+export const DefaultFlyout = Object.assign(Flyout, {
+    Toggle: FlyoutToggle,
     List: FlyoutList,
     Item: FlyoutItem,
 });

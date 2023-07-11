@@ -2,68 +2,68 @@ import { Theme, css } from '@emotion/react';
 
 const variantStyles = {
     default: (theme: Theme) => css`
-        border-color: ${theme.palette.default.borderColor};
-        background-color: ${theme.palette.default.background};
-        color: ${theme.palette.default.color};
+        border-color: ${theme.palette.global.borderColor};
+        background-color: ${theme.palette.global.default.backgroundColor};
+        color: ${theme.palette.global.text.blackColor};
     `,
     primary: (theme: Theme) => css`
-        border-color: ${theme.global.green.value};
-        background-color: ${theme.global.green.value};
-        color: ${theme.palette.default.color};
+        border-color: ${theme.palette.global.primary.borderColor};
+        background-color: ${theme.palette.global.primary.backgroundColor};
+        color: ${theme.palette.global.text.whiteColor};
     `,
     secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.default.borderColor};
-        background-color: ${theme.palette.default.background};
-        color: ${theme.palette.default.color};
+        border-color: ${theme.palette.global.secondary.borderColor};
+        background-color: ${theme.palette.global.secondary.background};
+        color: ${theme.palette.global.text.whiteColor};
+    `,
+    translucent: (theme: Theme) => css`
+        background: ${theme.palette.global.translucent.backgroundColor};
+        box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15), inset 5px 5px 10px rgba(250, 250, 250, 0.15);
+        backdrop-filter: blur(15px);
+        color: ${theme.palette.global.text.blackColor};
     `,
 };
 
 const sizeBox = {
     default: {
-        width: 'none',
-        height: 'none',
+        width: 0,
+        height: 0,
         padding: 1,
-        fontSize: 1,
         radius: 0.8,
         borderWidth: 1.5,
     },
     xs: {
-        width: 5,
-        height: 5,
-        padding: 0.5,
-        fontSize: 0.1,
+        width: 200,
+        height: 40,
+        padding: 0.1,
         radius: 0.1,
         borderWidth: 1,
     },
     sm: {
-        width: 10,
-        height: 10,
-        padding: 1,
-        fontSize: 0.5,
+        width: 100,
+        height: 80,
+        padding: 0.5,
         radius: 0.5,
         borderWidth: 1.2,
     },
     md: {
-        width: 20,
-        height: 20,
-        padding: 1.5,
-        fontSize: 1,
+        width: 80,
+        height: 120,
+        padding: 1,
         radius: 0.8,
         borderWidth: 1.5,
     },
     lg: {
-        width: 40,
-        height: 40,
-        padding: 2,
-        fontSize: 1.5,
+        width: 60,
+        height: 200,
+        padding: 1.2,
         radius: 1,
         borderWidth: 1.8,
     },
     xl: {
-        width: 60,
-        height: 60,
-        padding: 3,
-        fontSize: 2,
+        width: 20,
+        height: 400,
+        padding: 1.4,
         radius: 1.2,
         borderWidth: 2,
     },
