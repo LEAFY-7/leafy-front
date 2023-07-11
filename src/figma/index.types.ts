@@ -30,8 +30,10 @@ export const TokenGlobalColorList = [
 ] as const;
 
 export type TokeGlobalType = typeof TokenGlobal;
-export type TokenGlobalOnlyColor = Omit<
-    TokeGlobalType,
-    'big-shadow' | 'shadow' | 'small-shadow' | 'show' | 'hide'
->;
+export type TokenGlobalExceptColorType = 'big-shadow' | 'shadow' | 'small-shadow' | 'show' | 'hide';
+export type TokenGlobalOnlyColor = Omit<TokeGlobalType, TokenGlobalExceptColorType>;
 export type TokenGlobalOnlyColorDescription = 'primary' | 'secondary' | 'basic' | 'semantic' | 'chat bg';
+
+export function colorSelector(key, token) {
+    return token.find((t) => t.description === key).value;
+}

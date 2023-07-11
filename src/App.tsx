@@ -16,7 +16,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { isDevelopment, isLocal, isProduction } from 'utils/env';
+const isLocal = process.env.REACT_APP_MODE === 'local';
+const isDevelopment = process.env.REACT_APP_MODE === 'development';
+const isProduction = process.env.REACT_APP_MODE === 'production';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);

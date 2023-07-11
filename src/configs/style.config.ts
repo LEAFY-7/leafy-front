@@ -1,9 +1,7 @@
 import { Theme, css } from '@emotion/react';
-import { colorSelector } from 'utils/helpers';
-import { TokenGlobal, TokenGlobalColorList, TokenGlobalOnlyColor } from 'figma/index.types';
+import { TokenGlobal, TokenGlobalColorList, TokenGlobalOnlyColor, colorSelector } from 'figma/index.types';
 
 const { green, lgreen, grey, white, black, red, yellow, blossom }: TokenGlobalOnlyColor = TokenGlobal;
-
 const primary = colorSelector('primary', TokenGlobalColorList);
 const secondary = colorSelector('secondary', TokenGlobalColorList);
 
