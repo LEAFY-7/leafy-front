@@ -1,3 +1,7 @@
+import type { ReactNode } from 'react';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineUserDelete } from 'react-icons/ai';
+
 /**
  * @description 한글 정규 표현식 - 한글만 가능 최소 2자리 최대 16자리
  * @description 이메일 정규 표현식 - 이메일 형식 최소 7자리
@@ -27,7 +31,20 @@ export const EXPORT_VALIDATE_TYPES = [
 
 export type ValidateRuleType = typeof EXPORT_VALIDATE_TYPES;
 
-const signFormState = {
+export type AuthItem = 'email' | 'displayName' | 'password' | 'confirmPassword';
+type AuthItemStateType = {
+    [key in AuthItem]: {
+        type: 'text' | 'password';
+        label: string;
+        property: AuthItem;
+        icon: {
+            main: ReactNode;
+            helper: ReactNode;
+        };
+    };
+};
+
+export const authFormState = {
     name: {
         required: '이름 입력은 필수 입니다.',
         minLength: {
@@ -87,4 +104,42 @@ const signFormState = {
     }),
 };
 
-export default { signFormState };
+export const authItemState: AuthItemStateType = {
+    displayName: {
+        type: 'text',
+        label: '이름',
+        property: 'displayName',
+        icon: {
+            main: <AiOutlineUserDelete />,
+            helper: <AiOutlineExclamationCircle />,
+        },
+    },
+    email: {
+        type: 'text',
+        label: '이메일',
+        property: 'email',
+        icon: {
+            main: <AiOutlineMail />,
+            helper: <AiOutlineExclamationCircle />,
+        },
+    },
+    password: {
+        type: 'password',
+        label: '비밀번호',
+        property: 'password',
+        icon: {
+            main: <RiLockPasswordLine />,
+            helper: <AiOutlineExclamationCircle />,
+        },
+    },
+    confirmPassword: {
+        type: 'password',
+        label: '비밀번호 확인',
+        property: 'confirmPassword',
+        icon: {
+            main: <RiLockPasswordLine />,
+            helper: <AiOutlineExclamationCircle />,
+        },
+    },
+};
+export default { authFormState, authItemState };
