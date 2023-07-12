@@ -19,9 +19,9 @@ const Auth = () => {
             margin="0 auto"
             mainSection={
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
-                    <TextLogo to="" variant="default" fontSize="xxxl">
+                    {/* <TextLogo to="" variant="default" fontSize="xxxl">
                         LEAFY
-                    </TextLogo>
+                    </TextLogo> */}
                     <Typography
                         as="span"
                         textAlign="center"

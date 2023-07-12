@@ -1,5 +1,11 @@
 import { Theme, css } from '@emotion/react';
-import { TokenGlobal, TokenGlobalColorList, TokenGlobalOnlyColor, colorSelector } from 'figma/index.types';
+import {
+    TokenGlobal,
+    TokenGlobalColorList,
+    TokenGlobalOnlyColor,
+    colorSelector,
+    TokenGlobalBoxShadowList,
+} from 'figma/index.types';
 
 const { green, lgreen, grey, white, black, red, yellow, blossom }: TokenGlobalOnlyColor = TokenGlobal;
 const primary = colorSelector('primary', TokenGlobalColorList);
@@ -46,6 +52,11 @@ export const colors = {
     blue: '#3F5E63',
     ivory: '#FFFEFB',
     skyBlue: '#69969C',
+};
+
+export const shadow = {
+    sm: TokenGlobalBoxShadowList.sm,
+    lg: TokenGlobalBoxShadowList.lg,
 };
 
 export const breakpoint = {

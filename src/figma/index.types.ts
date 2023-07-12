@@ -1,4 +1,5 @@
 import global from './global.json';
+import typography from './typorgraphy.json';
 
 export const TokenGlobal = {
     green: global.green,
@@ -29,6 +30,12 @@ export const TokenGlobalColorList = [
     TokenGlobal.white,
 ] as const;
 
+export const TokenGlobalBoxShadowList = {
+    sm: TokenGlobal['small-shadow'].value,
+    lg: TokenGlobal['big-shadow'].value,
+} as const;
+
+typography;
 export type TokeGlobalType = typeof TokenGlobal;
 export type TokenGlobalExceptColorType = 'big-shadow' | 'shadow' | 'small-shadow' | 'show' | 'hide';
 export type TokenGlobalOnlyColor = Omit<TokeGlobalType, TokenGlobalExceptColorType>;
