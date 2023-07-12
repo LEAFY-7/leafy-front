@@ -40,7 +40,7 @@ function App() {
                 pauseOnHover
             />
             <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
-                <RouterProvider router={routers} />;
+                <RouterProvider router={routers} />
                 <Global styles={styleConfig.globalStyle} />
             </ThemeProvider>
         </>
