@@ -1,75 +1,84 @@
 import { Theme, css } from '@emotion/react';
 
-const variantStyles = {
+export const variantStyles = {
     default: (theme: Theme) => css`
-        border-color: ${theme.palette.global.borderColor};
-        background-color: ${theme.palette.global.default.backgroundColor};
-        color: ${theme.palette.global.text.blackColor};
+        background-color: ${theme.palette.default.backgroundColor};
+        color: ${theme.palette.text.blackColor};
     `,
     primary: (theme: Theme) => css`
-        border-color: ${theme.palette.global.primary.borderColor};
-        background-color: ${theme.palette.global.primary.backgroundColor};
-        color: ${theme.palette.global.text.whiteColor};
+        background-color: ${theme.palette.primary.backgroundColor};
+        color: ${theme.palette.text.whiteColor};
     `,
     secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.global.secondary.borderColor};
-        background-color: ${theme.palette.global.secondary.background};
-        color: ${theme.palette.global.text.whiteColor};
+        background-color: ${theme.palette.secondary.background};
+        color: ${theme.palette.text.whiteColor};
     `,
     translucent: (theme: Theme) => css`
-        background: ${theme.palette.global.translucent.backgroundColor};
+        background: ${theme.palette.translucent.backgroundColor};
         box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15), inset 5px 5px 10px rgba(250, 250, 250, 0.15);
         backdrop-filter: blur(15px);
-        color: ${theme.palette.global.text.blackColor};
+        color: ${theme.palette.text.blackColor};
     `,
 };
 
-const sizeBox = {
+export const divSizeBox = {
     default: {
-        width: 0,
-        height: 0,
-        padding: 1,
+        width: 'none',
+        height: 'none',
+        minWidth: 'inherit',
+        minHeight: 'inherit',
+        padding: 0,
         radius: 0.8,
-        borderWidth: 1.5,
+        borderWidth: 1,
     },
     xs: {
-        width: 200,
-        height: 40,
-        padding: 0.1,
-        radius: 0.1,
+        width: 60,
+        height: 60,
+        minWidth: 30,
+        minHeight: 30,
+        padding: 1,
+        radius: 0.4,
         borderWidth: 1,
     },
     sm: {
-        width: 100,
+        width: 80,
         height: 80,
-        padding: 0.5,
-        radius: 0.5,
-        borderWidth: 1.2,
+        minWidth: 50,
+        minHeight: 50,
+        padding: 4,
+        radius: 0.6,
+        borderWidth: 1,
     },
     md: {
-        width: 80,
-        height: 120,
-        padding: 1,
+        width: 160,
+        height: 160,
+        minWidth: 100,
+        minHeight: 100,
+        padding: 8,
         radius: 0.8,
-        borderWidth: 1.5,
+        borderWidth: 1,
     },
     lg: {
-        width: 60,
-        height: 200,
-        padding: 1.2,
+        width: 240,
+        height: 240,
+        minWidth: 140,
+        minHeight: 140,
+        padding: 16,
         radius: 1,
-        borderWidth: 1.8,
+        borderWidth: 2,
     },
     xl: {
-        width: 20,
+        width: 400,
         height: 400,
-        padding: 1.4,
+        minWidth: 240,
+        minHeight: 240,
+        padding: 24,
         radius: 1.2,
-        borderWidth: 2,
+        borderWidth: 3,
     },
 };
 
-const dropSizeBox = {
+export const dropSizeBox = {
     xxs: {
         width: 40,
         height: 40,
@@ -111,5 +120,3 @@ const dropSizeBox = {
         shadow: 30,
     },
 };
-
-export default { variantStyles, sizeBox, dropSizeBox };

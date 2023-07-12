@@ -3,10 +3,10 @@ import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 import { theme } from 'configs/style.config';
 import useVariant from 'hooks/useVariant';
-import divStyles from './div.styles';
+import { divSizeBox, variantStyles } from './div.styles';
 
 interface DivProps extends HTMLAttributes<HTMLDivElement> {
-    id: string;
+    id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     variant?: 'default' | 'primary' | 'secondary' | 'translucent';
     isBorder?: boolean;
@@ -29,14 +29,12 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
     marginLeft?: number;
     padding?: CSSProperties['padding'];
     backgroundColor?: keyof typeof theme.colors;
+    borderColor?: keyof typeof theme.colors;
     color?: keyof typeof theme.colors;
     radius?: number;
+    showScroll?: boolean;
+    textAlign?: CSSProperties['textAlign'];
 }
-/* height: ${height === 'inherit'
-            ? h + 'rem'
-            : typeof height === 'number'
-            ? `${height}%`
-            : height}; */
 const Div = ({
     id,
     size = 'default',
@@ -53,7 +51,7 @@ const Div = ({
     maxHeight = 'inherit',
     minHeight = 'inherit',
     overflowX = 'auto',
-    overflowY = 'scroll',
+    overflowY = 'auto',
     padding = 0,
     marginTop = 0,
     marginRight = 0,
@@ -61,84 +59,50 @@ const Div = ({
     marginLeft = 0,
     margin = 0,
     backgroundColor = 'inherit',
+    borderColor = 'inherit',
     color = 'inherit',
+    showScroll = false,
+    textAlign = 'left',
     children,
     ...rest
 }: React.PropsWithChildren<DivProps>) => {
-    const { width: w, height: h, padding: p, radius, borderWidth } = divStyles.sizeBox[size];
-    const divVariants = useVariant({ variant: variant, callback: divStyles.variantStyles });
+    const {
+        width: w,
+        height: h,
+        padding: p,
+        minWidth: mW,
+        minHeight: mH,
+        radius,
+        borderWidth,
+    } = divSizeBox[size];
+    const divVariants = useVariant({ variant: variant, callback: variantStyles });
     const defaultBoxStyle = css`
-        word-break: keep-all;
-        cursor: pointer;
+        width: ${width === 'inherit' ? `${w}px` : typeof width === 'number' ? `${width}%` : width};
+        height: ${height === 'inherit' ? `${h}px` : typeof height === 'number' ? `${height}%` : height};
+        min-width: ${minWidth};
+        min-height: ${minHeight};
+
         display: ${display};
         justify-content: ${justifyContent};
         align-items: ${alignItems};
-        width: ${width === 'inherit'
-            ? `calc(100% - ${w * 3}px)`
-            : typeof width === 'number'
-            ? `${width}%`
-            : width};
-        height: ${height === 'inherit' ? `${h + 20}px` : typeof height === 'number' ? `${height}%` : height};
 
-        /* width: ${width === 'inherit' ? `${w}px` : typeof width === 'number' ? `${width}%` : width};
-        height: ${height === 'inherit' ? `${h}px` : typeof height === 'number' ? `${height}%` : height}; */
-
-        /* max-width: ${typeof maxWidth === 'number' ? `${maxWidth}%` : maxWidth};
-        max-height: ${typeof maxHeight === 'number' ? `${maxHeight}%` : maxHeight};
-        min-width: ${typeof minWidth === 'number' ? `${minWidth}%` : minWidth};
-        min-height: ${typeof minHeight === 'number' ? `${minHeight}%` : minHeight}; */
         overflow-x: ${overflowX};
         overflow-y: ${overflowY};
-        margin: ${margin || `${marginTop}rem ${marginRight}rem ${marginBottom}rem ${marginLeft}rem`};
-        padding: ${padding || p + 'rem'};
+        margin: ${margin || `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`};
+        padding: ${padding === 0 ? `${p}px` : typeof padding === 'number' ? `${padding}px` : padding};
         flex-direction: ${direction};
-        background-color: ${backgroundColor};
+        background-color: ${theme.colors[backgroundColor]};
         border: ${isBorder && 'solid'};
-        border-width: ${isBorder ? borderWidth + 'px' : 0};
+        border-color: ${theme.colors[borderColor]};
+        border-width: ${isBorder ? `${borderWidth}px` : 0};
         border-radius: ${radius + 'rem'};
         box-sizing: border-box;
+        text-align: ${textAlign};
+        word-break: break-all;
+
         ::-webkit-scrollbar {
-            display: none;
+            display: ${showScroll ? 'block' : 'none'};
         }
-
-        /* @media (max-width: 767px) {
-            width: ${width === 'inherit'
-            ? `calc(50% - ${w - 20}px)`
-            : typeof width === 'number'
-            ? `calc(${width}% - ${w - 20}px)`
-            : width};
-            height: ${height === 'inherit'
-            ? `${h - 20}px`
-            : typeof height === 'number'
-            ? `calc(${height}% - ${h - 20}px)`
-            : height};
-        }
-
-        @media (min-width: 768px) and (max-width: 1023px) {
-            width: ${width === 'inherit'
-            ? `calc(70% - ${w - 20}px)`
-            : typeof width === 'number'
-            ? `calc(${width}% - ${w - 40}px)`
-            : width};
-            height: ${height === 'inherit'
-            ? `${h - 40}px`
-            : typeof height === 'number'
-            ? `calc(${height}% - ${h - 40}px)`
-            : height};
-        }
-
-        @media (min-width: 1024px) {
-            width: ${width === 'inherit'
-            ? `calc(100% - ${w * 2}px)`
-            : typeof width === 'number'
-            ? `${width}%`
-            : width};
-            height: ${height === 'inherit'
-            ? `${h - 60}px`
-            : typeof height === 'number'
-            ? `${height}%`
-            : height};
-        } */
 
         ${divVariants}
     `;
