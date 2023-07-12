@@ -6,16 +6,15 @@ import Box from 'components/atoms/Box/default-box';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RoundButton from 'components/atoms/Button/round-button';
-import SideNavigation from 'components/organisms/Navigation/side-navigation';
-import DiTemplate from 'components/templates/di-template';
+import MonoTemplate from 'components/templates/mono-template';
 
 const Follow = () => {
     const [latest, setLatest] = useState<boolean>(true);
 
     return (
-        <DiTemplate
-            variant="1/3"
-            leftSection={
+        <MonoTemplate
+            height={100}
+            mainSection={
                 <Flex id="left_section_wrapper" direction="column">
                     <Typography variant="BODY3" marginTop={20}>
                         가장 최근에 업데이트한 팔로우입니다.
@@ -41,7 +40,6 @@ const Follow = () => {
                     {/* 피드 섹션 */}
                 </Flex>
             }
-            rightSection={<SideNavigation />}
         />
     );
 };

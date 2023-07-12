@@ -78,7 +78,7 @@ const EditPageAdditional = () => {
                         helperText={errors.displayName?.message}
                         helperIcon={<AiOutlineExclamationCircle />}
                         disabled
-                        {...register('displayName', formConfig.signFormState.name)}
+                        {...register('displayName', formConfig.authFormState.name)}
                     />
                     {!showCalendar && (
                         <TextFiled

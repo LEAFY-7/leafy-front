@@ -24,6 +24,7 @@ function Home() {
     return (
         <>
             <MonoTemplate
+                height={100}
                 mainSection={
                     <>
                         <SearchWrap>

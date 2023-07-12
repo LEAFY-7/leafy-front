@@ -1,7 +1,7 @@
-import React from "react";
+import MonoTemplate from 'components/templates/mono-template';
 
 const Qna = () => {
-  return <div>Page</div>;
+    return <MonoTemplate height={100} mainSection={<div>Qna 페이지</div>} />;
 };
 
 export default Qna;
