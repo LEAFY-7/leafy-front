@@ -19,8 +19,6 @@ export const InputContainer = styled.div`
 `;
 export const Label = styled.label<Required<TextFieldProps>>`
     font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
-    /* margin-inline: 1em; */
-    /* padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`}; */
     margin-bottom: 1rem;
 `;
 

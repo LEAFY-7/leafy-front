@@ -18,24 +18,24 @@ export const CheckBox = styled.input<Required<Props>>`
                 return css`
                     border-width: 3px;
                     border-style: solid;
-                    border-color: ${theme.palette.global.primary.borderColor};
-                    background-color: ${theme.palette.global.primary.backgroundColor};
+                    border-color: ${theme.palette.primary.borderColor};
+                    background-color: ${theme.palette.primary.backgroundColor};
                     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
                         color 0.15s ease-in-out;
 
                     &:checked {
-                        border-color: ${theme.palette.global.secondary.borderColor};
-                        background-color: ${theme.palette.global.secondary.backgroundColor};
+                        border-color: ${theme.palette.secondary.borderColor};
+                        background-color: ${theme.palette.secondary.backgroundColor};
                     }
                     &:checked:active {
-                        border-color: ${theme.palette.global.tertiary.borderColor};
+                        border-color: ${theme.palette.tertiary.borderColor};
                     }
                 `;
             }
             default: {
                 return css`
-                    border-color: ${theme.palette.global.default.borderColor};
-                    background-color: ${theme.palette.global.default.backgroundColor};
+                    border-color: ${theme.palette.default.borderColor};
+                    background-color: ${theme.palette.default.backgroundColor};
                     &:hover {
                     }
                 `;

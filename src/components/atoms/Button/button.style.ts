@@ -24,19 +24,19 @@ const variantStyles = {
     //     }
     // `,
     default: (theme: Theme) => css`
-        border-color: ${theme.palette.global.default.borderColor};
-        background-color: ${theme.palette.global.default.backgroundColor};
-        color: ${theme.palette.global.text.blackColor};
+        border-color: ${theme.palette.default.borderColor};
+        background-color: ${theme.palette.default.backgroundColor};
+        color: ${theme.palette.text.blackColor};
     `,
     primary: (theme: Theme) => css`
-        border-color: ${theme.palette.global.primary.borderColor};
-        background-color: ${theme.palette.global.primary.backgroundColor};
-        color: ${theme.palette.global.text.whiteColor};
+        border-color: ${theme.palette.primary.borderColor};
+        background-color: ${theme.palette.primary.backgroundColor};
+        color: ${theme.palette.text.whiteColor};
     `,
     secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.global.secondary.borderColor};
-        background-color: ${theme.palette.global.secondary.background};
-        color: ${theme.palette.global.text.whiteColor};
+        border-color: ${theme.palette.secondary.borderColor};
+        background-color: ${theme.palette.secondary.background};
+        color: ${theme.palette.text.whiteColor};
     `,
 };
 

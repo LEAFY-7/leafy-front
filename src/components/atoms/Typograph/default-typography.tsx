@@ -4,7 +4,7 @@ import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
 
 import typographyStyle from './typography.style';
-import styleConfig from 'configs/style.config';
+import styleConfig, { theme } from 'configs/style.config';
 import useVariant from 'hooks/useVariant';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
     variant: Typography;
     fontSize?: keyof typeof styleConfig.theme.fontSize;
-    lineHeight?: keyof typeof styleConfig.theme.lineHeight;
+    lineHeight?: keyof typeof styleConfig.theme.lineHeight | 'none';
     color?: keyof typeof styleConfig.theme.colors;
     fontWeight?: keyof typeof styleConfig.theme.fontWeight;
     marginTop?: number;
@@ -38,7 +38,7 @@ const Typography = ({
     children,
     width = 'inherit',
     fontSize = 'md',
-    lineHeight = 'md',
+    lineHeight = 'none',
     fontWeight = 'bold',
     marginTop = 0,
     marginRight = 0,
@@ -72,6 +72,7 @@ const Typography = ({
         text-align: ${textAlign};
         width: ${newWidth};
         ${typographyVariant}
+        line-height: ${lineHeight !== 'none' && theme.lineHeight[lineHeight]};
     `;
     return (
         <LinkWrapper to={to}>
