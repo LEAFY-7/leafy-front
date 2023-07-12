@@ -1,103 +1,92 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import { observer } from 'mobx-react';
 import { useForm } from 'react-hook-form';
-import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineUserDelete } from 'react-icons/ai';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
-import formConfig from 'configs/form.config';
+import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { SignUphModel } from 'models/auth/auth.model';
 
+import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextFiled from 'components/molecules/TextField';
 import Div from 'components/atoms/Div/default-div';
 
-type FormValues = {
-    displayName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
-
-const defaultValues: FormValues = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-};
-
 const SignUpForm = () => {
+    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
+
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors, isSubmitting, isDirty },
-    } = useForm<FormValues>({ defaultValues });
-
-    const onValidate = (value: string) => value === watch('password');
-
-    const onSubmit = async (data: FormValues) => {
-        /**
-         * 회원가입 POST 요청
-         */
-        toast.success('회원가입이 성공하였습니다.');
-    };
-
+        formState: { errors, isSubmitting },
+    } = useForm<SignUphModel>({
+        defaultValues: {
+            displayName: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+        },
+    });
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(authViewModel.handleSubmit)} noValidate>
             <Flex id="signUpForm_wrapper" direction="column">
                 <TextFiled
                     hookForm
-                    leftIcon={<AiOutlineUserDelete />}
-                    type="text"
-                    labelTitle="이름"
+                    type={authItemState.displayName.type}
+                    labelTitle={authItemState.displayName.label}
                     error={!!errors.displayName}
                     helperText={errors.displayName?.message}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('displayName', formConfig.signFormState.name)}
+                    leftIcon={authItemState.displayName.icon.main}
+                    helperIcon={authItemState.displayName.icon.helper}
+                    {...register(authItemState.displayName.property, authFormState.name)}
                 />
                 <TextFiled
                     hookForm
-                    leftIcon={<AiOutlineMail />}
-                    type="text"
-                    labelTitle="이메일"
+                    type={authItemState.email.type}
+                    labelTitle={authItemState.email.label}
                     error={!!errors.email}
                     helperText={errors.email?.message}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('email', formConfig.signFormState.email)}
+                    leftIcon={authItemState.email.icon.main}
+                    helperIcon={authItemState.email.icon.helper}
+                    {...register(authItemState.email.property, authFormState.email)}
                 />
                 <TextFiled
                     hookForm
-                    type="password"
-                    labelTitle="비밀번호"
+                    type={authItemState.password.type}
+                    labelTitle={authItemState.password.label}
                     error={!!errors.password}
                     helperText={errors.password?.message}
-                    leftIcon={<RiLockPasswordLine />}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('password', formConfig.signFormState.password)}
+                    leftIcon={authItemState.password.icon.main}
+                    helperIcon={authItemState.password.icon.helper}
+                    {...register(authItemState.password.property, authFormState.password)}
                 />
                 <TextFiled
                     hookForm
-                    type="password"
-                    labelTitle="비밀번호 확인"
+                    type={authItemState.confirmPassword.type}
+                    labelTitle={authItemState.confirmPassword.label}
                     error={!!errors.confirmPassword}
                     helperText={errors.confirmPassword?.message || '비밀번호가 일치하지 않습니다.'}
-                    leftIcon={<RiLockPasswordLine />}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('confirmPassword', formConfig.signFormState.confirmPassword(onValidate))}
+                    leftIcon={authItemState.confirmPassword.icon.main}
+                    helperIcon={authItemState.confirmPassword.icon.helper}
+                    {...register(
+                        authItemState.confirmPassword.property,
+                        authFormState.confirmPassword(
+                            (value) => value === watch(authItemState.password.property),
+                        ),
+                    )}
                 />
-                <Div id="submit_btn" width={100} size="xs">
-                    <RectangleButton
-                        type="submit"
-                        variant="primary"
-                        isBorder
-                        disabled={isSubmitting}
-                        style={{ width: '100%' }}
-                    >
-                        로그인하기
-                    </RectangleButton>
+                <Div id="submit_btn" width={100} padding={8}>
+                    <SubmitButton type="submit" variant="primary" isBorder disabled={isSubmitting}>
+                        회원가입하기
+                    </SubmitButton>
                 </Div>
             </Flex>
         </form>
     );
 };
 
-export default SignUpForm;
+export default observer(SignUpForm);
+
+const SubmitButton = styled(RectangleButton)`
+    width: 100%;
+`;
