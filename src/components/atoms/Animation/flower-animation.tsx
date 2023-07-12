@@ -5,7 +5,6 @@ import Flex from 'components/atoms/Group/flex';
 
 const FlowerAnimation = () => {
     const theme = useTheme();
-
     const containerStyle = (theme: Theme) => css`
         padding-top: 10%;
         position: absolute;
@@ -14,7 +13,7 @@ const FlowerAnimation = () => {
         left: 0;
         bottom: 0;
         right: 0;
-        background-color: ${theme.palette.normal.overlayColor};
+        background-color: 'rgba(0, 0, 0, 0.5)';
         backdrop-filter: blur(2px);
     `;
 

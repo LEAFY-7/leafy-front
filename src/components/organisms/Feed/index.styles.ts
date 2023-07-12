@@ -21,7 +21,7 @@ export const Empty = styled.div`
     width: ${styleConfig.theme.imgSize.sm};
     height: ${styleConfig.theme.imgSize.sm};
     border-radius: 50%;
-    background-color: ${styleConfig.theme.colors.gray};
+    background-color: ${styleConfig.theme.colors.grey};
 `;
 export const IconImg = styled.img`
     width: ${styleConfig.theme.imgSize.sm};

@@ -1,41 +1,64 @@
-import React from 'react';
-import useToggle from 'hooks/useToggle';
+import styled from '@emotion/styled';
+import { observer } from 'mobx-react';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
-import Box from 'components/atoms/Box/default-box';
 import Div from 'components/atoms/Div/default-div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextLogo from 'components/atoms/Logo/text-logo';
-import MonoTemplate from 'components/templates/mono-template';
 import Typography from 'components/atoms/Typograph/default-typography';
+import MonoTemplate from 'components/templates/mono-template';
 
 const Auth = () => {
-    const { isOn: toggle, handler } = useToggle();
+    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
     return (
-        <>
-            <MonoTemplate
-                mainSection={
-                    <Box width={100} display="flex" justifyContent="center" alignItems="center">
-                        <Div id="box" size="lg" direction="column" isBorder>
-                            <TextLogo to="" variant="default" fontSize="xxxl">
-                                LEAFY
-                            </TextLogo>
-                            <Typography as="span" textAlign="center" variant="H3" marginTop={20}>
-                                {toggle ? '로그인' : '회원가입'}
-                            </Typography>
-                            {toggle && <SignInForm />}
-                            {!toggle && <SignUpForm />}
-                            <RectangleButton size="md" onClick={handler}>
-                                {toggle ? '회원가입 바로가기' : '로그인 바로가기'}
-                            </RectangleButton>
-                        </Div>
-                    </Box>
-                }
-            />
-        </>
+        <MonoTemplate
+            margin="0 auto"
+            mainSection={
+                <Div variant="translucent" direction="column" width="700px" padding={24}>
+                    {/* <TextLogo to="" variant="default" fontSize="xxxl">
+                        LEAFY
+                    </TextLogo> */}
+                    <Typography
+                        as="span"
+                        textAlign="center"
+                        variant="BODY1"
+                        marginTop={10}
+                        marginBottom={10}
+                        lineHeight="xxxl"
+                    >
+                        {authViewModel.toggle && (
+                            <>
+                                {AuthMessage.main} <br /> {AuthMessage.signIn}
+                            </>
+                        )}
+
+                        {!authViewModel.toggle && (
+                            <>
+                                {AuthMessage.main} {AuthMessage.signUp}
+                            </>
+                        )}
+                    </Typography>
+                    {authViewModel.toggle && <SignInForm />}
+                    {!authViewModel.toggle && <SignUpForm />}
+                    <RectangleButton size="md" onClick={authViewModel.handleToggle}>
+                        {authViewModel.toggle ? AuthMessage.goSignUp : AuthMessage.goSignIn}
+                    </RectangleButton>
+                </Div>
+            }
+        />
     );
 };
 
-export default Auth;
+export default observer(Auth);
+
+const AuthMessage = {
+    main: '식집사님',
+    signIn: '오늘은 어떤 식물을 보러 오셨나요?',
+    signUp: '초대합니다.',
+    goSignUp: '회원가입 바로가기',
+    goSignIn: '로그인 바로가기',
+};

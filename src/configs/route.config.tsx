@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import DefaultLayout from 'components/organisms/layouts/default-layout';
-import PrivateRoute from 'routes/PrivateRoute';
-import Unauthorized from 'routes/Unauthorized';
+import PrivateRoute from 'components/organisms/routes/PrivateRoute';
+import Unauthorized from 'components/organisms/Error/Unauthorized';
 
 import Admin from 'pages/Admin/Page';
 import Auth from 'pages/Auth/Page';
@@ -12,7 +12,7 @@ import Follow from 'pages/Follow/Page';
 import Home from 'pages/Home/Page';
 import Edit from 'pages/MyPage/EditPage';
 import MyPage from 'pages/MyPage/Page';
-import NotFound from 'pages/NotFound/Page';
+import NotFound from 'components/organisms/Error/NotFound';
 import Notice from 'pages/Notice/Page';
 import NoticeDetail from 'pages/NoticeDetail/Page';
 import FeedPost from 'pages/Post/page';
@@ -23,30 +23,8 @@ import User from 'pages/User/Page';
 import Temp from 'pages/Temp/Page';
 import TempDetail from 'pages/TempDetail/Page';
 import Practice from 'pages/temp';
-import ErrorBoundary from './ErrorBoundary';
 
 import pageUrlConfig from 'configs/pageUrl.config';
-
-export const routesGen = {
-    home: '/',
-    feedDetail: (feedId: string) => `/${feedId}`,
-    post: '/post',
-    update: (feedId: string) => `/post/${feedId}`,
-    follow: '/follow',
-    auth: '/auth',
-    user: (userId: string) => `/user/${userId}`,
-    mypage: '/mypage',
-    edit: '/mypage/edit',
-    notice: '/notice',
-    noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
-    search: '/search',
-    chat: '/chat',
-    unauthorized: '/unauthorized',
-    notFound: '*',
-    userFeed: (userId: string) => `/user/${userId}`,
-    temp: '/temp',
-    tempDetail: (tempId: string) => `/temp/${tempId}`,
-};
 
 const routeConfig = [
     {
@@ -64,11 +42,7 @@ const routeConfig = [
             { path: pageUrlConfig.notFound, element: <NotFound /> },
             {
                 path: 'practice',
-                element: (
-                    <ErrorBoundary>
-                        <Practice />
-                    </ErrorBoundary>
-                ),
+                element: <Practice />,
             },
             {
                 element: <PrivateRoute allowedRoles={['admin', 'member']} />,
@@ -93,3 +67,24 @@ const routeConfig = [
 ];
 const routers = createBrowserRouter(routeConfig);
 export default routers;
+
+export const routesGen = {
+    home: '/',
+    feedDetail: (feedId: string) => `/${feedId}`,
+    post: '/post',
+    update: (feedId: string) => `/post/${feedId}`,
+    follow: '/follow',
+    auth: '/auth',
+    user: (userId: string) => `/user/${userId}`,
+    mypage: '/mypage',
+    edit: '/mypage/edit',
+    notice: '/notice',
+    noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
+    search: '/search',
+    chat: '/chat',
+    unauthorized: '/unauthorized',
+    notFound: '*',
+    userFeed: (userId: string) => `/user/${userId}`,
+    temp: '/temp',
+    tempDetail: (tempId: string) => `/temp/${tempId}`,
+};

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { css } from '@emotion/react';
-import divStyles from './div.styles';
+import { dropSizeBox } from './div.styles';
 
 type DropProps = React.PropsWithChildren<{
     size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
@@ -11,7 +11,7 @@ const DefaultDrop = React.forwardRef(function DefaultDrop(
     { size = 'md', children, ...rest }: DropProps,
     forwardedRef: React.Ref<HTMLDivElement>,
 ) {
-    const { width, height, shadow } = divStyles.dropSizeBox[size];
+    const { width, height, shadow } = dropSizeBox[size];
 
     const wrapperStyle = css`
         position: relative;

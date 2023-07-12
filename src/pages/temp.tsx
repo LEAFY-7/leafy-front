@@ -12,16 +12,34 @@ import Dialog from 'components/atoms/Dialog/default-dialog';
 import WaterModal from 'components/molecules/Modal/water-modal';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import useAutoResize from 'hooks/useAutoResize';
-import DefaultDrop from 'components/atoms/Div/drop-div';
 
+import Flyout from 'components/atoms/Flyout/headless-flyout';
+import MonoBubbleTemplate from 'components/templates/mono-bubble-template';
 import MonoTemplate from 'components/templates/mono-template';
-import Toggle from '@components/atoms/Flyout/headless-flyout';
+
+const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+unknown printer took a galley of type and scrambled it to make a type specimen
+book. It has survived not only five centuries, but also the leap into electronic
+typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+with desktop publishing software like Aldus PageMaker including versions of Lorem
+Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+an unknown printer took a galley of type and scrambled it to make a type specimen
+book. It has survived not only five centuries, but also the leap into electronic
+typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+with desktop publishing software like Aldus PageMaker including versions of Lorem
+Ipsum.`;
 
 // 연습장
 const Temp = () => {
     const [isChecked, setIsChecked] = React.useState(false);
     const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
     const [open, setOpen] = React.useState(false);
+
+    const [toggle, setToggle] = React.useState(false);
 
     const [error, setError] = React.useState<any>();
     const handleClickDialog = () => {
@@ -45,8 +63,8 @@ const Temp = () => {
         <>
             <MonoTemplate
                 mainSection={
-                    <Flex direction="column">
-                        <Div id="temp" height="100px" size="xl">
+                    <Div width={100} direction="column" padding={8}>
+                        <Div id="temp" width={100} size="xl">
                             <EffectiveButton
                                 variant="primary"
                                 leftIcon={<RiLockPasswordLine />}
@@ -57,39 +75,45 @@ const Temp = () => {
                             <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
                                 클릭입니다.
                             </EffectiveButton>
-                            <EffectiveButton variant="tertiary" leftIcon={<RiLockPasswordLine />}>
-                                클릭입니다.
-                            </EffectiveButton>
-                            <EffectiveButton variant="quaternary" leftIcon={<RiLockPasswordLine />}>
-                                클릭입니다.
-                            </EffectiveButton>
-                            <EffectiveButton
-                                variant="important"
-                                leftIcon={<RiLockPasswordLine />}
-                                onClick={handleClickDialog}
-                            >
-                                모달
-                            </EffectiveButton>
                         </Div>
-                        <EffectiveButton
-                            variant="secondary"
-                            size="lg"
-                            leftIcon={<RiLockPasswordLine />}
-                            isBorder
-                        >
-                            버튼 버튼 버튼 버튼 버튼
-                        </EffectiveButton>
-                        <EffectiveButton variant="secondary">버튼 버튼 버튼 버튼 버튼</EffectiveButton>
-                        {/* <CheckboxWrapper
+
+                        <Div width={100} variant="translucent" marginBottom={16} padding={16}>
+                            {text}
+                        </Div>
+                        <Div width={100} height="300px" variant="translucent" marginBottom={16} padding={16}>
+                            박스
+                        </Div>
+
+                        <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
+                            <Flyout.Toggle>토글버튼</Flyout.Toggle>
+                            <Flyout.List>
+                                <Flyout.Item>1</Flyout.Item>
+                                <Flyout.Item>2</Flyout.Item>
+                                <Flyout.Item>3</Flyout.Item>
+                                <Flyout.Item>4</Flyout.Item>
+                            </Flyout.List>
+                        </Flyout>
+                    </Div>
+                }
+            />
+        </>
+    );
+};
+
+export default Temp;
+{
+    /* <CheckboxWrapper
                             id="checkbox-1"
                             isChecked={isChecked}
                             onChange={() => setIsChecked(!isChecked)}
                         >
                             <CheckboxWrapper.Label>체크박스</CheckboxWrapper.Label>
                             <CheckboxWrapper.Checkbox variant="primary" />
-                        </CheckboxWrapper> */}
+                        </CheckboxWrapper> */
+}
 
-                        <Textarea value={value} onChange={handleChange} ref={textareaRef} />
+{
+    /* <Textarea value={value} onChange={handleChange} ref={textareaRef} />
                         <WaterModal
                             open={open}
                             handleModal={handleClickDialog}
@@ -101,67 +125,21 @@ const Temp = () => {
                                 가장 아래에 지정된 흰색이 깔려있습니다. 그 위에 물방울 그라데이션이 들어가
                                 있는 div가 있는 형태 입니다.
                             </p>
-                        </WaterModal>
+                        </WaterModal> */
+}
 
-                        <Div id="1" size="xs" variant="primary" style={{ marginBottom: '10px' }}>
-                            xs
-                        </Div>
-                        <Div id="2" size="sm" variant="primary" style={{ marginBottom: '10px' }}>
-                            sm
-                        </Div>
-                        <Div id="3" size="md" variant="primary" style={{ marginBottom: '10px' }}>
-                            md
-                        </Div>
-                        <Div id="4" size="lg" variant="primary" style={{ marginBottom: '10px' }}>
-                            lg
-                        </Div>
-                        <Div id="5" size="xl" variant="primary" style={{ marginBottom: '10px' }}>
-                            xl
-                        </Div>
-                        <DefaultDrop size="xxs" />
-                        <DefaultDrop size="xs" />
-                        <DefaultDrop size="sm" />
-                        <DefaultDrop size="md" />
-                        <DefaultDrop size="lg" />
-                        <DefaultDrop size="xl" />
-                        <DefaultDrop size="xxl" />
-                        <DefaultDrop size="xxxl" />
-                    </Flex>
-                }
-            />
-        </>
-    );
-};
-
-export default Temp;
-
-const Overlay = styled(Dialog.Overlay)`
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100vh;
-`;
-
-const Content = styled(Dialog.Content)`
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    .content-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 600px;
-        padding: 20px;
-        border-radius: 8px;
-        background-color: #fff;
-        color: #1e1e1e;
-    }
-
-    .content-toggle-container {
-        display: flex;
-        justify-content: end;
-    }
-`;
+{
+    /* <EffectiveButton variant="tertiary" leftIcon={<RiLockPasswordLine />}>
+                                클릭입니다.
+                            </EffectiveButton>
+                            <EffectiveButton variant="quaternary" leftIcon={<RiLockPasswordLine />}>
+                                클릭입니다.
+                            </EffectiveButton>
+                            <EffectiveButton
+                                variant="important"
+                                leftIcon={<RiLockPasswordLine />}
+                                onClick={handleClickDialog}
+                            >
+                                모달
+                            </EffectiveButton> */
+}

@@ -78,7 +78,7 @@ const EditPageAdditional = () => {
                         helperText={errors.displayName?.message}
                         helperIcon={<AiOutlineExclamationCircle />}
                         disabled
-                        {...register('displayName', formConfig.signFormState.name)}
+                        {...register('displayName', formConfig.authFormState.name)}
                     />
                     {!showCalendar && (
                         <TextFiled
@@ -107,9 +107,7 @@ const EditPageAdditional = () => {
                     readOnly
                     labelTitle="주소"
                 />
-                <Button type="submit" variant="green">
-                    확인
-                </Button>
+                <Button type="submit">확인</Button>
             </Flex>
         </form>
     );

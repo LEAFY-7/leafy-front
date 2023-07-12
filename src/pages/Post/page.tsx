@@ -1,9 +1,7 @@
-import React from 'react';
-import DiTemplate from 'components/templates/di-template';
-import SideNavigation from 'components/organisms/Navigation/side-navigation';
+import MonoTemplate from 'components/templates/mono-template';
 
 const FeedPost = () => {
-    return <DiTemplate variant="1/3" leftSection={<div>작성페이지</div>} rightSection={<SideNavigation />} />;
+    return <MonoTemplate height={100} mainSection={<div>피드 작성 페이지</div>} />;
 };
 
 export default FeedPost;

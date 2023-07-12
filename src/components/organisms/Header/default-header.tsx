@@ -38,7 +38,7 @@ const Header = () => {
         top: 0;
         position: fixed;
         left: 0;
-        padding: 0px calc((100% - 1280px) / 2);
+        padding: 0px calc((100% - 1200px) / 2);
         ${headerTheme}
     `;
     const divStyle = css`
@@ -49,7 +49,7 @@ const Header = () => {
 
     return (
         <>
-            <Box as="header" width={100} css={defaultHeaderStyles}>
+            <Box as="header" width={100} css={defaultHeaderStyles} radius={0}>
                 <Flex as="nav" justifyContent="space-between" alignItems="center">
                     <Div id="left_menu" css={divStyle}>
                         <LeftMenu />

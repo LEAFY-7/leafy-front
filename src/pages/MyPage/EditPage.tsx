@@ -4,14 +4,13 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import EditPageRequire from './EditPageRequire';
 import EditPageAdditional from './EditPageAdditional';
 import Container from 'components/molecules/Container';
-import DiTemplate from 'components/templates/di-template';
-import SideNavigation from 'components/organisms/Navigation/side-navigation';
+import MonoTemplate from 'components/templates/mono-template';
 
 const EditPage = () => {
     return (
-        <DiTemplate
-            variant="1/3"
-            leftSection={
+        <MonoTemplate
+            width={100}
+            mainSection={
                 <Box as="article" width={100} display="flex" direction="column" overflow="hidden">
                     <Typography variant="H2" marginTop={5} marginBottom={5}>
                         회원정보수정
@@ -31,7 +30,6 @@ const EditPage = () => {
                     </Container>
                 </Box>
             }
-            rightSection={<SideNavigation />}
         />
     );
 };

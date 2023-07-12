@@ -1,82 +1,65 @@
-import React from 'react';
+import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import UserViewModel from 'viewModel/user/user.viewModel';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import { AiOutlineExclamationCircle, AiOutlineMail } from 'react-icons/ai';
-
+import { observer } from 'mobx-react';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import formConfig from 'configs/form.config';
+import { SignInModel } from 'models/auth/auth.model';
+import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import { authFormState, authItemState } from 'configs/form.config';
 
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
-import TextFiled from 'components/molecules/TextField';
 import Div from 'components/atoms/Div/default-div';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import TextFiled from 'components/molecules/TextField';
 
-type FormValues = {
-    email: string;
-    password: string;
-};
-const DialogLabelButtonType = (<Flex />).type;
-
-const defaultValues: FormValues = {
-    email: '',
-    password: '',
-};
 const SignInForm = () => {
-    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
-    console.log(userViewModel.user);
+    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
-    console.log(DialogLabelButtonType);
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting, isDirty },
-    } = useForm<FormValues>({ defaultValues });
-
-    const onSubmit = async (data: FormValues) => {
-        /**
-         * 로그인 POST 요청
-         */
-        console.log(data);
-    };
+        formState: { errors, isSubmitting },
+    } = useForm<SignInModel>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(authViewModel.handleSubmit)} noValidate>
             <Flex id="signInForm_wrapper" direction="column">
                 <TextFiled
                     hookForm
-                    leftIcon={<AiOutlineMail />}
-                    type="text"
-                    labelTitle="이메일"
+                    type={authItemState.email.type}
+                    labelTitle={authItemState.email.label}
                     error={!!errors.email}
                     helperText={errors.email?.message}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('email', formConfig.signFormState.email)}
+                    leftIcon={authItemState.email.icon.main}
+                    helperIcon={authItemState.email.icon.helper}
+                    {...register(authItemState.email.property as 'email', authFormState.email)}
                 />
                 <TextFiled
                     hookForm
-                    type="password"
-                    labelTitle="비밀번호"
+                    type={authItemState.password.type}
+                    labelTitle={authItemState.password.label}
                     error={!!errors.password}
                     helperText={errors.password?.message}
-                    leftIcon={<RiLockPasswordLine />}
-                    helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('password', formConfig.signFormState.password)}
+                    leftIcon={authItemState.password.icon.main}
+                    helperIcon={authItemState.password.icon.helper}
+                    {...register(authItemState.password.property as 'password', authFormState.password)}
                 />
-                <Div id="submit_btn" width={100} size="xs">
-                    <RectangleButton
-                        type="submit"
-                        variant="green"
-                        isBorder
-                        disabled={isSubmitting}
-                        style={{ width: '100%' }}
-                    >
-                        회원가입하기
-                    </RectangleButton>
+                <Div id="submit_btn" width={100} padding={8}>
+                    <SubmitButton type="submit" variant="primary" isBorder disabled={isSubmitting}>
+                        로그인하기
+                    </SubmitButton>
                 </Div>
             </Flex>
         </form>
     );
 };
 
-export default SignInForm;
+export default observer(SignInForm);
+
+const SubmitButton = styled(RectangleButton)`
+    width: 100%;
+`;

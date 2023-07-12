@@ -87,7 +87,7 @@ const Wrapper = styled.div<{ direction: Direction }>`
     .swiper-pagination-bullet {
         width: 50px;
         border-radius: 0;
-        background-color: ${({ theme }) => theme.colors.gray};
+        background-color: ${({ theme }) => theme.colors.grey};
         border: solid;
         border-width: 1px;
         border-color: ${({ theme }) => theme.colors.black};

@@ -50,7 +50,7 @@ const EditPageRequire = () => {
                     error={!!errors.nickName}
                     helperText={errors.nickName?.message}
                     helperIcon={<AiOutlineExclamationCircle />}
-                    {...register('nickName', formConfig.signFormState.name)}
+                    {...register('nickName', formConfig.authFormState.name)}
                 />
                 <TextFiled
                     hookForm
@@ -61,7 +61,7 @@ const EditPageRequire = () => {
                     helperText={errors.email?.message}
                     helperIcon={<AiOutlineExclamationCircle />}
                     disabled={true}
-                    {...register('email', formConfig.signFormState.email)}
+                    {...register('email', formConfig.authFormState.email)}
                 />
                 <Flex id="password_wrapper">
                     <TextFiled
@@ -72,7 +72,7 @@ const EditPageRequire = () => {
                         helperText={errors.password?.message}
                         leftIcon={<RiLockPasswordLine />}
                         helperIcon={<AiOutlineExclamationCircle />}
-                        {...register('password', formConfig.signFormState.password)}
+                        {...register('password', formConfig.authFormState.password)}
                     />
                     <TextFiled
                         hookForm
@@ -82,12 +82,10 @@ const EditPageRequire = () => {
                         helperText={errors.confirmPassword?.message || '비밀번호가 일치하지 않습니다.'}
                         leftIcon={<RiLockPasswordLine />}
                         helperIcon={<AiOutlineExclamationCircle />}
-                        {...register('confirmPassword', formConfig.signFormState.confirmPassword(onValidate))}
+                        {...register('confirmPassword', formConfig.authFormState.confirmPassword(onValidate))}
                     />
                 </Flex>
-                <Button type="submit" variant="green">
-                    확인
-                </Button>
+                <Button type="submit">확인</Button>
             </Flex>
         </form>
     );
