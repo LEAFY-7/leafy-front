@@ -24,13 +24,16 @@ jobs:
               run: |
                   npm i token-transformer
                   node tokenTransformer.config.ts
-                  git config --global user.email "justjh30@gmail.com"
-                  git config --global user.name "Sleepingoff"
-                  git add ./src/commons/tokens
-                  git commit -m '[UPDATE] 피그마 디자인 파일 변환'
-                  git push origin feature/jh
               env:
                   GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+            - name: PushToJH
+              uses: s0/git-publish-subdir-action@develop
+              env:
+                  REPO: self
+                  BRANCH: feature/jh
+                  FOLDER: ./src/commons/tokens
+                  GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+                  MESSAGE: '[UPDATE] 토큰 변환'
             - name: uninstall Token Transformer
               run: npm uninstall token-transformer
               env:
