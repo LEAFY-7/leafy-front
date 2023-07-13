@@ -23,7 +23,7 @@ jobs:
             - name: Run Token Transformer
               run: |
                   npm i token-transformer
-                  node tokenTransformer.config.js
+                  node tokenTransformer.config.ts
                   git add .
                   git commit -m '피그마 디자인 파일 변환'
                   git push
