@@ -24,6 +24,8 @@ jobs:
               run: |
                   npm i token-transformer
                   node tokenTransformer.config.ts
+                  git config --global user.email "you@example.com"
+              git config --global user.name "Your Name"
                   git add .
                   git commit -m '피그마 디자인 파일 변환'
                   git push
