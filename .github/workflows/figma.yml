@@ -12,7 +12,7 @@ permissions:
     contents: write
 
 jobs:
-    createPullRequest:
+    createTokens:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -24,11 +24,11 @@ jobs:
               run: |
                   npm i token-transformer
                   node tokenTransformer.config.ts
-                  git config --global user.email "you@example.com"
-              git config --global user.name "Your Name"
-                  git add .
-                  git commit -m '피그마 디자인 파일 변환'
-                  git push
+                  git config --global user.email "justjh30@gmail.com"
+                  git config --global user.name "Sleepingoff"
+                  git add ./src/commons/tokens
+                  git commit -m '[UPDATE] 피그마 디자인 파일 변환'
+                  git push origin feature/jh
               env:
                   GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
             - name: uninstall Token Transformer
