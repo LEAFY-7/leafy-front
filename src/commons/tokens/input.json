@@ -1,1 +1,1 @@
-{"icons":{"value":"true||false","type":"boolean","rawValue":"{show}||{hide}"},"comp-input-default":{"itemSpacing":{"value":8,"type":"dimension"},"comp":{"value":"[object Object]","type":"comp"}}}
+{"icons":{"value":"true||false","type":"boolean","rawValue":"{show}||{hide}"},"comp-input-default":{"itemSpacing":{"value":"8px","type":"dimension"},"comp":{"value":"[object Object]","type":"comp"}}}
