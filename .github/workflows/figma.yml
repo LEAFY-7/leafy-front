@@ -1,0 +1,35 @@
+name: Update tokens from feature/design
+
+# design 브랜치의 tokens.json 파일에 대한 push 감지
+on:
+    push:
+        branches:
+            - feature/design
+        paths:
+            - 'tokens.json'
+
+permissions:
+    contents: write
+
+jobs:
+    createPullRequest:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            # 디자인 파일 변환
+            - name: Run Token Transformer
+              run: |
+                  npm i token-transformer
+                  node tokenTransformer.config.js
+                  git add .
+                  git commit -m '피그마 디자인 파일 변환'
+                  git push
+              env:
+                  GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+            - name: uninstall Token Transformer
+              run: npm uninstall token-transformer
+              env:
+                  GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
