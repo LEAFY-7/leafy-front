@@ -32,6 +32,7 @@ jobs:
                   REPO: self
                   BRANCH: feature/jh
                   FOLDER: ./src/commons/tokens
+                  TARGET_DIR: ./src/commons/tokens
                   GITHUB_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
                   MESSAGE: '[UPDATE] 토큰 변환'
             - name: uninstall Token Transformer
