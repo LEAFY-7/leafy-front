@@ -2,15 +2,15 @@
 import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import stylesConfig, { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import textareaStyle from './textarea.style';
 
 export interface TextareaProps {
-    fontSize: keyof typeof stylesConfig.theme.fontSize;
-    color: keyof typeof stylesConfig.theme.colors;
-    placeholderColor: keyof typeof stylesConfig.theme.colors;
-    fontWeight?: keyof typeof stylesConfig.theme.fontWeight;
+    fontSize: keyof typeof theme.fontSize;
+    color: keyof typeof theme.colors;
+    placeholderColor: keyof typeof theme.colors;
+    fontWeight?: keyof typeof theme.fontWeight;
     margin?: CSSProperties['margin'];
     marginTop?: number;
     marginRight?: number;
@@ -34,7 +34,7 @@ export interface Props
         Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLTextAreaElement>, 'color'> {
     value?: string | number;
     name?: string;
-    variant?: 'default' | 'primary' | 'secondary' | 'important';
+    variant?: 'default' | 'primary' | 'secondary';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 

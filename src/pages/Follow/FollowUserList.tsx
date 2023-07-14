@@ -1,6 +1,5 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
-import { routesGen } from 'configs/route.config';
 
 import CustomSiper from 'components/molecules/Carousel/CustomSwiper';
 import Box from 'components/atoms/Box/default-box';
@@ -34,11 +33,7 @@ const FollowUserList = () => {
                     >
                         <Image src={follow.author._imgUrl} alt={`이미지-${index}`} variant="icon_md" />
 
-                        <Typography
-                            variant="BODY3"
-                            textAlign="center"
-                            to={routesGen.userFeed(follow.author.displayName)}
-                        >
+                        <Typography variant="BODY3" textAlign="center">
                             {follow.author.displayName}
                         </Typography>
                     </Box>

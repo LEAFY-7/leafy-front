@@ -4,18 +4,14 @@ import axios from 'axios';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 import Div from 'components/atoms/Div/default-div';
-import CheckboxWrapper from '@components/atoms/CheckBox/headlesst-checkBox';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Flex from 'components/atoms/Group/flex';
 import EffectiveButton from 'components/atoms/Button/effective-button';
-import Dialog from 'components/atoms/Dialog/default-dialog';
-import WaterModal from 'components/molecules/Modal/water-modal';
-import Textarea from 'components/atoms/Textarea/default-textarea';
 import useAutoResize from 'hooks/useAutoResize';
 
 import Flyout from 'components/atoms/Flyout/headless-flyout';
-import MonoBubbleTemplate from 'components/templates/mono-bubble-template';
 import MonoTemplate from 'components/templates/mono-template';
+import WaterButton from 'components/atoms/Button/drop-button';
+import RoundButton from 'components/atoms/Button/round-button';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -80,9 +76,20 @@ const Temp = () => {
                         <Div width={100} variant="translucent" marginBottom={16} padding={16}>
                             {text}
                         </Div>
-                        <Div width={100} height="300px" variant="translucent" marginBottom={16} padding={16}>
-                            박스
-                        </Div>
+
+                        <WaterButton variant="primary">Primary</WaterButton>
+                        <WaterButton variant="secondary">Secondary</WaterButton>
+                        <WaterButton variant="default">Default</WaterButton>
+                        <WaterButton variant="default">Default</WaterButton>
+                        <WaterButton variant="default" disabled>
+                            Disabled
+                        </WaterButton>
+                        <WaterButton variant="default" backgroundColor="red">
+                            Default
+                        </WaterButton>
+
+                        <RectangleButton variant="primary">버튼</RectangleButton>
+                        <RoundButton variant="primary">버튼</RoundButton>
 
                         <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
                             <Flyout.Toggle>토글버튼</Flyout.Toggle>

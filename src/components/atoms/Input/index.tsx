@@ -32,13 +32,13 @@ const DefaultInput = styled.input`
     width: 470px;
     height: 60px;
     padding: 16px;
-    font-size: ${styleConfig.theme.fontSize.lg};
-    line-height: ${styleConfig.theme.lineHeight.lg};
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    line-height: ${({ theme }) => theme.lineHeight.lg};
 
     border-radius: 8px;
-    border: 1px solid ${styleConfig.theme.colors.grey};
+    border: 1px solid ${({ theme }) => theme.colors.grey};
 
     &::placeholder {
-        color: ${styleConfig.theme.colors.grey};
+        color: ${({ theme }) => theme.colors.grey};
     }
 `;

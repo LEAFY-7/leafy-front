@@ -25,10 +25,10 @@ const Auth = () => {
                     <Typography
                         as="span"
                         textAlign="center"
-                        variant="BODY1"
-                        marginTop={10}
-                        marginBottom={10}
-                        lineHeight="xxxl"
+                        variant="H2"
+                        color="grey"
+                        marginTop={16}
+                        marginBottom={16}
                     >
                         {authViewModel.toggle && (
                             <>

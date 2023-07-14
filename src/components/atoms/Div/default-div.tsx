@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import { divSizeBox, variantStyles } from './div.styles';
 

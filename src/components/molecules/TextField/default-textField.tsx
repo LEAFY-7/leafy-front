@@ -73,7 +73,7 @@
 // export default TextField;
 
 import React, { CSSProperties, HTMLAttributes } from 'react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import styled from '@emotion/styled';
 
 interface TextFieldContextProps {

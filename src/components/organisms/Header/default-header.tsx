@@ -6,7 +6,7 @@ import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 
 import DefaultViewModel from 'viewModel/default.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import headerStyle from './header.style';
 import useMouseEvent from 'hooks/useMouseEvent';
 import useAutoResize from 'hooks/useAutoResize';
@@ -68,7 +68,7 @@ export default Header;
 const LeftMenu = () => {
     return (
         <>
-            <TextLogo variant="default" fontSize="xxxl">
+            <TextLogo variant="default" fontSize="xxl">
                 LEAFY
             </TextLogo>
             <RectangleButton to="/notice" size="md" fontSize="sm">
@@ -136,7 +136,6 @@ const Search = () => {
         padding-left: 3rem;
     `;
     return (
-        // onMouseLeave={handleMouseLeave}
         <>
             <Flex alignItems="center" onClick={handleShow} onMouseLeave={handleMouseLeave}>
                 <input
