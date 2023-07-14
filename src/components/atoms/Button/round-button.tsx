@@ -1,15 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
-import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { Theme, css } from '@emotion/react';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
-import buttonStyle from './button.style';
+import { innerStyle, sizeBox, variantStyles } from './button.styles';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant?: 'primary' | 'secondary' | 'default';
+    fontSize?: keyof typeof theme.fontSize;
+    fontWeight?: keyof typeof theme.fontWeight;
+    color?: keyof typeof theme.colors;
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
@@ -17,7 +20,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
 }
 
-const RoundButton = React.forwardRef(function CircleButton(
+const RoundButton = React.forwardRef(function RoundButton(
     {
         id,
         variant = 'default',
@@ -25,6 +28,9 @@ const RoundButton = React.forwardRef(function CircleButton(
         isBorder = false,
         disabled = false,
         leftIcon,
+        color,
+        fontSize,
+        fontWeight,
         rightIcon,
         children,
         to,
@@ -32,11 +38,10 @@ const RoundButton = React.forwardRef(function CircleButton(
     }: React.PropsWithChildren<Props>,
     forwardedRef: React.Ref<HTMLButtonElement>,
 ) {
-    const { height, padding, fontSize, borderWidth } = buttonStyle.sizeBox[size];
-    const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
-    const radius = size === 'xs' ? 0.5 : size === 'sm' ? 0.8 : size === 'md' ? 1 : size === 'lg' ? 1.4 : 1.8;
+    const { height, padding, radius, fontSize: newFontSize, borderWidth } = sizeBox[size];
+    const btnVariant = useVariant({ variant: variant, callback: variantStyles });
 
-    const defaultButtonStyle = css`
+    const defaultButtonStyle = ({ palette }: Theme) => css`
         padding-left: ${padding + 'rem'};
         padding-top: ${padding + 'rem'};
         padding-right: ${padding + 'rem'};
@@ -49,9 +54,12 @@ const RoundButton = React.forwardRef(function CircleButton(
         cursor: pointer;
         border: ${isBorder && 'solid'};
         border-width: ${isBorder ? borderWidth + 'px' : 0};
-        border-radius: ${radius + 'rem'};
-        font-weight: ${theme.fontWeight.bold};
+        border-radius: ${radius + 'px'};
         ${btnVariant}
+        font-size: ${!fontSize ? newFontSize + 'px' : theme.fontSize[fontSize]};
+        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
+        color: ${color && palette.text[color]};
+
         &:disabled {
             border-color: ${theme.colors.grey};
             background-color: ${theme.colors.grey};
@@ -62,7 +70,7 @@ const RoundButton = React.forwardRef(function CircleButton(
     return (
         <LinkWrapper to={to}>
             <button id={id} disabled={disabled} css={defaultButtonStyle} ref={forwardedRef} {...rest}>
-                <div css={buttonStyle.innerStyle}>
+                <div css={innerStyle}>
                     {leftIcon && leftIcon}
                     {children}
                     {rightIcon && rightIcon}

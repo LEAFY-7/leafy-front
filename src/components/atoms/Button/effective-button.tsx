@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
-import buttonStyle from './button.style';
+import { innerStyle, sizeBox, variantStyles, interval } from './button.styles';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant?: 'primary' | 'secondary' | 'default';
-    fontSize?: keyof typeof theme.fontSize | 'default';
+    fontSize?: keyof typeof theme.fontSize;
+    fontWeight?: keyof typeof theme.fontWeight;
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
@@ -24,15 +25,16 @@ const EffectiveButton = ({
     size = 'md',
     isBorder = false,
     disabled = false,
-    fontSize = 'default',
+    fontSize,
+    fontWeight,
     leftIcon,
     rightIcon,
     children,
     to,
     ...rest
 }: React.PropsWithChildren<Props>) => {
-    const { height, padding, radius, fontSize: newFontSize, borderWidth } = buttonStyle.sizeBox[size];
-    const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
+    const { height, padding, radius, fontSize: newFontSize, borderWidth } = sizeBox[size];
+    const btnVariant = useVariant({ variant: variant, callback: variantStyles });
 
     const defaultButtonStyle = css`
         height: ${height + 'rem'};
@@ -45,7 +47,6 @@ const EffectiveButton = ({
         padding-right: ${padding * 2 + 'rem'};
         padding-bottom: ${padding / 2 + 'rem'};
         padding-top: ${padding / 2 + 'rem'};
-        font-size: ${fontSize === 'default' ? newFontSize + 'rem' : theme.fontSize[fontSize]};
         background-origin: border-box;
         outline: none;
         word-break: keep-all;
@@ -53,7 +54,8 @@ const EffectiveButton = ({
         border: ${isBorder && 'solid'};
         border-width: ${isBorder ? borderWidth + 'px' : 0};
         border-radius: ${radius + 'px'};
-        font-weight: ${theme.fontWeight.bold};
+        font-size: ${!fontSize ? newFontSize + 'px' : theme.fontSize[fontSize]};
+        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
 
         &:hover {
             position: relative;
@@ -163,9 +165,9 @@ const EffectiveButton = ({
     return (
         <LinkWrapper to={to}>
             <button id={id} disabled={disabled} css={defaultButtonStyle} {...rest}>
-                <div css={buttonStyle.innerStyle}>
+                <div css={innerStyle}>
                     {leftIcon && leftIcon}
-                    {(leftIcon || rightIcon) && <div css={buttonStyle.interval} />} {children}
+                    {(leftIcon || rightIcon) && <div css={interval} />} {children}
                     {rightIcon && rightIcon}
                 </div>
             </button>

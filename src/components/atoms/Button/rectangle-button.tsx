@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
-import buttonStyle from './button.style';
+import { innerStyle, sizeBox, variantStyles } from './button.styles';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     variant?: 'primary' | 'secondary' | 'default';
-    fontSize?: keyof typeof theme.fontSize | 'default';
+    fontSize?: keyof typeof theme.fontSize;
+    fontWeight?: keyof typeof theme.fontWeight;
     isBorder?: boolean;
     disabled?: boolean;
     leftIcon?: ReactNode;
@@ -18,28 +19,31 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
 }
 
-const RectangleButton = ({
-    id,
-    variant = 'default',
-    size = 'md',
-    isBorder = false,
-    disabled = false,
-    fontSize = 'default',
-    leftIcon,
-    rightIcon,
-    children,
-    to,
-    ...rest
-}: React.PropsWithChildren<Props>) => {
-    const { height, padding, fontSize: newFontSize, radius, borderWidth } = buttonStyle.sizeBox[size];
-    const btnVariant = useVariant({ variant: variant, callback: buttonStyle.variantStyles });
+const RectangleButton = React.forwardRef(function RectangleButton(
+    {
+        id,
+        variant = 'default',
+        size = 'md',
+        isBorder = false,
+        disabled = false,
+        fontSize,
+        fontWeight,
+        leftIcon,
+        rightIcon,
+        children,
+        to,
+        ...rest
+    }: React.PropsWithChildren<Props>,
+    forwardedRef: React.Ref<HTMLButtonElement>,
+) {
+    const { height, padding, fontSize: newFontSize, radius, borderWidth } = sizeBox[size];
+    const btnVariant = useVariant({ variant: variant, callback: variantStyles });
     const defaultButtonStyle = css`
         padding-left: ${padding + 'rem'};
         padding-top: ${padding + 'rem'};
         padding-right: ${padding + 'rem'};
         padding-bottom: ${padding + 'rem'};
         height: ${height + 'rem'};
-        font-size: ${fontSize === 'default' ? newFontSize + 'rem' : theme.fontSize[fontSize]};
         border: 1px solid #000;
         outline: none;
         word-break: keep-all;
@@ -48,7 +52,8 @@ const RectangleButton = ({
         border: ${isBorder && 'solid'};
         border-width: ${isBorder ? borderWidth + 'px' : 0};
         border-radius: 15px;
-        font-weight: ${theme.fontWeight.bold};
+        font-size: ${!fontSize ? newFontSize + 'px' : theme.fontSize[fontSize]};
+        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
         ${btnVariant}
         &:disabled {
             border-color: ${theme.colors.grey};
@@ -59,8 +64,8 @@ const RectangleButton = ({
 
     return (
         <LinkWrapper to={to}>
-            <button id={id} disabled={disabled} css={defaultButtonStyle} {...rest}>
-                <div css={buttonStyle.innerStyle}>
+            <button id={id} disabled={disabled} css={defaultButtonStyle} ref={forwardedRef} {...rest}>
+                <div css={innerStyle}>
                     {leftIcon && leftIcon}
                     {children}
                     {rightIcon && rightIcon}
@@ -68,6 +73,6 @@ const RectangleButton = ({
             </button>
         </LinkWrapper>
     );
-};
+});
 
 export default RectangleButton;
