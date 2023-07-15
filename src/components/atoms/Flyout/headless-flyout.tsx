@@ -1,10 +1,19 @@
 import React, { useContext } from 'react';
+import Div from '../Div/default-div';
+import styled from '@emotion/styled';
+
+interface StyleProps {
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
+    variant?: 'default' | 'primary' | 'secondary' | 'translucent';
+}
 
 interface FlyoutContextProps {
     open: boolean;
     toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 type FlyoutWrapperProps = FlyoutContextProps & React.PropsWithChildren<{}>;
+
+type FloutListProps = StyleProps & React.PropsWithChildren<{}>;
 
 const FlyoutContext = React.createContext<FlyoutContextProps>({
     open: false,
@@ -24,28 +33,62 @@ const Flyout = ({ children }: FlyoutWrapperProps) => {
     return <FlyoutContext.Provider value={providerValue}>{children}</FlyoutContext.Provider>;
 };
 
-const FlyoutToggle = ({ children }: { children: React.ReactNode }) => {
+const FlyoutToggle = ({ children, ...rest }: { children: React.ReactNode }) => {
     const { open, toggle } = useContext(FlyoutContext);
-    return <div onClick={() => toggle(!open)}>{children}</div>;
+    return (
+        <div onClick={() => toggle(!open)} {...rest}>
+            {children}
+        </div>
+    );
+};
+const FlyoutHeader = ({ children, ...rest }) => {
+    return <div {...rest}>{children}</div>;
 };
 
-const FlyoutList = ({ children }) => {
+const FlyoutList = ({ size = 'lg', variant = 'translucent', children, ...rest }: FloutListProps) => {
     const { open } = useFlyoutContext();
-    return open && <ul>{children}</ul>;
+
+    React.useEffect(() => {
+        if (open) {
+            const timeoutId = setTimeout(() => {
+                const listWrapperElement = document.getElementById('list-wrapper');
+                if (listWrapperElement) {
+                    listWrapperElement.style.opacity = '1';
+                }
+            }, 100);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [open]);
+
+    return (
+        open && (
+            <ListWrapper id="list-wrapper" size={size} variant={variant} direction="column" {...rest}>
+                {children}
+            </ListWrapper>
+        )
+    );
 };
 
-const FlyoutItem = ({ children }) => {
-    return <li>{children}</li>;
+const FlyoutItem = ({ children, ...rest }) => {
+    return <li {...rest}>{children}</li>;
 };
 
 Flyout.Toggle = FlyoutToggle;
+Flyout.Header = FlyoutHeader;
 Flyout.List = FlyoutList;
 Flyout.Item = FlyoutItem;
 
 export default Flyout;
 
-export const DefaultFlyout = Object.assign(Flyout, {
-    Toggle: FlyoutToggle,
-    List: FlyoutList,
-    Item: FlyoutItem,
-});
+const ListWrapper = styled(Div)`
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    z-index: 9;
+    padding: 8px;
+    height: 350px;
+
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+`;

@@ -45,6 +45,9 @@ const globalStyle = (theme: Theme) => css`
         padding: 0;
         margin: 0;
     }
+    li {
+        color: ${theme.palette.text.black};
+    }
 
     ol {
         margin: 0;

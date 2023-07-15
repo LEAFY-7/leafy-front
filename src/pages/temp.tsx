@@ -4,14 +4,15 @@ import axios from 'axios';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 import Div from 'components/atoms/Div/default-div';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
-import EffectiveButton from 'components/atoms/Button/effective-button';
 import useAutoResize from 'hooks/useAutoResize';
 
 import Flyout from 'components/atoms/Flyout/headless-flyout';
 import MonoTemplate from 'components/templates/mono-template';
-import WaterButton from 'components/atoms/Button/drop-button';
-import RoundButton from 'components/atoms/Button/round-button';
+import FlyoutMenu from 'components/atoms/Flyout/flyout-menu';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
+import Typography from 'components/atoms/Typograph/default-typography';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -60,38 +61,7 @@ const Temp = () => {
             <MonoTemplate
                 mainSection={
                     <Div width={100} direction="column" padding={8}>
-                        <Div id="temp" width={100} size="xl">
-                            <EffectiveButton
-                                variant="primary"
-                                leftIcon={<RiLockPasswordLine />}
-                                onClick={handleClick}
-                            >
-                                에러 요청 보내기
-                            </EffectiveButton>
-                            <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
-                                클릭입니다.
-                            </EffectiveButton>
-                        </Div>
-
-                        <Div width={100} variant="translucent" marginBottom={16} padding={16}>
-                            {text}
-                        </Div>
-
-                        <WaterButton variant="primary">Primary</WaterButton>
-                        <WaterButton variant="secondary">Secondary</WaterButton>
-                        <WaterButton variant="default">Default</WaterButton>
-                        <WaterButton variant="default">Default</WaterButton>
-                        <WaterButton variant="default" disabled>
-                            Disabled
-                        </WaterButton>
-                        <WaterButton variant="default" backgroundColor="red">
-                            Default
-                        </WaterButton>
-
-                        <RectangleButton variant="primary">버튼</RectangleButton>
-                        <RoundButton variant="primary">버튼</RoundButton>
-
-                        <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
+                        {/* <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
                             <Flyout.Toggle>토글버튼</Flyout.Toggle>
                             <Flyout.List>
                                 <Flyout.Item>1</Flyout.Item>
@@ -99,7 +69,23 @@ const Temp = () => {
                                 <Flyout.Item>3</Flyout.Item>
                                 <Flyout.Item>4</Flyout.Item>
                             </Flyout.List>
-                        </Flyout>
+                        </Flyout> */}
+                        <Flex direction="column" style={{ height: '500px' }}>
+                            <FlyoutMenu
+                                toggleEl={
+                                    <Flex>
+                                        <TextAvatar text="tk" />
+                                        <Typography variant="BODY2" marginLeft={8}>
+                                            유저아이디
+                                        </Typography>
+                                    </Flex>
+                                }
+                            />
+                            <RectangleButton>하하하</RectangleButton>
+                            <RectangleButton>하하하</RectangleButton>
+                            <RectangleButton>하하하</RectangleButton>
+                            <RectangleButton>하하하</RectangleButton>
+                        </Flex>
                     </Div>
                 }
             />
@@ -108,6 +94,13 @@ const Temp = () => {
 };
 
 export default Temp;
+
+{
+    /* <Div width={100} variant="translucent" marginBottom={16} padding={16}>
+    {text}
+</Div>; */
+}
+
 {
     /* <CheckboxWrapper
                             id="checkbox-1"
