@@ -49,7 +49,7 @@ const SignInForm = () => {
                     {...register(authItemState.password.property as 'password', authFormState.password)}
                 />
                 <Div id="submit_btn" width={100} padding={8}>
-                    <SubmitButton type="submit" variant="primary" isBorder disabled={isSubmitting}>
+                    <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                         로그인하기
                     </SubmitButton>
                 </Div>

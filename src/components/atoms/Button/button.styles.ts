@@ -1,20 +1,20 @@
 import { Theme, css } from '@emotion/react';
 
 export const variantStyles = {
-    default: ({ palette }: Theme) => css`
+    default: ({ palette, colors }: Theme) => css`
         border-color: ${palette.default.borderColor};
         background-color: ${palette.default.backgroundColor};
         color: ${palette.text.black};
     `,
-    primary: ({ palette }: Theme) => css`
-        border-color: ${palette.primary.borderColor};
-        background-color: ${palette.primary.backgroundColor};
-        color: ${palette.text.white};
+    primary: ({ colors }: Theme) => css`
+        border-color: ${colors.black};
+        background-color: ${colors.primary};
+        color: ${colors.white};
     `,
-    secondary: ({ palette }: Theme) => css`
-        border-color: ${palette.secondary.borderColor};
-        background-color: ${palette.secondary.backgroundColor};
-        color: ${palette.text.white};
+    secondary: ({ colors }: Theme) => css`
+        border-color: ${colors.black};
+        background-color: ${colors.secondary};
+        color: ${colors.white};
     `,
     'menu-default': ({ palette }: Theme) => css`
         border-color: ${palette.default.borderColor};

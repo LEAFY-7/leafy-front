@@ -76,7 +76,7 @@ const SignUpForm = () => {
                     )}
                 />
                 <Div id="submit_btn" width={100} padding={8}>
-                    <SubmitButton type="submit" variant="primary" isBorder disabled={isSubmitting}>
+                    <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                         회원가입하기
                     </SubmitButton>
                 </Div>

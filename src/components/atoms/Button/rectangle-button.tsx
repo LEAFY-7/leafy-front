@@ -40,36 +40,10 @@ const RectangleButton = React.forwardRef(function RectangleButton(
     }: React.PropsWithChildren<Props>,
     forwardedRef: React.Ref<HTMLButtonElement>,
 ) {
-    const { height, padding, fontSize: newFontSize, borderWidth } = sizeBox[size];
+    const { height, padding, radius, fontSize: newFontSize, borderWidth } = sizeBox[size];
     const btnVariant = useVariant({ variant: variant, callback: variantStyles });
-    const defaultButtonStyle = ({ palette }: Theme) => css`
-        height: ${height + 'px'};
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        position: relative;
-        padding-left: ${padding * 2 + 'px'};
-        padding-right: ${padding * 2 + 'px'};
-        padding-bottom: ${padding / 2 + 'px'};
-        padding-top: ${padding / 2 + 'px'};
-        background-origin: border-box;
-        outline: none;
-        word-break: keep-all;
-        margin: 8px;
-        border: ${isBorder && 'solid'};
-        border-width: ${isBorder ? borderWidth + 'px' : 0};
-        border-radius: 8px;
-        font-size: ${!fontSize ? newFontSize + 'px' : theme.fontSize[fontSize]};
-        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
-        gap: 10px;
-        mix-blend-mode: normal;
-        box-sizing: border-box;
-        flex-grow: 1;
-        transition: all 0.5s ease-out;
 
-        ${btnVariant}
-
+    const eventStyle = css`
         &:hover::after {
             content: '';
             position: absolute;
@@ -83,6 +57,7 @@ const RectangleButton = React.forwardRef(function RectangleButton(
             );
             mix-blend-mode: normal;
             opacity: 0.7;
+            border-radius: 8px;
             transform: matrix(-1, 0, 0, 1, 0, 0);
         }
         &:active::before {
@@ -112,6 +87,36 @@ const RectangleButton = React.forwardRef(function RectangleButton(
             opacity: 0.7;
             transform: matrix(-1, 0, 0, 1, 0, 0);
         }
+    `;
+
+    const defaultButtonStyle = ({ palette }: Theme) => css`
+        height: ${height + 'px'};
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        padding-left: ${padding * 2 + 'px'};
+        padding-right: ${padding * 2 + 'px'};
+        padding-bottom: ${padding / 2 + 'px'};
+        padding-top: ${padding / 2 + 'px'};
+        background-origin: border-box;
+        outline: none;
+        word-break: keep-all;
+        margin: 8px;
+        border: ${isBorder && 'solid'};
+        border-width: ${isBorder ? borderWidth + 'px' : 0};
+        border-radius: 8px;
+        font-size: ${!fontSize ? newFontSize + 'px' : theme.fontSize[fontSize]};
+        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
+        gap: 10px;
+        mix-blend-mode: normal;
+        box-sizing: border-box;
+        flex-grow: 1;
+        transition: all 0.5s ease-out;
+
+        ${variant !== 'default' && eventStyle}
+        ${btnVariant}
 
         &:disabled {
             border-color: ${theme.colors.grey};
@@ -119,7 +124,7 @@ const RectangleButton = React.forwardRef(function RectangleButton(
             color: ${theme.colors.white};
         }
         background-color: ${theme.colors[backgroundColor]};
-        color: ${color && palette.text[color]};
+        color: ${color && theme.colors[color]};
     `;
 
     return (
