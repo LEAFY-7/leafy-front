@@ -43,7 +43,7 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
         border-color: ${({ theme }) => theme.colors.green};
         color: ${({ theme }) => theme.colors.inherit};
         + .iconBox {
-            color: ${({ theme }) => theme.colors.black};
+            color: ${({ theme }) => theme.palette.text.black};
         }
     }
     &::placeholder {
