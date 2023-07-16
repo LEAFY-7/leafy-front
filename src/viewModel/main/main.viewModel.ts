@@ -1,4 +1,5 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import { plainToInstance } from 'class-transformer';
+import FeedData from 'db/feed.json';
 import { FeedDto } from 'dto/feed/feed.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
@@ -25,17 +26,18 @@ export default class MainViewModel extends DefaultViewModel {
     };
 
     getMainData = async () => {
-        const params = {};
-        await this.api
-            .get(`/v1/main/`)
-            .then((result: AxiosResponse<any[]>) => {
-                this.saveMainData(result);
-            })
-            .catch((error: AxiosError) => {
-                console.log('error : ', error);
-                if (error.status === 402) {
-                }
-                return false;
-            });
+        // const params = {};
+        // await this.api
+        //     .get(`/v1/main/`)
+        //     .then((result: AxiosResponse<any[]>) => {
+        //         this.saveMainData(result);
+        //     })
+        //     .catch((error: AxiosError) => {
+        //         console.log('error : ', error);
+        //         if (error.status === 402) {
+        //         }
+        //         return false;
+        //     });
+        this.feedList = FeedData.data.map((feed) => plainToInstance(FeedDto, feed));
     };
 }

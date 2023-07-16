@@ -57,7 +57,7 @@ export default observer(Home);
 
 const CardWrap = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 `;
 
