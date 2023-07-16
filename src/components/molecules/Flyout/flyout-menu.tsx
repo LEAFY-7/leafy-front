@@ -25,7 +25,13 @@ interface Props {
     isMine?: boolean;
 }
 const defaultName = 'tk';
-const FlyoutMenu = ({ toggleEl, userId, feedId, userShowState = true }: React.PropsWithChildren<Props>) => {
+const FlyoutMenu = ({
+    toggleEl,
+    userId,
+    isMine,
+    feedId,
+    userShowState = true,
+}: React.PropsWithChildren<Props>) => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
     const { values } = useToggle({});
     const divideMenu = React.useMemo(() => userViewModel.user.id === userId, [userViewModel.user.id, userId]);
@@ -47,7 +53,7 @@ const FlyoutMenu = ({ toggleEl, userId, feedId, userShowState = true }: React.Pr
                             </Typography>
                         </Flex>
                     </Header>
-                    {divideMenu
+                    {isMine
                         ? menuConfig.authMenuList.map(({ route, display }, index) =>
                               route ? (
                                   <Item key={index}>

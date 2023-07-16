@@ -67,3 +67,15 @@ const routeConfig = [
 ];
 const routers = createBrowserRouter(routeConfig);
 export default routers;
+
+class RouteModule {
+    public userState: string;
+
+    constructor(props) {
+        this.userState = props.member;
+    }
+
+    setState(member: string) {
+        this.userState = member;
+    }
+}
