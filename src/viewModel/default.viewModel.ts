@@ -8,13 +8,15 @@ export enum themeModes {
 interface IProps {}
 
 export default class DefaultViewModel {
-    public themeModel: themeModes = themeModes.light;
+    public themeModel: themeModes;
     public api: ApiModule;
 
     constructor(props: IProps) {
+        this.themeModel = (localStorage.getItem('leafy') as themeModes) || themeModes.light;
         this.api = ApiModule.getInstance();
         makeObservable(this, {
             themeModel: observable,
+
             handleThemeMode: action,
         });
     }
@@ -26,6 +28,7 @@ export default class DefaultViewModel {
             } else {
                 this.themeModel = themeModes.dark;
             }
+            localStorage.setItem('leafy', this.themeModel);
             return this;
         });
     };

@@ -68,23 +68,14 @@ const routeConfig = [
 const routers = createBrowserRouter(routeConfig);
 export default routers;
 
-export const routesGen = {
-    home: '/',
-    feedDetail: (feedId: string) => `/${feedId}`,
-    post: '/post',
-    update: (feedId: string) => `/post/${feedId}`,
-    follow: '/follow',
-    auth: '/auth',
-    user: (userId: string) => `/user/${userId}`,
-    mypage: '/mypage',
-    edit: '/mypage/edit',
-    notice: '/notice',
-    noticeDetail: (noticeId: string) => `/notice/${noticeId}`,
-    search: '/search',
-    chat: '/chat',
-    unauthorized: '/unauthorized',
-    notFound: '*',
-    userFeed: (userId: string) => `/user/${userId}`,
-    temp: '/temp',
-    tempDetail: (tempId: string) => `/temp/${tempId}`,
-};
+class RouteModule {
+    public userState: string;
+
+    constructor(props) {
+        this.userState = props.member;
+    }
+
+    setState(member: string) {
+        this.userState = member;
+    }
+}

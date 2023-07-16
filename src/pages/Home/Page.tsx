@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 
-import styleConfig from 'configs/style.config';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { FeedDto } from 'dto/feed/feed.dto';
 import MainViewModel from 'viewModel/main/main.viewModel';
@@ -29,15 +28,10 @@ function Home() {
                     <>
                         <SearchWrap>
                             <TitleWrap>
-                                <Typography
-                                    as={'h1'}
-                                    variant="H1"
-                                    style={{ color: styleConfig.theme.colors.green }}
-                                    textAlign="center"
-                                >
+                                <Typography as="h1" variant="H1" color="primary" textAlign="center">
                                     식물 정보를 찾고있나요?
                                 </Typography>
-                                <Typography variant="BODY3" textAlign="center">
+                                <Typography variant="BODY3" color="black" textAlign="center">
                                     실시간 식물 거래 정보를 확인해보세요
                                 </Typography>
                             </TitleWrap>

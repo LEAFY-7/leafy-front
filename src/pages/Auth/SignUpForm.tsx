@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useForm } from 'react-hook-form';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { SignUphModel } from 'models/auth/auth.model';
+import { SignUphModel } from 'models/auth/signUp.model';
 
 import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
@@ -28,7 +28,7 @@ const SignUpForm = () => {
         },
     });
     return (
-        <form onSubmit={handleSubmit(authViewModel.handleSubmit)} noValidate>
+        <form aria-label="signup" onSubmit={handleSubmit(authViewModel.handleSignUp)} noValidate>
             <Flex id="signUpForm_wrapper" direction="column">
                 <TextFiled
                     hookForm
@@ -76,7 +76,7 @@ const SignUpForm = () => {
                     )}
                 />
                 <Div id="submit_btn" width={100} padding={8}>
-                    <SubmitButton type="submit" variant="primary" isBorder disabled={isSubmitting}>
+                    <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                         회원가입하기
                     </SubmitButton>
                 </Div>

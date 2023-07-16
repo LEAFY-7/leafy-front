@@ -28,7 +28,7 @@ export const CheckBox = styled.input<Required<Props>>`
                         background-color: ${theme.palette.secondary.backgroundColor};
                     }
                     &:checked:active {
-                        border-color: ${theme.palette.tertiary.borderColor};
+                        border-color: ${theme.palette.secondary.borderColor};
                     }
                 `;
             }

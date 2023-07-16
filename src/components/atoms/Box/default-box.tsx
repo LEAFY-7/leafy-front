@@ -2,7 +2,7 @@
 import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 
 type As = 'div' | 'main' | 'nav' | 'section' | 'article' | 'header' | 'aside' | 'ul';
 
@@ -109,6 +109,8 @@ const Box = ({
         z-index: ${zIndex};
         padding: ${newPadding};
         margin: ${newMargin};
+        background-color: ${theme.colors[backgroundColor]};
+
         background-image: ${backgroundImage};
         border-radius: ${radius + 'px'};
         box-shadow: ${boxShadow};

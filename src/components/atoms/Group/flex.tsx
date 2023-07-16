@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { CSSProperties, HTMLAttributes } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 
 export interface FlexProps {
     as?: 'div' | 'span' | 'main' | 'nav';
@@ -11,7 +11,6 @@ export interface FlexProps {
     justifyContent?: CSSProperties['justifyContent'];
     alignItems?: CSSProperties['alignItems'];
     alignContent?: CSSProperties['alignContent'];
-    backgroundColor?: keyof typeof theme.colors;
 }
 
 export interface Props extends HTMLAttributes<HTMLElement>, FlexProps {
@@ -27,7 +26,6 @@ const Flex = ({
     justifyContent = 'flex-start',
     alignItems = 'flex-start',
     alignContent = 'normal',
-    backgroundColor = 'inherit',
     children,
     ...rest
 }: React.PropsWithChildren<Props>) => {

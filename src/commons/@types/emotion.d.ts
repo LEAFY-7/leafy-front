@@ -1,15 +1,16 @@
-import stylesConfig from '@configs/style.config';
+import { theme } from 'configs/ui.config';
 
 declare module '@emotion/react' {
     export interface Theme {
-        global: { [key in string]: any };
-        palette: { [key in string]: any };
-        colors: typeof stylesConfig.theme.colors;
-        fontSize: typeof stylesConfig.theme.fontSize;
-        fontWeight: typeof stylesConfig.theme.fontWeight;
-        lineHeight: typeof stylesConfig.theme.lineHeight;
-        breakpoint: typeof stylesConfig.theme.breakpoint;
-        mediaQuery: typeof stylesConfig.theme.mediaQuery;
-        imgSize: typeof stylesConfig.theme.imgSize;
+        palette: typeof theme.palette;
+        typo: typeof theme.typo;
+        colors: typeof theme.colors;
+        shadow: typeof theme.shadow;
+        fontSize: typeof theme.fontSize;
+        fontWeight: typeof theme.fontWeight;
+        lineHeight: typeof theme.lineHeight;
+        breakpoint: typeof theme.breakpoint;
+        mediaQuery: typeof theme.mediaQuery;
+        imgSize: typeof theme.imgSize;
     }
 }

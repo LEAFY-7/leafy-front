@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Dialog from 'components/atoms/Dialog/default-dialog';
-import Toggle from '@components/atoms/Flyout/headless-flyout';
 
 type ModalProps = {
     open: boolean;
