@@ -1,35 +1,39 @@
 import React from 'react';
 import type { ReactNode } from 'react';
 import styled from '@emotion/styled';
+
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
 import { UserDto } from 'dto/user/user.dto';
-import useToggle from 'hooks/useToggle';
+import useToggle from 'hooks/useToggleProvider';
+
 import menuConfig from 'configs/menu.config';
 import { theme } from 'configs/ui.config';
-import FlyOut from './headless-flyout';
-
-import Div from '../Div/default-div';
-import Flex from '../Group/flex';
-import RectangleButton from '../Button/rectangle-button';
-import TextAvatar from '../Avatar/text-avatar';
-import Typography from '../Typograph/default-typography';
-import LinkWrapper from '../Wrapper/link-wrapper';
 import pageUrlConfig from 'configs/pageUrl.config';
+
+import FlyOut from './headless-flyout';
+import Flex from '../../atoms/Group/flex';
+import TextAvatar from '../../atoms/Avatar/text-avatar';
+import Typography from '../../atoms/Typograph/default-typography';
+import LinkWrapper from '../../atoms/Wrapper/link-wrapper';
 
 interface Props {
     toggleEl: ReactNode;
     userId?: UserDto['id'];
+    feedId?: string;
+    userShowState: boolean;
 }
 const defaultName = 'tk';
-const FlyoutMenu = ({ toggleEl, userId }: React.PropsWithChildren<Props>) => {
+const FlyoutMenu = ({ toggleEl, userId, feedId, userShowState = true }: React.PropsWithChildren<Props>) => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
-    const { isOn, setIsOn, handler } = useToggle();
+    const { values } = useToggle({});
     const divideMenu = React.useMemo(() => userViewModel.user.id === userId, [userViewModel.user.id, userId]);
+
     return (
-        <FlyOut open={isOn} toggle={handler}>
+        <FlyOut isOpen={values.isOpen} toggle={values.toggle}>
+            <FlyOut.OverLay />
             <Toggle>{toggleEl}</Toggle>
-            <Wrapper>
+            <FlyOut.Wrapper>
                 <FlyOut.List size="xl">
                     <Header>
                         <TextAvatar text={userViewModel.user.name || defaultName} />
@@ -38,7 +42,7 @@ const FlyoutMenu = ({ toggleEl, userId }: React.PropsWithChildren<Props>) => {
                                 {userViewModel.user.name || defaultName}
                             </Typography>
                             <Typography variant="BODY2" marginLeft={8}>
-                                비공개
+                                {userShowState ? '공개' : '비공개'}
                             </Typography>
                         </Flex>
                     </Header>
@@ -46,7 +50,9 @@ const FlyoutMenu = ({ toggleEl, userId }: React.PropsWithChildren<Props>) => {
                         ? menuConfig.authMenuList.map(({ route, display }, index) =>
                               route ? (
                                   <Item key={index}>
-                                      <LinkWrapper to={pageUrlConfig[route]}>{display}</LinkWrapper>
+                                      <LinkWrapper to={`${pageUrlConfig[route]}/${userId}`}>
+                                          {display}
+                                      </LinkWrapper>
                                   </Item>
                               ) : (
                                   <Item key={index}>{display}</Item>
@@ -62,15 +68,11 @@ const FlyoutMenu = ({ toggleEl, userId }: React.PropsWithChildren<Props>) => {
                               ),
                           )}
                 </FlyOut.List>
-            </Wrapper>
+            </FlyOut.Wrapper>
         </FlyOut>
     );
 };
 export default FlyoutMenu;
-
-const Wrapper = styled.span`
-    position: relative;
-`;
 
 const Header = styled(FlyOut.Header)`
     width: 100%;
