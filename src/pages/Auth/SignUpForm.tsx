@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useForm } from 'react-hook-form';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { SignUphModel } from 'models/auth/auth.model';
+import { SignUphModel } from 'models/auth/signUp.model';
 
 import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';

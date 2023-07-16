@@ -46,6 +46,7 @@ const globalStyle = (theme: Theme) => css`
         margin: 0;
     }
     li {
+        list-style: none;
         color: ${theme.palette.text.black};
     }
 

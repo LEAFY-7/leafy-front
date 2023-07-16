@@ -6,7 +6,7 @@ const userMenuList = [
 ];
 
 const authMenuList = [
-    { route: 'follow', display: '게시글 보러가기' },
+    { route: 'user', display: '게시글 보러가기' },
     { route: 'update', display: '수정하기' },
     { route: '', display: '삭제하기' },
 ];

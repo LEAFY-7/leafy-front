@@ -1,35 +1,17 @@
-import {
-    TokenGlobal,
-    TokenGlobalColorList,
-    TokenGlobalOnlyColor,
-    colorSelector,
-    TokenGlobalBoxShadowList,
-    TokenTypography,
-} from 'figma/index.types';
-
-const { green, lgreen, grey, white, black, red, yellow, blossom }: TokenGlobalOnlyColor = TokenGlobal;
-const primary = colorSelector('primary', TokenGlobalColorList);
-const secondary = colorSelector('secondary', TokenGlobalColorList);
+import { TokenTypography, TokenGlobalLineHeight, TokenGlobalColor } from 'figma/index.types';
 
 export const colors = {
-    primary: primary,
-    secondary: secondary,
     inherit: 'inherit',
     current: 'currentColor',
     transparent: 'transparent',
-    green: green.value,
-    lgreen: lgreen.value,
-    white: white.value,
-    grey: grey.value,
-    black: black.value,
-    red: red.value,
-    yellow: yellow.value,
-    blossom: blossom.value,
-};
-
-export const shadow = {
-    sm: TokenGlobalBoxShadowList.sm,
-    lg: TokenGlobalBoxShadowList.lg,
+    primary: TokenGlobalColor.primary,
+    secondary: TokenGlobalColor.secondary,
+    sementic: TokenGlobalColor.sementic,
+    blossom: TokenGlobalColor.blossom,
+    white: TokenGlobalColor.white,
+    grey: TokenGlobalColor.grey,
+    lgrey: TokenGlobalColor.lgrey,
+    black: TokenGlobalColor.black,
 };
 
 export const fontSize = {
@@ -43,17 +25,7 @@ export const fontSize = {
     xxxl: '36px',
     xxxxl: '48px',
 };
-export const lineHeight = {
-    xxs: '12px',
-    xs: '14px',
-    sm: '20px',
-    md: '22px',
-    lg: '22px',
-    xl: '22px',
-    xxl: '28px',
-    xxxl: '40px',
-    xxxxl: '53px',
-};
+
 export const fontWeight = {
     bold: 700,
     semiBold: 600,
@@ -77,16 +49,14 @@ export const light = {
     boxShadow: 'none',
 
     text: {
-        primary: colors.green,
-        secondary: colors.lgreen,
+        primary: colors.primary,
+        secondary: colors.secondary,
+        sementic: colors.sementic,
         white: colors.white,
         black: colors.black,
         grey: colors.grey,
-        green: colors.green,
-        lgreen: colors.lgreen,
-        red: colors.red,
-        yellow: colors.yellow,
         blossom: colors.blossom,
+        lgrey: colors.lgrey,
     },
     primary: {
         borderColor: colors.primary,
@@ -111,16 +81,14 @@ export const dark = {
     boxShadow: 'inset 0px 0px 5px 5px rgba(255, 255, 255, 0.1)',
 
     text: {
-        white: colors.black,
-        black: colors.white,
         primary: colors.white,
         secondary: colors.white,
+        sementic: colors.white,
+        white: colors.white,
+        black: colors.white,
         grey: colors.white,
-        green: colors.white,
-        lgreen: colors.white,
-        red: colors.white,
-        yellow: colors.white,
         blossom: colors.white,
+        lgrey: colors.white,
     },
     primary: {
         borderColor: colors.white,
@@ -145,11 +113,10 @@ export const theme = {
     typo: TokenTypography,
     colors,
     fontSize,
-    lineHeight,
+    lineHeight: TokenGlobalLineHeight,
     fontWeight,
     breakpoint,
     mediaQuery,
-    shadow,
     imgSize: {
         sm: '20px',
         md: '50px',

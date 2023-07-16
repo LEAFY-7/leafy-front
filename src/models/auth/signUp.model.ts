@@ -1,4 +1,4 @@
-import { SignInModel } from './signin.model';
+import { SignInModel } from './signIn.model';
 
 export class SignUphModel extends SignInModel {
     public displayName: string = '';

@@ -1,18 +1,19 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import axios from 'axios';
-import { RiLockPasswordLine } from 'react-icons/ri';
-
-import Div from 'components/atoms/Div/default-div';
+import { observer } from 'mobx-react';
+import MainViewModel from 'viewModel/main/main.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { FeedDto } from 'dto/feed/feed.dto';
 import useAutoResize from 'hooks/useAutoResize';
+import useToggle from 'hooks/useToggleProvider';
 
-import Flyout from 'components/atoms/Flyout/headless-flyout';
 import MonoTemplate from 'components/templates/mono-template';
-import FlyoutMenu from 'components/atoms/Flyout/flyout-menu';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Div from 'components/atoms/Div/default-div';
 import Flex from 'components/atoms/Group/flex';
-import TextAvatar from 'components/atoms/Avatar/text-avatar';
 import Typography from 'components/atoms/Typograph/default-typography';
+import LazyImage from 'components/atoms/LazyImage/default-image';
+import Flyout from 'components/molecules/Flyout/headless-flyout';
+import FlyoutMenu from 'components/molecules/Flyout/flyout-menu';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -30,18 +31,16 @@ the release of Letraset sheets containing Lorem Ipsum passages, and more recentl
 with desktop publishing software like Aldus PageMaker including versions of Lorem
 Ipsum.`;
 
+const src = 'https://api.slingacademy.com/public/sample-photos/1.jpeg';
 // 연습장
 const Temp = () => {
-    const [isChecked, setIsChecked] = React.useState(false);
-    const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
-    const [open, setOpen] = React.useState(false);
+    const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
 
-    const [toggle, setToggle] = React.useState(false);
+    const { values } = useToggle({});
+
+    const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
 
     const [error, setError] = React.useState<any>();
-    const handleClickDialog = () => {
-        setOpen((prev) => !prev);
-    };
 
     const handleClick = async () => {
         try {
@@ -54,38 +53,67 @@ const Temp = () => {
         }
     };
 
+    React.useEffect(() => {
+        mainViewModel.getList();
+    }, []);
+
     if (error) throw new Error(error);
 
     return (
         <>
             <MonoTemplate
                 mainSection={
-                    <Div width={100} direction="column" padding={8}>
-                        {/* <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
-                            <Flyout.Toggle>토글버튼</Flyout.Toggle>
-                            <Flyout.List>
-                                <Flyout.Item>1</Flyout.Item>
-                                <Flyout.Item>2</Flyout.Item>
-                                <Flyout.Item>3</Flyout.Item>
-                                <Flyout.Item>4</Flyout.Item>
-                            </Flyout.List>
-                        </Flyout> */}
+                    <Div width={100} height={100} direction="column" padding={8}>
+                        <Flex direction="column" style={{ height: '500px' }}>
+                            <Flyout isOpen={values.isOpen} toggle={values.toggle}>
+                                <Flyout.Toggle>토글버튼</Flyout.Toggle>
+                                <Flyout.OverLay />
+                                <Flyout.Wrapper>
+                                    <Flyout.List>
+                                        <Flyout.Header>헤더</Flyout.Header>
+                                        <Flyout.Item>1</Flyout.Item>
+                                        <Flyout.Item>2</Flyout.Item>
+                                        <Flyout.Item>3</Flyout.Item>
+                                        <Flyout.Item>4</Flyout.Item>
+                                    </Flyout.List>
+                                </Flyout.Wrapper>
+                            </Flyout>
+                        </Flex>
                         <Flex direction="column" style={{ height: '500px' }}>
                             <FlyoutMenu
+                                userId={0}
+                                userShowState={true}
                                 toggleEl={
                                     <Flex>
-                                        <TextAvatar text="tk" />
+                                        <LazyImage src={src} width={40} height={40} />
                                         <Typography variant="BODY2" marginLeft={8}>
                                             유저아이디
                                         </Typography>
                                     </Flex>
                                 }
                             />
-                            <RectangleButton>하하하</RectangleButton>
-                            <RectangleButton>하하하</RectangleButton>
-                            <RectangleButton>하하하</RectangleButton>
-                            <RectangleButton>하하하</RectangleButton>
                         </Flex>
+
+                        {Array.from({ length: 5 }).map((d, index) => (
+                            <Div key={index} variant="primary" size="lg" marginBottom={10}>
+                                {index}
+                            </Div>
+                        ))}
+                        <Div>
+                            {mainViewModel.feedList.map(
+                                (item: FeedDto, index: number) =>
+                                    index <= 1 && (
+                                        <div>
+                                            <LazyImage
+                                                key={index}
+                                                src={item.imgUrl}
+                                                width={150}
+                                                height={300}
+                                            />
+                                        </div>
+                                    ),
+                            )}
+                        </Div>
                     </Div>
                 }
             />
@@ -93,7 +121,7 @@ const Temp = () => {
     );
 };
 
-export default Temp;
+export default observer(Temp);
 
 {
     /* <Div width={100} variant="translucent" marginBottom={16} padding={16}>

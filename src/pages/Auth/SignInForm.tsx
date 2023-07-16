@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 import { observer } from 'mobx-react';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { SignInModel } from 'models/auth/auth.model';
+import { SignInModel } from 'models/auth/signIn.model';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { authFormState, authItemState } from 'configs/form.config';
 
