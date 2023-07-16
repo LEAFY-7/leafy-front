@@ -24,10 +24,16 @@ export default class AuthViewModel extends DefaultViewModel {
         runInAction(() => {
             this.toggle = !this.toggle;
         });
-        console.log(this.toggle);
     };
 
-    handleSubmit = async <T>(data) => {
-        console.log(data);
+    handleSubmit = async (data, e) => {
+        const { ariaLabel } = e.target;
+        if (ariaLabel === 'signin') {
+            // 로그인
+            console.log('로그인', data);
+        } else {
+            // 회원가입
+            console.log('회원가입', data);
+        }
     };
 }
