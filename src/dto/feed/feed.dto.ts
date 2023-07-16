@@ -17,4 +17,7 @@ export class FeedDto {
 
     @Expose({ name: 'tag' })
     public readonly tag: string[] = [];
+
+    @Expose({ name: 'size' })
+    public readonly size: string = '';
 }
