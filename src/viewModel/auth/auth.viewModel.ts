@@ -23,14 +23,10 @@ export default class AuthViewModel extends DefaultViewModel {
         });
     };
 
-    handleSubmit = async (data, e) => {
-        const { ariaLabel } = e.target;
-        if (ariaLabel === 'signin') {
-            // 로그인
-            console.log('로그인', data);
-        } else {
-            // 회원가입
-            console.log('회원가입', data);
-        }
+    handleSignIn = async (data) => {
+        console.log('로그인', data);
+    };
+    handleSignUp = async (data) => {
+        console.log('회원가입', data);
     };
 }

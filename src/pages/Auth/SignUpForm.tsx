@@ -28,7 +28,7 @@ const SignUpForm = () => {
         },
     });
     return (
-        <form aria-label="signup" onSubmit={handleSubmit(authViewModel.handleSubmit)} noValidate>
+        <form aria-label="signup" onSubmit={handleSubmit(authViewModel.handleSignUp)} noValidate>
             <Flex id="signUpForm_wrapper" direction="column">
                 <TextFiled
                     hookForm
