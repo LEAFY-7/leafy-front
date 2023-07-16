@@ -37,10 +37,10 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
     font-size: ${({ fontSize, theme }) => theme.fontSize[fontSize]};
     font-weight: ${({ fontWeight }) => fontWeight};
     opacity: 1;
-    border-color: ${({ error, theme }) => (error ? `${theme.colors.red}` : `${theme.colors.grey}`)};
+    border-color: ${({ error, theme }) => (error ? `${theme.colors.sementic}` : `${theme.colors.grey}`)};
 
     &:focus {
-        border-color: ${({ theme }) => theme.colors.green};
+        border-color: ${({ theme }) => theme.colors.primary};
         color: ${({ theme }) => theme.colors.inherit};
         + .iconBox {
             color: ${({ theme }) => theme.palette.text.black};
@@ -66,7 +66,7 @@ export const HelperText = styled.span<Required<TextFieldProps>>`
     padding: ${({ paddingX, paddingY }) => `${paddingY - 12}px ${paddingX - 4}px`};
 
     font-size: ${({ theme }) => theme.fontSize.sm};
-    color: ${({ error, theme }) => error && theme.colors.red};
+    color: ${({ error, theme }) => error && theme.colors.sementic};
     text-align: left;
     font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
     font-weight: calc(${({ fontWeight }) => fontWeight} - 200);

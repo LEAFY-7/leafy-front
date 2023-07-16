@@ -22,6 +22,7 @@ interface Props {
     userId?: UserDto['id'];
     feedId?: string;
     userShowState: boolean;
+    isMine?: boolean;
 }
 const defaultName = 'tk';
 const FlyoutMenu = ({ toggleEl, userId, feedId, userShowState = true }: React.PropsWithChildren<Props>) => {

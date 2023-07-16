@@ -121,7 +121,7 @@ const Search = () => {
         display: ${isShow ? 'block' : 'none'};
         width: calc(100%-30px);
         height: 40px;
-        border: 1px solid ${theme.colors.green};
+        border: 1px solid ${theme.colors.primary};
         border-radius: 50px;
         opacity: 0;
         transform: translateX(-50%);
