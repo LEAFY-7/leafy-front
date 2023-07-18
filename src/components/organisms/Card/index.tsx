@@ -26,8 +26,8 @@ const Card = ({ item }: CardProps) => {
 export default Card;
 
 const FeedImage = styled.img<{ size: string }>`
-    width: 280px;
-    height: ${({ size }) => (size === 'big' ? 680 : size === 'midium' ? 602 : 520)}px;
+    width: 200px;
+    height: ${({ size }) => (size === 'big' ? 480 : size === 'midium' ? 380 : 280)}px;
     border-radius: 280px;
     object-fit: cover;
 `;

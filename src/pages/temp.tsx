@@ -1,19 +1,19 @@
-import React from 'react';
 import axios from 'axios';
-import { observer } from 'mobx-react';
-import MainViewModel from 'viewModel/main/main.viewModel';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { FeedDto } from 'dto/feed/feed.dto';
 import useAutoResize from 'hooks/useAutoResize';
 import useToggle from 'hooks/useToggleProvider';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { observer } from 'mobx-react';
+import React from 'react';
+import MainViewModel from 'viewModel/main/main.viewModel';
 
-import MonoTemplate from 'components/templates/mono-template';
 import Div from 'components/atoms/Div/default-div';
 import Flex from 'components/atoms/Group/flex';
-import Typography from 'components/atoms/Typograph/default-typography';
 import LazyImage from 'components/atoms/LazyImage/default-image';
-import Flyout from 'components/molecules/Flyout/headless-flyout';
+import Typography from 'components/atoms/Typograph/default-typography';
 import FlyoutMenu from 'components/molecules/Flyout/flyout-menu';
+import Flyout from 'components/molecules/Flyout/headless-flyout';
+import MonoTemplate from 'components/templates/mono-template';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -54,7 +54,7 @@ const Temp = () => {
     };
 
     React.useEffect(() => {
-        mainViewModel.getList();
+        // mainViewModel.getList();
     }, []);
 
     if (error) throw new Error(error);
