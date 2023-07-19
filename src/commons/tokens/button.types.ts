@@ -3,14 +3,14 @@ import button from "./button.json";
 
 const buttonShadow = button["ref-pressed"];
 
-export const buttonShadowValue = {
-    x : valueSelector("x", buttonShadow),
-    y : valueSelector("y", buttonShadow),
-    blur: valueSelector("blur", buttonShadow),
-    spread : valueSelector("spread", buttonShadow),
-    color : valueSelector("color", buttonShadow),
-    type : valueSelector("type", buttonShadow) === "innerShadow" ? "inset" : ""
-} as const;
+// export const buttonShadowValue = {
+//     x : valueSelector("x", buttonShadow),
+//     y : valueSelector("y", buttonShadow),
+//     blur: valueSelector("blur", buttonShadow),
+//     spread : valueSelector("spread", buttonShadow),
+//     color : valueSelector("color", buttonShadow),
+//     type : valueSelector("type", buttonShadow) === "innerShadow" ? "inset" : ""
+// } as const;
 
 export const TokenButton = { 
     size : button.size,
@@ -30,11 +30,11 @@ export const TokenButtonSize = {
 
 export const TokenButtonSizeList = {
     xl : {
-        width: TokenButtonSize.xl.width,
-        height: TokenButtonSize.xl.height,
-        vPadding: TokenButtonSize.xl.verticalPadding,
-        hPadding: TokenButtonSize.xl.horizontalPadding,
-        borderRadius: TokenButtonSize.xl.borderRadius,
+        width: TokenButtonSize.xl.width.value,
+        height: TokenButtonSize.xl.height.value,
+        vPadding: TokenButtonSize.xl.verticalPadding.value,
+        hPadding: TokenButtonSize.xl.horizontalPadding.value,
+        borderRadius: TokenButtonSize.xl.borderRadius.value,
         typography: TokenButtonSize.xl.typography
     },
     l : {
@@ -60,21 +60,19 @@ type states = "default" | "disabled"| "pressed" | "text";
 
 type steps = "primary" | "secondary" | "basic" | "basic-disabled";
 //state에서 step찾기
-export const TokenButtonState = (state:states, step:steps):string => {
+export const TokenButtonState = (state:states, step:steps) => {
     return TokenButton[state][`sys-button-${step}`];
 }
 export const TokenButtonStyle = (state:states, step:steps) => {
     const token = TokenButtonState(state,  step);
     return {
-        backgroundColor : valueSelector("fill", token),
-        borderColor : valueSelector("borderColor" || "border.color", token),
-        borderWidth : valueSelector("border.width", token),
-        borderStyle : valueSelector("border.style", token),
-        // boxShadow : valueSelector(buttonShadowValue, token),
-        color: valueSelector("color", token)
+        backgroundColor : token.fill.value,
+        borderColor : token.border.color.value,
+        borderWidth : token.border.width.value,
+        borderStyle : token.border.style.value
     }
 };
 
-export function valueSelector(key, token) {
-    return token.find((t) => t === key).value;
+export function valueSelector(key:string, token:any):string {
+    return token.find((t) => t===key).value;
 }
