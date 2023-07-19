@@ -3,14 +3,19 @@ import { css } from "@emotion/react";
 import {TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.types";
 import { values } from "mobx";
 //{buttonShadowValue, TokenButtonSizeList, TokenButtonStyle}
-export const buttonSize = (size) => css`
-        width: ${TokenButtonSizeList[size].width.value};
-        height: ${TokenButtonSizeList[size].height.value};
-        padding: ${TokenButtonSizeList[size].vPadding.value} ${TokenButtonSizeList[size].hPadding.value};
-        border-radius: ${TokenButtonSizeList[size].borderRadius.value};
+export const buttonSize = (size) => {
+    let value = "value";
+    return {
+    value : css`
+        width: ${TokenButtonSizeList[size].width};
+        height: ${TokenButtonSizeList[size].height};
+        padding: ${TokenButtonSizeList[size].vPadding} ${TokenButtonSizeList[size].hPadding};
+        border-radius: ${TokenButtonSizeList[size].borderRadius};
         font-size: ${TokenButtonSizeList[size].typography.fontSize.value};
         font-weight: ${TokenButtonSizeList[size].typography.fontWeight.value};
         line-height: ${TokenButtonSizeList[size].typography.lineHeight.value};`
+    }
+}
 
 export const buttonStep = {
     default : {
@@ -50,6 +55,14 @@ export const buttonState = (state, step) => {
     return {state : css`
         background-color: ${TokenButtonStyle(state, step).backgroundColor};
     `}
+}
+
+export const buttonText = (state, step) =>{
+    return{
+        state : css`
+            color: ${TokenButtonState(state, step).color.value};
+        `
+    }
 }
 
 // const boxShadow = css`
