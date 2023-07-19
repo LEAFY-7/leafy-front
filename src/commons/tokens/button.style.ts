@@ -67,6 +67,14 @@ export const buttonText = (state, step) =>{
     }
 }
 
+export const buttonText = (state, step) =>{
+    return{
+        state : css`
+            color: ${TokenButtonState(state, step).color.value};
+        `
+    }
+}
+
 // const boxShadow = css`
 // box-shadow: ${buttonShadowValue.type} ${buttonShadowValue.x} ${buttonShadowValue.y} ${buttonShadowValue.blur} ${buttonShadowValue.spread} ${buttonShadowValue.color};
 // `
