@@ -1,22 +1,28 @@
-import useWindowSize from 'hooks/useWindowSize';
+import styled from '@emotion/styled';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import FeedViewModel from 'viewModel/feed/feed.viewModel';
 
-import Div from 'components/atoms/Div/default-div';
-import MonoTemplate from 'components/templates/mono-template';
-import RightSection from './RightSection';
+export default function FeedDetail() {
+    const feedViewModel: FeedViewModel = useViewModel(ViewModelName.FEED);
+    const { id } = useParams();
 
-const FeedDetail = () => {
-    const { width } = useWindowSize();
+    useEffect(() => {
+        feedViewModel.getMe();
+        feedViewModel.getDetail(+id);
+    });
 
     return (
-        <MonoTemplate
-            height={100}
-            mainSection={
-                <Div id="feed_section" width="800px" height={100} direction="column">
-                    <RightSection />
-                </Div>
-            }
-        />
+        <Container>
+            {/* <UserProfile data={feedViewModel.user} /> */}
+            <p>ㅎ하이</p>
+        </Container>
     );
-};
+}
 
-export default FeedDetail;
+const Container = styled.div`
+    & p {
+        font-size: 40px;
+    }
+`;

@@ -2,9 +2,8 @@ class PageUrlConfig {
     public notFound = '*';
     public main = '/';
     public feed = '/feed';
-    public feedDetail = `/feed/detail`;
-    public post = '/post';
-    public update = `/post/edit`;
+    public feedUpload = '/feed/upload';
+    public feedEdit = `/feed/edit`;
     public follow = '/follow';
     public auth = '/auth';
     public user = `/user`;
@@ -12,7 +11,6 @@ class PageUrlConfig {
     public edit = '/mypage/edit';
     public setting = '/mypage/setting';
     public notice = '/notice';
-    public noticeDetail = `/notice/detail`;
     public search = '/search';
     public chat = '/chat';
     public unauthorized = '/unauthorized';
