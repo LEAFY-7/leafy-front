@@ -7,8 +7,6 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
-import Typography from 'components/atoms/Typograph/default-typography';
-import SearchBar from 'components/molecules/Search';
 import Card from 'components/organisms/Card';
 import MonoTemplate from 'components/templates/mono-template';
 
@@ -26,7 +24,7 @@ function Home() {
                 height={100}
                 mainSection={
                     <>
-                        <SearchWrap>
+                        {/* <SearchWrap>
                             <TitleWrap>
                                 <Typography as="h1" variant="H1" color="primary" textAlign="center">
                                     식물 정보를 찾고있나요?
@@ -40,7 +38,7 @@ function Home() {
                                 onChange={searchViewModel.handleChangeKeyword}
                                 placeholder={'WRITE YOUR PLANT'}
                             />
-                        </SearchWrap>
+                        </SearchWrap> */}
                         <CardWrap>
                             {mainViewModel.feedList.map((item: FeedDto, key: number) => {
                                 return <Card item={item} key={`feed_card_${key}`} />;

@@ -1,9 +1,10 @@
+import { configure } from 'mobx';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import DefaultViewModel from 'viewModel/default.viewModel';
+import FeedViewModel from 'viewModel/feed/feed.viewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
-import { configure } from 'mobx';
 
 let store: any = null;
 configure({ enforceActions: 'observed' });
@@ -17,6 +18,7 @@ export class RootStore {
     public searchViewModel: SearchViewModel;
     public authViewModel: AuthViewModel;
     public userViewModel: UserViewModel;
+    public feedViewModel: FeedViewModel;
 
     constructor(initialData: MobxInitProps) {
         const initData = Object.assign(initialData, {});
@@ -26,6 +28,7 @@ export class RootStore {
         this.searchViewModel = new SearchViewModel(initData);
         this.authViewModel = new AuthViewModel(initData);
         this.userViewModel = new UserViewModel(initData);
+        this.feedViewModel = new FeedViewModel(initData);
     }
 }
 

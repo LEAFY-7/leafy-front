@@ -1,4 +1,3 @@
-import React from 'react';
 import MonoTemplate from 'components/templates/mono-template';
 
 const Chat = () => {
