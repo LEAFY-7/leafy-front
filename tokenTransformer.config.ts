@@ -16,7 +16,7 @@ const transformerOptions = {
     expandShadow: true,
     expandComposition: true,
     expandBorder: true,
-    preserveRawValue: true,
+    preserveRawValue: false,
     throwErrorWhenNotResolved:  true,
     resolveReferences:true
 };
