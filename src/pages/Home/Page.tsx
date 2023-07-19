@@ -12,6 +12,9 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import SearchBar from 'components/molecules/Search';
 import Card from 'components/organisms/Card';
 import MonoTemplate from 'components/templates/mono-template';
+import Button from 'commons/tokens/button';
+import { css } from '@emotion/react';
+import { buttonSize } from 'commons/tokens/button.style';
 
 function Home() {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
@@ -47,6 +50,7 @@ function Home() {
                                 placeholder={'WRITE YOUR PLANT'}
                             />
                         </SearchWrap>
+                        <Button size="xl" state="default" variant="secondary" text="검색" showIcon={true} />
                         <CardWrap>
                             {mainViewModel.feedList.map((item: FeedDto, key: number) => {
                                 return <Card item={item} key={`feed_card_${key}`} />;

@@ -1,19 +1,57 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import {buttonShadowValue, TokenButtonSize,TokenButtonSizeList, TokenButtonStyle, valueSelector} from "./button.types";
+import {TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.types";
 import { values } from "mobx";
 //{buttonShadowValue, TokenButtonSizeList, TokenButtonStyle}
-const buttonSize = {
-    xl : (TokenButtonSizeList) => css `
-        width: ${TokenButtonSizeList.xl.width.value};
-        height: ${TokenButtonSizeList.xl.height.value};
-        padding: ${TokenButtonSizeList.xl.vPadding.value} ${TokenButtonSizeList.xl.hPadding.value};
-        border-radius: ${TokenButtonSizeList.xl.borderRadius.value};
-        font-size: ${TokenButtonSizeList.xl.typography.fontSize};
-        font-weight: ${TokenButtonSizeList.xl.typography.fontWeight};
-        line-height: ${TokenButtonSizeList.xl.typography.lineHeight};
+export const buttonSize = (size) => css`
+        width: ${TokenButtonSizeList[size].width.value};
+        height: ${TokenButtonSizeList[size].height.value};
+        padding: ${TokenButtonSizeList[size].vPadding.value} ${TokenButtonSizeList[size].hPadding.value};
+        border-radius: ${TokenButtonSizeList[size].borderRadius.value};
+        font-size: ${TokenButtonSizeList[size].typography.fontSize.value};
+        font-weight: ${TokenButtonSizeList[size].typography.fontWeight.value};
+        line-height: ${TokenButtonSizeList[size].typography.lineHeight.value};`
+
+export const buttonStep = {
+    default : {
+        primary : css `
+            background-color: ${TokenButtonStyle("default", "primary").backgroundColor};
+            border-width: ${TokenButtonStyle("default", "primary").borderWidth};
+            border-style: ${TokenButtonStyle("default", "primary").borderStyle};
+            border-color: ${TokenButtonStyle("default", "primary").borderColor};
+        `,
+        secondary : css`
+            background-color: ${TokenButtonStyle("default", "secondary").backgroundColor};
+            border: ${TokenButtonStyle("default", "secondary").borderWidth}
+            ${TokenButtonStyle("default", "secondary").borderStyle}
+            ${TokenButtonStyle("default", "secondary").borderColor};
+
+        `
+
+    },
+    disabled: {
+        primary : css `
+            background-color: ${TokenButtonStyle("disabled", "primary").backgroundColor};
+            border: ${TokenButtonStyle("disabled", "primary").borderWidth}
+            ${TokenButtonStyle("disabled", "primary").borderStyle}
+            ${TokenButtonStyle("disabled", "primary").borderColor};
+        `,
+        secondary : css`
+            background-color: ${TokenButtonStyle("disabled", "secondary").backgroundColor};
+            border: ${TokenButtonStyle("disabled", "secondary").borderWidth}
+            ${TokenButtonStyle("disabled", "secondary").borderStyle}
+            ${TokenButtonStyle("disabled", "secondary").borderColor};
+
     `
+    }
 }
 
-const boxShadow = css`
-box-shadow: ${buttonShadowValue.type} ${buttonShadowValue.x} ${buttonShadowValue.y} ${buttonShadowValue.blur} ${buttonShadowValue.spread} ${buttonShadowValue.color};
-`
+export const buttonState = (state, step) => {
+    return {state : css`
+        background-color: ${TokenButtonStyle(state, step).backgroundColor};
+    `}
+}
+
+// const boxShadow = css`
+// box-shadow: ${buttonShadowValue.type} ${buttonShadowValue.x} ${buttonShadowValue.y} ${buttonShadowValue.blur} ${buttonShadowValue.spread} ${buttonShadowValue.color};
+// `
