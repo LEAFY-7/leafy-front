@@ -30,11 +30,11 @@ export const TokenButtonSize = {
 
 export const TokenButtonSizeList = {
     xl : {
-        width: TokenButtonSize.xl.width.value,
-        height: TokenButtonSize.xl.height.value,
-        vPadding: TokenButtonSize.xl.verticalPadding.value,
-        hPadding: TokenButtonSize.xl.horizontalPadding.value,
-        borderRadius: TokenButtonSize.xl.borderRadius.value,
+        width: TokenButtonSize.xl.width,
+        height: TokenButtonSize.xl.height,
+        vPadding: TokenButtonSize.xl.verticalPadding,
+        hPadding: TokenButtonSize.xl.horizontalPadding,
+        borderRadius: TokenButtonSize.xl.borderRadius,
         typography: TokenButtonSize.xl.typography
     },
     l : {
@@ -73,6 +73,6 @@ export const TokenButtonStyle = (state:states, step:steps) => {
     }
 };
 
-export function valueSelector(key:string, token:any):string {
-    return token.find((t) => t===key).value;
-}
+// export function valueSelector(key:string, token:any):string {
+//     return token.find((t) => t===key).value;
+// }

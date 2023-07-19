@@ -4,16 +4,16 @@ import {TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.
 import { values } from "mobx";
 //{buttonShadowValue, TokenButtonSizeList, TokenButtonStyle}
 export const buttonSize = (size) => {
-    let value = "value";
     return {
-    value : css`
-        width: ${TokenButtonSizeList[size].width};
-        height: ${TokenButtonSizeList[size].height};
-        padding: ${TokenButtonSizeList[size].vPadding} ${TokenButtonSizeList[size].hPadding};
-        border-radius: ${TokenButtonSizeList[size].borderRadius};
-        font-size: ${TokenButtonSizeList[size].typography.fontSize.value};
-        font-weight: ${TokenButtonSizeList[size].typography.fontWeight.value};
-        line-height: ${TokenButtonSizeList[size].typography.lineHeight.value};`
+        size : css`
+            width: ${TokenButtonSizeList[size].width.value};
+            height: ${TokenButtonSizeList[size].height};
+            padding: ${TokenButtonSizeList[size].vPadding} ${TokenButtonSizeList[size].hPadding};
+            border-radius: ${TokenButtonSizeList[size].borderRadius};
+            font-size: ${TokenButtonSizeList[size].typography.fontSize.value};
+            font-weight: ${TokenButtonSizeList[size].typography.fontWeight.value};
+            line-height: ${TokenButtonSizeList[size].typography.lineHeight.value};
+        `
     }
 }
 
@@ -47,14 +47,16 @@ export const buttonStep = {
             ${TokenButtonStyle("disabled", "secondary").borderStyle}
             ${TokenButtonStyle("disabled", "secondary").borderColor};
 
-    `
+        `
     }
 }
 
 export const buttonState = (state, step) => {
-    return {state : css`
-        background-color: ${TokenButtonStyle(state, step).backgroundColor};
-    `}
+    return {
+        state : css`
+            background-color: ${TokenButtonStyle(state, step).backgroundColor};
+        `
+    }
 }
 
 export const buttonText = (state, step) =>{
