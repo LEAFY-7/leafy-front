@@ -5,7 +5,7 @@ import useToggle from 'hooks/useToggle';
 interface Props extends HTMLAttributes<HTMLElement> {}
 
 function PageWrapper({ children }: React.PropsWithChildren<Props>) {
-    const { isOn, handler } = useToggle(hideComponent);
+    const { isOpen, handler } = useToggle({ callback: hideComponent });
 
     function hideComponent() {
         const component = document.getElementById('flower_animate');
@@ -24,7 +24,7 @@ function PageWrapper({ children }: React.PropsWithChildren<Props>) {
 
     return (
         <>
-            {!isOn && <FlowerAnimation />}
+            {!isOpen && <FlowerAnimation />}
             {children}
         </>
     );

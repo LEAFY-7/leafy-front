@@ -1,23 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
-import { css } from '@emotion/react';
-
-import typographyStyle from './typography.style';
-import styleConfig, { theme } from 'configs/style.config';
+import { Theme, css } from '@emotion/react';
+import { theme } from 'configs/ui.config';
+import { variantStyles } from './typography.style';
 import useVariant from 'hooks/useVariant';
+
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 type Typography = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
-
 interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement> {
     to?: string;
     as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
     variant: Typography;
-    fontSize?: keyof typeof styleConfig.theme.fontSize;
-    lineHeight?: keyof typeof styleConfig.theme.lineHeight | 'none';
-    color?: keyof typeof styleConfig.theme.colors;
-    fontWeight?: keyof typeof styleConfig.theme.fontWeight;
+    fontSize?: keyof typeof theme.fontSize;
+    lineHeight?: keyof typeof theme.lineHeight;
+    color?: keyof typeof theme.colors;
+    fontWeight?: keyof typeof theme.fontWeight;
     marginTop?: number;
     marginRight?: number;
     marginBottom?: number;
@@ -29,17 +28,16 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     opacity?: number;
     textAlign?: CSSProperties['textAlign'];
     width?: CSSProperties['width'];
-    fontFamily?: 'bombaram';
 }
 
 const Typography = ({
     as: Component = 'span',
-    variant = 'H1',
-    children,
+    variant = 'BODY1',
     width = 'inherit',
-    fontSize = 'md',
-    lineHeight = 'none',
-    fontWeight = 'bold',
+    color,
+    fontSize,
+    lineHeight,
+    fontWeight,
     marginTop = 0,
     marginRight = 0,
     marginBottom = 0,
@@ -50,16 +48,15 @@ const Typography = ({
     paddingLeft = 0,
     opacity = 1,
     textAlign = 'left',
-    fontFamily,
     to = '',
+    children,
     ...rest
 }: React.PropsWithChildren<Props>) => {
-    const typographyVariant = useVariant({ variant: variant, callback: typographyStyle.variantStyles });
+    const typographyVariant = useVariant({ variant: variant, callback: variantStyles });
     const newWidth = typeof width === 'number' ? `${width}%` : width;
 
-    const defaultTypographyStyle = css`
+    const defaultTypographyStyle = ({ palette }: Theme) => css`
         display: ${Component === 'span' && 'inline-block'};
-        font-family: ${fontFamily && fontFamily};
         margin-top: ${marginTop + 'px'};
         margin-right: ${marginRight + 'px'};
         margin-bottom: ${marginBottom + 'px'};
@@ -72,7 +69,10 @@ const Typography = ({
         text-align: ${textAlign};
         width: ${newWidth};
         ${typographyVariant}
-        line-height: ${lineHeight !== 'none' && theme.lineHeight[lineHeight]};
+        line-height: ${lineHeight && theme.lineHeight[lineHeight]};
+        color: ${color && palette.text[color]};
+        font-size: ${fontSize && theme.fontSize[fontSize]};
+        font-weight: ${fontWeight && theme.fontWeight[fontWeight]};
     `;
     return (
         <LinkWrapper to={to}>

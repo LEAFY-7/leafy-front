@@ -10,7 +10,7 @@ export class ApiModule {
     private tokenType: string = 'Bearer';
     private token: string = '';
     private commonHeader;
-    private baseUrl = 'https://url.url/api';
+    private baseUrl = process.env.REACT_APP_BASE_URL;
     private constructor(props?) {
         this.commonHeader = {
             'Content-Type': 'application/json',
@@ -22,10 +22,10 @@ export class ApiModule {
         this.commonHeader.Authorization = this.token;
     }
 
-    private setAxiosInstance() {
+    private setAxiosInstance(forKakao?: boolean) {
         this.setToken();
         this.axios = axios.create({
-            baseURL: this.baseUrl,
+            baseURL: forKakao ? process.env.REACT_APP_KAKAO_URL : this.baseUrl,
             headers: this.commonHeader,
             responseType: 'json',
         });
@@ -36,10 +36,13 @@ export class ApiModule {
     }
 
     async get<T>(url: string, params?: T) {
+        const isForKakao = url.includes('/kakao');
+        const apiPath = isForKakao ? url.split('/kakao')[1] : url;
+
         this.commonHeader['Content-Type'] = 'application/json';
-        this.setAxiosInstance();
+        this.setAxiosInstance(isForKakao);
         return await this.axios
-            .get(url, {
+            .get(apiPath, {
                 params: params,
             })
             .then(this.handleSuccess)

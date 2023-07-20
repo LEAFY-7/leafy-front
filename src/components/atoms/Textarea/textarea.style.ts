@@ -1,25 +1,17 @@
 import { Theme, css } from '@emotion/react';
 
 const variantStyles = {
-    default: (theme: Theme) => css`
-        border-color: ${theme.palette.default.borderColor};
-        background-color: ${theme.palette.default.backgroundColor};
-        color: ${theme.palette.text.blackColor};
+    default: ({ palette }: Theme) => css`
+        border-color: ${palette.default.borderColor};
+        background-color: ${palette.default.backgroundColor};
     `,
-    primary: (theme: Theme) => css`
-        border-color: ${theme.palette.primary.borderColor};
-        background-color: ${theme.palette.primary.backgroundColor};
-        color: ${theme.palette.text.whiteColor};
+    primary: ({ palette }: Theme) => css`
+        border-color: ${palette.primary.borderColor};
+        background-color: ${palette.primary.backgroundColor};
     `,
-    secondary: (theme: Theme) => css`
-        border-color: ${theme.palette.secondary.borderColor};
-        background-color: ${theme.palette.secondary.backgroundColor};
-        color: ${theme.palette.text.whiteColor};
-    `,
-    important: (theme: Theme) => css`
-        border-color: ${theme.palette.important.borderColor};
-        background-color: ${theme.palette.important.backgroundColor};
-        color: ${theme.palette.text.whiteColor};
+    secondary: ({ palette }: Theme) => css`
+        border-color: ${palette.secondary.borderColor};
+        background-color: ${palette.secondary.backgroundColor};
     `,
 };
 

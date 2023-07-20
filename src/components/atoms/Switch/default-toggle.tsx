@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import type { HTMLAttributes, ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import useToggle from 'hooks/useToggle';
 import toggleStyle from './toggle.style';
@@ -29,15 +29,15 @@ const Toggle = ({
     ...rest
 }: Props) => {
     const toggleVariant = useVariant({ variant: variant, callback: toggleStyle.variantStyles });
+    const { isOpen, handler } = useToggle({ callback: onToggle });
 
-    const { isOn, handler } = useToggle(onToggle);
-
+    console.log('toggle', isOpen);
     const wrapperStyle = css`
         position: relative;
         cursor: pointer;
         width: 60px;
         height: 30px;
-        background-color: ${isOn ? theme.colors[leftColor] : theme.colors[rightColor]};
+        background-color: ${isOpen ? theme.colors[leftColor] : theme.colors[rightColor]};
         border-radius: 15px;
         position: relative;
         cursor: pointer;
@@ -57,13 +57,13 @@ const Toggle = ({
         border-radius: 50%;
         position: absolute;
         top: 2.5px;
-        left: ${isOn ? 'calc(100% - 27.5px)' : '2.5px'};
+        left: ${isOpen ? 'calc(100% - 27.5px)' : '2.5px'};
         transition: left 0.3s ease-in-out;
     `;
     const descStyle = css`
         font-size: ${theme.fontSize.sm};
         flex: 1;
-        text-align: ${isOn ? 'left' : 'right'};
+        text-align: ${isOpen ? 'left' : 'right'};
         height: 100%;
         font-size: large;
     `;
@@ -71,7 +71,7 @@ const Toggle = ({
     return (
         <div css={wrapperStyle} onClick={handler} {...rest}>
             <div css={contentStyle}>
-                <div css={descStyle}>{isOn ? off : on}</div>
+                <div css={descStyle}>{isOpen ? off : on}</div>
             </div>
         </div>
     );

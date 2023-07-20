@@ -1,36 +1,24 @@
 import { Theme, css } from '@emotion/react';
 export const variantStyles = {
-    default: (theme: Theme) => css`
-        background: linear-gradient(
-            45deg,
-            ${theme.palette.text.primaryColor} 50%,
-            ${theme.palette.text.primaryColor} 50%
-        );
+    default: ({ palette }: Theme) => css`
+        background: linear-gradient(45deg, ${palette.text.primary} 50%, ${palette.text.primary} 50%);
         background-clip: text;
         -webkit-background-clip: text;
-        color: ${theme.palette.primary.backgroundColor};
+        color: ${palette.primary.backgroundColor};
         -webkit-text-fill-color: transparent;
     `,
-    primary: (theme: Theme) => css`
-        background: linear-gradient(
-            45deg,
-            ${theme.palette.text.primaryColor} 50%,
-            ${theme.palette.text.secondaryColor} 50%
-        );
+    primary: ({ palette }: Theme) => css`
+        background: linear-gradient(45deg, ${palette.text.primary} 50%, ${palette.text.secondary} 50%);
         background-clip: text;
         -webkit-background-clip: text;
-        color: ${theme.palette.primary.backgroundColor};
+        color: ${palette.primary.backgroundColor};
         -webkit-text-fill-color: transparent;
     `,
-    secondary: (theme: Theme) => css`
-        background: linear-gradient(
-            45deg,
-            ${theme.palette.text.secondaryColor} 50%,
-            ${theme.palette.text.primaryColor} 50%
-        );
+    secondary: ({ palette }: Theme) => css`
+        background: linear-gradient(45deg, ${palette.text.secondary} 50%, ${palette.text.primary} 50%);
         background-clip: text;
         -webkit-background-clip: text;
-        color: ${theme.palette.secondary.backgroundColor};
+        color: ${palette.secondary.backgroundColor};
         -webkit-text-fill-color: transparent;
     `,
 };

@@ -13,6 +13,7 @@ interface Props {
     justifyContent?: CSSProperties['justifyContent'];
     alignItems?: CSSProperties['alignItems'];
     direction?: 'row' | 'column';
+    position?: CSSProperties['position'];
 }
 
 const MonoTemplate = ({
@@ -24,6 +25,7 @@ const MonoTemplate = ({
     justifyContent = 'center',
     margin,
     padding = '3rem',
+    position = 'static',
     children,
     ...rest
 }: React.PropsWithChildren<Props>) => {
@@ -38,6 +40,7 @@ const MonoTemplate = ({
             alignItems={alignItems}
             padding={padding}
             margin={margin}
+            position={position}
             radius={0}
             direction="column"
             {...rest}

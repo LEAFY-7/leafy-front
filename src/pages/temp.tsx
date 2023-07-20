@@ -1,20 +1,18 @@
-import React from 'react';
-import styled from '@emotion/styled';
 import axios from 'axios';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { FeedDto } from 'dto/feed/feed.dto';
+import useAutoResize from 'hooks/useAutoResize';
+import useToggle from 'hooks/useToggleProvider';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { observer } from 'mobx-react';
+import React from 'react';
+import MainViewModel from 'viewModel/main/main.viewModel';
 
 import Div from 'components/atoms/Div/default-div';
-import CheckboxWrapper from '@components/atoms/CheckBox/headlesst-checkBox';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
-import EffectiveButton from 'components/atoms/Button/effective-button';
-import Dialog from 'components/atoms/Dialog/default-dialog';
-import WaterModal from 'components/molecules/Modal/water-modal';
-import Textarea from 'components/atoms/Textarea/default-textarea';
-import useAutoResize from 'hooks/useAutoResize';
-
-import Flyout from 'components/atoms/Flyout/headless-flyout';
-import MonoBubbleTemplate from 'components/templates/mono-bubble-template';
+import LazyImage from 'components/atoms/LazyImage/default-image';
+import Typography from 'components/atoms/Typograph/default-typography';
+import FlyoutMenu from 'components/molecules/Flyout/flyout-menu';
+import Flyout from 'components/molecules/Flyout/headless-flyout';
 import MonoTemplate from 'components/templates/mono-template';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
@@ -33,18 +31,16 @@ the release of Letraset sheets containing Lorem Ipsum passages, and more recentl
 with desktop publishing software like Aldus PageMaker including versions of Lorem
 Ipsum.`;
 
+const src = 'https://api.slingacademy.com/public/sample-photos/1.jpeg';
 // 연습장
 const Temp = () => {
-    const [isChecked, setIsChecked] = React.useState(false);
-    const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
-    const [open, setOpen] = React.useState(false);
+    const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
 
-    const [toggle, setToggle] = React.useState(false);
+    const { values } = useToggle({});
+
+    const { value, textRef: textareaRef, handleChange } = useAutoResize({ height: 100, maximumHeight: 300 });
 
     const [error, setError] = React.useState<any>();
-    const handleClickDialog = () => {
-        setOpen((prev) => !prev);
-    };
 
     const handleClick = async () => {
         try {
@@ -57,42 +53,67 @@ const Temp = () => {
         }
     };
 
+    React.useEffect(() => {
+        // mainViewModel.getList();
+    }, []);
+
     if (error) throw new Error(error);
 
     return (
         <>
             <MonoTemplate
                 mainSection={
-                    <Div width={100} direction="column" padding={8}>
-                        <Div id="temp" width={100} size="xl">
-                            <EffectiveButton
-                                variant="primary"
-                                leftIcon={<RiLockPasswordLine />}
-                                onClick={handleClick}
-                            >
-                                에러 요청 보내기
-                            </EffectiveButton>
-                            <EffectiveButton variant="secondary" leftIcon={<RiLockPasswordLine />}>
-                                클릭입니다.
-                            </EffectiveButton>
-                        </Div>
+                    <Div width={100} height={100} direction="column" padding={8}>
+                        <Flex direction="column" style={{ height: '500px' }}>
+                            <Flyout isOpen={values.isOpen} toggle={values.toggle}>
+                                <Flyout.Toggle>토글버튼</Flyout.Toggle>
+                                <Flyout.OverLay />
+                                <Flyout.Wrapper>
+                                    <Flyout.List>
+                                        <Flyout.Header>헤더</Flyout.Header>
+                                        <Flyout.Item>1</Flyout.Item>
+                                        <Flyout.Item>2</Flyout.Item>
+                                        <Flyout.Item>3</Flyout.Item>
+                                        <Flyout.Item>4</Flyout.Item>
+                                    </Flyout.List>
+                                </Flyout.Wrapper>
+                            </Flyout>
+                        </Flex>
+                        <Flex direction="column" style={{ height: '500px' }}>
+                            <FlyoutMenu
+                                userId={0}
+                                userShowState={true}
+                                toggleEl={
+                                    <Flex>
+                                        <LazyImage src={src} width={40} height={40} />
+                                        <Typography variant="BODY2" marginLeft={8}>
+                                            유저아이디
+                                        </Typography>
+                                    </Flex>
+                                }
+                            />
+                        </Flex>
 
-                        <Div width={100} variant="translucent" marginBottom={16} padding={16}>
-                            {text}
+                        {Array.from({ length: 5 }).map((d, index) => (
+                            <Div key={index} variant="primary" size="lg" marginBottom={10}>
+                                {index}
+                            </Div>
+                        ))}
+                        <Div>
+                            {mainViewModel.feedList.map(
+                                (item: FeedDto, index: number) =>
+                                    index <= 1 && (
+                                        <div>
+                                            <LazyImage
+                                                key={index}
+                                                src={item.imgUrl}
+                                                width={150}
+                                                height={300}
+                                            />
+                                        </div>
+                                    ),
+                            )}
                         </Div>
-                        <Div width={100} height="300px" variant="translucent" marginBottom={16} padding={16}>
-                            박스
-                        </Div>
-
-                        <Flyout open={false} toggle={() => setToggle((prev) => !prev)}>
-                            <Flyout.Toggle>토글버튼</Flyout.Toggle>
-                            <Flyout.List>
-                                <Flyout.Item>1</Flyout.Item>
-                                <Flyout.Item>2</Flyout.Item>
-                                <Flyout.Item>3</Flyout.Item>
-                                <Flyout.Item>4</Flyout.Item>
-                            </Flyout.List>
-                        </Flyout>
                     </Div>
                 }
             />
@@ -100,7 +121,14 @@ const Temp = () => {
     );
 };
 
-export default Temp;
+export default observer(Temp);
+
+{
+    /* <Div width={100} variant="translucent" marginBottom={16} padding={16}>
+    {text}
+</Div>; */
+}
+
 {
     /* <CheckboxWrapper
                             id="checkbox-1"

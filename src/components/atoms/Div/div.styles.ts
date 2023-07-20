@@ -1,23 +1,23 @@
 import { Theme, css } from '@emotion/react';
 
 export const variantStyles = {
-    default: (theme: Theme) => css`
-        background-color: ${theme.palette.default.backgroundColor};
-        color: ${theme.palette.text.blackColor};
+    default: ({ palette }: Theme) => css`
+        background-color: ${palette.default.backgroundColor};
+        color: ${palette.text.black};
     `,
-    primary: (theme: Theme) => css`
-        background-color: ${theme.palette.primary.backgroundColor};
-        color: ${theme.palette.text.whiteColor};
+    primary: ({ palette }: Theme) => css`
+        background-color: ${palette.primary.backgroundColor};
+        color: ${palette.text.white};
     `,
-    secondary: (theme: Theme) => css`
-        background-color: ${theme.palette.secondary.background};
-        color: ${theme.palette.text.whiteColor};
+    secondary: ({ palette }: Theme) => css`
+        background-color: ${palette.secondary.backgroundColor};
+        color: ${palette.text.white};
     `,
-    translucent: (theme: Theme) => css`
-        background: ${theme.palette.translucent.backgroundColor};
+    translucent: ({ palette }: Theme) => css`
+        background: ${palette.translucent.backgroundColor};
         box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15), inset 5px 5px 10px rgba(250, 250, 250, 0.15);
         backdrop-filter: blur(15px);
-        color: ${theme.palette.text.blackColor};
+        color: ${palette.text.black};
     `,
 };
 

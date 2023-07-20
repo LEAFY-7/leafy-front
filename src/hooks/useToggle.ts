@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
-type Callback = () => void;
+interface ToggleProps {
+    callback?: () => void; // 추가: callback prop
+}
+const useToggle = ({ callback = undefined }: ToggleProps) => {
+    const [isOpen, toggle] = useState(false);
 
-const useToggle = (callback?: Callback) => {
-    const [isOn, setIsOn] = useState(false);
     const handler = () => {
-        setIsOn((prev) => !prev);
-        if (typeof callback !== 'undefined') {
+        toggle((prev) => !prev);
+        if (callback) {
             callback();
         }
     };
-    return { isOn, setIsOn, handler };
+    return { isOpen, toggle, handler };
 };
 export default useToggle;

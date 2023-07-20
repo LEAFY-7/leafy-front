@@ -73,7 +73,7 @@
 // export default TextField;
 
 import React, { CSSProperties, HTMLAttributes } from 'react';
-import { theme } from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 import styled from '@emotion/styled';
 
 interface TextFieldContextProps {
@@ -193,7 +193,7 @@ export const StyledIconBox = styled.div<Required<{}>>``;
 export const StyledHelperText = styled.span<TextFieldProps>`
     width: 100%;
     padding: ${({ paddingX, paddingY }) => `${paddingY - 12}px ${paddingX - 4}px`};
-    color: ${({ error, theme }) => error && theme.colors.red};
+    color: ${({ error, theme }) => error && theme.colors.sementic};
     text-align: left;
     font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
     font-weight: calc(${({ fontWeight }) => fontWeight} - 200);

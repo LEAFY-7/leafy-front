@@ -1,9 +1,9 @@
 import type { CSSProperties, ChangeEvent, ElementType, HTMLAttributes, ReactNode } from 'react';
-import styleConfig from 'configs/style.config';
+import { theme } from 'configs/ui.config';
 
 export interface TextFieldProps {
-    fontSize?: keyof typeof styleConfig.theme.fontSize;
-    lineHeight?: keyof typeof styleConfig.theme.lineHeight;
+    fontSize?: keyof typeof theme.fontSize;
+    lineHeight?: keyof typeof theme.lineHeight;
     fontWeight?: CSSProperties['fontWeight'];
     paddingX?: number;
     paddingY?: number;
@@ -12,7 +12,7 @@ export interface TextFieldProps {
 export interface TextFieldInputProps extends TextFieldProps {
     radius?: number;
     helperText?: string;
-    placeHolderFontSize?: keyof typeof styleConfig.theme.fontSize;
+    placeHolderFontSize?: keyof typeof theme.fontSize;
     disabled?: boolean;
     readOnly?: boolean;
 }

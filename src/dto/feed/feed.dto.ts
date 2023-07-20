@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { UserDto } from 'dto/user/user.dto';
 import { AuthorDto } from './author.dto';
 
 export class FeedDto {
@@ -7,7 +8,7 @@ export class FeedDto {
 
     @Expose({ name: 'author' })
     @Type(() => AuthorDto)
-    public readonly author: AuthorDto = new AuthorDto();
+    public readonly author: UserDto = new UserDto();
 
     @Expose({ name: 'imgUrl' })
     public readonly imgUrl: string = '';
@@ -17,4 +18,7 @@ export class FeedDto {
 
     @Expose({ name: 'tag' })
     public readonly tag: string[] = [];
+
+    @Expose({ name: 'size' })
+    public readonly size: string = '';
 }
