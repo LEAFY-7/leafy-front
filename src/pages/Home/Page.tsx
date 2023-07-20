@@ -9,6 +9,9 @@ import SearchViewModel from 'viewModel/search/search.viewModel';
 
 import Card from 'components/organisms/Card';
 import MonoTemplate from 'components/templates/mono-template';
+import Button from 'commons/tokens/button';
+import { css } from '@emotion/react';
+import { buttonSize } from 'commons/tokens/button.style';
 
 function Home() {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
@@ -38,7 +41,16 @@ function Home() {
                                 onChange={searchViewModel.handleChangeKeyword}
                                 placeholder={'WRITE YOUR PLANT'}
                             />
-                        </SearchWrap> */}
+                        </SearchWrap>
+                        <Button
+                            size="xl"
+                            state="default"
+                            variant="secondary"
+                            text="검색"
+                            showIcon={true}
+                            showText={true}
+                        />
+
                         <CardWrap>
                             {mainViewModel.feedList.map((item: FeedDto, key: number) => {
                                 return <Card item={item} key={`feed_card_${key}`} />;
