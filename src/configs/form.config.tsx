@@ -6,21 +6,14 @@ import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineUserDelete } from '
  * @description 한글 정규 표현식 - 한글만 가능 최소 2자리 최대 16자리
  * @description 이메일 정규 표현식 - 이메일 형식 최소 7자리
  * @description 비밀번호 정규 표현식 - 대문자, 소문자, 특수문자, 숫자 포함 최소 6자리 최대 16자리
+ * /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
  */
-export const krRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,16}/; // 한글 정규 표현식
-export const onlyKrEgRule = /^[a-zA-Z가-힣]+$/; // 한글과 영어만 허용
-export const krEgNumRule = /^[a-zA-Z가-힣0-9]+$/; // 한글, 영어 숫자 허용
-export const emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; //이메일 정규 표현식
-export const passwordRule = /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 비밀번호 정규 표현식
-
-const VALIDATE_TYPES = {
-    krRule: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,16}/,
-    onlyKrEgRule: /^[a-zA-Z가-힣]+$/,
-    krEgNumRule: /^[a-zA-Z가-힣0-9]+$/,
-    emailRule: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-    passwordRule: /^.*(?=^.{6,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-} as const;
-
+export const krRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,16}/;
+export const onlyKrEgRule = /^[a-zA-Z가-힣]+$/;
+export const krEgNumRule = /^[a-zA-Z가-힣0-9]+$/;
+export const emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+export const passwordRule = /./;
+export const VALIDATE_TYPES = { krRule, onlyKrEgRule, krEgNumRule, emailRule, passwordRule } as const;
 export const EXPORT_VALIDATE_TYPES = [
     VALIDATE_TYPES.krRule,
     VALIDATE_TYPES.onlyKrEgRule,
@@ -28,7 +21,6 @@ export const EXPORT_VALIDATE_TYPES = [
     VALIDATE_TYPES.krEgNumRule,
     VALIDATE_TYPES.passwordRule,
 ] as const;
-
 export type ValidateRuleType = typeof EXPORT_VALIDATE_TYPES;
 
 export type AuthItem = 'email' | 'displayName' | 'password' | 'confirmPassword';
@@ -78,7 +70,7 @@ export const authFormState = {
     password: {
         required: '비밀번호 입력은 필수 입니다.',
         minLength: {
-            value: 6,
+            value: 1,
             message: '최소 6글자 이상의 비밀번호를 입력해주세요.',
         },
         maxLength: {

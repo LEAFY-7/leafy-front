@@ -1,5 +1,4 @@
 import { themeModes } from 'viewModel/default.viewModel';
-import styleConfig from './style.config';
 import uiConfigs from './ui.config';
 
 const themeConfigs = {

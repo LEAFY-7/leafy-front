@@ -54,7 +54,7 @@ const Temp = () => {
     };
 
     React.useEffect(() => {
-        // mainViewModel.getList();
+        mainViewModel.getList();
     }, []);
 
     if (error) throw new Error(error);

@@ -99,7 +99,7 @@ export const SignUpPlantImage = styled.img`
     }
 
     &:nth-of-type(2) {
-        top: 0;
+        margin-top: -20%;
         right: 0;
         transform: scaleX(-1) rotate(-45deg);
         animation: ${signUpSecondAnimation} 3.5s infinite ease-in-out;

@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { useForm } from 'react-hook-form';
 import DefaultViewModel from 'viewModel/default.viewModel';
@@ -23,10 +24,14 @@ export default class AuthViewModel extends DefaultViewModel {
         });
     };
 
-    handleSignIn = async (data) => {
-        console.log('로그인', data);
+    handleSignIn = (data) => {
+        return this.api.post('/v1/users/sign-in', data).then((response: AxiosResponse) => {
+            response.data;
+        });
     };
-    handleSignUp = async (data) => {
-        console.log('회원가입', data);
+    handleSignUp = (data) => {
+        return this.api.post('/v1/users/sign-up', data).then((response: AxiosResponse) => {
+            response.data;
+        });
     };
 }
