@@ -289,11 +289,23 @@
     },
     "gradient": {
         "radial": {
-            "value": "radial-gradient(50% 50% at 25% 25%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
+            "value": "radial-gradient(50% 50% at 30% 30%,#fafafa 0%,#fafafa03 30%,#fafafa 100%)",
             "type": "color"
         },
         "radial-ap": {
-            "value": "radial-gradient(50% 50% at 65% 65%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
+            "value": "radial-gradient(50% 50% at 65% 65%,#fafafa 0%,#fafafa03 30%,#fafafa 100%)",
+            "type": "color"
+        },
+        "primary-gradient": {
+            "value": "radial-gradient(90% 85% at 60% 65%,#00927a 60%,#006655 75%,#004C40 90%)",
+            "type": "color"
+        },
+        "secondary-gradient": {
+            "value": "radial-gradient(90% 85% at 60% 65%, #80d0c7 60%,#2D9388 75%,#007F6A 90%)",
+            "type": "color"
+        },
+        "basic-gradient": {
+            "value": "radial-gradient(90% 85% at 60% 65%, #fafafa 60%,#9FC5C1 75%,#5B8C84 90%)",
             "type": "color"
         }
     },

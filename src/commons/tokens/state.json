@@ -3,13 +3,13 @@
         "value": "disabled || default || hover || active || focus",
         "type": "State"
     },
-    "_padding": {
+    "ref-padding": {
         "value": "8px",
         "type": "spacing"
     },
     "sys-state-input-style": {
         "state": {
-            "disabled": {
+            "diabled": {
                 "border": {
                     "color": {
                         "value": "#fafafa",
