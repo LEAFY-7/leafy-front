@@ -28,7 +28,6 @@ export const Button = ({
     const stepCss = buttonStep[state][variant].styles;
     const stateCss = buttonState(state, variant).state;
     const textCss = buttonText(showText && 'text', variant).state.styles;
-    console.log(textCss);
     return (
         <button css={[sizeCss, stepCss, stateCss, textCss]}>
             {text}
