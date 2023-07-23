@@ -1,1 +1,46 @@
-{"ref-icon-bg-l":{"value":40,"type":"sizing"},"ref-icon-bg-s":{"value":20,"type":"sizing"},"ref-iconBox-l":{"value":"4px","type":"spacing"},"ref-iconBox-s":{"value":"2px","type":"spacing"},"ref-icon-l":{"value":24,"type":"sizing"},"ref-icon-s":{"value":12,"type":"sizing"},"sys-icon-area-l":{"sizing":{"value":40,"type":"dimension"},"spacing":{"value":"4px","type":"spacing"}},"sys-icon-area-s":{"sizing":{"value":20,"type":"dimension"},"spacing":{"value":"2px","type":"spacing"}}}
+{
+    "ref-icon-bg-l": {
+        "value": 40,
+        "type": "sizing"
+    },
+    "ref-icon-bg-s": {
+        "value": 20,
+        "type": "sizing"
+    },
+    "ref-iconBox-l": {
+        "value": "4px",
+        "type": "spacing"
+    },
+    "ref-iconBox-s": {
+        "value": "2px",
+        "type": "spacing"
+    },
+    "ref-icon-l": {
+        "value": 24,
+        "type": "sizing"
+    },
+    "ref-icon-s": {
+        "value": 12,
+        "type": "sizing"
+    },
+    "sys-icon-area-l": {
+        "sizing": {
+            "value": 40,
+            "type": "dimension"
+        },
+        "spacing": {
+            "value": "4px",
+            "type": "spacing"
+        }
+    },
+    "sys-icon-area-s": {
+        "sizing": {
+            "value": 20,
+            "type": "dimension"
+        },
+        "spacing": {
+            "value": "2px",
+            "type": "spacing"
+        }
+    }
+}

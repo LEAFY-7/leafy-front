@@ -7,8 +7,7 @@ const TokenButton = {
     disabled : button.disabled,
     pressed : button.pressed,
     text : button.text,
-    hover : button.hover,
-    focus : button.focus
+    hover : button.hover
 };
 
  const TokenButtonSize = {
