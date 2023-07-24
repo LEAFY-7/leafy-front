@@ -2,105 +2,128 @@
     "ref-height": {
         "l": {
             "value": "40px",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "{s}px"
         },
         "s": {
             "value": "30px",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "{xxs}*2px"
         },
         "xl": {
             "value": "80px",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "{ref-height.l}*2"
         }
     },
     "ref-padding": {
         "left-right": {
             "value": "16px",
-            "type": "spacing"
+            "type": "spacing",
+            "rawValue": "{padding}*2"
         },
         "top-bottom": {
             "value": "0px",
-            "type": "spacing"
+            "type": "spacing",
+            "rawValue": "{padding}*0"
         }
     },
     "ref-bg": {
         "primary": {
             "value": "#00927a",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{primary}"
         },
         "secondary": {
             "value": "#80d0c7",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{secondary}"
         },
         "basic": {
             "value": "#fafafa",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light}"
         },
         "primary-disabled": {
             "value": "#859398",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-dark-grey}"
         },
         "secondary-disabled": {
             "value": "#dfdfdf",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light-grey}"
         }
     },
     "ref-border-color": {
         "basic": {
             "value": "#80d0c7",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{secondary}"
         },
         "basic-disabled": {
             "value": "#dfdfdf",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light-grey}"
         },
         "primary": {
             "value": "#00927a",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{ref-bg.primary}"
         },
         "secondary": {
             "value": "#80d0c7",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{ref-bg.secondary}"
         },
         "primary-disabled": {
             "value": "#859398",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{ref-bg.primary-disabled}"
         },
         "secondary-disabled": {
             "value": "#dfdfdf",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{ref-bg.secondary-disabled}"
         }
     },
     "ref-color": {
         "primary": {
             "value": "#fafafa",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light}"
         },
         "basic": {
             "value": "#80d0c7",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{secondary}"
         },
         "basic-disabled": {
             "value": "#dfdfdf",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light-grey}"
         },
         "secondary": {
             "value": "#fafafa",
-            "type": "color"
+            "type": "color",
+            "rawValue": "{greyscale-light}"
         }
     },
     "ref-border-radius": {
         "button-l": {
             "value": "20px",
-            "type": "borderRadius"
+            "type": "borderRadius",
+            "rawValue": "{border-radius.s}"
         },
         "button-s": {
             "value": "15px",
-            "type": "borderRadius"
+            "type": "borderRadius",
+            "rawValue": "{border-radius.xs}"
         },
         "button-xl": {
             "value": "40px",
-            "type": "borderRadius"
+            "type": "borderRadius",
+            "rawValue": "{ref-border-radius.button-l} *2"
         }
     },
     "ref-border": {
@@ -202,48 +225,89 @@
     "ref-prop": {
         "icon": {
             "value": "true || false",
-            "type": "boolean"
+            "type": "boolean",
+            "rawValue": "{show} || {hide}"
         },
         "drops": {
             "value": "true || false",
-            "type": "boolean"
+            "type": "boolean",
+            "rawValue": "{show} || {hide}"
         }
+    },
+    "ref-innerText": {
+        "value": "",
+        "type": "text",
+        "rawValue": "{message}"
     },
     "ref-width": {
         "min-s": {
             "value": "90px",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "90px"
         },
         "min-l": {
             "value": "120px",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "120px"
         },
         "auto": {
             "value": "auto",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "auto"
         },
         "fit": {
             "value": "fit-content",
-            "type": "sizing"
+            "type": "sizing",
+            "rawValue": "fit-content"
         }
     },
     "ref-gap": {
         "value": "4px",
-        "type": "spacing"
+        "type": "spacing",
+        "rawValue": "{padding} /2"
+    },
+    "ref-pressed": {
+        "x": {
+            "value": "5px",
+            "type": "x"
+        },
+        "y": {
+            "value": "5px",
+            "type": "y"
+        },
+        "blur": {
+            "value": "15px",
+            "type": "blur"
+        },
+        "spread": {
+            "value": 0,
+            "type": "spread"
+        },
+        "color": {
+            "value": "#0e111b4d",
+            "type": "color"
+        },
+        "type": {
+            "value": "innerShadow",
+            "type": "type"
+        }
     },
     "drop-color": {
         "radial-ap": {
-            "value": "radial-gradient(50% 50% at 65% 65%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
-            "type": "color"
+            "value": "radial-gradient(50% 50% at 50% 50%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
+            "type": "color",
+            "rawValue": "{gradient.radial-ap}"
         },
         "radial": {
-            "value": "radial-gradient(50% 50% at 25% 25%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
-            "type": "color"
+            "value": "radial-gradient(50% 50% at 50% 50%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
+            "type": "color",
+            "rawValue": "{gradient.radial}"
         }
     },
     "drop-opacity": {
         "value": "50%",
-        "type": "opacity"
+        "type": "opacity",
+        "rawValue": "{opacity50}"
     },
     "size": {
         "sys-button-l": {
@@ -456,7 +520,7 @@
         },
         "sys-button-secondary": {
             "fill": {
-                "value": "#80d0c7",
+                "value": "#dfdfdf",
                 "type": "fill"
             },
             "border": {
@@ -474,7 +538,7 @@
                 }
             },
             "borderColor": {
-                "value": "#80d0c7",
+                "value": "#dfdfdf",
                 "type": "fill"
             }
         },
@@ -502,7 +566,7 @@
     "pressed": {
         "sys-button-primary": {
             "fill": {
-                "value": "#00927a",
+                "value": "#859398",
                 "type": "fill"
             },
             "border": {
@@ -520,8 +584,34 @@
                 }
             },
             "borderColor": {
-                "value": "#00927a",
+                "value": "#859398",
                 "type": "fill"
+            },
+            "boxShadow": {
+                "x": {
+                    "value": "5px",
+                    "type": "x"
+                },
+                "y": {
+                    "value": "5px",
+                    "type": "y"
+                },
+                "blur": {
+                    "value": "15px",
+                    "type": "blur"
+                },
+                "spread": {
+                    "value": 0,
+                    "type": "spread"
+                },
+                "color": {
+                    "value": "#0e111b4d",
+                    "type": "color"
+                },
+                "type": {
+                    "value": "innerShadow",
+                    "type": "type"
+                }
             }
         },
         "sys-button-secondary": {
@@ -542,6 +632,32 @@
                     "value": "solid",
                     "type": "strokeStyle"
                 }
+            },
+            "boxShadow": {
+                "x": {
+                    "value": "5px",
+                    "type": "x"
+                },
+                "y": {
+                    "value": "5px",
+                    "type": "y"
+                },
+                "blur": {
+                    "value": "15px",
+                    "type": "blur"
+                },
+                "spread": {
+                    "value": 0,
+                    "type": "spread"
+                },
+                "color": {
+                    "value": "#0e111b4d",
+                    "type": "color"
+                },
+                "type": {
+                    "value": "innerShadow",
+                    "type": "type"
+                }
             }
         },
         "sys-button-basic": {
@@ -551,7 +667,7 @@
             },
             "border": {
                 "color": {
-                    "value": "#80d0c7",
+                    "value": "#dfdfdf",
                     "type": "color"
                 },
                 "width": {
@@ -562,22 +678,32 @@
                     "value": "solid",
                     "type": "strokeStyle"
                 }
-            }
-        }
-    },
-    "drop": {
-        "sys-button-drop-reverse": {
-            "sizing": {
-                "value": "auto",
-                "type": "dimension"
             },
-            "fill": {
-                "value": "radial-gradient(50% 50% at 65% 65%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
-                "type": "fill"
-            },
-            "opacity": {
-                "value": "50%",
-                "type": "opacity"
+            "boxShadow": {
+                "x": {
+                    "value": "5px",
+                    "type": "x"
+                },
+                "y": {
+                    "value": "5px",
+                    "type": "y"
+                },
+                "blur": {
+                    "value": "15px",
+                    "type": "blur"
+                },
+                "spread": {
+                    "value": 0,
+                    "type": "spread"
+                },
+                "color": {
+                    "value": "#0e111b4d",
+                    "type": "color"
+                },
+                "type": {
+                    "value": "innerShadow",
+                    "type": "type"
+                }
             }
         },
         "sys-button-drop": {
@@ -586,7 +712,7 @@
                 "type": "dimension"
             },
             "fill": {
-                "value": "radial-gradient(50% 50% at 25% 25%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
+                "value": "radial-gradient(50% 50% at 50% 50%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
                 "type": "fill"
             },
             "opacity": {
@@ -597,159 +723,59 @@
     },
     "text": {
         "sys-button-primary": {
-            "fill": {
+            "color": {
                 "value": "#fafafa",
                 "type": "fill"
             }
         },
         "sys-button-secondary": {
-            "fill": {
+            "color": {
                 "value": "#fafafa",
                 "type": "fill"
             }
         },
         "sys-button-basic": {
-            "fill": {
+            "color": {
                 "value": "#80d0c7",
                 "type": "fill"
             }
         },
         "sys-button-basic-disabled": {
-            "fill": {
+            "color": {
                 "value": "#dfdfdf",
                 "type": "fill"
             }
         }
     },
-    "focus": {
-        "sys-button-primary": {
+    "hover": {
+        "sys-button-drop": {
+            "sizing": {
+                "value": "auto",
+                "type": "dimension"
+            },
             "fill": {
-                "value": "#00927a",
+                "value": "radial-gradient(50% 50% at 50% 50%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
                 "type": "fill"
             },
-            "border": {
-                "color": {
-                    "value": "#00927a",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
-            },
-            "borderColor": {
-                "value": "#00927a",
-                "type": "fill"
-            }
-        },
-        "sys-button-secondary": {
-            "fill": {
-                "value": "#80d0c7",
-                "type": "fill"
-            },
-            "border": {
-                "color": {
-                    "value": "#80d0c7",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
-            }
-        },
-        "sys-button-basic": {
-            "fill": {
-                "value": "#fafafa",
-                "type": "fill"
-            },
-            "border": {
-                "color": {
-                    "value": "#80d0c7",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
+            "opacity": {
+                "value": "50%",
+                "type": "opacity"
             }
         }
     },
-    "hover": {
-        "sys-button-primary": {
+    "focus": {
+        "sys-button-drop": {
+            "sizing": {
+                "value": "auto",
+                "type": "dimension"
+            },
             "fill": {
-                "value": "#00927a",
+                "value": "radial-gradient(50% 50% at 50% 50%,#fafafa 0%,#fafafa03 29.22%,#fafafa 100%)",
                 "type": "fill"
             },
-            "border": {
-                "color": {
-                    "value": "#00927a",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
-            },
-            "borderColor": {
-                "value": "#00927a",
-                "type": "fill"
-            }
-        },
-        "sys-button-secondary": {
-            "fill": {
-                "value": "#80d0c7",
-                "type": "fill"
-            },
-            "border": {
-                "color": {
-                    "value": "#80d0c7",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
-            }
-        },
-        "sys-button-basic": {
-            "fill": {
-                "value": "#fafafa",
-                "type": "fill"
-            },
-            "border": {
-                "color": {
-                    "value": "#80d0c7",
-                    "type": "color"
-                },
-                "width": {
-                    "value": "1px",
-                    "type": "dimension"
-                },
-                "style": {
-                    "value": "solid",
-                    "type": "strokeStyle"
-                }
+            "opacity": {
+                "value": "50%",
+                "type": "opacity"
             }
         }
     }
