@@ -6,7 +6,8 @@ import { values } from "mobx";
 export const buttonSize = (size) => {
     return {
         size : css`
-        position: relative;
+            position: relative;
+            overflow: hidden;
             width: ${TokenButtonSizeList(size).width};
             height: ${TokenButtonSizeList(size).height};
             padding: ${TokenButtonSizeList(size).vPadding} ${TokenButtonSizeList(size).hPadding};

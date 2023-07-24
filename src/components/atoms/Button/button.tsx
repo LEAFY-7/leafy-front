@@ -8,7 +8,7 @@ interface Props {
     id?: string;
     size: 'xl' | 'l' | 's';
     variant: 'primary' | 'secondary' | 'basic';
-    state?: states;
+    state: states;
     text: string;
     leftIcon?: React.ReactNode;
     showIcon: boolean;
@@ -21,22 +21,38 @@ const dropState = (state: states): drop => {
 };
 export const Button = ({
     id,
+    /* 필수, 변경 값*/
+    state = 'default',
+    /* 필수, 고정 값*/
+    text = 'click',
     variant = 'secondary',
     size = 'xl',
-    state = 'default',
-    text = 'click',
     showText = true,
     showIcon = true,
     leftIcon = <RxArrowTopRight />,
 }: React.PropsWithChildren<Props>) => {
-    const states = TokenButtonState(state, variant);
+    const [handle, setState] = React.useState(state);
+
+    const onClick = () => setState('pressed');
+    const onHover = () => setState('hover');
+    const onLeave = () => setState('default');
+    const onFocus = () => setState('focus');
+
+    const states = TokenButtonState(handle, variant);
     const sizeCss = buttonSize(size).size.styles;
-    const stepCss = buttonStep(state, variant)[state][variant].styles;
-    const stateCss = buttonState(state, variant).state.styles;
+    const stepCss = buttonStep(handle, variant)[handle][variant].styles;
+    const stateCss = buttonState(handle, variant).state.styles;
     const textCss = buttonText('text', variant).state.styles;
-    const dropCss = dropState(state) && buttonDrop(state, states)[states].styles;
+    const dropCss = dropState(handle) && buttonDrop(handle, states)[states].styles;
     return (
-        <button css={[sizeCss, stepCss, stateCss, textCss, dropCss]}>
+        <button
+            onClick={onClick}
+            onMouseOver={onHover}
+            onFocus={onFocus}
+            onBlur={onLeave}
+            onMouseLeave={onLeave}
+            css={[sizeCss, stepCss, stateCss, textCss, dropCss]}
+        >
             {showText && text}
             {showIcon && leftIcon}
         </button>
