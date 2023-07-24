@@ -58,7 +58,7 @@ const TokenButtonDropList = {
 }
 
 export const TokenButtonDrop = (state) =>{
-    let dropList = state==="pressed" ? "reverse" : "drop";
+    const dropList = state==="pressed" ? "reverse" : "drop";
     return{
         fill : TokenButtonDropList[dropList][Properties.fill].value,
         opacity : TokenButtonDropList[dropList][Properties.opacity].value,
