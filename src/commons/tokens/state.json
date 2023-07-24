@@ -9,7 +9,7 @@
     },
     "sys-state-input-style": {
         "state": {
-            "diabled": {
+            "disabled": {
                 "border": {
                     "color": {
                         "value": "#fafafa",
