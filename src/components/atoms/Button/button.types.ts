@@ -1,4 +1,4 @@
-import { Properties } from "@tokens-studio/types";
+import { Properties, BorderValues} from "@tokens-studio/types";
 import button from "../../../commons/tokens/button.json";
 
 const TokenButton = { 
@@ -7,10 +7,12 @@ const TokenButton = {
     disabled : button.disabled,
     pressed : button.pressed,
     text : button.text,
-    hover : button.hover
+    hover : button.hover,
+    focus: button.focus,
+    drop: button.drop
 };
 
- const TokenButtonSize = {
+const TokenButtonSize = {
     xl : TokenButton.size["sys-button-xl"],
     l : TokenButton.size["sys-button-l"],
     s : TokenButton.size["sys-button-s"]
@@ -29,9 +31,9 @@ export const TokenButtonSizeList = ( size:size ) =>{
     }   
 }
 
-type states = "default" | "disabled"| "pressed" | "text";
+export type states = "default" | "disabled"| "pressed" | "text" | "hover" | "focus";
 
-type steps = "primary" | "secondary" | "basic" | "basic-disabled";
+export type steps = "primary" | "secondary" | "basic" | "basic-disabled";
 
 //state에서 step찾기
 export const TokenButtonState = (state:states, step:steps) => {
@@ -40,9 +42,25 @@ export const TokenButtonState = (state:states, step:steps) => {
 export const TokenButtonStyle = (state:states, step:steps) => {
     const token = TokenButtonState(state,  step);
     return {
-        backgroundColor : token.fill.value,
-        borderColor : token.border.color.value,
-        borderWidth : token.border.width.value,
-        borderStyle : token.border.style.value
+        background : token[Properties.fill].value,
+        borderColor : token[Properties.border][BorderValues.BORDER_COLOR].value,
+        borderWidth : token[Properties.border][BorderValues.BORDER_WIDTH].value,
+        borderStyle : token[Properties.border][BorderValues.BORDER_STYLE].value
+    }
+};
+
+export type drop = true | false;
+
+const TokenButtonDropList = {
+    drop : TokenButton.drop["sys-button-drop"],
+    reverse : TokenButton.drop["sys-button-drop-reverse"]
+}
+
+export const TokenButtonDrop = (state) =>{
+    let dropList = state==="pressed" ? "reverse" : "drop";
+    return{
+        fill : TokenButtonDropList[dropList][Properties.fill].value,
+        opacity : TokenButtonDropList[dropList][Properties.opacity].value,
+        size : TokenButtonDropList[dropList][Properties.sizing].value
     }
 };

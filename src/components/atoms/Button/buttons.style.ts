@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import {TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.types";
+import {TokenButtonDrop, TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.types";
 import { values } from "mobx";
 //{buttonShadowValue, TokenButtonSizeList, TokenButtonStyle}
 export const buttonSize = (size) => {
     return {
         size : css`
+        position: relative;
             width: ${TokenButtonSizeList(size).width};
             height: ${TokenButtonSizeList(size).height};
             padding: ${TokenButtonSizeList(size).vPadding} ${TokenButtonSizeList(size).hPadding};
@@ -21,7 +22,7 @@ export const buttonStep = (state, step) => {
     return{
         [state] : {
         [step] : css `
-            background-color: ${TokenButtonStyle(state, step).backgroundColor};
+            background-color: ${TokenButtonStyle(state, step).background};
             border-width: ${TokenButtonStyle(state, step).borderWidth};
             border-style: ${TokenButtonStyle(state, step).borderStyle};
             border-color: ${TokenButtonStyle(state, step).borderColor};
@@ -32,7 +33,7 @@ export const buttonStep = (state, step) => {
 export const buttonState = (state, step) => {
     return {
         state : css`
-            background-color: ${TokenButtonStyle(state, step).backgroundColor};
+            background-color: ${TokenButtonStyle(state, step).background};
         `
     }
 }
@@ -41,6 +42,24 @@ export const buttonText = (state, step) =>{
     return{
         state : css`
             color: ${TokenButtonState(state, step).fill.value};
+        `
+    }
+}
+
+export const buttonDrop = (state, button) =>{
+    return{
+        [button] : css`
+            &::after{
+                content: "";
+                display:block;
+                position: absolute;
+                top: -10%;
+                left: -10%;
+                width:120%;
+                height: 120%;
+                background: ${TokenButtonDrop(state).fill};
+                opacity: ${TokenButtonDrop(state).opacity};
+            }
         `
     }
 }

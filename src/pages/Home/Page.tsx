@@ -28,7 +28,7 @@ function Home() {
                     <>
                         <Button
                             size="l"
-                            state="default"
+                            state="hover"
                             variant="primary"
                             text="검색"
                             showIcon={true}
