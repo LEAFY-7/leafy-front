@@ -43,7 +43,8 @@ export const TokenButtonStyle = (state:states, step:steps) => {
     const token = TokenButtonState(state,  step);
     return {
         background : token[Properties.fill].value,
-        borderColor : token[Properties.border][BorderValues.BORDER_COLOR].value,
+        borderColors : token[Properties.border][BorderValues.BORDER_COLOR].value,
+        borderColor : token[Properties.borderColor]?.value,
         borderWidth : token[Properties.border][BorderValues.BORDER_WIDTH].value,
         borderStyle : token[Properties.border][BorderValues.BORDER_STYLE].value
     }

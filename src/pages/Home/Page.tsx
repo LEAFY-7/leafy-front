@@ -27,8 +27,9 @@ function Home() {
                 mainSection={
                     <>
                         <Button
+                            condition={true}
                             size="l"
-                            state="default"
+                            state="disabled"
                             variant="primary"
                             text="검색"
                             showIcon={true}

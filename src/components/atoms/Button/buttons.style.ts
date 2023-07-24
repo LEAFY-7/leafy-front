@@ -23,9 +23,10 @@ export const buttonStep = (state, step) => {
     return{
         [state] : {
         [step] : css `
-            background-color: ${TokenButtonStyle(state, step).background};
+            background: ${TokenButtonStyle(state, step).background};
             border-width: ${TokenButtonStyle(state, step).borderWidth};
             border-style: ${TokenButtonStyle(state, step).borderStyle};
+            border-color: ${TokenButtonStyle(state, step).borderColors};
             border-color: ${TokenButtonStyle(state, step).borderColor};
         `
         }}
