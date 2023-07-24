@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import {TokenButtonDrop, TokenButtonSizeList, TokenButtonState, TokenButtonStyle} from "./button.types";
-import { values } from "mobx";
+
 //{buttonShadowValue, TokenButtonSizeList, TokenButtonStyle}
 export const buttonSize = (size) => {
     return {
