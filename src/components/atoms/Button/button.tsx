@@ -25,8 +25,8 @@ export const Button = ({
     leftIcon = <RxArrowTopRight />,
 }: React.PropsWithChildren<Props>) => {
     const sizeCss = buttonSize(size).size.styles;
-    const stepCss = buttonStep[state][variant].styles;
-    const stateCss = buttonState(state, variant).state;
+    const stepCss = buttonStep(state, variant)[state][variant].styles;
+    const stateCss = buttonState(state, variant).state.styles;
     const textCss = buttonText('text', variant).state.styles;
     return (
         <button css={[sizeCss, stepCss, stateCss, textCss]}>

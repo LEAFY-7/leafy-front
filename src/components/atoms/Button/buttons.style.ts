@@ -17,38 +17,16 @@ export const buttonSize = (size) => {
     }
 }
 
-export const buttonStep = {
-    default : {
-        primary : css `
-            background-color: ${TokenButtonStyle("default", "primary").backgroundColor};
-            border-width: ${TokenButtonStyle("default", "primary").borderWidth};
-            border-style: ${TokenButtonStyle("default", "primary").borderStyle};
-            border-color: ${TokenButtonStyle("default", "primary").borderColor};
-        `,
-        secondary : css`
-            background-color: ${TokenButtonStyle("default", "secondary").backgroundColor};
-            border: ${TokenButtonStyle("default", "secondary").borderWidth}
-            ${TokenButtonStyle("default", "secondary").borderStyle}
-            ${TokenButtonStyle("default", "secondary").borderColor};
-
+export const buttonStep = (state, step) => {
+    return{
+        [state] : {
+        [step] : css `
+            background-color: ${TokenButtonStyle(state, step).backgroundColor};
+            border-width: ${TokenButtonStyle(state, step).borderWidth};
+            border-style: ${TokenButtonStyle(state, step).borderStyle};
+            border-color: ${TokenButtonStyle(state, step).borderColor};
         `
-
-    },
-    disabled: {
-        primary : css `
-            background-color: ${TokenButtonStyle("disabled", "primary").backgroundColor};
-            border: ${TokenButtonStyle("disabled", "primary").borderWidth}
-            ${TokenButtonStyle("disabled", "primary").borderStyle}
-            ${TokenButtonStyle("disabled", "primary").borderColor};
-        `,
-        secondary : css`
-            background-color: ${TokenButtonStyle("disabled", "secondary").backgroundColor};
-            border: ${TokenButtonStyle("disabled", "secondary").borderWidth}
-            ${TokenButtonStyle("disabled", "secondary").borderStyle}
-            ${TokenButtonStyle("disabled", "secondary").borderColor};
-
-        `
-    }
+        }}
 }
 
 export const buttonState = (state, step) => {
@@ -62,7 +40,7 @@ export const buttonState = (state, step) => {
 export const buttonText = (state, step) =>{
     return{
         state : css`
-            color: ${TokenButtonState(state, step).color.value};
+            color: ${TokenButtonState(state, step).fill.value};
         `
     }
 }

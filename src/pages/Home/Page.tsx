@@ -9,7 +9,7 @@ import SearchViewModel from 'viewModel/search/search.viewModel';
 
 import Card from 'components/organisms/Card';
 import MonoTemplate from 'components/templates/mono-template';
-import Button from '@components/atoms/Button/button';
+import Button from 'components/atoms/Button/button';
 import { css } from '@emotion/react';
 
 function Home() {
