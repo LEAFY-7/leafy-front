@@ -30,7 +30,7 @@ function Home() {
                             size="xl"
                             state="default"
                             variant="secondary"
-                            text="검색"
+                            text="문의하기 버튼을 길게 쓰면 물방울이 어떻게 될 것인가!"
                             showIcon={true}
                             showText={true}
                         />

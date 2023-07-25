@@ -52,27 +52,27 @@ export const buttonDrop = (state, button) =>{
     if(state === "focus"){
         return{
             [button] : css`
-            &::before{
-                content: "";
-                display:block;
-                position: absolute;
-                top: 20%;
-                right: 20%;
-                width: 20%;
-                height: 20%;
-                border-radius: 60% 60% 50% 40%;
-                background: ${TokenButtonDrop(state).fill};
-                opacity: ${TokenButtonDrop(state).opacity};
-            }
             &::after{
                 content: "";
                 display:block;
                 position: absolute;
-                top: 20%;
-                left: 20%;
-                width: 20%;
-                height: 20%;
-                border-radius: 60% 60% 50% 40%;
+                bottom: 10%;
+                right: 1em;
+                width: 2em;
+                height: 2em;
+                border-radius: 60% 60% 60% 40%;
+                background: ${TokenButtonDrop(state).fill};
+                opacity: ${TokenButtonDrop(state).opacity};
+            }
+            &::before{
+                content: "";
+                display:block;
+                position: absolute;
+                top: 0.5em;
+                left: 0.5em;
+                width: 2.5em;
+                height: 3em;
+                border-radius: 50% 60% 40% 50%;
                 background: ${TokenButtonDrop(state).fill};
                 opacity: ${TokenButtonDrop(state).opacity};
             }
