@@ -5,16 +5,14 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import * as Styled from './background.styles';
 
 import Div from 'components/atoms/Div/default-div';
-import MonoTemplate from 'components/templates/mono-template';
-
-import SignUpNecessaryForm from './signup-necessary-form';
-import SignUpAdditionalForm from './signup-additional-form';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
+import MonoTemplate from 'components/templates/mono-template';
+import SignInDefaultForm from './signin-default-form';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const Image = process.env.PUBLIC_URL + '/images/plant_01.png';
 
-const SignUpView = () => {
+const SignInView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
     React.useEffect(() => {
@@ -38,18 +36,17 @@ const SignUpView = () => {
                     marginTop={16}
                     marginBottom={16}
                 >
-                    식집사님을 초대합니다.
+                    식집사님 오늘은 어떤 식물을 보러 오셨나요?
                 </Typography>
-                {!authViewModel.toggle && <SignUpNecessaryForm />}
-                {authViewModel.toggle && <SignUpAdditionalForm />}
-                <RectangleButton size="md" to="/auth/signin">
-                    로그인 바로가기
+                <SignInDefaultForm />
+                <RectangleButton size="md" to="/auth/signup">
+                    회원가입 바로가기
                 </RectangleButton>
             </Div>
-            <Styled.SignUpPlantImage src={Image} />
-            <Styled.SignUpPlantImage src={Image} />
+            <Styled.SignInPlantImage src={Image} />
+            <Styled.SignInPlantImage src={Image} />
         </MonoTemplate>
     );
 };
 
-export default observer(SignUpView);
+export default observer(SignInView);

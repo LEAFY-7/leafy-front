@@ -11,7 +11,7 @@ import Div from 'components/atoms/Div/default-div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextFiled from 'components/molecules/TextField';
 
-const SignInForm = () => {
+const SignInDefaultForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
     const {
@@ -56,7 +56,7 @@ const SignInForm = () => {
     );
 };
 
-export default observer(SignInForm);
+export default SignInDefaultForm;
 
 const SubmitButton = styled(RectangleButton)`
     width: 100%;
