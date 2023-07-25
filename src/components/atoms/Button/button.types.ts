@@ -20,7 +20,7 @@ const TokenButtonSize = {
 
 type size = "xl" | "l" | "s";
 
-export const TokenButtonSizeList = ( size:size ):object =>{
+export const TokenButtonSizeList = ( size:size ) =>{
     return{
         width: TokenButtonSize[size][Properties.width].value,
         height: TokenButtonSize[size][Properties.height].value,
@@ -39,7 +39,7 @@ export type steps = "primary" | "secondary" | "basic" | "basic-disabled";
 export const TokenButtonState = (state:states, step:steps) => {
     return TokenButton[state][`sys-button-${step}`];
 }
-export const TokenButtonStyle = (state:states, step:steps):object => {
+export const TokenButtonStyle = (state:states, step:steps) => {
     const token = TokenButtonState(state,  step);
     return {
         background : token[Properties.fill].value,
@@ -57,7 +57,7 @@ const TokenButtonDropList = {
     reverse : TokenButton.drop["sys-button-drop-reverse"]
 }
 
-export const TokenButtonDrop = (state):object =>{
+export const TokenButtonDrop = (state) =>{
     const dropList = state==="pressed" ? "reverse" : "drop";
     return{
         fill : TokenButtonDropList[dropList][Properties.fill].value,
