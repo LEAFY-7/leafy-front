@@ -1,47 +1,57 @@
-import styled from '@emotion/styled';
+import React from 'react';
 import { observer } from 'mobx-react';
-import { useForm } from 'react-hook-form';
-import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { SignUphModel } from 'models/auth/signUp.model';
+import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import styled from '@emotion/styled';
 
-import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextFiled from 'components/molecules/TextField';
 import Div from 'components/atoms/Div/default-div';
 
-const SignUpForm = () => {
-    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
+import { useForm } from 'react-hook-form';
+import { SignUphModel } from 'models/auth/signUp.model';
+import { authFormState, authItemState } from 'configs/form.config';
 
+const SignUpNecessaryForm = () => {
+    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors, isSubmitting },
+        formState: { errors, dirtyFields },
     } = useForm<SignUphModel>({
         defaultValues: {
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
+            name: authViewModel.data?.name,
+            nickName: authViewModel.data?.nickName,
+            email: authViewModel.data?.email,
+            password: authViewModel.data?.password,
+            confirmPassword: authViewModel.data?.confirmPassword,
         },
     });
+
     return (
-        <form aria-label="signup" onSubmit={handleSubmit(authViewModel.handleSignUp)} noValidate>
-            <Flex id="signUpForm_wrapper" direction="column">
+        <form onSubmit={handleSubmit(authViewModel.handleSignUpNecessary)} noValidate>
+            <Wrapper id="signup_wrapper" direction="column">
                 <TextFiled
-                    hookForm
-                    type={authItemState.displayName.type}
-                    labelTitle={authItemState.displayName.label}
-                    error={!!errors.displayName}
-                    helperText={errors.displayName?.message}
-                    leftIcon={authItemState.displayName.icon.main}
-                    helperIcon={authItemState.displayName.icon.helper}
-                    {...register(authItemState.displayName.property, authFormState.name)}
+                    type={authItemState.name.type}
+                    labelTitle={authItemState.name.label}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                    leftIcon={authItemState.name.icon.main}
+                    helperIcon={authItemState.name.icon.helper}
+                    {...register(authItemState.name.property, authFormState.name)}
                 />
                 <TextFiled
-                    hookForm
+                    type={authItemState.nickName.type}
+                    labelTitle={authItemState.nickName.label}
+                    error={!!errors.nickName}
+                    helperText={errors.nickName?.message}
+                    leftIcon={authItemState.nickName.icon.main}
+                    helperIcon={authItemState.nickName.icon.helper}
+                    {...register(authItemState.nickName.property, authFormState.name)}
+                />
+                <TextFiled
                     type={authItemState.email.type}
                     labelTitle={authItemState.email.label}
                     error={!!errors.email}
@@ -51,7 +61,6 @@ const SignUpForm = () => {
                     {...register(authItemState.email.property, authFormState.email)}
                 />
                 <TextFiled
-                    hookForm
                     type={authItemState.password.type}
                     labelTitle={authItemState.password.label}
                     error={!!errors.password}
@@ -61,7 +70,6 @@ const SignUpForm = () => {
                     {...register(authItemState.password.property, authFormState.password)}
                 />
                 <TextFiled
-                    hookForm
                     type={authItemState.confirmPassword.type}
                     labelTitle={authItemState.confirmPassword.label}
                     error={!!errors.confirmPassword}
@@ -71,22 +79,27 @@ const SignUpForm = () => {
                     {...register(
                         authItemState.confirmPassword.property,
                         authFormState.confirmPassword(
-                            (value) => value === watch(authItemState.password.property),
+                            (value) => value === watch(authItemState.password.property as 'password'),
                         ),
                     )}
                 />
+
                 <Div id="submit_btn" width={100} padding={8}>
-                    <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
-                        회원가입하기
+                    <SubmitButton type="submit" variant="primary">
+                        다음
                     </SubmitButton>
                 </Div>
-            </Flex>
+            </Wrapper>
         </form>
     );
 };
 
-export default observer(SignUpForm);
+export default observer(SignUpNecessaryForm);
 
 const SubmitButton = styled(RectangleButton)`
     width: 100%;
+`;
+const Wrapper = styled(Flex)`
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
 `;

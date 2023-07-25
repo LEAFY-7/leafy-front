@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import SignInForm from './SignInForm';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './SignUp';
 import * as Styled from './background.styles';
 
 import Div from 'components/atoms/Div/default-div';
@@ -22,9 +22,6 @@ const Auth = () => {
             mainSection={
                 <>
                     <Div variant="translucent" direction="column" width="700px" padding={24}>
-                        {/* <TextLogo to="" variant="default" fontSize="xxxl">
-                            LEAFY
-                        </TextLogo> */}
                         <Typography
                             as="span"
                             textAlign="center"
