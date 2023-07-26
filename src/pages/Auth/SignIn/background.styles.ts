@@ -36,11 +36,14 @@ const signInSecondAnimation = keyframes`
 
 export const SignInPlantImage = styled.img`
     position: absolute;
+    top: 0;
     left: 5%;
     z-index: -1;
 
     &:nth-of-type(1) {
         transform: scaleX(-1) rotate(30deg);
+        margin-top: -10%;
+
         margin-left: -3%;
         animation: ${signInFirstAnimation} 2.5s infinite ease-in-out;
         animation-delay: 0.2s;
