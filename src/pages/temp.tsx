@@ -14,6 +14,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import FlyoutMenu from 'components/molecules/Flyout/flyout-menu';
 import Flyout from 'components/molecules/Flyout/headless-flyout';
 import MonoTemplate from 'components/templates/mono-template';
+import DefaultViewModel from 'viewModel/default.viewModel';
 
 const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -35,6 +36,7 @@ const src = 'https://api.slingacademy.com/public/sample-photos/1.jpeg';
 // 연습장
 const Temp = () => {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
+    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
 
     const { values } = useToggle({});
 
@@ -53,23 +55,19 @@ const Temp = () => {
         }
     };
 
-    React.useEffect(() => {
-        mainViewModel.getList();
-    }, []);
-
     if (error) throw new Error(error);
-
     return (
         <>
             <MonoTemplate
                 mainSection={
                     <Div width={100} height={100} direction="column" padding={8}>
+                        <button onClick={defaultViewModel.handleThemeMode}>다크모드</button>
                         <Flex direction="column" style={{ height: '500px' }}>
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Flyout.Toggle>토글버튼</Flyout.Toggle>
                                 <Flyout.OverLay />
                                 <Flyout.Wrapper>
-                                    <Flyout.List>
+                                    <Flyout.List variant="default">
                                         <Flyout.Header>헤더</Flyout.Header>
                                         <Flyout.Item>1</Flyout.Item>
                                         <Flyout.Item>2</Flyout.Item>

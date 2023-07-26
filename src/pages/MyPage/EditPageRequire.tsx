@@ -34,16 +34,12 @@ const EditPageRequire = () => {
     const onValidate = (value: string) => value === watch('password');
 
     const onSubmit = async (data: FormValues) => {
-        /**
-         * 여기에 POST 요청
-         */
         toast.success('회원가입이 성공하였습니다.');
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Flex id="form_wrapper" direction="column">
                 <TextFiled
-                    hookForm
                     leftIcon={<AiOutlineUserDelete />}
                     type="text"
                     labelTitle="이름"
@@ -53,7 +49,6 @@ const EditPageRequire = () => {
                     {...register('nickName', formConfig.authFormState.name)}
                 />
                 <TextFiled
-                    hookForm
                     leftIcon={<AiOutlineMail />}
                     type="text"
                     labelTitle="이메일"
@@ -65,7 +60,6 @@ const EditPageRequire = () => {
                 />
                 <Flex id="password_wrapper">
                     <TextFiled
-                        hookForm
                         type="password"
                         labelTitle="비밀번호"
                         error={!!errors.password}
@@ -75,7 +69,6 @@ const EditPageRequire = () => {
                         {...register('password', formConfig.authFormState.password)}
                     />
                     <TextFiled
-                        hookForm
                         type="password"
                         labelTitle="비밀번호 확인"
                         error={!!errors.confirmPassword}
