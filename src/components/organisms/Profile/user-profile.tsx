@@ -1,5 +1,5 @@
-import { UserDto } from '@dto/user/user.dto';
 import styled from '@emotion/styled';
+import { UserDto } from 'dto/user/user.dto';
 import LazyImage from 'components/atoms/LazyImage/default-image';
 
 interface IProps {

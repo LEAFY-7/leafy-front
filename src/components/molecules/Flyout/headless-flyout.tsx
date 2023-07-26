@@ -1,38 +1,47 @@
-import React, { createContext, useState, useContext } from 'react';
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 import Div from '../../atoms/Div/default-div';
 import styled from '@emotion/styled';
+import { theme } from 'configs/ui.config';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface FlyoutContextProps {
     isOpen: boolean;
     toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface FlyoutListStyle {
+interface ListProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     variant?: 'default' | 'primary' | 'secondary' | 'translucent';
+    isBorder?: boolean;
+    borderColor?: keyof typeof theme.colors;
+}
+
+interface ItemProps {
+    to?: string;
 }
 type FlyoutProviderProps = React.PropsWithChildren<{}> & FlyoutContextProps;
-type FlyoutOverLayProps = React.PropsWithChildren<{}>;
-type FlyoutToggleProps = React.PropsWithChildren<{}>;
-type FlyoutHeaderProps = React.PropsWithChildren<{}>;
-type FlyoutListProps = React.PropsWithChildren<{}> & FlyoutListStyle;
-type FlyoutItemProps = React.PropsWithChildren<{}>;
+type FlyoutOverLayProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
+type FlyoutToggleProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
+type FlyoutHeaderProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
+type FlyoutListProps = React.PropsWithChildren<ListProps>;
+type FlyoutItemProps = React.PropsWithChildren<ItemProps> & HTMLAttributes<HTMLElement>;
 
-const FlyoutContext = createContext<FlyoutContextProps>({ isOpen: false, toggle: () => {} });
+const FlyoutContext = React.createContext<FlyoutContextProps>({ isOpen: false, toggle: () => {} });
 
 const useFlyoutContext = () => {
-    const context = useContext(FlyoutContext);
+    const context = React.useContext(FlyoutContext);
     return context;
 };
 
 // Provider
 const FlyoutProvider = ({ children }: FlyoutProviderProps) => {
-    const [isOpen, toggle] = useState(false);
+    const [isOpen, toggle] = React.useState(false);
     return <FlyoutContext.Provider value={{ isOpen, toggle }}>{children}</FlyoutContext.Provider>;
 };
 
 // Toggle
 const FlyoutToggle = ({ children, ...rest }: FlyoutToggleProps) => {
-    const { toggle } = useContext(FlyoutContext);
+    const { toggle } = React.useContext(FlyoutContext);
     return (
         <div onClick={() => toggle((prev) => !prev)} {...rest}>
             {children}
@@ -41,7 +50,7 @@ const FlyoutToggle = ({ children, ...rest }: FlyoutToggleProps) => {
 };
 // OverLay
 const FlyoutOverlay = ({ ...rest }: FlyoutOverLayProps) => {
-    const { isOpen, toggle } = useContext(FlyoutContext);
+    const { isOpen, toggle } = React.useContext(FlyoutContext);
     return <> {isOpen && <Overlay id="overlay" {...rest} onClick={() => toggle(false)} />}</>;
 };
 
@@ -56,7 +65,14 @@ const FlyoutHeader = ({ children, ...rest }: FlyoutHeaderProps) => {
 };
 
 // List
-const FlyoutList = ({ size = 'lg', variant = 'translucent', children, ...rest }: FlyoutListProps) => {
+const FlyoutList = ({
+    size = 'lg',
+    variant = 'translucent',
+    isBorder = false,
+    borderColor = 'inherit',
+    children,
+    ...rest
+}: FlyoutListProps) => {
     const { isOpen } = useFlyoutContext();
 
     React.useEffect(() => {
@@ -73,7 +89,15 @@ const FlyoutList = ({ size = 'lg', variant = 'translucent', children, ...rest }:
 
     return (
         isOpen && (
-            <ListWrapper id="menu-list" size={size} variant={variant} direction="column" {...rest}>
+            <ListWrapper
+                id="menu-list"
+                size={size}
+                variant={variant}
+                direction="column"
+                isBorder={isBorder}
+                borderColor={borderColor}
+                {...rest}
+            >
                 {children}
             </ListWrapper>
         )
@@ -81,8 +105,23 @@ const FlyoutList = ({ size = 'lg', variant = 'translucent', children, ...rest }:
 };
 
 // ITEM
-const FlyoutItem = ({ children, ...rest }: FlyoutItemProps) => {
-    return <li {...rest}>{children}</li>;
+const FlyoutItem = ({ to = '', onClick, children, ...rest }: FlyoutItemProps) => {
+    const { toggle } = React.useContext(FlyoutContext);
+
+    const handleClickEvent = (event) => {
+        if (onClick) {
+            onClick(event);
+        }
+        toggle(false);
+    };
+
+    return (
+        <LinkWrapper to={to}>
+            <li onClick={handleClickEvent} {...rest}>
+                {children}
+            </li>
+        </LinkWrapper>
+    );
 };
 
 const Flyout = Object.assign(FlyoutProvider, {
@@ -102,7 +141,7 @@ const Overlay = styled.div`
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 3;
+    z-index: 9;
 `;
 
 const Wrapper = styled.span`
@@ -113,9 +152,10 @@ const ListWrapper = styled(Div)`
     position: absolute;
     top: 8px;
     left: 0px;
-    z-index: 9;
+    z-index: 99;
     padding: 8px;
     height: 350px;
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
+    justify-content: flex-start;
 `;

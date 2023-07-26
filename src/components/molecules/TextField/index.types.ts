@@ -25,8 +25,8 @@ export interface IconProps {
 
 export interface Props extends HTMLAttributes<HTMLElement>, TextFieldProps, TextFieldInputProps {
     hookForm?: boolean;
-    value?: string;
-    type: 'text' | 'password';
+    value?: string | number;
+    type: 'text' | 'password' | 'date' | 'number';
     placeholder?: string;
     labelTitle?: string;
     leftIcon?: ReactNode;
