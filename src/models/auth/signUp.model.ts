@@ -11,7 +11,7 @@ export class SignUphModel extends SignInModel {
     public jibunAddress: string = '';
     public roadAddress: string = '';
     public addressDetail: string = '';
-    public gender: 'MALE' | 'FEMALE' = 'MALE';
+    public gender: 'MALE' | 'FEMALE' | '' = '';
     public simpleIntroduction: string = '';
     public addressIsHide: boolean = true;
 }
