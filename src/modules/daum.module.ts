@@ -1,6 +1,6 @@
 import { AddressModel } from 'models/auth/address.model';
 
-class DaumModule {
+export default class DaumModule {
     private static instance: DaumModule;
 
     private constructor() {}
@@ -29,4 +29,3 @@ class DaumModule {
         };
     };
 }
-export default DaumModule;
