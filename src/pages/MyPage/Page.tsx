@@ -1,8 +1,11 @@
-import React from 'react';
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const MyPage = () => {
-    return <MonoTemplate height={100} mainSection={<div>회원 정보 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>회원페이지</div>
+        </PageContainer>
+    );
 };
 
 export default MyPage;

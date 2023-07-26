@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const FeedPost = () => {
-    return <MonoTemplate height={100} mainSection={<div>피드 작성 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>Page</div>
+        </PageContainer>
+    );
 };
 
 export default FeedPost;

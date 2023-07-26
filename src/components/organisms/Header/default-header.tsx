@@ -6,10 +6,7 @@ const Header = () => {
     return (
         <HeaderContainer>
             <HeaderWrap>
-                <div>
-                    <img src={`${publicURL}/image/logo/main-logo.png`} />
-                    <h1>Leafyer</h1>
-                </div>
+                <img src={`${publicURL}/image/logo/header-logo.svg`} />
                 <div>alarm</div>
             </HeaderWrap>
         </HeaderContainer>
@@ -39,15 +36,7 @@ const HeaderWrap = styled.div`
     }
 
     & img {
-        width: 48px;
+        width: 196px;
         height: 56px;
-    }
-
-    & h1 {
-        color: #00927a;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 56px;
     }
 `;

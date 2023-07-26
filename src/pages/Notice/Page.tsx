@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const Notice = () => {
-    return <MonoTemplate width={100} mainSection={<div>공지사항 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>공지사항</div>
+        </PageContainer>
+    );
 };
 
 export default Notice;

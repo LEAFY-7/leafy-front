@@ -1,9 +1,11 @@
-import React from 'react';
-
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const Follow = () => {
-    return <MonoTemplate height={100} mainSection={<div>팔로우 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>follow</div>
+        </PageContainer>
+    );
 };
 
 export default Follow;

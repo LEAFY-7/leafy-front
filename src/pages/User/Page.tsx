@@ -1,8 +1,11 @@
-import React from 'react';
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const User = () => {
-    return <MonoTemplate height={100} mainSection={<div>유저 정보</div>} />;
+    return (
+        <PageContainer>
+            <div>Page</div>
+        </PageContainer>
+    );
 };
 
 export default User;

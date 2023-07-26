@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const Chat = () => {
-    return <MonoTemplate mainSection={<div>채팅목록</div>} />;
+    return (
+        <PageContainer>
+            <div>채팅</div>
+        </PageContainer>
+    );
 };
 
 export default Chat;

@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const Search = () => {
-    return <MonoTemplate height={100} mainSection={<div>검색 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>Page</div>
+        </PageContainer>
+    );
 };
 
 export default Search;

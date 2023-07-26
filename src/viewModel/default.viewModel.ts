@@ -14,10 +14,11 @@ export default class DefaultViewModel {
     public themeModel: themeModes;
     public api: ApiModule;
     public me: UserDto = new UserDto();
-
+    public router: Location;
     constructor(props: IProps) {
         this.themeModel = (localStorage.getItem('leafy') as themeModes) || themeModes.light;
         this.api = ApiModule.getInstance();
+        this.router = window.location;
         makeObservable(this, {
             me: observable,
             themeModel: observable,

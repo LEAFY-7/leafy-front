@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const Admin = () => {
-    return <MonoTemplate mainSection={<div>Admin Admin Admin</div>} />;
+    return (
+        <PageContainer>
+            <div>Admin Admin Admin</div>
+        </PageContainer>
+    );
 };
 
 export default Admin;

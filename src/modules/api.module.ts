@@ -56,6 +56,8 @@ export class ApiModule {
         // 대상이 파일이라면 콘텐츠타입을 변경해주는 로직
         if (this.isFileParams(params)) {
             data = serialize(params);
+        } else {
+            this.commonHeader['Content-Type'] = 'application/json';
         }
 
         this.setAxiosInstance();

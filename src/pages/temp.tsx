@@ -85,7 +85,11 @@ const Temp = () => {
                                 userShowState={true}
                                 toggleEl={
                                     <Flex>
-                                        <LazyImage src={src} width={40} height={40} />
+                                        <LazyImage
+                                            src={src}
+                                            style={{ width: '40px', height: '40px' }}
+                                            alt=""
+                                        />
                                         <Typography variant="BODY2" marginLeft={8}>
                                             유저아이디
                                         </Typography>
@@ -106,9 +110,9 @@ const Temp = () => {
                                         <div>
                                             <LazyImage
                                                 key={index}
-                                                src={item.imgUrl}
-                                                width={150}
-                                                height={300}
+                                                src={item.imgUrl[0]}
+                                                style={{ width: '150px', height: '300px' }}
+                                                alt=""
                                             />
                                         </div>
                                     ),

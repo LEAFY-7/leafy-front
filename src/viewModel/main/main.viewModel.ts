@@ -28,7 +28,7 @@ export default class MainViewModel extends DefaultViewModel {
     getMainData = async () => {
         // const params = {};
         // await this.api
-        //     .get(`/v1/main/`)
+        //     .get(`/v1/mainasdasdasd/`)
         //     .then((result: AxiosResponse<any[]>) => {
         //         this.saveMainData(result);
         //     })

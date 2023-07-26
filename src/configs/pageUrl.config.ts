@@ -1,19 +1,27 @@
 class PageUrlConfig {
+    public unauthorized = '/unauthorized';
     public notFound = '*';
     public main = '/';
+    public auth = '/auth';
+    public find = '/find';
+    public signIn = '/signIn';
+    public signUp = '/signUp';
+    public chat = '/chat';
     public feed = '/feed';
+    public feedDetail = '/feed/detail';
     public feedUpload = '/feed/upload';
     public feedEdit = `/feed/edit`;
-    public follow = '/follow';
-    public auth = '/auth';
-    public user = `/user`;
     public myPage = '/mypage';
-    public edit = '/mypage/edit';
-    public setting = '/mypage/setting';
+    public myEdit = '/mypage/edit';
+    public leave = '/leave';
     public notice = '/notice';
+    public noticeDetail = '/notice/detail';
+    public noticeUpload = '/notice/upload';
+    public noticeEdit = '/notice/edit';
+    public qnaDetail = '/qna/detail';
+    public qnaUpload = '/qna/upload';
     public search = '/search';
-    public chat = '/chat';
-    public unauthorized = '/unauthorized';
+    public user = `/user`;
     public temp = '/temp';
     public admin = '/admin';
 

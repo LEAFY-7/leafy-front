@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import PageContainer from 'components/templates/page-container';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -14,15 +14,8 @@ export default function FeedDetail() {
     });
 
     return (
-        <Container>
-            {/* <UserProfile data={feedViewModel.user} /> */}
-            <p>ㅎ하이</p>
-        </Container>
+        <PageContainer>
+            <div>feed</div>
+        </PageContainer>
     );
 }
-
-const Container = styled.div`
-    & p {
-        font-size: 40px;
-    }
-`;

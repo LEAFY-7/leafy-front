@@ -1,7 +1,11 @@
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 const TempDetail = () => {
-    return <MonoTemplate height={100} mainSection={<div>임시 저장 수정 페이지</div>} />;
+    return (
+        <PageContainer>
+            <div>Page</div>
+        </PageContainer>
+    );
 };
 
 export default TempDetail;

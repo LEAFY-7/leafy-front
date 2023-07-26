@@ -8,7 +8,7 @@ import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
 import Card from 'components/organisms/Card';
-import MonoTemplate from 'components/templates/mono-template';
+import PageContainer from 'components/templates/page-container';
 
 function Home() {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
@@ -19,35 +19,13 @@ function Home() {
     }, []);
 
     return (
-        <>
-            <MonoTemplate
-                height={100}
-                mainSection={
-                    <>
-                        {/* <SearchWrap>
-                            <TitleWrap>
-                                <Typography as="h1" variant="H1" color="primary" textAlign="center">
-                                    식물 정보를 찾고있나요?
-                                </Typography>
-                                <Typography variant="BODY3" color="black" textAlign="center">
-                                    실시간 식물 거래 정보를 확인해보세요
-                                </Typography>
-                            </TitleWrap>
-                            <SearchBar
-                                value={searchViewModel.searchModel.keyword}
-                                onChange={searchViewModel.handleChangeKeyword}
-                                placeholder={'WRITE YOUR PLANT'}
-                            />
-                        </SearchWrap> */}
-                        <CardWrap>
-                            {mainViewModel.feedList.map((item: FeedDto, key: number) => {
-                                return <Card item={item} key={`feed_card_${key}`} />;
-                            })}
-                        </CardWrap>
-                    </>
-                }
-            />
-        </>
+        <PageContainer>
+            <CardWrap>
+                {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                    return <Card item={item} key={`feed_card_${key}`} />;
+                })}
+            </CardWrap>
+        </PageContainer>
     );
 }
 
