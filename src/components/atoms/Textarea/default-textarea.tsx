@@ -11,6 +11,8 @@ export interface TextareaProps {
     color: keyof typeof theme.colors;
     placeholderColor: keyof typeof theme.colors;
     fontWeight?: keyof typeof theme.fontWeight;
+    backgroundColor?: keyof typeof theme.colors;
+    borderColor?: keyof typeof theme.colors;
     margin?: CSSProperties['margin'];
     marginTop?: number;
     marginRight?: number;
@@ -49,6 +51,7 @@ const Textarea = React.forwardRef(function Textarea(
         fontSize,
         fontWeight = 'regular',
         color = 'inherit',
+        backgroundColor = 'inherit',
         placeholderColor = 'inherit',
         textAlign = 'left',
         letterSpacing = 'inherit',
@@ -76,7 +79,6 @@ const Textarea = React.forwardRef(function Textarea(
     const defaultTextareaStyle = css`
         width: ${width === 'inherit' ? w + 'px' : typeof width === 'number' ? `${width}%` : width};
         height: ${height === 'inherit' ? h + 'px' : typeof height === 'number' ? `${height}%` : height};
-        color: ${theme.colors[color]};
         font-size: ${theme.fontSize[fontSize]};
         font-weight: ${fontWeight};
         text-align: ${textAlign};
@@ -109,9 +111,11 @@ const Textarea = React.forwardRef(function Textarea(
         ::placeholder {
             color: ${placeholderColor};
         }
+        background-color: ${theme.colors[backgroundColor]};
+        color: ${color && theme.colors[color]};
     `;
 
-    return <textarea value={value} name={name} css={defaultTextareaStyle} ref={forwardedRef} {...rest} />;
+    return <textarea value={value} name={name} ref={forwardedRef} {...rest} css={defaultTextareaStyle} />;
 });
 
 export default Textarea;

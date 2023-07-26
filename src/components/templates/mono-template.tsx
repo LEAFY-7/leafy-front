@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import Box from 'components/atoms/Box/default-box';
 
 interface Props {
-    mainSection: ReactNode;
+    mainSection?: ReactNode;
     width?: CSSProperties['width'];
     height?: CSSProperties['height'];
     margin?: CSSProperties['margin'];
@@ -46,6 +46,7 @@ const MonoTemplate = ({
             {...rest}
         >
             {mainSection}
+            {children}
         </Box>
     );
 };

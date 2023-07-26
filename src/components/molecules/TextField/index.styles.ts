@@ -39,6 +39,11 @@ export const Input = styled.input<Required<TextFieldInputProps>>`
     opacity: 1;
     border-color: ${({ error, theme }) => (error ? `${theme.colors.sementic}` : `${theme.colors.grey}`)};
 
+    ::-webkit-inner-spin-button {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
     &:focus {
         border-color: ${({ theme }) => theme.colors.primary};
         color: ${({ theme }) => theme.colors.inherit};
@@ -65,7 +70,7 @@ export const HelperText = styled.span<Required<TextFieldProps>>`
     width: 100%;
     padding: ${({ paddingX, paddingY }) => `${paddingY - 12}px ${paddingX - 4}px`};
 
-    font-size: ${({ theme }) => theme.fontSize.sm};
+    font-size: ${({ theme }) => theme.typo.body3.fontSize};
     color: ${({ error, theme }) => error && theme.colors.sementic};
     text-align: left;
     font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);

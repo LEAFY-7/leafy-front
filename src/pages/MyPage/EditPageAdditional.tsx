@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import TextFiled from 'components/molecules/TextField';
 
-import CustomCalender from 'components/molecules/Calender/CustomCalender';
+import CustomCalender from 'components/molecules/Calender/input-calender';
 import formConfig from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import Button from 'components/atoms/Button/rectangle-button';
@@ -70,7 +70,6 @@ const EditPageAdditional = () => {
             <Flex id="form_wrapper" direction="column">
                 <Flex id="form_contents">
                     <TextFiled
-                        hookForm
                         leftIcon={<AiOutlineUserDelete />}
                         type="text"
                         labelTitle="이름"
@@ -89,13 +88,6 @@ const EditPageAdditional = () => {
                             leftIcon={<SlCalender />}
                             readOnly
                             labelTitle="생년월일"
-                        />
-                    )}
-
-                    {showCalendar && (
-                        <CustomCalender
-                            handleCalendarChange={handleCalendarChange}
-                            selectedDate={selectedDate}
                         />
                     )}
                 </Flex>

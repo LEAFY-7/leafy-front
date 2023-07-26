@@ -116,11 +116,18 @@ const RoundButton = React.forwardRef(function RoundButton(
 
         ${btnVariant}
         ${variant !== 'default' && eventStyle}
-
         &:disabled {
+            box-shadow: none;
             border-color: ${theme.colors.grey};
             background-color: ${theme.colors.grey};
             color: ${theme.colors.white};
+            &::before,
+            ::after {
+                content: '';
+                position: absolute;
+                width: 0%;
+                height: 0%;
+            }
         }
         background-color: ${theme.colors[backgroundColor]};
         color: ${color && palette.text[color]};

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Dialog from '@components/atoms/Dialog/headless-dialog';
+import Dialog from 'components/atoms/Dialog/headless-dialog';
 
 type ModalProps = {
     open: boolean;

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import reactDom from 'react-dom';
 import styled from '@emotion/styled';
+import reactDom from 'react-dom';
 
 type ModalContextProps = {
     id?: string;
