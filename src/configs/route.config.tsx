@@ -2,11 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Unauthorized from 'components/organisms/Error/Unauthorized';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
-import PrivateRoute from 'components/organisms/routes/PrivateRoute';
+import PrivateRoute from 'components/organisms/routes/private-route';
 
 import NotFound from 'components/organisms/Error/NotFound';
 import Admin from 'pages/Admin/Page';
-import Auth from 'pages/Auth/Page';
 import Chat from 'pages/Chat/Page';
 import FeedDetail from 'pages/FeedDetail/Page';
 import Follow from 'pages/Follow/Page';
@@ -24,6 +23,9 @@ import User from 'pages/User/Page';
 import Practice from 'pages/temp';
 
 import pageUrlConfig from 'configs/pageUrl.config';
+import SignUp from 'pages/Auth/SignUp';
+import SignIn from 'pages/Auth/SignIn';
+import NormalRoute from 'components/organisms/routes/normal-route';
 
 const routeConfig = [
     {
@@ -32,7 +34,17 @@ const routeConfig = [
         children: [
             { path: '', element: <Home /> },
             { path: `${pageUrlConfig.feed}/:id`, element: <FeedDetail /> },
-            { path: pageUrlConfig.auth, element: <Auth /> },
+            {
+                path: `${pageUrlConfig.auth}/signin`,
+                element: <NormalRoute allowedRoles={['NORMAL']} />,
+                children: [{ path: '', element: <SignIn /> }],
+            },
+            {
+                path: `${pageUrlConfig.auth}/signup`,
+                element: <NormalRoute allowedRoles={['NORMAL']} />,
+                children: [{ path: '', element: <SignUp /> }],
+            },
+
             { path: pageUrlConfig.search, element: <Search /> },
             { path: pageUrlConfig.notice, element: <Notice /> },
             { path: `${pageUrlConfig}/:id`, element: <NoticeDetail /> },
@@ -44,7 +56,7 @@ const routeConfig = [
                 element: <Practice />,
             },
             {
-                element: <PrivateRoute allowedRoles={['admin', 'member']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
                     { path: pageUrlConfig.feedUpload, element: <FeedPost /> },
                     { path: pageUrlConfig.follow, element: <Follow /> },
@@ -57,7 +69,7 @@ const routeConfig = [
                 ],
             },
             {
-                element: <PrivateRoute allowedRoles={['admin']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN']} />,
                 children: [{ path: pageUrlConfig.admin, element: <Admin /> }],
             },
         ],
