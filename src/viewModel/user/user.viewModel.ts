@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
+import { AuthDto } from 'dto/auth/auth.dto';
 import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
@@ -8,8 +9,10 @@ interface IProps {}
 
 export default class UserViewModel extends DefaultViewModel {
     public user: UserDto = new UserDto();
+
     constructor(props: IProps) {
         super(props);
+
         makeObservable(this, {
             user: observable,
 
