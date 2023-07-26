@@ -72,7 +72,7 @@ export const light = {
     },
     default: {
         borderColor: colors.grey,
-        backgroundColor: colors.transparent,
+        backgroundColor: colors.white,
     },
 };
 export const dark = {

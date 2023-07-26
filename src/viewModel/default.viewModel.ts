@@ -1,8 +1,10 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
+import { AuthDto } from 'dto/auth/auth.dto';
 import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { ApiModule } from 'modules/api.module';
+import TokenModule from 'modules/token.module';
 
 export enum themeModes {
     light = 'light',
@@ -12,21 +14,32 @@ interface IProps {}
 
 export default class DefaultViewModel {
     public themeModel: themeModes;
+    public themeToken: TokenModule;
+    public authToken: TokenModule;
     public api: ApiModule;
     public me: UserDto = new UserDto();
-    public router: Location;
+    public auth: AuthDto = new AuthDto();
+
     constructor(props: IProps) {
-        this.themeModel = (localStorage.getItem('leafy') as themeModes) || themeModes.light;
         this.api = ApiModule.getInstance();
-        this.router = window.location;
+        this.authToken = TokenModule.getInstance('leafyerA');
+        this.themeToken = TokenModule.getInstance('leafyerT');
+        this.auth = this.authToken.getToken() || '';
+        this.themeModel = this.themeToken.getToken() || themeModes.light;
         makeObservable(this, {
             me: observable,
             themeModel: observable,
 
+            handleLogOut: action,
             handleThemeMode: action,
             getMe: action,
         });
     }
+
+    handleLogOut = () => {
+        this.authToken.removeToken();
+        window.location.href = '/auth/signin';
+    };
 
     handleThemeMode = () => {
         runInAction(() => {
@@ -35,7 +48,7 @@ export default class DefaultViewModel {
             } else {
                 this.themeModel = themeModes.dark;
             }
-            localStorage.setItem('leafy', this.themeModel);
+            this.themeToken.saveToken(this.themeModel);
             return this;
         });
     };

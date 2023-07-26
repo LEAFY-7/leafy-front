@@ -38,9 +38,9 @@ const FlyoutMenu = ({
 
     return (
         <FlyOut isOpen={values.isOpen} toggle={values.toggle}>
-            <FlyOut.OverLay />
             <Toggle>{toggleEl}</Toggle>
             <FlyOut.Wrapper>
+                <FlyOut.OverLay />
                 <FlyOut.List size="xl">
                     <Header>
                         <TextAvatar text={userViewModel.user.name || defaultName} />
@@ -81,6 +81,10 @@ const FlyoutMenu = ({
 };
 export default FlyoutMenu;
 
+const Toggle = styled(FlyOut.Toggle)`
+    position: relative;
+    cursor: pointer;
+`;
 const Header = styled(FlyOut.Header)`
     width: 100%;
     height: 100%;
@@ -89,12 +93,8 @@ const Header = styled(FlyOut.Header)`
     justify-content: flex-start;
     align-items: center;
 `;
-
-const Toggle = styled(FlyOut.Toggle)`
-    position: relative;
-`;
-
 const Item = styled(FlyOut.Item)`
+    cursor: pointer;
     list-style: none;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -104,7 +104,7 @@ const Item = styled(FlyOut.Item)`
     justify-content: center;
     align-items: center;
     border-color: ${theme.palette.default.borderColor};
-    background-color: ${theme.palette.default.backgroundColor};
+    background-color: transparent;
     font-size: ${theme.fontSize.lg};
     transition: background-color 0.35s ease-in-out, color 0.25s ease-in-out;
     &:hover {

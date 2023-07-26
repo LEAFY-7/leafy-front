@@ -2,18 +2,18 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Unauthorized from 'components/organisms/Error/Unauthorized';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
-import PrivateRoute from 'components/organisms/routes/PrivateRoute';
+import PrivateRoute from 'components/organisms/routes/private-route';
 
-import Auth from 'pages/Auth/Page';
 import Chat from 'pages/Chat/Page';
 import Practice from 'pages/temp';
 
 import NotFound from 'components/organisms/Error/NotFound';
+import NormalRoute from 'components/organisms/routes/normal-route';
 import pageUrlConfig from 'configs/pageUrl.config';
+import SignIn from 'pages/Auth/SignIn';
+import SignUp from 'pages/Auth/SignUp';
 
 import FindView from 'views/auth/find.view';
-import SignInView from 'views/auth/signIn.view';
-import SignUpView from 'views/auth/signUp.view';
 import FeedDetailView from 'views/feed/detail.view';
 import FeedEditView from 'views/feed/edit.view';
 import FeedView from 'views/feed/index.view';
@@ -37,9 +37,16 @@ const routeConfig = [
         element: <DefaultLayout />,
         children: [
             { path: '', element: <HomeView /> },
-            { path: pageUrlConfig.auth, element: <Auth /> },
-            { path: pageUrlConfig.signIn, element: <SignInView /> },
-            { path: pageUrlConfig.signUp, element: <SignUpView /> },
+            {
+                path: `${pageUrlConfig.signIn}`,
+                element: <NormalRoute allowedRoles={['NORMAL']} />,
+                children: [{ path: '', element: <SignIn /> }],
+            },
+            {
+                path: `${pageUrlConfig.signUp}`,
+                element: <NormalRoute allowedRoles={['NORMAL']} />,
+                children: [{ path: '', element: <SignUp /> }],
+            },
             { path: pageUrlConfig.find, element: <FindView /> },
             { path: `${pageUrlConfig.feedDetail}/:id`, element: <FeedDetailView /> },
             { path: pageUrlConfig.search, element: <SearchView /> },
@@ -53,7 +60,7 @@ const routeConfig = [
                 element: <Practice />,
             },
             {
-                element: <PrivateRoute allowedRoles={['admin', 'member']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
                     { path: pageUrlConfig.chat, element: <Chat /> },
                     { path: pageUrlConfig.feed, element: <FeedView /> },
@@ -67,7 +74,7 @@ const routeConfig = [
                 ],
             },
             {
-                element: <PrivateRoute allowedRoles={['admin']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN']} />,
                 children: [
                     { path: pageUrlConfig.noticeUpload, element: <NoticeUploadView /> },
                     { path: pageUrlConfig.noticeEdit, element: <NoticeEditView /> },

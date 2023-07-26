@@ -1,28 +1,62 @@
+import type { CSSProperties, ChangeEvent, HTMLAttributes, ReactNode } from 'react';
 import React from 'react';
+import { theme } from 'configs/ui.config';
 import * as Styled from './index.styles';
-import { Props } from './index.types';
+
+export interface TextFieldProps {
+    fontSize?: keyof typeof theme.fontSize;
+    lineHeight?: keyof typeof theme.lineHeight;
+    fontWeight?: CSSProperties['fontWeight'];
+    paddingX?: number;
+    paddingY?: number;
+    error?: boolean;
+}
+export interface TextFieldInputProps extends TextFieldProps {
+    radius?: number;
+    helperText?: string;
+    placeHolderFontSize?: keyof typeof theme.fontSize;
+    disabled?: boolean;
+    readOnly?: boolean;
+    maxLength?: number;
+    minLength?: number;
+}
+export interface TextFieldHelperText extends HTMLAttributes<HTMLElement>, TextFieldProps {
+    helperText?: string;
+}
+export interface IconProps {
+    disabled?: boolean;
+}
+
+export interface Props extends HTMLAttributes<HTMLElement>, TextFieldProps, TextFieldInputProps {
+    value?: string | number;
+    type: 'text' | 'password' | 'date' | 'number' | 'tel';
+    placeholder?: string;
+    labelTitle?: string;
+    leftIcon?: ReactNode;
+    helperIcon?: ReactNode;
+}
 
 const TextFiled = React.forwardRef(function TextFiled(
     {
-        value = '',
+        value = '' || 0,
         type = 'text',
         placeholder = '',
         labelTitle = '',
-        onChange,
         disabled = false,
         error = false,
         helperText = '',
-        fontSize = 'md',
+        fontSize = 'sm',
         lineHeight = 'sm',
         fontWeight = 400,
-        placeHolderFontSize = 'md',
+        placeHolderFontSize = 'xs',
         paddingX = 16,
         paddingY = 8,
         radius = 5,
+        maxLength = 999999,
+        minLength = 0,
         leftIcon,
         helperIcon,
         children,
-        hookForm = false,
         readOnly = false,
         ...rest
     }: React.PropsWithChildren<Props>,
@@ -51,51 +85,29 @@ const TextFiled = React.forwardRef(function TextFiled(
             )}
 
             <Styled.InputContainer>
-                {hookForm ? (
-                    <Styled.Input
-                        type={type}
-                        error={error}
-                        disabled={disabled}
-                        helperText={helperText}
-                        placeholder={placeholder}
-                        fontSize={fontSize}
-                        fontWeight={fontWeight}
-                        lineHeight={lineHeight}
-                        placeHolderFontSize={placeHolderFontSize}
-                        paddingX={paddingX}
-                        paddingY={paddingY}
-                        onChange={onChange}
-                        ref={forwardedRef}
-                        radius={radius}
-                        readOnly={readOnly}
-                        {...rest}
-                    />
-                ) : (
-                    <Styled.Input
-                        type={type}
-                        value={value}
-                        error={error}
-                        disabled={disabled}
-                        helperText={helperText}
-                        placeholder={placeholder}
-                        fontSize={fontSize}
-                        fontWeight={fontWeight}
-                        lineHeight={lineHeight}
-                        placeHolderFontSize={placeHolderFontSize}
-                        paddingX={paddingX}
-                        paddingY={paddingY}
-                        onChange={onChange}
-                        ref={forwardedRef}
-                        radius={radius}
-                        readOnly={readOnly}
-                        {...rest}
-                    />
-                )}
-
                 <Styled.Icon className="iconBox" disabled={disabled}>
                     {leftIcon}
                 </Styled.Icon>
-
+                <Styled.Input
+                    type={type}
+                    value={value}
+                    error={error}
+                    disabled={disabled}
+                    helperText={helperText}
+                    placeholder={placeholder}
+                    fontSize={fontSize}
+                    fontWeight={fontWeight}
+                    lineHeight={lineHeight}
+                    placeHolderFontSize={placeHolderFontSize}
+                    paddingX={paddingX}
+                    paddingY={paddingY}
+                    ref={forwardedRef}
+                    maxLength={maxLength}
+                    minLength={minLength}
+                    radius={radius}
+                    readOnly={readOnly}
+                    {...rest}
+                />
                 {!disabled && error && (
                     <Styled.HelperText
                         error={error}
