@@ -17,7 +17,7 @@ export default class DefaultViewModel {
 
     constructor(props: IProps) {
         this.api = ApiModule.getInstance();
-        this.themeModel = (window.localStorage.getItem('leafyer-Theme') as themeModes) || themeModes.light;
+        this.themeModel = JSON.parse(window.localStorage.getItem('leafyer-Theme')) || themeModes.light;
 
         makeObservable(this, {
             me: observable,
@@ -35,9 +35,9 @@ export default class DefaultViewModel {
             } else {
                 this.themeModel = themeModes.dark;
             }
-            window.localStorage.setItem('leafyer-Theme', this.themeModel);
             return this;
         });
+        window.localStorage.setItem('leafyer-Theme', JSON.stringify(this.themeModel));
     };
 
     getMe = async () => {

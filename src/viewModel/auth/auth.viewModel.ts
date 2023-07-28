@@ -7,7 +7,6 @@ import DaumModule from 'modules/daum.module';
 import tokenModule from 'modules/token.module';
 import { AuthDto } from 'dto/auth/auth.dto';
 import { Alert } from 'modules/alert.module';
-import { toast } from 'react-toastify';
 
 interface IProps {}
 
@@ -150,7 +149,7 @@ export default class AuthViewModel extends DefaultViewModel {
     };
 
     // 로그인
-    handleSignIn = (data, callback) => {
+    handleSignIn = (data) => {
         return this.api
             .post('/v1/users/sign-in', data)
             .then((response: AxiosResponse<AuthDto>) => {
