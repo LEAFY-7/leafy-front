@@ -4,8 +4,8 @@ class PageUrlConfig {
     public main = '/';
     public auth = '/auth';
     public find = '/find';
-    public signIn = '/signIn';
-    public signUp = '/signUp';
+    public signIn = '/signin';
+    public signUp = '/signup';
     public chat = '/chat';
     public feed = '/feed';
     public feedDetail = '/feed/detail';
