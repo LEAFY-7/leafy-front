@@ -1,3 +1,5 @@
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { AiOutlineBell, AiOutlineUser } from 'react-icons/ai';
 
@@ -9,14 +11,23 @@ import Flyout from 'components/molecules/Flyout/headless-flyout';
 import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 import useToggle from 'hooks/useToggleProvider';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import DefaultViewModel from 'viewModel/default.viewModel';
 
-const Header = () => {
-    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
+import tokenModule from 'modules/token.module';
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
 
-    const publicURL = process.env.PUBLIC_URL;
+const publicURL = process.env.PUBLIC_URL;
+
+const DefaultHeader = () => {
     const { values } = useToggle({});
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const auth = React.useMemo(() => tokenModule.get(), [location]);
+
+    const handleLogOut = () => {
+        tokenModule.remove();
+        navigate(`${pageUrlConfig.auth}${pageUrlConfig.signIn}`);
+    };
 
     return (
         <HeaderContainer>
@@ -32,20 +43,31 @@ const Header = () => {
                     alignItems="center"
                     style={{ position: 'relative' }}
                 >
-                    {!defaultViewModel.auth ? (
+                    {!auth.userAuth ? (
                         <>
-                            <RectangleButton to="/auth/signin">로그인</RectangleButton>
-                            <RectangleButton to="/auth/signup">회원가입</RectangleButton>
+                            <RectangleButton
+                                to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}
+                                size="sm"
+                                backgroundColor="transparent"
+                            >
+                                로그인
+                            </RectangleButton>
+                            <RectangleButton
+                                to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
+                                size="sm"
+                                backgroundColor="transparent"
+                            >
+                                회원가입
+                            </RectangleButton>
                         </>
                     ) : (
                         <>
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Toggle>
-                                    <Div>
-                                        <RectangleButton>
-                                            {/* 알람 아이콘 */}
-                                            <AiOutlineBell />
-                                        </RectangleButton>
+                                    <Div backgroundColor="transparent" marginRight={8}>
+                                        {/* 알람 아이콘 */}
+                                        <AiOutlineBell size={20} color="grey" />
+                                        {/* 알람 아이콘 */}
                                     </Div>
                                 </Toggle>
                                 <AlarmMenuWrapper>
@@ -55,29 +77,40 @@ const Header = () => {
                                         <Item>알람 아이템2</Item>
                                         <Item>알람 아이템3</Item>
                                         <Item>알람 아이템4</Item>
+                                        <Item>알람 아이템5</Item>
+                                        <Item>알람 아이템6</Item>
+                                        <Item>알람 아이템7</Item>
+                                        <Item>알람 아이템8</Item>
+                                        <Item>알람 아이템9</Item>
+                                        <Item>알람 아이템10</Item>
+                                        <Item>알람 아이템11</Item>
+                                        <Item>알람 아이템12</Item>
+                                        <Item>알람 아이템13</Item>
+                                        <Item>알람 아이템14</Item>
+                                        <Item>알람 아이템15</Item>
                                     </MenuList>
                                 </AlarmMenuWrapper>
                             </Flyout>
 
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Toggle>
-                                    <Div width={100} height={100}>
-                                        <RectangleButton>
-                                            {/* 회원정보 아이콘 */}
-                                            <AiOutlineUser />
-                                        </RectangleButton>
+                                    <Div marginLeft={8} backgroundColor="transparent">
+                                        {/* 회원정보 아이콘 */}
+                                        {/* <TextAvatar text={'하하'} size="md" /> */}
+                                        <AiOutlineUser size={20} color="grey" />
+                                        {/* 회원정보 아이콘 */}
                                     </Div>
                                 </Toggle>
                                 <MyMenuWrapper>
                                     <Flyout.OverLay />
                                     <MenuList size="md" variant="default">
                                         <Item to={pageUrlConfig.myPage}>마이페이지</Item>
-                                        <Item>내 피드 바로가기</Item>
-                                        <Item>팔로우 피드</Item>
+                                        <Item to={`${pageUrlConfig.user}`}>내 피드 바로가기</Item>
+                                        <Item to={pageUrlConfig.feed}>피드 보러가기</Item>
                                         <Item to={pageUrlConfig.chat}>채팅하러 가기</Item>
-                                        <Item>게시글 올리기</Item>
-                                        <Item>임시 글 보기</Item>
-                                        <Item onClick={defaultViewModel.handleLogOut}>로그아웃</Item>
+                                        <Item to={pageUrlConfig.feedUpload}>게시글 올리기</Item>
+                                        <Item to={pageUrlConfig.temp}>임시 글 보기</Item>
+                                        <Item onClick={handleLogOut}>로그아웃</Item>
                                     </MenuList>
                                 </MyMenuWrapper>
                             </Flyout>
@@ -88,7 +121,7 @@ const Header = () => {
         </HeaderContainer>
     );
 };
-export default Header;
+export default DefaultHeader;
 
 const HeaderContainer = styled.header`
     position: fixed;
@@ -116,6 +149,13 @@ const HeaderWrap = styled.div`
         height: 56px;
     }
 `;
+const IconBox = styled.div`
+    margin: 24px;
+    background-color: transparent;
+    &:last-child {
+        margin-right: 0;
+    }
+`;
 
 const Toggle = styled(Flyout.Toggle)`
     position: relative;
@@ -135,6 +175,9 @@ const MyMenuWrapper = styled(Flyout.Wrapper)`
 `;
 
 const MenuList = styled(Flyout.List)`
+    /* width: max-content; */
+    /* height: 100%; */
+    overflow-y: scroll;
     position: relative;
     border-radius: 4px;
     box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15);
