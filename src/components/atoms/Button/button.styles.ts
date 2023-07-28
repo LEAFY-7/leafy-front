@@ -16,19 +16,6 @@ export const variantStyles = {
         background-color: ${colors.secondary};
         color: ${colors.white};
     `,
-    'menu-default': ({ palette }: Theme) => css`
-        border-color: ${palette.default.borderColor};
-        background-color: ${palette.default.backgroundColor};
-        color: ${palette.text.black};
-        transition: background-color 0.35s ease-in-out, border-color 0.555s ease-in-out,
-            color 0.25s ease-in-out;
-
-        &:hover {
-            border-color: ${palette.primary.borderColor};
-            background-color: ${palette.primary.backgroundColor};
-            color: ${palette.text.white};
-        }
-    `,
 };
 
 export const innerStyle = css`

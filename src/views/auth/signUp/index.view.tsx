@@ -6,13 +6,13 @@ import styled from '@emotion/styled';
 import * as Styled from './background.styles';
 
 import Div from 'components/atoms/Div/default-div';
-import MonoTemplate from 'components/templates/mono-template';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
 import SignUpNecessaryForm from './signup-necessary-form';
 import SignUpAdditionalForm from './signup-additional-form';
+import PageContainer from 'components/templates/page-container';
 
-const Image = process.env.PUBLIC_URL + '/images/plant_01.png';
+const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
 const SignUpView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -23,7 +23,7 @@ const SignUpView = () => {
     }, [authViewModel.toggle]);
 
     return (
-        <MonoTemplate margin="0 auto">
+        <PageContainer>
             <Wrapper>
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
@@ -45,7 +45,7 @@ const SignUpView = () => {
                 <Styled.SignUpPlantImage src={Image} />
                 <Styled.SignUpPlantImage src={Image} />
             </Wrapper>
-        </MonoTemplate>
+        </PageContainer>
     );
 };
 

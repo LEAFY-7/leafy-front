@@ -38,8 +38,8 @@ const SignUpAdditionalForm = () => {
     });
 
     React.useEffect(() => {
-        setValue('zoneCode', authViewModel.data.zoneCode);
-        setValue('address', authViewModel.data.address);
+        setValue(authItemState.zoneCode.property, authViewModel.data.zoneCode);
+        setValue(authItemState.address.property, authViewModel.data.address);
     }, [authViewModel.data.zoneCode, authViewModel.data.address]);
 
     return (
@@ -246,10 +246,3 @@ const Wrapper = styled(Flex)`
 const AddressButton = styled(RectangleButton)`
     transform: translateY(50%);
 `;
-
-// React.useEffect(() => {
-//     setValue('zoneCode', authViewModel.data.zoneCode);
-//     setValue('address', authViewModel.data.address);
-//     setValue('jibunAddress', authViewModel.data.jibunAddress);
-//     setValue('roadAddress', authViewModel.data.roadAddress);
-// }, [authViewModel.data.zoneCode]);

@@ -1,5 +1,6 @@
-import global from './global.json';
-import typography from './typography.json';
+import global from 'commons/tokens/global.json';
+import typography from 'commons/tokens/typography.json';
+import textarea from 'commons/tokens/textarea.json';
 
 export const TokenGlobalColor = {
     primary: global.primary.value,
@@ -30,13 +31,7 @@ export const TokenTypography = {
     body3: typography.body3,
 } as const;
 
-export const TokenTypographyListType = [
-    TokenTypography.h1,
-    TokenTypography.h2,
-    TokenTypography.h3,
-    TokenTypography.body1,
-    TokenTypography.body2,
-    TokenTypography.body3,
-] as const;
-
-const TokenTextarea = {};
+export const TokenTextarea = {
+    helper: textarea['helper-text'],
+    common: textarea['comment-text'],
+} as const;

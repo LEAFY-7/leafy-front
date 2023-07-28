@@ -1,80 +1,48 @@
 import React from 'react';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import styled from '@emotion/styled';
-
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import UserViewModel from 'viewModel/user/user.viewModel';
 import { UserDto } from 'dto/user/user.dto';
 import useToggle from 'hooks/useToggleProvider';
-
-import menuConfig from 'configs/menu.config';
 import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
 
 import FlyOut from './headless-flyout';
-import Flex from '../../atoms/Group/flex';
-import TextAvatar from '../../atoms/Avatar/text-avatar';
-import Typography from '../../atoms/Typograph/default-typography';
-import LinkWrapper from '../../atoms/Wrapper/link-wrapper';
+import Flex from 'components/atoms/Group/flex';
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
+import Typography from 'components/atoms/Typograph/default-typography';
 
-interface Props {
+interface FlyoutMenuProps {
     toggleEl: ReactNode;
-    userId?: UserDto['id'];
-    feedId?: string;
+    user?: UserDto;
     userShowState: boolean;
-    isMine?: boolean;
 }
-const defaultName = 'tk';
-const FlyoutMenu = ({
-    toggleEl,
-    userId,
-    isMine,
-    feedId,
-    userShowState = true,
-}: React.PropsWithChildren<Props>) => {
-    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
-    const { values } = useToggle({});
-    const divideMenu = React.useMemo(() => userViewModel.user.id === userId, [userViewModel.user.id, userId]);
 
+type Props = React.PropsWithChildren<FlyoutMenuProps> & HTMLAttributes<HTMLElement>;
+
+const FlyoutMenu = ({ toggleEl, user, userShowState = true }: Props) => {
+    const { values } = useToggle({});
     return (
         <FlyOut isOpen={values.isOpen} toggle={values.toggle}>
             <Toggle>{toggleEl}</Toggle>
             <FlyOut.Wrapper>
                 <FlyOut.OverLay />
-                <FlyOut.List size="xl">
+                <List size="xl" variant="default">
                     <Header>
-                        <TextAvatar text={userViewModel.user.name || defaultName} />
+                        <TextAvatar text={user?.name || '기본 이름'} />
                         <Flex direction="column">
                             <Typography variant="BODY2" marginLeft={8}>
-                                {userViewModel.user.name || defaultName}
+                                {user?.name || '기본 이름'}
                             </Typography>
                             <Typography variant="BODY2" marginLeft={8}>
                                 {userShowState ? '공개' : '비공개'}
                             </Typography>
                         </Flex>
                     </Header>
-                    {isMine
-                        ? menuConfig.authMenuList.map(({ route, display }, index) =>
-                              route ? (
-                                  <Item key={index}>
-                                      <LinkWrapper to={`${pageUrlConfig[route]}/${userId}`}>
-                                          {display}
-                                      </LinkWrapper>
-                                  </Item>
-                              ) : (
-                                  <Item key={index}>{display}</Item>
-                              ),
-                          )
-                        : menuConfig.userMenuList.map(({ route, display }, index) =>
-                              route ? (
-                                  <Item key={index}>
-                                      <LinkWrapper to={pageUrlConfig[route]}>{display}</LinkWrapper>
-                                  </Item>
-                              ) : (
-                                  <Item key={index}>{display}</Item>
-                              ),
-                          )}
-                </FlyOut.List>
+                    <Item to={pageUrlConfig.feed}>게시글 보러가기</Item>
+                    <Item to={pageUrlConfig.chat}>채팅하기 </Item>
+                    <Item>댓글달기</Item>
+                    <Item>신고하기</Item>
+                </List>
             </FlyOut.Wrapper>
         </FlyOut>
     );
@@ -92,6 +60,11 @@ const Header = styled(FlyOut.Header)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+`;
+const List = styled(FlyOut.List)`
+    overflow-y: scroll;
+    border-radius: 4px;
+    box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15);
 `;
 const Item = styled(FlyOut.Item)`
     cursor: pointer;

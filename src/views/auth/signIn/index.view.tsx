@@ -7,11 +7,11 @@ import * as Styled from './background.styles';
 
 import Div from 'components/atoms/Div/default-div';
 import Typography from 'components/atoms/Typograph/default-typography';
-import MonoTemplate from 'components/templates/mono-template';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import SignInDefaultForm from './signin-default-form';
+import PageContainer from 'components/templates/page-container';
 
-const Image = process.env.PUBLIC_URL + '/images/plant_01.png';
+const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
 const SignInView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -22,7 +22,7 @@ const SignInView = () => {
     }, [authViewModel.toggle]);
 
     return (
-        <MonoTemplate margin="0 auto">
+        <PageContainer>
             <Wrapper>
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
@@ -43,7 +43,7 @@ const SignInView = () => {
                 <Styled.SignInPlantImage src={Image} />
                 <Styled.SignInPlantImage src={Image} />
             </Wrapper>
-        </MonoTemplate>
+        </PageContainer>
     );
 };
 

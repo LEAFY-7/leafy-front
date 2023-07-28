@@ -4,7 +4,6 @@ import UserProfile from 'components/organisms/Profile/user-profile';
 import PageContainer from 'components/templates/page-container';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
-import TokenModule from 'modules/token.module';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Pagination } from 'swiper';
@@ -22,9 +21,6 @@ const FeedDetailView = () => {
         feedViewModel.getMe();
         feedViewModel.getDetail(+id);
     }, []);
-
-    const token = TokenModule.get();
-    console.log(null || '1');
 
     return (
         <PageContainer>

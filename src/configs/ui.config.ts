@@ -1,4 +1,4 @@
-import { TokenTypography, TokenGlobalLineHeight, TokenGlobalColor } from 'figma/index.types';
+import { TokenTypography, TokenGlobalLineHeight, TokenGlobalColor } from './figma.config';
 
 export const colors = {
     inherit: 'inherit',
@@ -118,8 +118,8 @@ export const theme = {
     breakpoint,
     mediaQuery,
     imgSize: {
-        sm: '20px',
-        md: '50px',
+        sm: '30px',
+        md: '40px',
         lg: '60px',
     },
 };
