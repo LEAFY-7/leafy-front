@@ -1,5 +1,11 @@
 import { AddressModel } from 'models/auth/address.model';
 
+declare global {
+    interface Window {
+        daum: any;
+    }
+}
+
 export default class DaumModule {
     private static instance: DaumModule;
 

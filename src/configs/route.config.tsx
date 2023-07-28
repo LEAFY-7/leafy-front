@@ -28,7 +28,6 @@ import SearchView from 'views/search/index.view';
 import UserView from 'views/user/index.view';
 import ChatView from 'views/chat/index.view';
 
-import Practice from 'views/practice';
 const routeConfig = [
     {
         path: pageUrlConfig.main,
@@ -53,10 +52,6 @@ const routeConfig = [
             { path: `${pageUrlConfig.user}/:id`, element: <UserView /> },
             { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
             { path: pageUrlConfig.notFound, element: <NotFound /> },
-            {
-                path: 'practice',
-                element: <Practice />,
-            },
             {
                 element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
