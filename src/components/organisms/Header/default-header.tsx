@@ -13,7 +13,6 @@ import { theme } from 'configs/ui.config';
 import useToggle from 'hooks/useToggleProvider';
 
 import tokenModule from 'modules/token.module';
-import TextAvatar from 'components/atoms/Avatar/text-avatar';
 
 const publicURL = process.env.PUBLIC_URL;
 
