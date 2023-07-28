@@ -9,7 +9,7 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'primary' | 'secondary' | 'default' | 'menu-default';
+    variant?: 'primary' | 'secondary' | 'default';
     fontSize?: keyof typeof theme.fontSize;
     fontWeight?: keyof typeof theme.fontWeight;
     color?: keyof typeof theme.colors;

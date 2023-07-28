@@ -1,17 +1,20 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
 import { AddressModel } from 'models/auth/address.model';
 import { SignUphModel } from 'models/auth/signUp.model';
 import DaumModule from 'modules/daum.module';
+import tokenModule from 'modules/token.module';
 import { AuthDto } from 'dto/auth/auth.dto';
+import { Alert } from 'modules/alert.module';
+import { toast } from 'react-toastify';
 
 interface IProps {}
 
 export default class AuthViewModel extends DefaultViewModel {
     public data: SignUphModel;
     public daum: DaumModule;
-    public toggle: boolean = false;
+    public toggle: boolean;
 
     constructor(props: IProps) {
         super(props);
@@ -33,6 +36,7 @@ export default class AuthViewModel extends DefaultViewModel {
             addressIsHide: true,
         };
         this.daum = DaumModule.getInstance();
+        this.toggle = false;
 
         makeObservable(this, {
             toggle: observable,
@@ -72,6 +76,12 @@ export default class AuthViewModel extends DefaultViewModel {
         }, time);
     };
 
+    // 회원가입 - 아이디 중복 체크
+    handleUserCheck = () => {
+        // return this.api.get('/v1/users/check').then((response: AxiosResponse<boolean>)=>{
+        // })
+    };
+
     // 회원가입 - 1. 필수 정보 (이메일, 이름, 닉네임, 비밀번호, 비밀번호확인)
     handleSignUpNecessary = async (data) => {
         const { name, nickName, email, password, confirmPassword } = data;
@@ -107,6 +117,7 @@ export default class AuthViewModel extends DefaultViewModel {
                 nickName: this.data.nickName,
                 email: this.data.email,
                 password: this.data.password,
+                confirmPassword: this.data.confirmPassword,
                 phone: this.data.phone,
                 zoneCode: this.data.zoneCode,
                 address: this.data.address,
@@ -118,25 +129,47 @@ export default class AuthViewModel extends DefaultViewModel {
                 simpleIntroduction: this.data.simpleIntroduction,
                 addressIsHide: true,
             })
-            .then((response: AxiosResponse) => {
-                response.data;
-                window.location.href = '/auth/signin';
+            .then((response: AxiosResponse<AuthDto>) => {
+                tokenModule.save({
+                    auth: {
+                        token: response.data.token,
+                        userAuth: response.data.userAuth,
+                    },
+                });
+                window.location.replace('/');
             })
-            .catch((error) => {
-                console.error(error);
+            .catch((error: AxiosError) => {
+                if (error.response && error.response.status === 400) {
+                    Alert.alert('유효하지 않은 요청입니다.');
+                } else if (error.response && error.response.status === 401) {
+                    Alert.alert('비밀번호가 맞지 않습니다. 다시 확인해주세요.');
+                } else {
+                    Alert.alert('알 수 없는 에러가 발생했습니다.');
+                }
             });
     };
 
     // 로그인
-    handleSignIn = (data) => {
+    handleSignIn = (data, callback) => {
         return this.api
             .post('/v1/users/sign-in', data)
             .then((response: AxiosResponse<AuthDto>) => {
-                this.authToken.saveToken(response.data);
-                window.location.href = '/';
+                tokenModule.save({
+                    auth: {
+                        token: response.data.token,
+                        userAuth: response.data.userAuth,
+                    },
+                });
+                window.location.replace('/');
             })
-            .catch((error) => {
-                console.error(error);
+            .catch((error: AxiosError) => {
+                if (error.response && error.response.status === 400) {
+                    Alert.alert('유효하지 않은 요청입니다.');
+                } else if (error.response && error.response.status === 401) {
+                    Alert.alert('비밀번호가 맞지 않습니다. 다시 확인해주세요.');
+                } else {
+                    Alert.alert('알 수 없는 에러가 발생했습니다.');
+                }
             });
     };
 }
