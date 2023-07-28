@@ -18,8 +18,8 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    alignitems: center;
-    justifycontent: center;
+    align-items: center;
+    justify-content: center;
     padding: 3rem 16px;
     position: static;
     direction: row;
