@@ -12,6 +12,8 @@ export const colors = {
     grey: TokenGlobalColor.grey,
     lgrey: TokenGlobalColor.lgrey,
     black: TokenGlobalColor.black,
+
+    lgrey_50: '#ececec',
 };
 
 export const fontSize = {
@@ -36,13 +38,14 @@ export const fontWeight = {
 export const breakpoint = {
     mobile: '320px',
     tablet: '768px',
-    desktop: '1280px',
+    desktop: '1200px',
 };
 export const mediaQuery = {
     mobile: `@media only screen and (min-width: ${breakpoint.mobile})`,
     tablet: `@media only screen and (min-width: ${breakpoint.tablet})`,
     desktop: `@media only screen and (min-width: ${breakpoint.desktop})`,
 };
+
 export const light = {
     bgColor: colors.transparent,
     linearGradient: `linear-gradient(rgba(0, 0, 0, 0.4) 10%, transparent 100%)`,

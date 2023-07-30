@@ -6,7 +6,7 @@ import useToggle from 'hooks/useToggleProvider';
 import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
 
-import FlyOut from './headless-flyout';
+import FlyOut from './default-flyout';
 import Flex from 'components/atoms/Group/flex';
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
 import Typography from 'components/atoms/Typograph/default-typography';

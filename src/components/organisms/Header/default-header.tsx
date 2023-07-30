@@ -1,18 +1,21 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { AiOutlineBell, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineBell } from 'react-icons/ai';
 
-import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/default-div';
-import Flex from 'components/atoms/Group/flex';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
-import Flyout from 'components/molecules/Flyout/headless-flyout';
-import pageUrlConfig from 'configs/pageUrl.config';
+import { UserDto } from 'dto/user/user.dto';
+import tokenModule from 'modules/token.module';
 import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
 import useToggle from 'hooks/useToggleProvider';
 
-import tokenModule from 'modules/token.module';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Flex from 'components/atoms/Group/flex';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import Flyout from 'components/molecules/Flyout/default-flyout';
+import UserProfile from 'components/organisms/Profile/user-profile';
+
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
 
 const publicURL = process.env.PUBLIC_URL;
 
@@ -36,12 +39,7 @@ const DefaultHeader = () => {
                         <img src={`${publicURL}/image/logo/header-logo.svg`} />
                     </LinkWrapper>
                 </div>
-                <Flex
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    style={{ position: 'relative' }}
-                >
+                <Flex justifyContent="center" alignItems="center" style={{ position: 'relative' }}>
                     {!auth.userAuth ? (
                         <>
                             <RectangleButton
@@ -62,54 +60,45 @@ const DefaultHeader = () => {
                     ) : (
                         <>
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
-                                <Toggle>
-                                    <Div backgroundColor="transparent" marginRight={8}>
-                                        {/* 알람 아이콘 */}
-                                        <AiOutlineBell size={20} color="grey" />
-                                        {/* 알람 아이콘 */}
-                                    </Div>
+                                <Toggle id="alarm__wrapper">
+                                    {/* 알람 아이콘 */}
+                                    <AiOutlineBell size={20} color="grey" />
+                                    {/* 알람 아이콘 */}
                                 </Toggle>
                                 <AlarmMenuWrapper>
                                     <Flyout.OverLay />
                                     <MenuList size="lg" variant="default">
-                                        <Item>알람 아이템1</Item>
-                                        <Item>알람 아이템2</Item>
-                                        <Item>알람 아이템3</Item>
-                                        <Item>알람 아이템4</Item>
-                                        <Item>알람 아이템5</Item>
-                                        <Item>알람 아이템6</Item>
-                                        <Item>알람 아이템7</Item>
-                                        <Item>알람 아이템8</Item>
-                                        <Item>알람 아이템9</Item>
-                                        <Item>알람 아이템10</Item>
-                                        <Item>알람 아이템11</Item>
-                                        <Item>알람 아이템12</Item>
-                                        <Item>알람 아이템13</Item>
-                                        <Item>알람 아이템14</Item>
-                                        <Item>알람 아이템15</Item>
+                                        <AlarmItem>
+                                            알람 아이템1알람 아이템1알람 아이템1알람 아이템1알람 아이템1알람
+                                            아이템1알람 아이템1알람 아이템1알람 아이템1알람 아이템1
+                                        </AlarmItem>
+                                        <AlarmItem>알람 아이템2</AlarmItem>
+                                        <AlarmItem>알람 아이템3</AlarmItem>
+                                        <AlarmItem>알람 아이템4</AlarmItem>
+                                        <AlarmItem>알람 아이템5</AlarmItem>
                                     </MenuList>
                                 </AlarmMenuWrapper>
                             </Flyout>
 
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
-                                <Toggle>
-                                    <Div marginLeft={8} backgroundColor="transparent">
-                                        {/* 회원정보 아이콘 */}
-                                        {/* <TextAvatar text={'하하'} size="md" /> */}
-                                        <AiOutlineUser size={20} color="grey" />
-                                        {/* 회원정보 아이콘 */}
-                                    </Div>
+                                <Toggle id="user__wrapper">
+                                    {/* 텍스트 아이콘 */}
+                                    {/* <TextAvatar text={'우하하'} size="md" /> */}
+                                    {/* 텍스트 아이콘 */}
+                                    {/* 회원정보 아이콘 */}
+                                    <UserProfile data={new UserDto()} />
+                                    {/* 회원정보 아이콘 */}
                                 </Toggle>
                                 <MyMenuWrapper>
                                     <Flyout.OverLay />
                                     <MenuList size="md" variant="default">
-                                        <Item to={pageUrlConfig.myPage}>마이페이지</Item>
-                                        <Item to={`${pageUrlConfig.user}`}>내 피드 바로가기</Item>
-                                        <Item to={pageUrlConfig.feed}>피드 보러가기</Item>
-                                        <Item to={pageUrlConfig.chat}>채팅하러 가기</Item>
-                                        <Item to={pageUrlConfig.feedUpload}>게시글 올리기</Item>
-                                        <Item to={pageUrlConfig.temp}>임시 글 보기</Item>
-                                        <Item onClick={handleLogOut}>로그아웃</Item>
+                                        <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
+                                        <UserItem to={`${pageUrlConfig.user}`}>내 피드 바로가기</UserItem>
+                                        <UserItem to={pageUrlConfig.feed}>피드 보러가기</UserItem>
+                                        <UserItem to={pageUrlConfig.chat}>채팅하러 가기</UserItem>
+                                        <UserItem to={pageUrlConfig.feedUpload}>게시글 올리기</UserItem>
+                                        <UserItem to={pageUrlConfig.temp}>임시 글 보기</UserItem>
+                                        <UserItem onClick={handleLogOut}>로그아웃</UserItem>
                                     </MenuList>
                                 </MyMenuWrapper>
                             </Flyout>
@@ -130,6 +119,7 @@ const HeaderContainer = styled.header`
     background: linear-gradient(180deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%);
     display: flex;
     justify-content: center;
+    z-index: 3;
 `;
 
 const HeaderWrap = styled.div`
@@ -142,20 +132,13 @@ const HeaderWrap = styled.div`
         display: flex;
         align-items: center;
     }
-
     & img {
-        width: 196px;
-        height: 56px;
-    }
-`;
-const IconBox = styled.div`
-    margin: 24px;
-    background-color: transparent;
-    &:last-child {
-        margin-right: 0;
+        width: 100%;
+        height: 48px;
     }
 `;
 
+// Flyout - 하단 메뉴
 const Toggle = styled(Flyout.Toggle)`
     position: relative;
     cursor: pointer;
@@ -174,20 +157,39 @@ const MyMenuWrapper = styled(Flyout.Wrapper)`
 `;
 
 const MenuList = styled(Flyout.List)`
-    /* width: max-content; */
-    /* height: 100%; */
     overflow-y: scroll;
     position: relative;
     border-radius: 4px;
     box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15);
 `;
 
-const Item = styled(Flyout.Item)`
+const AlarmItem = styled(Flyout.Item)`
     cursor: pointer;
     list-style: none;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    z-index: 99;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    transition: background-color 0.35s ease-in-out, color 0.25s ease-in-out;
+    &:hover {
+        border-color: ${theme.palette.secondary.borderColor};
+        background-color: ${theme.palette.secondary.backgroundColor};
+        color: ${theme.palette.text.white};
+    }
+`;
+
+const UserItem = styled(Flyout.Item)`
+    cursor: pointer;
+    list-style: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    z-index: 9;
     width: 100%;
     height: 100%;
     display: flex;

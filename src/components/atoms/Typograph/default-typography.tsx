@@ -8,11 +8,11 @@ import useVariant from 'hooks/useVariant';
 
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
-type Typography = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
-interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement> {
+export type TypographyVariant = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
+interface TypographyProps {
     to?: string;
     as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
-    variant: Typography;
+    variant: TypographyVariant;
     fontSize?: keyof typeof theme.fontSize;
     lineHeight?: keyof typeof theme.lineHeight;
     color?: keyof typeof theme.colors;
@@ -29,6 +29,9 @@ interface Props extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement
     textAlign?: CSSProperties['textAlign'];
     width?: CSSProperties['width'];
 }
+
+type Props = React.PropsWithChildren<TypographyProps> &
+    HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
 
 const Typography = ({
     as: Component = 'span',

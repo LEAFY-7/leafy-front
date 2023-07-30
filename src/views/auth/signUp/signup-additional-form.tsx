@@ -13,7 +13,7 @@ import Div from 'components/atoms/Div/default-div';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
 import TextField from 'components/molecules/TextField';
-import InputCalender from 'components/molecules/Calender/input-calender';
+import InputCalender from 'components/organisms/Calender/input-calender';
 
 const SignUpAdditionalForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);

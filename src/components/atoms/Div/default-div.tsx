@@ -35,6 +35,8 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
     showScroll?: boolean;
     textAlign?: CSSProperties['textAlign'];
 }
+
+type Props = React.PropsWithChildren<DivProps> & HTMLAttributes<HTMLHRElement>;
 const Div = ({
     id,
     size = 'default',
@@ -65,7 +67,7 @@ const Div = ({
     textAlign = 'left',
     children,
     ...rest
-}: React.PropsWithChildren<DivProps>) => {
+}: Props) => {
     const {
         width: w,
         height: h,

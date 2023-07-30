@@ -6,7 +6,9 @@ interface PageWrapperProps {}
 type Props = React.PropsWithChildren<PageWrapperProps> & HTMLAttributes<HTMLElement>;
 
 function PageWrapper({ children }: Props) {
-    React.useEffect(() => {}, []);
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return <>{children}</>;
 }
 

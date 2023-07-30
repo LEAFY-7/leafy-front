@@ -23,7 +23,7 @@ const SignUpView = () => {
     }, [authViewModel.toggle]);
 
     return (
-        <PageContainer>
+        <PageContainer style={{ overflow: 'visible', height: 'auto' }}>
             <Wrapper>
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography

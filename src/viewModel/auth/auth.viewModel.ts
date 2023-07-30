@@ -110,6 +110,9 @@ export default class AuthViewModel extends DefaultViewModel {
 
     // 회원가입
     handleSignUp = () => {
+        const phoneNumber = this.data.phone;
+        const phoneNumberWithoutHyphens = phoneNumber.replace(/-/g, '');
+
         return this.api
             .post('/v1/users/sign-up', {
                 name: this.data.name,
@@ -117,7 +120,7 @@ export default class AuthViewModel extends DefaultViewModel {
                 email: this.data.email,
                 password: this.data.password,
                 confirmPassword: this.data.confirmPassword,
-                phone: this.data.phone,
+                phone: phoneNumberWithoutHyphens,
                 zoneCode: this.data.zoneCode,
                 address: this.data.address,
                 jibunAddress: this.data.jibunAddress,
@@ -138,12 +141,14 @@ export default class AuthViewModel extends DefaultViewModel {
                 window.location.replace('/');
             })
             .catch((error: AxiosError) => {
-                if (error.response && error.response.status === 400) {
-                    Alert.alert('유효하지 않은 요청입니다.');
-                } else if (error.response && error.response.status === 401) {
-                    Alert.alert('비밀번호가 맞지 않습니다. 다시 확인해주세요.');
+                if (error && error.status === 400) {
+                    Alert.alert('입력하신 내용이 형식에 맞지 않습니다.');
+                } else if (error && error.status === 409) {
+                    Alert.alert('이메일 혹은 닉네임이 이미 존재합니다.');
+                } else if (error && error.status === 500) {
+                    Alert.alert('서버에 요청이 실패하였습니다.');
                 } else {
-                    Alert.alert('알 수 없는 에러가 발생했습니다.');
+                    Alert.alert('요청이 실패했습니다. 다시 시도해주시기 바랍니다.');
                 }
             });
     };
@@ -153,6 +158,7 @@ export default class AuthViewModel extends DefaultViewModel {
         return this.api
             .post('/v1/users/sign-in', data)
             .then((response: AxiosResponse<AuthDto>) => {
+                console.log(response);
                 tokenModule.save({
                     auth: {
                         token: response.data.token,
@@ -162,12 +168,17 @@ export default class AuthViewModel extends DefaultViewModel {
                 window.location.replace('/');
             })
             .catch((error: AxiosError) => {
-                if (error.response && error.response.status === 400) {
-                    Alert.alert('유효하지 않은 요청입니다.');
-                } else if (error.response && error.response.status === 401) {
+                console.log(error);
+                if (error && error.status === 400) {
+                    Alert.alert('아이디 또는 비밀번호가 형식에 맞지 않습니다.');
+                } else if (error && error.status === 401) {
                     Alert.alert('비밀번호가 맞지 않습니다. 다시 확인해주세요.');
+                } else if (error && error.status === 404) {
+                    Alert.alert('이메일이 맞지 않습니다. 다시 확인해주세요.');
+                } else if (error && error.status === 500) {
+                    Alert.alert('서버에 요청이 실패하였습니다.');
                 } else {
-                    Alert.alert('알 수 없는 에러가 발생했습니다.');
+                    Alert.alert('요청이 실패했습니다. 다시 시도해주시기 바랍니다.');
                 }
             });
     };

@@ -6,7 +6,7 @@ import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import textareaStyle from './textarea.style';
 
-export interface TextareaProps {
+interface TextareaProps {
     fontSize: keyof typeof theme.fontSize;
     color: keyof typeof theme.colors;
     placeholderColor: keyof typeof theme.colors;
@@ -31,7 +31,7 @@ export interface TextareaProps {
     radius?: number;
     isBorder?: boolean;
 }
-export interface Props
+interface Props
     extends Partial<TextareaProps>,
         Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLTextAreaElement>, 'color'> {
     value?: string | number;
