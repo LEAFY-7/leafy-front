@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
 import type { CSSProperties, HTMLAttributes } from 'react';
+import React from 'react';
 import { css } from '@emotion/react';
 import { theme } from 'configs/ui.config';
 
@@ -43,9 +43,7 @@ interface BoxProps {
     borderWidth?: number;
     overflow?: CSSProperties['overflow'];
 }
-export interface Props extends HTMLAttributes<HTMLElement>, BoxProps {
-    id?: string;
-}
+type Props = React.PropsWithChildren<BoxProps> & HTMLAttributes<HTMLElement>;
 
 const Box = ({
     id,
@@ -86,7 +84,7 @@ const Box = ({
     borderWidth = 0,
     children,
     ...rest
-}: React.PropsWithChildren<Props>) => {
+}: Props) => {
     const newW = typeof width === 'number' ? `${width}%` : width;
     const newH = typeof height === 'number' ? `${height}%` : height;
     const newPadding = padding || `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`;
@@ -111,7 +109,7 @@ const Box = ({
         margin: ${newMargin};
         background-color: ${theme.colors[backgroundColor]};
 
-        background-image: ${backgroundImage};
+        background-image: url(${backgroundImage});
         border-radius: ${radius + 'px'};
         box-shadow: ${boxShadow};
         border-style: solid;
