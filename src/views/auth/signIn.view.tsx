@@ -31,7 +31,7 @@ const SignInView = () => {
         <form aria-label="signin" onSubmit={handleSubmit(authViewModel.handleSignIn)} noValidate>
             <Flex id="signInForm_wrapper" direction="column">
                 <TextFiled
-                    hookForm
+                    // hookForm
                     type={authItemState.email.type}
                     labelTitle={authItemState.email.label}
                     error={!!errors.email}
@@ -41,7 +41,7 @@ const SignInView = () => {
                     {...register(authItemState.email.property as 'email', authFormState.email)}
                 />
                 <TextFiled
-                    hookForm
+                    // hookForm
                     type={authItemState.password.type}
                     labelTitle={authItemState.password.label}
                     error={!!errors.password}

@@ -23,7 +23,7 @@ const SignUpView = () => {
         formState: { errors, isSubmitting },
     } = useForm<SignUphModel>({
         defaultValues: {
-            displayName: '',
+            name: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -33,17 +33,17 @@ const SignUpView = () => {
         <form aria-label="signup" onSubmit={handleSubmit(authViewModel.handleSignUp)} noValidate>
             <Flex id="signUpForm_wrapper" direction="column">
                 <TextFiled
-                    hookForm
-                    type={authItemState.displayName.type}
-                    labelTitle={authItemState.displayName.label}
-                    error={!!errors.displayName}
-                    helperText={errors.displayName?.message}
-                    leftIcon={authItemState.displayName.icon.main}
-                    helperIcon={authItemState.displayName.icon.helper}
-                    {...register(authItemState.displayName.property, authFormState.name)}
+                    // hookForm
+                    type={authItemState.name.type}
+                    labelTitle={authItemState.name.label}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                    leftIcon={authItemState.name.icon.main}
+                    helperIcon={authItemState.name.icon.helper}
+                    {...register(authItemState.name.property, authFormState.name)}
                 />
                 <TextFiled
-                    hookForm
+                    // hookForm
                     type={authItemState.email.type}
                     labelTitle={authItemState.email.label}
                     error={!!errors.email}
@@ -53,7 +53,7 @@ const SignUpView = () => {
                     {...register(authItemState.email.property, authFormState.email)}
                 />
                 <TextFiled
-                    hookForm
+                    // hookForm
                     type={authItemState.password.type}
                     labelTitle={authItemState.password.label}
                     error={!!errors.password}
@@ -63,7 +63,7 @@ const SignUpView = () => {
                     {...register(authItemState.password.property, authFormState.password)}
                 />
                 <TextFiled
-                    hookForm
+                    // hookForm
                     type={authItemState.confirmPassword.type}
                     labelTitle={authItemState.confirmPassword.label}
                     error={!!errors.confirmPassword}

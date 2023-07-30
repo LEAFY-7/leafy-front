@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { plainToInstance } from 'class-transformer';
 import { serialize } from 'object-to-formdata';
 const isServer = typeof window === 'undefined';
 
@@ -140,9 +139,8 @@ export class ApiModule {
 
     private handleError = (error): AxiosError => {
         const { data } = error.response;
-        const errorDto = plainToInstance(AxiosError, data);
 
-        throw errorDto;
+        throw error.response;
         throw '';
     };
 }
