@@ -9,6 +9,7 @@ interface Props {
     //disabled 상태에서 벗어나기 위한 조건
     condition?: boolean;
     size: 'xl' | 'l' | 's';
+    type: 'button' | 'submit' | 'reset';
     variant: 'primary' | 'secondary' | 'basic';
     state: states;
     text: string;
@@ -27,6 +28,7 @@ export const Button = ({
     condition = false,
     /* 필수, 변경 값*/
     state = 'default',
+    type = 'button',
     /* 필수, 고정 값*/
     text = 'click',
     variant = 'secondary',
@@ -62,6 +64,7 @@ export const Button = ({
             onBlur={onLeave}
             onMouseLeave={onLeave}
             css={[sizeCss, stepCss, stateCss, textCss, dropCss]}
+            type={type}
         >
             {showText && text}
             {showIcon && leftIcon}
