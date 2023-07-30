@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import PageContainer from 'components/templates/page-container';
+import TextField from 'components/molecules/TextField/headless-textField';
 
 let socket;
 
@@ -12,7 +13,14 @@ const ChatView = () => {
     //     socket.emit('join', { name, room });
     // }, [ENDPOINT]);
 
-    return <PageContainer>ChatView</PageContainer>;
+    return (
+        <PageContainer>
+            {/* <TextField>
+                <TextField.Input value="dd" type="text" />
+                <TextField.HelperText>dd</TextField.HelperText>
+            </TextField> */}
+        </PageContainer>
+    );
 };
 
 export default ChatView;
