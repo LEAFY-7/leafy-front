@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { AiOutlineBell } from 'react-icons/ai';
+import { AiOutlineBell, AiOutlineUser } from 'react-icons/ai';
 
 import { UserDto } from 'dto/user/user.dto';
 import tokenModule from 'modules/token.module';
@@ -82,11 +82,8 @@ const DefaultHeader = () => {
 
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Toggle id="user__wrapper">
-                                    {/* 텍스트 아이콘 */}
-                                    {/* <TextAvatar text={'우하하'} size="md" /> */}
-                                    {/* 텍스트 아이콘 */}
                                     {/* 회원정보 아이콘 */}
-                                    <UserProfile data={new UserDto()} />
+                                    <AiOutlineUser size={20} color="grey" />
                                     {/* 회원정보 아이콘 */}
                                 </Toggle>
                                 <MyMenuWrapper>
