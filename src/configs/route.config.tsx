@@ -27,6 +27,7 @@ import QnaUploadView from 'views/qna/upload.view';
 import SearchView from 'views/search/index.view';
 import UserView from 'views/user/index.view';
 import ChatView from 'views/chat/index.view';
+import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 
 const routeConfig = [
     {
@@ -59,8 +60,22 @@ const routeConfig = [
                     { path: pageUrlConfig.feed, element: <FeedView /> },
                     { path: `${pageUrlConfig.feedEdit}/:id`, element: <FeedEditView /> },
                     { path: pageUrlConfig.feedUpload, element: <FeedUploadView /> },
-                    { path: pageUrlConfig.myPage, element: <MyView /> },
-                    { path: pageUrlConfig.myEdit, element: <MyEditView /> },
+                    {
+                        path: pageUrlConfig.myPage,
+                        element: (
+                            <PageWrapper>
+                                <MyView />
+                            </PageWrapper>
+                        ),
+                    },
+                    {
+                        path: pageUrlConfig.myEdit,
+                        element: (
+                            <PageWrapper>
+                                <MyEditView />
+                            </PageWrapper>
+                        ),
+                    },
                     { path: pageUrlConfig.leave, element: <LeaveView /> },
                     { path: pageUrlConfig.qnaUpload, element: <QnaUploadView /> },
                     { path: `${pageUrlConfig.qnaDetail}/:id`, element: <QnaDetailView /> },
