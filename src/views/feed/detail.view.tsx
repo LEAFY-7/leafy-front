@@ -22,15 +22,20 @@ const FeedDetailView = () => {
         feedViewModel.getDetail(+id);
     }, []);
 
+    const swiper = (e) => {
+        console.log(e);
+    };
+
     return (
         <PageContainer>
             <UserProfile data={feedViewModel.detail.author} />
             <SwiperWrap
                 modules={[Pagination, Navigation, FreeMode]}
-                slidesPerView={2}
-                spaceBetween={16}
+                slidesPerView={1}
+                spaceBetween={0}
                 pagination={{ clickable: true }}
                 navigation
+                onSwiper={swiper}
             >
                 {feedViewModel.detail.imgUrl.map((imageUrl: string, key: number) => {
                     return (
@@ -39,7 +44,7 @@ const FeedDetailView = () => {
                         </SwiperSlide>
                     );
                 })}
-                <SwiperSlide></SwiperSlide>
+                {/* <SwiperSlide></SwiperSlide> */}
             </SwiperWrap>
             <p>{feedViewModel.detail.title}</p>
             <p>{feedViewModel.detail.content}</p>
@@ -53,25 +58,15 @@ const SwiperWrap = styled(Swiper)`
     position: relative;
     left: -16px;
     padding: 0 16px;
-    width: 100vw;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 600px;
     margin: 0;
 
     & .swiper-slide,
     & img {
-        width: 160px;
-        height: 500px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         border-radius: 16px;
-    }
-
-    & .swiper-slide-active,
-    & .swiper-slide-active img {
-        width: 500px !important;
-    }
-
-    & .swiper-slide-next,
-    & .swiper-slide-next img {
-        width: 240px !important;
     }
 `;
