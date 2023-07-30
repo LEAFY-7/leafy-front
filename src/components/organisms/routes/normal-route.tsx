@@ -1,18 +1,18 @@
+import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import UserViewModel from 'viewModel/user/user.viewModel';
-
-type AllowedRole = 'ADMIN' | 'NORMAL' | 'MEMBER';
+import tokenModule from 'modules/token.module';
+import pageUrlConfig from 'configs/pageUrl.config';
+import { AllowedRole } from './index.types';
 
 const NormalRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
-    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
     const location = useLocation();
-
+    const auth = React.useMemo(() => tokenModule.get(), [location]);
     if (
-        (location.pathname.includes('/auth/signin') || location.pathname.includes('/auth/signup')) &&
-        ![userViewModel.auth.userAuth || 'NORMAL']?.some((role: AllowedRole) => allowedRoles?.includes(role))
+        (location.pathname.includes(`${pageUrlConfig.auth}${pageUrlConfig.signIn}`) ||
+            location.pathname.includes(`${pageUrlConfig.auth}${pageUrlConfig.signUp}`)) &&
+        ![auth.userAuth || 'NORMAL']?.some((role: AllowedRole) => allowedRoles?.includes(role))
     ) {
-        return <Navigate to="/" />;
+        return <Navigate to={`${pageUrlConfig.main}`} />;
     }
 
     return <Outlet />;

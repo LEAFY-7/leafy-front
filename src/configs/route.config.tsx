@@ -1,18 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Unauthorized from 'components/organisms/Error/Unauthorized';
+import pageUrlConfig from 'configs/pageUrl.config';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import PrivateRoute from 'components/organisms/routes/private-route';
-
-import Chat from 'pages/Chat/Page';
-import Practice from 'pages/temp';
-
-import NotFound from 'components/organisms/Error/NotFound';
 import NormalRoute from 'components/organisms/routes/normal-route';
-import pageUrlConfig from 'configs/pageUrl.config';
-import SignIn from 'pages/Auth/SignIn';
-import SignUp from 'pages/Auth/SignUp';
+import Unauthorized from 'components/organisms/Error/unauthorized';
+import NotFound from 'components/organisms/Error/notFound';
 
+import SignUpView from 'views/auth/signUp/index.view';
+import SignInView from 'views/auth/signIn/index.view';
 import FindView from 'views/auth/find.view';
 import FeedDetailView from 'views/feed/detail.view';
 import FeedEditView from 'views/feed/edit.view';
@@ -30,6 +26,7 @@ import QnaDetailView from 'views/qna/detail.view';
 import QnaUploadView from 'views/qna/upload.view';
 import SearchView from 'views/search/index.view';
 import UserView from 'views/user/index.view';
+import ChatView from 'views/chat/index.view';
 
 const routeConfig = [
     {
@@ -38,14 +35,14 @@ const routeConfig = [
         children: [
             { path: '', element: <HomeView /> },
             {
-                path: `${pageUrlConfig.signIn}`,
+                path: `${pageUrlConfig.auth}${pageUrlConfig.signIn}`,
                 element: <NormalRoute allowedRoles={['NORMAL']} />,
-                children: [{ path: '', element: <SignIn /> }],
+                children: [{ path: '', element: <SignInView /> }],
             },
             {
-                path: `${pageUrlConfig.signUp}`,
+                path: `${pageUrlConfig.auth}${pageUrlConfig.signUp}`,
                 element: <NormalRoute allowedRoles={['NORMAL']} />,
-                children: [{ path: '', element: <SignUp /> }],
+                children: [{ path: '', element: <SignUpView /> }],
             },
             { path: pageUrlConfig.find, element: <FindView /> },
             { path: `${pageUrlConfig.feedDetail}/:id`, element: <FeedDetailView /> },
@@ -56,13 +53,9 @@ const routeConfig = [
             { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
             { path: pageUrlConfig.notFound, element: <NotFound /> },
             {
-                path: 'practice',
-                element: <Practice />,
-            },
-            {
                 element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
-                    { path: pageUrlConfig.chat, element: <Chat /> },
+                    { path: pageUrlConfig.chat, element: <ChatView /> },
                     { path: pageUrlConfig.feed, element: <FeedView /> },
                     { path: `${pageUrlConfig.feedEdit}/:id`, element: <FeedEditView /> },
                     { path: pageUrlConfig.feedUpload, element: <FeedUploadView /> },
@@ -85,15 +78,3 @@ const routeConfig = [
 ];
 const routers = createBrowserRouter(routeConfig);
 export default routers;
-
-class RouteModule {
-    public userState: string;
-
-    constructor(props) {
-        this.userState = props.member;
-    }
-
-    setState(member: string) {
-        this.userState = member;
-    }
-}

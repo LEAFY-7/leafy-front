@@ -31,7 +31,7 @@ export type AuthItem =
     | 'addressDetail'
     | 'simpleIntroduction';
 
-export interface AuthItemState {
+export interface AuthItemType {
     type: 'number' | 'password' | 'text' | 'tel';
     label: string;
     property: AuthItem;
@@ -43,7 +43,7 @@ export interface AuthItemState {
 }
 
 export type AuthItemStateType = {
-    [key in AuthItem]: AuthItemState;
+    [key in AuthItem]: AuthItemType;
 };
 
 export const authFormState = {
@@ -308,5 +308,5 @@ export const authItemState: AuthItemStateType = {
             helper: <AiOutlineExclamationCircle />,
         },
     },
-} as const;
+};
 export default { authFormState, authItemState };

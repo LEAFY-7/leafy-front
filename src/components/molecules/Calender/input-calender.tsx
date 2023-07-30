@@ -8,7 +8,7 @@ import { SignUphModel } from 'models/auth/signUp.model';
 import useToggle from 'hooks/useToggle';
 import Flex from 'components/atoms/Group/flex';
 import TextField from '../TextField/';
-import { AuthItemState } from 'configs/form.config';
+import { AuthItemType } from 'configs/form.config';
 
 interface Props<T extends keyof SignUphModel> {
     name: T;
@@ -18,7 +18,7 @@ interface Props<T extends keyof SignUphModel> {
     required?: string;
     format?: string;
     error?: string;
-    authItemState: AuthItemState;
+    authItemState: AuthItemType;
 }
 
 const InputCalender = <T extends keyof SignUphModel>({

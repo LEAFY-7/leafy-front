@@ -31,7 +31,6 @@ const Toggle = ({
     const toggleVariant = useVariant({ variant: variant, callback: toggleStyle.variantStyles });
     const { isOpen, handler } = useToggle({ callback: onToggle });
 
-    console.log('toggle', isOpen);
     const wrapperStyle = css`
         position: relative;
         cursor: pointer;

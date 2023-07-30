@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { SignInModel } from 'models/auth/signIn.model';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
-import { authFormState, authItemState } from 'configs/form.config';
+import { authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
 import Div from 'components/atoms/Div/default-div';
@@ -17,7 +17,7 @@ const SignInDefaultForm = () => {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, dirtyFields },
     } = useForm<SignInModel>({
         defaultValues: {
             email: '',
@@ -32,7 +32,6 @@ const SignInDefaultForm = () => {
                     name={authItemState.email.property as 'email'}
                     control={control}
                     defaultValue={authViewModel.data.email}
-                    rules={authFormState.email}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextFiled
                             value={value}
@@ -55,7 +54,6 @@ const SignInDefaultForm = () => {
                     name={authItemState.password.property as 'password'}
                     control={control}
                     defaultValue={authViewModel.data.password}
-                    rules={authFormState.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextFiled
                             value={value}

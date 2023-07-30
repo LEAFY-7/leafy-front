@@ -6,4 +6,7 @@ export class AuthDto {
 
     @Expose({ name: 'userAuth' })
     public readonly userAuth: string = '';
+
+    @Expose({ name: 'userId' })
+    public readonly userId: number = 0;
 }
