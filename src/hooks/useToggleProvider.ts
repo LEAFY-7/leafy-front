@@ -1,14 +1,15 @@
-import { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 
 interface ToggleProviderProps {
     open?: boolean;
     onOpenChange?: React.Dispatch<React.SetStateAction<boolean>>;
-    callback?: () => void; // 추가: callback prop
+    callback?: () => void;
 }
 
 const useToggle = ({ open = false, onOpenChange = undefined, callback = undefined }: ToggleProviderProps) => {
-    const [defaultOpenState, setDefaultOpenState] = useState<boolean>(false);
-    const handleToggle = useCallback(() => {
+    const [defaultOpenState, setDefaultOpenState] = React.useState<boolean>(false);
+
+    const handleToggle = React.useCallback(() => {
         if (onOpenChange === undefined) {
             setDefaultOpenState((prev) => !prev);
         } else if (onOpenChange) {
@@ -20,7 +21,7 @@ const useToggle = ({ open = false, onOpenChange = undefined, callback = undefine
         }
     }, [callback, onOpenChange]);
 
-    const values = useMemo(() => {
+    const values = React.useMemo(() => {
         return {
             isOpen: open ?? defaultOpenState,
             toggle: handleToggle,
