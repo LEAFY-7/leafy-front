@@ -80,7 +80,7 @@ const Wrapper = styled.footer`
     height: 120px;
     background-color: ${theme.palette.bgColor};
     display: flex;
-    padding: 8px calc((100% - 1200px) / 2);
+    padding: 8px calc((100% - 1080px) / 2);
     flex-direction: column;
     z-index: 1;
     &::before {
