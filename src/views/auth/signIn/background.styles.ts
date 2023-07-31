@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { theme } from 'configs/ui.config';
 
 const signInFirstAnimation = keyframes`
 
@@ -37,7 +38,7 @@ const signInSecondAnimation = keyframes`
 export const SignInPlantImage = styled.img`
     position: absolute;
     top: 0;
-    left: 5%;
+    left: -2%;
     z-index: -1;
 
     &:nth-of-type(1) {
@@ -53,5 +54,15 @@ export const SignInPlantImage = styled.img`
         margin-top: -20%;
         transform: scaleX(-1);
         animation: ${signInSecondAnimation} 3.5s infinite ease-in-out;
+    }
+
+    ${theme.mediaQuery.mobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.tablet} {
+        display: none;
+    }
+    ${theme.mediaQuery.desktop} {
+        display: flex;
     }
 `;
