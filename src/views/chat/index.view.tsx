@@ -1,6 +1,5 @@
 import io from 'socket.io-client';
 import PageContainer from 'components/templates/page-container';
-import TextField from 'components/molecules/TextField/headless-textField';
 
 let socket;
 

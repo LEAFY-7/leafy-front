@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Controller, useForm } from 'react-hook-form';
 import { SignUphModel } from 'models/auth/signUp.model';
+import { FcAddImage } from 'react-icons/fc';
 
 import Container from 'components/organisms/Container/default-container';
 import PageContainer from 'components/templates/page-container';
-import TextField from 'components/molecules/TextField';
 import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import Div from 'components/atoms/Div/default-div';
@@ -13,6 +13,9 @@ import InputCalender from 'components/organisms/Calender/input-calender';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import DropButton from 'components/atoms/Button/drop-button';
+import TextField from 'components/molecules/TextField/default-textField';
+import DropDiv from 'components/atoms/Div/drop-div';
+import RoundButton from 'components/atoms/Button/round-button';
 
 const publicURL = process.env.PUBLIC_URL;
 
@@ -37,30 +40,36 @@ const MyEditView = () => {
     });
 
     return (
-        <PageContainer
-            style={{
-                height: 'auto',
-                overflow: 'visible',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-            }}
-        >
+        <PageContainer style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center' }}>
             <Container id="myInfo_edit" as="section" wrapperHeight={100}>
-                <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
+                <Container.Header
+                    headerHeight={'50px'}
+                    fontSize="xl"
+                    marginBottom={8}
+                    style={{ paddingLeft: '4px' }}
+                >
                     회원 정보 수정
                 </Container.Header>
                 <Container.HeaderLine marginTop={16} marginBottom={32} />
                 <Container.Inner innerHeight={100}>
                     <Flex justifyContent="space-between" style={{ width: '100%' }}>
-                        <Div width={30}>
+                        <Div width={25} direction="column" style={{ position: 'relative' }}>
                             <img src={`${publicURL}/image/default/default-user-img.svg`} />
+                            <DropDiv
+                                size="xxs"
+                                style={{
+                                    position: 'absolute',
+                                    transform: 'translate(160%, 160%)',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                <FcAddImage />
+                            </DropDiv>
+                            <RoundButton variant="default" isBorder>
+                                사진 저장
+                            </RoundButton>
                         </Div>
-                        <Div
-                            width={50}
-                            direction="column"
-                            justifyContent="flex-start"
-                            alignItems="flex-start"
-                        >
+                        <Div width={65} direction="column">
                             <form>
                                 <Controller
                                     name={authItemState.name.property}
@@ -71,20 +80,34 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <TextField
-                                            value={value}
-                                            type={authItemState.name.type}
-                                            labelTitle={authItemState.name.label}
-                                            leftIcon={authItemState.name.icon.main}
-                                            helperIcon={authItemState.name.icon.helper}
-                                            placeholder={authItemState.name.placeHolder}
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                        />
+                                        <TextField error={!!error}>
+                                            <TextField.Wrapper style={{ height: '100px' }}>
+                                                <TextField.Label>{authItemState.name.label}</TextField.Label>
+                                                <TextField.Container
+                                                    id="name_container"
+                                                    rightIcon={authItemState.name.icon.main}
+                                                >
+                                                    <TextField.Input
+                                                        value={value}
+                                                        type={authItemState.name.type}
+                                                        placeholder={authItemState.name.placeHolder}
+                                                        onChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>,
+                                                        ) => {
+                                                            const { value } = e.target;
+                                                            onChange(value);
+                                                        }}
+                                                        style={{ width: '300px' }}
+                                                    />
+                                                </TextField.Container>
+                                                <TextField.HelperText
+                                                    leftIcon={authItemState.name.icon.helper}
+                                                    style={{ padding: '0 8px' }}
+                                                >
+                                                    {error?.message}
+                                                </TextField.HelperText>
+                                            </TextField.Wrapper>
+                                        </TextField>
                                     )}
                                 />
                                 <Controller
@@ -96,20 +119,36 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <TextField
-                                            value={value}
-                                            type={authItemState.nickName.type}
-                                            labelTitle={authItemState.nickName.label}
-                                            leftIcon={authItemState.nickName.icon.main}
-                                            helperIcon={authItemState.nickName.icon.helper}
-                                            placeholder={authItemState.nickName.placeHolder}
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                        />
+                                        <TextField error={!!error}>
+                                            <TextField.Wrapper style={{ height: '100px' }}>
+                                                <TextField.Label>
+                                                    {authItemState.nickName.label}
+                                                </TextField.Label>
+                                                <TextField.Container
+                                                    id="nickName_container"
+                                                    rightIcon={authItemState.nickName.icon.main}
+                                                >
+                                                    <TextField.Input
+                                                        value={value}
+                                                        type={authItemState.nickName.type}
+                                                        placeholder={authItemState.nickName.placeHolder}
+                                                        onChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>,
+                                                        ) => {
+                                                            const { value } = e.target;
+                                                            onChange(value);
+                                                        }}
+                                                        style={{ width: '300px' }}
+                                                    />
+                                                </TextField.Container>
+                                                <TextField.HelperText
+                                                    leftIcon={authItemState.nickName.icon.helper}
+                                                    style={{ padding: '0 8px' }}
+                                                >
+                                                    {error?.message}
+                                                </TextField.HelperText>
+                                            </TextField.Wrapper>
+                                        </TextField>
                                     )}
                                 />
 
@@ -122,21 +161,38 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <TextField
-                                            value={value}
-                                            type={authItemState.email.type}
-                                            labelTitle={authItemState.email.label}
-                                            leftIcon={authItemState.email.icon.main}
-                                            helperIcon={authItemState.email.icon.helper}
-                                            placeholder={authItemState.email.placeHolder}
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            disabled
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                        />
+                                        <>
+                                            <TextField error={!!error} disabled>
+                                                <TextField.Wrapper style={{ height: '100px' }}>
+                                                    <TextField.Label>
+                                                        {authItemState.email.label}
+                                                    </TextField.Label>
+                                                    <TextField.Container
+                                                        id="email_container"
+                                                        rightIcon={authItemState.email.icon.main}
+                                                    >
+                                                        <TextField.Input
+                                                            value={value}
+                                                            type={authItemState.email.type}
+                                                            placeholder={authItemState.email.placeHolder}
+                                                            onChange={(
+                                                                e: React.ChangeEvent<HTMLInputElement>,
+                                                            ) => {
+                                                                const { value } = e.target;
+                                                                onChange(value);
+                                                            }}
+                                                            style={{ width: '300px' }}
+                                                        />
+                                                    </TextField.Container>
+                                                    <TextField.HelperText
+                                                        leftIcon={authItemState.email.icon.helper}
+                                                        style={{ padding: '0 8px' }}
+                                                    >
+                                                        {error?.message}
+                                                    </TextField.HelperText>
+                                                </TextField.Wrapper>
+                                            </TextField>
+                                        </>
                                     )}
                                 />
                                 <Controller
@@ -148,20 +204,36 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <TextField
-                                            value={value}
-                                            type={authItemState.password.type}
-                                            labelTitle={authItemState.password.label}
-                                            leftIcon={authItemState.password.icon.main}
-                                            helperIcon={authItemState.password.icon.helper}
-                                            placeholder={authItemState.password.placeHolder}
-                                            error={!!error}
-                                            helperText={error?.message}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                        />
+                                        <TextField error={!!error}>
+                                            <TextField.Wrapper style={{ height: '100px' }}>
+                                                <TextField.Label>
+                                                    {authItemState.password.label}
+                                                </TextField.Label>
+                                                <TextField.Container
+                                                    id="password_container"
+                                                    rightIcon={authItemState.password.icon.main}
+                                                >
+                                                    <TextField.Input
+                                                        value={value}
+                                                        type={authItemState.password.type}
+                                                        placeholder={authItemState.password.placeHolder}
+                                                        onChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>,
+                                                        ) => {
+                                                            const { value } = e.target;
+                                                            onChange(value);
+                                                        }}
+                                                        style={{ width: '300px' }}
+                                                    />
+                                                </TextField.Container>
+                                                <TextField.HelperText
+                                                    leftIcon={authItemState.password.icon.helper}
+                                                    style={{ padding: '0 8px' }}
+                                                >
+                                                    {error?.message}
+                                                </TextField.HelperText>
+                                            </TextField.Wrapper>
+                                        </TextField>
                                     )}
                                 />
                                 <Controller
@@ -175,20 +247,38 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <TextField
-                                            value={value}
-                                            type={authItemState.confirmPassword.type}
-                                            labelTitle={authItemState.confirmPassword.label}
-                                            leftIcon={authItemState.confirmPassword.icon.main}
-                                            helperIcon={authItemState.confirmPassword.icon.helper}
-                                            placeholder={authItemState.confirmPassword.placeHolder}
-                                            error={!!error}
-                                            helperText={error?.message || '비밀번호가 일치하지 않습니다.'}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                        />
+                                        <TextField error={!!error}>
+                                            <TextField.Wrapper style={{ height: '100px' }}>
+                                                <TextField.Label>
+                                                    {authItemState.confirmPassword.label}
+                                                </TextField.Label>
+                                                <TextField.Container
+                                                    id="password_container"
+                                                    rightIcon={authItemState.confirmPassword.icon.main}
+                                                >
+                                                    <TextField.Input
+                                                        value={value}
+                                                        type={authItemState.confirmPassword.type}
+                                                        placeholder={
+                                                            authItemState.confirmPassword.placeHolder
+                                                        }
+                                                        onChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>,
+                                                        ) => {
+                                                            const { value } = e.target;
+                                                            onChange(value);
+                                                        }}
+                                                        style={{ width: '300px' }}
+                                                    />
+                                                </TextField.Container>
+                                                <TextField.HelperText
+                                                    leftIcon={authItemState.confirmPassword.icon.helper}
+                                                    style={{ padding: '0 8px' }}
+                                                >
+                                                    {error?.message}
+                                                </TextField.HelperText>
+                                            </TextField.Wrapper>
+                                        </TextField>
                                     )}
                                 />
                                 <Flex>
@@ -198,25 +288,42 @@ const MyEditView = () => {
                                         defaultValue=""
                                         rules={authFormState.phone}
                                         render={({ field: { value, onChange }, fieldState: { error } }) => (
-                                            <TextField
-                                                id="phone_input"
-                                                type={authItemState.phone.type}
-                                                labelTitle={authItemState.phone.label}
-                                                value={value}
-                                                maxLength={13}
-                                                placeholder={'연락처를 입력해주세요.'}
-                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                    const onlyNumber = e.target.value
-                                                        .replace(/[^0-9]/g, '')
-                                                        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-                                                        .replace(/(\-{1,2})$/g, '');
-                                                    onChange(onlyNumber);
-                                                }}
-                                                leftIcon={authItemState.phone.icon.main}
-                                                helperIcon={authItemState.phone.icon.helper}
-                                                error={!!error}
-                                                helperText={error?.message}
-                                            />
+                                            <TextField error={!!error}>
+                                                <TextField.Wrapper style={{ height: '100px' }}>
+                                                    <TextField.Label>
+                                                        {authItemState.phone.label}
+                                                    </TextField.Label>
+                                                    <TextField.Container
+                                                        id="password_container"
+                                                        rightIcon={authItemState.phone.icon.main}
+                                                    >
+                                                        <TextField.Input
+                                                            value={value}
+                                                            type={authItemState.phone.type}
+                                                            placeholder={'연락처를 입력해주세요.'}
+                                                            onChange={(
+                                                                e: React.ChangeEvent<HTMLInputElement>,
+                                                            ) => {
+                                                                const onlyNumber = e.target.value
+                                                                    .replace(/[^0-9]/g, '')
+                                                                    .replace(
+                                                                        /^(\d{0,3})(\d{0,4})(\d{0,4})$/g,
+                                                                        '$1-$2-$3',
+                                                                    )
+                                                                    .replace(/(\-{1,2})$/g, '');
+                                                                onChange(onlyNumber);
+                                                            }}
+                                                            style={{ width: '300px' }}
+                                                        />
+                                                    </TextField.Container>
+                                                    <TextField.HelperText
+                                                        leftIcon={authItemState.phone.icon.helper}
+                                                        style={{ padding: '0 8px' }}
+                                                    >
+                                                        {error?.message}
+                                                    </TextField.HelperText>
+                                                </TextField.Wrapper>
+                                            </TextField>
                                         )}
                                     />
                                     <Flex direction="column">
@@ -258,92 +365,133 @@ const MyEditView = () => {
                                     control={control}
                                     authItemState={authItemState.birthDay}
                                 />
-                                <Flex direction="column">
-                                    <Flex
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        style={{ height: '100%' }}
-                                    >
-                                        <Controller
-                                            name={authItemState.zoneCode.property}
-                                            control={control}
-                                            defaultValue={''}
-                                            rules={authFormState.zoneCode}
-                                            render={({
-                                                field: { value, onChange },
-                                                fieldState: { error, isDirty },
-                                            }) => (
-                                                <>
-                                                    <TextField
-                                                        id={authItemState.zoneCode.property}
-                                                        type={authItemState.zoneCode.type}
-                                                        // onClick={authViewModel.handleDaumAddress}
-                                                        labelTitle={authItemState.zoneCode.label}
-                                                        leftIcon={authItemState.zoneCode.icon.main}
-                                                        helperIcon={authItemState.zoneCode.icon.helper}
-                                                        placeholder={authItemState.zoneCode.placeHolder}
-                                                        value={''}
-                                                        readOnly
-                                                        // error={!!error && !!!authViewModel.data.zoneCode}
-                                                        helperText={error?.message}
-                                                    />
-                                                </>
-                                            )}
-                                        />
-                                        <AddressButton variant="secondary">주소</AddressButton>
-                                    </Flex>
-                                    <Flex>
-                                        <Controller
-                                            name={authItemState.address.property}
-                                            control={control}
-                                            defaultValue={''}
-                                            rules={authFormState.address}
-                                            render={({
-                                                field: { value, onChange },
-                                                fieldState: { error, isDirty },
-                                            }) => (
-                                                <TextField
-                                                    value={value}
-                                                    id={authItemState.address.property}
-                                                    type={authItemState.address.type}
-                                                    // onClick={authViewModel.handleDaumAddress}
-                                                    labelTitle={authItemState.address.label}
-                                                    leftIcon={authItemState.address.icon.main}
-                                                    placeholder={authItemState.address.placeHolder}
-                                                    helperIcon={authItemState.address.icon.helper}
-                                                    readOnly
-                                                    // error={!!error && !!!authViewModel.data.address}
-                                                    helperText={error?.message}
-                                                />
-                                            )}
-                                        />
-                                        <Controller
-                                            name={authItemState.addressDetail.property}
-                                            control={control}
-                                            defaultValue={''}
-                                            rules={authFormState.addressDetail}
-                                            render={({
-                                                field: { value, onChange },
-                                                fieldState: { error, isDirty },
-                                            }) => (
-                                                <TextField
-                                                    id="address_detail"
-                                                    value={value}
-                                                    type={authItemState.addressDetail.type}
-                                                    labelTitle={authItemState.addressDetail.label}
-                                                    leftIcon={authItemState.addressDetail.icon.main}
-                                                    helperIcon={authItemState.addressDetail.icon.helper}
-                                                    placeholder={authItemState.addressDetail.placeHolder}
-                                                    error={!!error}
-                                                    helperText={error?.message}
-                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                        const { value } = e.target;
-                                                        onChange(value);
-                                                    }}
-                                                />
-                                            )}
-                                        />
-                                    </Flex>
+                                <Flex
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                    style={{ width: '400px' }}
+                                >
+                                    <Controller
+                                        name={authItemState.zoneCode.property}
+                                        control={control}
+                                        defaultValue={''}
+                                        rules={authFormState.zoneCode}
+                                        render={({ field: { value }, fieldState: { error } }) => (
+                                            <TextField error={!!error}>
+                                                <TextField.Wrapper style={{ height: '100px' }}>
+                                                    <TextField.Label>
+                                                        {authItemState.zoneCode.label}
+                                                    </TextField.Label>
+                                                    <TextField.Container
+                                                        id="password_container"
+                                                        rightIcon={authItemState.zoneCode.icon.main}
+                                                    >
+                                                        <TextField.Input
+                                                            id={authItemState.zoneCode.property}
+                                                            value={value}
+                                                            type={authItemState.zoneCode.type}
+                                                            placeholder={authItemState.zoneCode.placeHolder}
+                                                            style={{ width: '300px' }}
+                                                            readOnly
+                                                        />
+                                                    </TextField.Container>
+                                                    <TextField.HelperText
+                                                        leftIcon={authItemState.zoneCode.icon.helper}
+                                                        style={{ padding: '0 8px' }}
+                                                    >
+                                                        {error?.message}
+                                                    </TextField.HelperText>
+                                                </TextField.Wrapper>
+                                            </TextField>
+                                        )}
+                                    />
+                                    <AddressButton variant="primary">주소</AddressButton>
+                                </Flex>
+                                <Flex>
+                                    <Controller
+                                        name={authItemState.address.property}
+                                        control={control}
+                                        defaultValue={''}
+                                        rules={authFormState.address}
+                                        render={({
+                                            field: { value, onChange },
+                                            fieldState: { error, isDirty },
+                                        }) => (
+                                            <>
+                                                <TextField error={!!error}>
+                                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                                        <TextField.Label>
+                                                            {authItemState.address.label}
+                                                        </TextField.Label>
+                                                        <TextField.Container
+                                                            id="password_container"
+                                                            rightIcon={authItemState.address.icon.main}
+                                                        >
+                                                            <TextField.Input
+                                                                value={value}
+                                                                id={authItemState.address.property}
+                                                                type={authItemState.address.type}
+                                                                placeholder={
+                                                                    authItemState.address.placeHolder
+                                                                }
+                                                                style={{ width: '300px' }}
+                                                                readOnly
+                                                            />
+                                                        </TextField.Container>
+                                                        <TextField.HelperText
+                                                            leftIcon={authItemState.address.icon.helper}
+                                                            style={{ padding: '0 8px' }}
+                                                        >
+                                                            {error?.message}
+                                                        </TextField.HelperText>
+                                                    </TextField.Wrapper>
+                                                </TextField>
+                                            </>
+                                        )}
+                                    />
+                                    <Controller
+                                        name={authItemState.addressDetail.property}
+                                        control={control}
+                                        defaultValue={''}
+                                        rules={authFormState.addressDetail}
+                                        render={({
+                                            field: { value, onChange },
+                                            fieldState: { error, isDirty },
+                                        }) => (
+                                            <TextField error={!!error}>
+                                                <TextField.Wrapper style={{ height: '100px' }}>
+                                                    <TextField.Label>
+                                                        {authItemState.addressDetail.label}
+                                                    </TextField.Label>
+                                                    <TextField.Container
+                                                        id="password_container"
+                                                        rightIcon={authItemState.addressDetail.icon.main}
+                                                    >
+                                                        <TextField.Input
+                                                            value={value}
+                                                            id="address_detail"
+                                                            type={authItemState.addressDetail.type}
+                                                            placeholder={
+                                                                authItemState.addressDetail.placeHolder
+                                                            }
+                                                            onChange={(
+                                                                e: React.ChangeEvent<HTMLInputElement>,
+                                                            ) => {
+                                                                const { value } = e.target;
+                                                                onChange(value);
+                                                            }}
+                                                            style={{ width: '300px' }}
+                                                        />
+                                                    </TextField.Container>
+                                                    <TextField.HelperText
+                                                        leftIcon={authItemState.addressDetail.icon.helper}
+                                                        style={{ padding: '0 8px' }}
+                                                    >
+                                                        {error?.message}
+                                                    </TextField.HelperText>
+                                                </TextField.Wrapper>
+                                            </TextField>
+                                        )}
+                                    />
                                 </Flex>
                                 <Controller
                                     name={authItemState.simpleIntroduction.property}
@@ -379,10 +527,10 @@ const MyEditView = () => {
                                         </>
                                     )}
                                 />
-                                <DropButton>수정하기</DropButton>
+                                <DropButton style={{ transform: 'translateX(500%)' }}>수정하기</DropButton>
                             </form>
                         </Div>
-                    </Flex>{' '}
+                    </Flex>
                 </Container.Inner>
             </Container>
         </PageContainer>
@@ -392,5 +540,5 @@ const MyEditView = () => {
 export default MyEditView;
 
 const AddressButton = styled(RectangleButton)`
-    transform: translateY(50%);
+    transform: translateY(10%);
 `;

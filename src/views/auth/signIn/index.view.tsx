@@ -22,7 +22,7 @@ const SignInView = () => {
     }, [authViewModel.toggle]);
 
     return (
-        <PageContainer style={{ overflow: 'visible', height: 'auto' }}>
+        <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <Wrapper>
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
