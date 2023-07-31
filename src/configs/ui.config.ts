@@ -38,8 +38,9 @@ export const fontWeight = {
 export const breakpoint = {
     mobile: '320px',
     tablet: '768px',
-    desktop: '1200px',
+    desktop: '1080px',
 };
+
 export const mediaQuery = {
     mobile: `@media only screen and (min-width: ${breakpoint.mobile})`,
     tablet: `@media only screen and (min-width: ${breakpoint.tablet})`,

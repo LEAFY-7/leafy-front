@@ -1,10 +1,14 @@
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { RiLockPasswordLine, RiLockPasswordFill } from 'react-icons/ri';
 import {
+    AiOutlineUser,
     AiOutlineExclamationCircle,
     AiOutlineMail,
     AiOutlineUserDelete,
     AiOutlinePhone,
 } from 'react-icons/ai';
+import { BiUserCircle } from 'react-icons/bi';
+import { GiPostOffice } from 'react-icons/gi';
+import { CgDetailsLess } from 'react-icons/cg';
 import { SlCalender } from 'react-icons/sl'; // 달력
 import { BsHouseDoor, BsGenderAmbiguous, BsPencil } from 'react-icons/bs';
 
@@ -173,7 +177,7 @@ export const authItemState: AuthItemStateType = {
         property: 'name',
         placeHolder: '이름을 입력해주세요',
         icon: {
-            main: <AiOutlineUserDelete />,
+            main: <AiOutlineUser />,
             helper: <AiOutlineExclamationCircle />,
         },
     },
@@ -183,7 +187,7 @@ export const authItemState: AuthItemStateType = {
         property: 'nickName',
         placeHolder: '닉네임을 입력해주세요',
         icon: {
-            main: <AiOutlineUserDelete />,
+            main: <BiUserCircle />,
             helper: <AiOutlineExclamationCircle />,
         },
     },
@@ -213,7 +217,7 @@ export const authItemState: AuthItemStateType = {
         property: 'confirmPassword',
         placeHolder: '비밀번호를 한 번 더 입력해주세요',
         icon: {
-            main: <RiLockPasswordLine />,
+            main: <RiLockPasswordFill />,
             helper: <AiOutlineExclamationCircle />,
         },
     },
@@ -253,7 +257,7 @@ export const authItemState: AuthItemStateType = {
         property: 'zoneCode',
         placeHolder: '우편번호를 입력해주세요',
         icon: {
-            main: <BsHouseDoor />,
+            main: <GiPostOffice />,
             helper: <AiOutlineExclamationCircle />,
         },
     },
@@ -294,7 +298,7 @@ export const authItemState: AuthItemStateType = {
         placeHolder: '상세 주소를 입력해주세요',
 
         icon: {
-            main: <BsPencil />,
+            main: <CgDetailsLess />,
             helper: <AiOutlineExclamationCircle />,
         },
     },

@@ -1,14 +1,18 @@
 import type { HTMLAttributes } from 'react';
 import React from 'react';
-import Div from '../../atoms/Div/default-div';
 import styled from '@emotion/styled';
+
 import { theme } from 'configs/ui.config';
+import Div from 'components/atoms/Div/default-div';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface FlyoutContextProps {
     isOpen: boolean;
     toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
+interface OverLayProps {}
+interface ToggleProps {}
+interface HeaderProps {}
 interface ListProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     variant?: 'default' | 'primary' | 'secondary' | 'translucent';
@@ -19,19 +23,15 @@ interface ListProps {
 interface ItemProps {
     to?: string;
 }
-type FlyoutProviderProps = React.PropsWithChildren<{}> & FlyoutContextProps;
-type FlyoutOverLayProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
-type FlyoutToggleProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
-type FlyoutHeaderProps = React.PropsWithChildren<{}> & HTMLAttributes<HTMLElement>;
-type FlyoutListProps = React.PropsWithChildren<ListProps>;
+type FlyoutProviderProps = React.PropsWithChildren<FlyoutContextProps>;
+type FlyoutOverLayProps = React.PropsWithChildren<OverLayProps> & HTMLAttributes<HTMLElement>;
+type FlyoutToggleProps = React.PropsWithChildren<ToggleProps> & HTMLAttributes<HTMLElement>;
+type FlyoutHeaderProps = React.PropsWithChildren<HeaderProps> & HTMLAttributes<HTMLElement>;
+type FlyoutListProps = React.PropsWithChildren<ListProps> & Omit<HTMLAttributes<HTMLDivElement>, 'color'>;
 type FlyoutItemProps = React.PropsWithChildren<ItemProps> & HTMLAttributes<HTMLElement>;
 
 const FlyoutContext = React.createContext<FlyoutContextProps>({ isOpen: false, toggle: () => {} });
-
-const useFlyoutContext = () => {
-    const context = React.useContext(FlyoutContext);
-    return context;
-};
+const useFlyoutContext = () => React.useContext(FlyoutContext);
 
 // Provider
 const FlyoutProvider = ({ children }: FlyoutProviderProps) => {

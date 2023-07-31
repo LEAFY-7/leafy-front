@@ -121,7 +121,7 @@ const HeaderContainer = styled.header`
 
 const HeaderWrap = styled.div`
     width: 100%;
-    max-width: 1200px;
+    max-width: 1080px;
     display: flex;
     justify-content: space-between;
     align-items: center;

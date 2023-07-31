@@ -1,7 +1,7 @@
 import { SignUphModel } from 'models/auth/signUp.model';
 import DefaultViewModel from 'viewModel/default.viewModel';
 import DaumModule from 'modules/daum.module';
-import { makeAutoObservable, observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 
 interface IProps {}
 
@@ -30,7 +30,7 @@ export default class MyEditViewModel extends DefaultViewModel {
         };
         this.daum = DaumModule.getInstance();
 
-        makeAutoObservable(this, {
+        makeObservable(this, {
             data: observable,
         });
     }

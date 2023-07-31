@@ -14,8 +14,8 @@ const publicURL = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
 const DefaultFooter = () => {
     return (
         <Wrapper>
-            <Flex as="nav" justifyContent="space-between" alignItems="center">
-                <Flex justifyContent="center" alignItems="center">
+            <NavContainer as="nav" justifyContent="space-between" alignItems="center">
+                <IntroWrapper justifyContent="center" alignItems="center">
                     <LinkWrapper>
                         <img src={publicURL} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
@@ -31,8 +31,8 @@ const DefaultFooter = () => {
                     <LinkButton to={'/'} fontSize="sm" fontWeight="bold">
                         개인정보 처리방침
                     </LinkButton>
-                </Flex>
-                <Flex>
+                </IntroWrapper>
+                <LinkContainer>
                     <IconButton to={'/'}>
                         <BsInstagram />
                     </IconButton>
@@ -42,8 +42,8 @@ const DefaultFooter = () => {
                     <IconButton to={'/'}>
                         <AiFillGithub />
                     </IconButton>
-                </Flex>
-            </Flex>
+                </LinkContainer>
+            </NavContainer>
             <Hr />
             <Flex direction="column" style={{ padding: '16px' }}>
                 <Flex>
@@ -80,7 +80,7 @@ const Wrapper = styled.footer`
     height: 120px;
     background-color: ${theme.palette.bgColor};
     display: flex;
-    padding: 8px calc((100% - 1200px) / 2);
+    padding: 8px calc((100% - 1080px) / 2);
     flex-direction: column;
     z-index: 1;
     &::before {
@@ -103,4 +103,41 @@ const LinkButton = styled(RectangleButton)`
 
 const IconButton = styled(RectangleButton)`
     padding: 0;
+`;
+
+const NavContainer = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+const IntroWrapper = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: auto;
+        justify-content: flex-start;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: auto;
+    }
+`;
+
+const LinkContainer = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.tablet} {
+        display: flex;
+    }
+    ${theme.mediaQuery.desktop} {
+        display: flex;
+    }
 `;

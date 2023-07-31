@@ -11,7 +11,7 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 export type TypographyVariant = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
 interface TypographyProps {
     to?: string;
-    as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+    as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'label';
     variant: TypographyVariant;
     fontSize?: keyof typeof theme.fontSize;
     lineHeight?: keyof typeof theme.lineHeight;

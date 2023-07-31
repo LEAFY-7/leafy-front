@@ -15,4 +15,5 @@ export enum ViewModelName {
     DEFAULT = 'defaultViewModel',
     USER = 'userViewModel',
     FEED = 'feedViewModel',
+    MY_EDIT = 'myEditViewModel',
 }
