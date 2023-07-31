@@ -3,22 +3,29 @@ import React from 'react';
 import { theme } from 'configs/ui.config';
 import styled from '@emotion/styled';
 import Typography, { TypographyVariant } from 'components/atoms/Typograph/default-typography';
+import DefaultInput from 'components/atoms/Input/default-input';
 
 interface TextFieldContextProps {
     error?: boolean;
-    errorChange: React.Dispatch<React.SetStateAction<boolean>>;
+    disabled?: boolean;
 }
 
 interface WrapperProps {
     paddingX?: number;
     paddingY?: number;
 }
-interface ContainerProps {
+interface IconProps {
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
 }
+interface ContainerProps extends IconProps {}
+
 interface LabelProps {
+    labelVariant?: TypographyVariant;
+    color?: keyof typeof theme.colors;
     fontSize?: keyof typeof theme.fontSize;
+    fontWeight?: keyof typeof theme.fontWeight;
+    textAlign?: CSSProperties['textAlign'];
 }
 interface InputProps {
     value: HTMLInputElement['value'];
@@ -30,12 +37,12 @@ interface InputProps {
     disabled?: boolean;
     readOnly?: boolean;
 }
-interface HelperTextProps {
+interface HelperTextProps extends IconProps {
     helperVariant?: TypographyVariant;
-    textAlign?: CSSProperties['textAlign'];
     color?: keyof typeof theme.colors;
     fontSize?: keyof typeof theme.fontSize;
     fontWeight?: keyof typeof theme.fontWeight;
+    textAlign?: CSSProperties['textAlign'];
 }
 
 type TextFieldProviderProps = React.PropsWithChildren<{}> & TextFieldContextProps;
@@ -48,34 +55,69 @@ type TextFieldHelperTextProps = React.PropsWithChildren<HelperTextProps> &
 
 const TextFieldContext = React.createContext<TextFieldContextProps>({
     error: false,
-    errorChange: () => {},
+    disabled: false,
 });
 
 const useTextFieldContext = () => React.useContext(TextFieldContext);
 
 // Provider
-const TextFieldProvider = ({ children }: TextFieldProviderProps) => {
-    const [error, errorChange] = React.useState<TextFieldContextProps['error']>(false);
-    return <TextFieldContext.Provider value={{ error, errorChange }}>{children}</TextFieldContext.Provider>;
+const TextFieldProvider = ({ error, disabled, children }: TextFieldProviderProps) => {
+    return <TextFieldContext.Provider value={{ error, disabled }}>{children}</TextFieldContext.Provider>;
 };
 
 // Wrapper
-const TextFieldWrapper = ({ paddingX = 16, paddingY = 8, children, ...rest }: TextFieldWrapperProps) => {
+const TextFieldWrapper = ({ paddingX = 8, paddingY = 8, children, ...rest }: TextFieldWrapperProps) => {
     return (
         <Wrapper paddingX={paddingX} paddingY={paddingY} {...rest}>
             {children}
         </Wrapper>
     );
 };
-// Container
-const TextFieldContainer = ({ children, ...rest }: TextFieldContainerProps) => {
-    return <Container {...rest}>{children}</Container>;
-};
-const TextFieldLabel = ({ fontSize = 'md', children, ...rest }: TextFieldLabelProps) => {
+// Label
+const TextFieldLabel = ({
+    labelVariant = 'BODY1',
+    color = 'grey',
+    fontSize = 'md',
+    fontWeight = 'regular',
+    textAlign = 'start',
+    children,
+    ...rest
+}: TextFieldLabelProps) => {
     return (
-        <Label fontSize={fontSize} {...rest}>
+        <Typography
+            as="label"
+            width={100}
+            variant={labelVariant}
+            color={color}
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            textAlign={textAlign}
+            marginBottom={8}
+            {...rest}
+        >
             {children}
-        </Label>
+        </Typography>
+    );
+};
+
+// Container
+const TextFieldContainer = ({ leftIcon, rightIcon, children, ...rest }: TextFieldContainerProps) => {
+    const { disabled } = useTextFieldContext();
+
+    return (
+        <Container {...rest}>
+            {leftIcon && (
+                <LeftIcon id="icon_box" disabled={disabled}>
+                    {leftIcon}
+                </LeftIcon>
+            )}
+            {children}
+            {rightIcon && (
+                <RightIcon id="icon_box" disabled={disabled}>
+                    {rightIcon}
+                </RightIcon>
+            )}
+        </Container>
     );
 };
 
@@ -86,25 +128,27 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
         type = 'text',
         placeholder = '',
         placeHolderFontSize = 'md',
-        disabled = false,
         readOnly = false,
         ...rest
     }: TextFieldInputProps,
     forwardedRef: React.Ref<HTMLInputElement>,
 ) {
+    const { error, disabled } = useTextFieldContext();
     return (
-        <input
+        <Input
             value={value}
             type={type}
             ref={forwardedRef}
             placeholder={placeholder}
-            disabled={disabled}
             readOnly={readOnly}
+            disabled={disabled}
+            error={error}
             {...rest}
         />
     );
 });
 
+// Helper Text
 const TextFieldHelperText = ({
     helperVariant = 'BODY2',
     textAlign = 'left',
@@ -112,13 +156,15 @@ const TextFieldHelperText = ({
     fontSize = 'sm',
     fontWeight = 'regular',
     children = '에러 메시지를 입력해주세요.',
+    leftIcon,
+    rightIcon,
     ...rest
 }: TextFieldHelperTextProps) => {
     const { error } = useTextFieldContext();
     return (
         <>
             {error && (
-                <Typography
+                <HelperText
                     as="span"
                     width={100}
                     variant={helperVariant}
@@ -126,10 +172,13 @@ const TextFieldHelperText = ({
                     fontSize={fontSize}
                     fontWeight={fontWeight}
                     textAlign={textAlign}
+                    marginTop={8}
                     {...rest}
                 >
+                    {leftIcon && leftIcon}
                     {children}
-                </Typography>
+                    {rightIcon && rightIcon}
+                </HelperText>
             )}
         </>
     );
@@ -157,10 +206,40 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-`;
-const Label = styled.label<Required<LabelProps>>`
-    margin-bottom: 16px;
-    font-size: calc(${({ fontSize, theme }) => theme.fontSize[fontSize]} - 4px);
+    width: max-content;
+    height: max-content;
 `;
 
-const Input = styled.input``;
+const LeftIcon = styled.div<Required<{ disabled?: boolean }>>`
+    position: absolute;
+    left: 0;
+    transform: translateY(10%);
+    padding-left: 4px;
+    margin-right: 4px;
+    color: ${({ disabled, theme }) => (disabled ? theme.colors.white : theme.colors.grey)};
+`;
+
+const RightIcon = styled.div<Required<{ disabled?: boolean }>>`
+    position: absolute;
+    right: 0;
+    transform: translateY(10%);
+    padding-right: 4px;
+    margin-left: 4px;
+    color: ${({ disabled, theme }) => (disabled ? theme.colors.white : theme.colors.grey)};
+`;
+
+const Input = styled(DefaultInput)`
+    padding: 8px 20px;
+    color: ${({ theme }) => theme.colors.inherit};
+
+    &:focus {
+        + #icon_box {
+            color: ${({ theme }) => theme.palette.text.black};
+        }
+    }
+`;
+
+const HelperText = styled(Typography)`
+    display: flex;
+    align-items: center;
+`;
