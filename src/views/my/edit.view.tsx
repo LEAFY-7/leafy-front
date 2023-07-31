@@ -1,30 +1,37 @@
 import styled from '@emotion/styled';
+import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
-import { SignUphModel } from 'models/auth/signUp.model';
 import { FcAddImage } from 'react-icons/fc';
 
-import Container from 'components/organisms/Container/default-container';
-import PageContainer from 'components/templates/page-container';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import MyEditViewModel from 'viewModel/my/edit.viewModel';
+import { SignUphModel } from 'models/auth/signUp.model';
 import { authFormState, authItemState } from 'configs/form.config';
+
+import PageContainer from 'components/templates/page-container';
+import Container from 'components/organisms/Container/default-container';
+import InputCalender from 'components/organisms/Calender/input-calender';
+import TextField from 'components/molecules/TextField/default-textField';
 import Flex from 'components/atoms/Group/flex';
 import Div from 'components/atoms/Div/default-div';
 import Typography from 'components/atoms/Typograph/default-typography';
-import InputCalender from 'components/organisms/Calender/input-calender';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import DropButton from 'components/atoms/Button/drop-button';
-import TextField from 'components/molecules/TextField/default-textField';
 import DropDiv from 'components/atoms/Div/drop-div';
 import RoundButton from 'components/atoms/Button/round-button';
+import { theme } from 'configs/ui.config';
 
 const publicURL = process.env.PUBLIC_URL;
 
 const MyEditView = () => {
+    const myEditViewModel: MyEditViewModel = useViewModel(ViewModelName.MY_EDIT);
+
     const { control, handleSubmit, watch } = useForm<SignUphModel>({
         defaultValues: {
             name: '',
-            nickName: '',
-            email: '',
+            nickName: '홍길동',
+            email: 'test@test.com',
             password: '',
             confirmPassword: '',
             phone: '',
@@ -52,8 +59,8 @@ const MyEditView = () => {
                 </Container.Header>
                 <Container.HeaderLine marginTop={16} marginBottom={32} />
                 <Container.Inner innerHeight={100}>
-                    <Flex justifyContent="space-between" style={{ width: '100%' }}>
-                        <Div width={25} direction="column" style={{ position: 'relative' }}>
+                    <InnerWrapper justifyContent="space-between">
+                        <LeftSection width={25} direction="column">
                             <img src={`${publicURL}/image/default/default-user-img.svg`} />
                             <DropDiv
                                 size="xxs"
@@ -68,8 +75,8 @@ const MyEditView = () => {
                             <RoundButton variant="default" isBorder>
                                 사진 저장
                             </RoundButton>
-                        </Div>
-                        <Div width={65} direction="column">
+                        </LeftSection>
+                        <RightSection width={65} direction="column">
                             <form>
                                 <Controller
                                     name={authItemState.name.property}
@@ -82,10 +89,12 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label>{authItemState.name.label}</TextField.Label>
+                                                <TextField.Label required>
+                                                    {authItemState.name.label}
+                                                </TextField.Label>
                                                 <TextField.Container
                                                     id="name_container"
-                                                    rightIcon={authItemState.name.icon.main}
+                                                    leftIcon={authItemState.name.icon.main}
                                                 >
                                                     <TextField.Input
                                                         value={value}
@@ -121,12 +130,12 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label>
+                                                <TextField.Label required>
                                                     {authItemState.nickName.label}
                                                 </TextField.Label>
                                                 <TextField.Container
                                                     id="nickName_container"
-                                                    rightIcon={authItemState.nickName.icon.main}
+                                                    leftIcon={authItemState.nickName.icon.main}
                                                 >
                                                     <TextField.Input
                                                         value={value}
@@ -169,7 +178,7 @@ const MyEditView = () => {
                                                     </TextField.Label>
                                                     <TextField.Container
                                                         id="email_container"
-                                                        rightIcon={authItemState.email.icon.main}
+                                                        leftIcon={authItemState.email.icon.main}
                                                     >
                                                         <TextField.Input
                                                             value={value}
@@ -206,12 +215,12 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label>
+                                                <TextField.Label required>
                                                     {authItemState.password.label}
                                                 </TextField.Label>
                                                 <TextField.Container
                                                     id="password_container"
-                                                    rightIcon={authItemState.password.icon.main}
+                                                    leftIcon={authItemState.password.icon.main}
                                                 >
                                                     <TextField.Input
                                                         value={value}
@@ -249,12 +258,12 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label>
+                                                <TextField.Label required>
                                                     {authItemState.confirmPassword.label}
                                                 </TextField.Label>
                                                 <TextField.Container
                                                     id="password_container"
-                                                    rightIcon={authItemState.confirmPassword.icon.main}
+                                                    leftIcon={authItemState.confirmPassword.icon.main}
                                                 >
                                                     <TextField.Input
                                                         value={value}
@@ -281,7 +290,7 @@ const MyEditView = () => {
                                         </TextField>
                                     )}
                                 />
-                                <Flex>
+                                <PhoneGenderWrapper>
                                     <Controller
                                         name={authItemState.phone.property}
                                         control={control}
@@ -290,12 +299,12 @@ const MyEditView = () => {
                                         render={({ field: { value, onChange }, fieldState: { error } }) => (
                                             <TextField error={!!error}>
                                                 <TextField.Wrapper style={{ height: '100px' }}>
-                                                    <TextField.Label>
+                                                    <TextField.Label required>
                                                         {authItemState.phone.label}
                                                     </TextField.Label>
                                                     <TextField.Container
                                                         id="password_container"
-                                                        rightIcon={authItemState.phone.icon.main}
+                                                        leftIcon={authItemState.phone.icon.main}
                                                     >
                                                         <TextField.Input
                                                             value={value}
@@ -356,7 +365,7 @@ const MyEditView = () => {
                                             )}
                                         />
                                     </Flex>
-                                </Flex>
+                                </PhoneGenderWrapper>
                                 <InputCalender
                                     name={authItemState.birthDay.property}
                                     placeholder={authItemState.birthDay.placeHolder}
@@ -365,11 +374,7 @@ const MyEditView = () => {
                                     control={control}
                                     authItemState={authItemState.birthDay}
                                 />
-                                <Flex
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                    style={{ width: '400px' }}
-                                >
+                                <AddressZoneWrapper justifyContent="space-between" alignItems="center">
                                     <Controller
                                         name={authItemState.zoneCode.property}
                                         control={control}
@@ -378,19 +383,18 @@ const MyEditView = () => {
                                         render={({ field: { value }, fieldState: { error } }) => (
                                             <TextField error={!!error}>
                                                 <TextField.Wrapper style={{ height: '100px' }}>
-                                                    <TextField.Label>
+                                                    <TextField.Label required>
                                                         {authItemState.zoneCode.label}
                                                     </TextField.Label>
                                                     <TextField.Container
                                                         id="password_container"
-                                                        rightIcon={authItemState.zoneCode.icon.main}
+                                                        leftIcon={authItemState.zoneCode.icon.main}
                                                     >
-                                                        <TextField.Input
+                                                        <ZoneCodeInput
                                                             id={authItemState.zoneCode.property}
                                                             value={value}
                                                             type={authItemState.zoneCode.type}
                                                             placeholder={authItemState.zoneCode.placeHolder}
-                                                            style={{ width: '300px' }}
                                                             readOnly
                                                         />
                                                     </TextField.Container>
@@ -405,8 +409,8 @@ const MyEditView = () => {
                                         )}
                                     />
                                     <AddressButton variant="primary">주소</AddressButton>
-                                </Flex>
-                                <Flex>
+                                </AddressZoneWrapper>
+                                <AddressWrapper>
                                     <Controller
                                         name={authItemState.address.property}
                                         control={control}
@@ -419,12 +423,12 @@ const MyEditView = () => {
                                             <>
                                                 <TextField error={!!error}>
                                                     <TextField.Wrapper style={{ height: '100px' }}>
-                                                        <TextField.Label>
+                                                        <TextField.Label required>
                                                             {authItemState.address.label}
                                                         </TextField.Label>
                                                         <TextField.Container
                                                             id="password_container"
-                                                            rightIcon={authItemState.address.icon.main}
+                                                            leftIcon={authItemState.address.icon.main}
                                                         >
                                                             <TextField.Input
                                                                 value={value}
@@ -459,12 +463,12 @@ const MyEditView = () => {
                                         }) => (
                                             <TextField error={!!error}>
                                                 <TextField.Wrapper style={{ height: '100px' }}>
-                                                    <TextField.Label>
+                                                    <TextField.Label required>
                                                         {authItemState.addressDetail.label}
                                                     </TextField.Label>
                                                     <TextField.Container
                                                         id="password_container"
-                                                        rightIcon={authItemState.addressDetail.icon.main}
+                                                        leftIcon={authItemState.addressDetail.icon.main}
                                                     >
                                                         <TextField.Input
                                                             value={value}
@@ -492,7 +496,7 @@ const MyEditView = () => {
                                             </TextField>
                                         )}
                                     />
-                                </Flex>
+                                </AddressWrapper>
                                 <Controller
                                     name={authItemState.simpleIntroduction.property}
                                     control={control}
@@ -527,18 +531,127 @@ const MyEditView = () => {
                                         </>
                                     )}
                                 />
-                                <DropButton style={{ transform: 'translateX(500%)' }}>수정하기</DropButton>
+                                <SubmitButton>수정하기</SubmitButton>
                             </form>
-                        </Div>
-                    </Flex>
+                        </RightSection>
+                    </InnerWrapper>
                 </Container.Inner>
             </Container>
         </PageContainer>
     );
 };
 
-export default MyEditView;
+export default observer(MyEditView);
+
+const InnerWrapper = styled(Flex)`
+    width: 100%;
+    position: relative;
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+        justify-content: center;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: row;
+        justify-content: center;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+`;
+const LeftSection = styled(Div)`
+    position: relative;
+
+    ${theme.mediaQuery.mobile} {
+        width: 100%;
+    }
+
+    ${theme.mediaQuery.tablet} {
+        width: 35%;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 35%;
+    }
+`;
+
+const RightSection = styled(Div)`
+    ${theme.mediaQuery.mobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: 65%;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 65%;
+    }
+`;
 
 const AddressButton = styled(RectangleButton)`
     transform: translateY(10%);
+
+    ${theme.mediaQuery.mobile} {
+        width: max-content;
+        display: flex;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: max-content;
+        display: flex;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: max-content;
+        display: flex;
+    }
+`;
+const SubmitButton = styled(DropButton)`
+    transform: translateX(500%);
+`;
+
+const PhoneGenderWrapper = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+const AddressZoneWrapper = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: row;
+        width: 300px;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: row;
+        width: 300px;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+        width: 300px;
+    }
+`;
+
+const AddressWrapper = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+
+const ZoneCodeInput = styled(TextField.Input)`
+    ${theme.mediaQuery.mobile} {
+        width: 200px;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: 200px;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 300px;
+    }
 `;
