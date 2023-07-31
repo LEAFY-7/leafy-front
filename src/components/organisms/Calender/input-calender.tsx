@@ -1,16 +1,17 @@
 import React from 'react';
+import { Control, Controller } from 'react-hook-form';
 import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
-import { Control, Controller } from 'react-hook-form';
 import { SignUphModel } from 'models/auth/signUp.model';
 
 import useToggle from 'hooks/useToggle';
-import Flex from 'components/atoms/Group/flex';
-import TextField from '../../molecules/TextField';
 import { AuthItemType } from 'configs/form.config';
+import Flex from 'components/atoms/Group/flex';
+import TextField from 'components/molecules/TextField/default-textField';
 
 interface Props<T extends keyof SignUphModel> {
+    width?: string;
     name: T;
     label?: string;
     control: Control<SignUphModel, any>;
@@ -22,6 +23,7 @@ interface Props<T extends keyof SignUphModel> {
 }
 
 const InputCalender = <T extends keyof SignUphModel>({
+    width = '300px',
     label = '',
     placeholder = '입력해주세요.',
     required = '필수입니다.',
@@ -65,19 +67,35 @@ const InputCalender = <T extends keyof SignUphModel>({
                 rules={{ required }}
                 render={({ field: { onChange }, fieldState: { error } }) => (
                     <Flex>
-                        <TextField
-                            type={authItemState.type}
-                            labelTitle={authItemState.label}
-                            value={date ? dayjs(date).format(format) : ''}
-                            ref={inputRef}
-                            leftIcon={authItemState.icon.main}
-                            onFocus={toggle}
-                            readOnly
-                            helperText={error?.message}
-                            helperIcon={authItemState.icon.helper}
-                            error={!!error}
-                            placeholder={placeholder}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label>{authItemState.label}</TextField.Label>
+                                <TextField.Container
+                                    id="calender_container"
+                                    rightIcon={authItemState.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={date ? dayjs(date).format(format) : ''}
+                                        type={authItemState.type}
+                                        placeholder={placeholder}
+                                        ref={inputRef}
+                                        onFocus={toggle}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width }}
+                                        readOnly
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
 
                         {isOpen && (
                             <CalenderContainer ref={calendarRef}>
