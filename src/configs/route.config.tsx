@@ -4,9 +4,10 @@ import pageUrlConfig from 'configs/pageUrl.config';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import PrivateRoute from 'components/organisms/routes/private-route';
 import NormalRoute from 'components/organisms/routes/normal-route';
+import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
+
 import Unauthorized from 'components/organisms/Error/unauthorized';
 import NotFound from 'components/organisms/Error/notFound';
-
 import SignUpView from 'views/auth/signUp/index.view';
 import SignInView from 'views/auth/signIn/index.view';
 import FindView from 'views/auth/find.view';
@@ -27,7 +28,6 @@ import QnaUploadView from 'views/qna/upload.view';
 import SearchView from 'views/search/index.view';
 import UserView from 'views/user/index.view';
 import ChatView from 'views/chat/index.view';
-import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 
 const routeConfig = [
     {
