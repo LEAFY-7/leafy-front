@@ -4,6 +4,7 @@ import { theme } from 'configs/ui.config';
 import styled from '@emotion/styled';
 import Typography, { TypographyVariant } from 'components/atoms/Typograph/default-typography';
 import DefaultInput from 'components/atoms/Input/default-input';
+import { css } from '@emotion/react';
 
 interface TextFieldContextProps {
     error?: boolean;
@@ -21,6 +22,7 @@ interface IconProps {
 interface ContainerProps extends IconProps {}
 
 interface LabelProps {
+    required?: boolean;
     labelVariant?: TypographyVariant;
     color?: keyof typeof theme.colors;
     fontSize?: keyof typeof theme.fontSize;
@@ -45,7 +47,7 @@ interface HelperTextProps extends IconProps {
     textAlign?: CSSProperties['textAlign'];
 }
 
-type TextFieldProviderProps = React.PropsWithChildren<{}> & TextFieldContextProps;
+type TextFieldProviderProps = React.PropsWithChildren<TextFieldContextProps>;
 type TextFieldWrapperProps = React.PropsWithChildren<WrapperProps> & HTMLAttributes<HTMLElement>;
 type TextFieldContainerProps = React.PropsWithChildren<ContainerProps> & HTMLAttributes<HTMLElement>;
 type TextFieldLabelProps = React.PropsWithChildren<LabelProps> & HTMLAttributes<HTMLLabelElement>;
@@ -75,6 +77,7 @@ const TextFieldWrapper = ({ paddingX = 8, paddingY = 8, children, ...rest }: Tex
 };
 // Label
 const TextFieldLabel = ({
+    required = false,
     labelVariant = 'BODY1',
     color = 'grey',
     fontSize = 'md',
@@ -84,9 +87,10 @@ const TextFieldLabel = ({
     ...rest
 }: TextFieldLabelProps) => {
     return (
-        <Typography
+        <Label
             as="label"
             width={100}
+            required={required}
             variant={labelVariant}
             color={color}
             fontSize={fontSize}
@@ -96,7 +100,7 @@ const TextFieldLabel = ({
             {...rest}
         >
             {children}
-        </Typography>
+        </Label>
     );
 };
 
@@ -148,7 +152,7 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
     );
 });
 
-// Helper Text
+// HelperText
 const TextFieldHelperText = ({
     helperVariant = 'BODY2',
     textAlign = 'left',
@@ -210,6 +214,19 @@ const Container = styled.div`
     height: max-content;
 `;
 
+const Label = styled(Typography)<LabelProps>`
+    ${({ required, theme }) =>
+        required &&
+        css`
+            &::after {
+                content: '*';
+                position: absolute;
+                margin-left: 4px;
+                color: ${theme.colors.sementic};
+            }
+        `}
+`;
+
 const LeftIcon = styled.div<Required<{ disabled?: boolean }>>`
     position: absolute;
     left: 0;
@@ -229,7 +246,7 @@ const RightIcon = styled.div<Required<{ disabled?: boolean }>>`
 `;
 
 const Input = styled(DefaultInput)`
-    padding: 8px 20px;
+    padding: 8px 24px;
     color: ${({ theme }) => theme.colors.inherit};
 
     &:focus {

@@ -59,6 +59,7 @@ const Input = styled.input<Required<InputStyleProps>>`
     }
 
     &:disabled {
+        border: none;
         background-color: ${({ theme }) => theme.colors.grey};
         color: ${({ theme }) => theme.colors.white};
     }

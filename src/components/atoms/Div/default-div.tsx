@@ -5,7 +5,7 @@ import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import { divSizeBox, variantStyles } from './div.styles';
 
-interface DivProps extends HTMLAttributes<HTMLDivElement> {
+interface DivProps {
     id?: string;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default';
     variant?: 'default' | 'primary' | 'secondary' | 'translucent';
@@ -36,7 +36,7 @@ interface DivProps extends HTMLAttributes<HTMLDivElement> {
     textAlign?: CSSProperties['textAlign'];
 }
 
-type Props = React.PropsWithChildren<DivProps> & HTMLAttributes<HTMLHRElement>;
+type Props = React.PropsWithChildren<DivProps> & HTMLAttributes<HTMLDivElement>;
 const Div = ({
     id,
     size = 'default',

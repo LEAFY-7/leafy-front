@@ -72,7 +72,7 @@ const InputCalender = <T extends keyof SignUphModel>({
                                 <TextField.Label>{authItemState.label}</TextField.Label>
                                 <TextField.Container
                                     id="calender_container"
-                                    rightIcon={authItemState.icon.main}
+                                    leftIcon={authItemState.icon.main}
                                 >
                                     <TextField.Input
                                         value={date ? dayjs(date).format(format) : ''}
