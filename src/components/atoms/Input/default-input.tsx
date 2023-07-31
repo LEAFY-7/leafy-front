@@ -13,6 +13,7 @@ interface InputProps extends InputStyleProps {
     readOnly?: HTMLInputElement['readOnly'];
     disabled?: HTMLInputElement['disabled'];
     placeholder?: HTMLInputElement['placeholder'];
+    maxLength?: HTMLInputElement['maxLength'];
     style?: CSSProperties;
 }
 
@@ -26,6 +27,7 @@ const DefaultInput = (
         disabled = false,
         readOnly = false,
         error = false,
+        maxLength = 999999,
         style,
         ...rest
     }: Props,
@@ -39,6 +41,7 @@ const DefaultInput = (
             disabled={disabled}
             readOnly={readOnly}
             error={error}
+            maxLength={maxLength}
             style={style}
             ref={forwardedRef}
             {...rest}
