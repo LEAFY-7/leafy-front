@@ -69,7 +69,7 @@ const InputCalender = <T extends keyof SignUphModel>({
                     <Flex>
                         <TextField error={!!error}>
                             <TextField.Wrapper style={{ height: '100px' }}>
-                                <TextField.Label>{authItemState.label}</TextField.Label>
+                                <TextField.Label required>{authItemState.label}</TextField.Label>
                                 <TextField.Container
                                     id="calender_container"
                                     leftIcon={authItemState.icon.main}

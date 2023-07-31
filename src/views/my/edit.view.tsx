@@ -89,9 +89,7 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label required>
-                                                    {authItemState.name.label}
-                                                </TextField.Label>
+                                                <TextField.Label>{authItemState.name.label}</TextField.Label>
                                                 <TextField.Container
                                                     id="name_container"
                                                     leftIcon={authItemState.name.icon.main}
@@ -130,7 +128,7 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label required>
+                                                <TextField.Label>
                                                     {authItemState.nickName.label}
                                                 </TextField.Label>
                                                 <TextField.Container
@@ -170,38 +168,34 @@ const MyEditView = () => {
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
                                     }) => (
-                                        <>
-                                            <TextField error={!!error} disabled>
-                                                <TextField.Wrapper style={{ height: '100px' }}>
-                                                    <TextField.Label>
-                                                        {authItemState.email.label}
-                                                    </TextField.Label>
-                                                    <TextField.Container
-                                                        id="email_container"
-                                                        leftIcon={authItemState.email.icon.main}
-                                                    >
-                                                        <TextField.Input
-                                                            value={value}
-                                                            type={authItemState.email.type}
-                                                            placeholder={authItemState.email.placeHolder}
-                                                            onChange={(
-                                                                e: React.ChangeEvent<HTMLInputElement>,
-                                                            ) => {
-                                                                const { value } = e.target;
-                                                                onChange(value);
-                                                            }}
-                                                            style={{ width: '300px' }}
-                                                        />
-                                                    </TextField.Container>
-                                                    <TextField.HelperText
-                                                        leftIcon={authItemState.email.icon.helper}
-                                                        style={{ padding: '0 8px' }}
-                                                    >
-                                                        {error?.message}
-                                                    </TextField.HelperText>
-                                                </TextField.Wrapper>
-                                            </TextField>
-                                        </>
+                                        <TextField error={!!error} disabled>
+                                            <TextField.Wrapper style={{ height: '100px' }}>
+                                                <TextField.Label>{authItemState.email.label}</TextField.Label>
+                                                <TextField.Container
+                                                    id="email_container"
+                                                    leftIcon={authItemState.email.icon.main}
+                                                >
+                                                    <TextField.Input
+                                                        value={value}
+                                                        type={authItemState.email.type}
+                                                        placeholder={authItemState.email.placeHolder}
+                                                        onChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>,
+                                                        ) => {
+                                                            const { value } = e.target;
+                                                            onChange(value);
+                                                        }}
+                                                        style={{ width: '300px' }}
+                                                    />
+                                                </TextField.Container>
+                                                <TextField.HelperText
+                                                    leftIcon={authItemState.email.icon.helper}
+                                                    style={{ padding: '0 8px' }}
+                                                >
+                                                    {error?.message}
+                                                </TextField.HelperText>
+                                            </TextField.Wrapper>
+                                        </TextField>
                                     )}
                                 />
                                 <Controller
@@ -215,7 +209,10 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label required>
+                                                <TextField.Label
+                                                    required
+                                                    requiredtext="비밀번호는 필수입니다."
+                                                >
                                                     {authItemState.password.label}
                                                 </TextField.Label>
                                                 <TextField.Container
@@ -258,7 +255,10 @@ const MyEditView = () => {
                                     }) => (
                                         <TextField error={!!error}>
                                             <TextField.Wrapper style={{ height: '100px' }}>
-                                                <TextField.Label required>
+                                                <TextField.Label
+                                                    required
+                                                    requiredtext="비밀번호확인 필수입니다."
+                                                >
                                                     {authItemState.confirmPassword.label}
                                                 </TextField.Label>
                                                 <TextField.Container
