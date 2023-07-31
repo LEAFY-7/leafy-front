@@ -10,7 +10,7 @@ import Unauthorized from 'components/organisms/Error/unauthorized';
 import NotFound from 'components/organisms/Error/notFound';
 import SignUpView from 'views/auth/signUp/index.view';
 import SignInView from 'views/auth/signIn/index.view';
-import FindView from 'views/auth/find.view';
+import FindView from 'views/auth/find/index.view';
 import FeedDetailView from 'views/feed/detail.view';
 import FeedEditView from 'views/feed/edit.view';
 import FeedView from 'views/feed/index.view';
@@ -45,7 +45,7 @@ const routeConfig = [
                 element: <NormalRoute allowedRoles={['NORMAL']} />,
                 children: [{ path: '', element: <SignUpView /> }],
             },
-            { path: pageUrlConfig.find, element: <FindView /> },
+            { path: `${pageUrlConfig.auth}${pageUrlConfig.find}`, element: <FindView /> },
             { path: `${pageUrlConfig.feedDetail}/:id`, element: <FeedDetailView /> },
             { path: pageUrlConfig.search, element: <SearchView /> },
             { path: pageUrlConfig.notice, element: <NoticeView /> },
