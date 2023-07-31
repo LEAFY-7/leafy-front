@@ -225,7 +225,7 @@ export const authItemState: AuthItemStateType = {
         type: 'tel',
         label: '연락처',
         property: 'phone',
-        placeHolder: '전화번호를 입력해주세요',
+        placeHolder: '연락처를 입력해주세요',
         icon: {
             main: <AiOutlinePhone />,
             helper: <AiOutlineExclamationCircle />,

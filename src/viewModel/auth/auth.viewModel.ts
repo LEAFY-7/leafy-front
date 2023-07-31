@@ -66,7 +66,6 @@ export default class AuthViewModel extends DefaultViewModel {
             this.toggle = !this.toggle;
         });
     };
-
     handleTimeoutId = (time: number = 100) => {
         return setTimeout(() => {
             const formEl = document.getElementById('form_wrapper');
@@ -75,13 +74,50 @@ export default class AuthViewModel extends DefaultViewModel {
         }, time);
     };
 
-    // 회원가입 - 아이디 중복 체크
-    handleUserCheck = () => {
-        // return this.api.get('/v1/users/check').then((response: AxiosResponse<boolean>)=>{
-        // })
+    handleInputChange = (key, value) => {
+        console.log(key, value);
+        runInAction(() => {
+            this.data[key] = value;
+        });
     };
 
-    // 회원가입 - 1. 필수 정보 (이메일, 이름, 닉네임, 비밀번호, 비밀번호확인)
+    // 닉네임 중복 체크
+    handleCheckNickName = () => {
+        return this.api
+            .post('/v1/users/check/nickanme', {
+                nickName: this.data.nickName,
+            })
+            .then((response: AxiosResponse) => {
+                console.log(response);
+            })
+            .catch((error: AxiosError) => {
+                if (error && error.status === 409) {
+                    Alert.alert('이미 사용중인 닉네임입니다.');
+                } else {
+                    Alert.alert('요청이 실패했습니다. 다시 시도해주시기 바랍니다.');
+                }
+            });
+    };
+    // 이메일 중복 체크
+    handleCheckEmail = () => {
+        return this.api
+            .post('/v1/users/check/email', {
+                email: this.data.email,
+            })
+            .then((response: AxiosResponse) => {
+                console.log(response);
+            })
+            .catch((error: AxiosError) => {
+                if (error && error.status === 409) {
+                    Alert.alert('이미 사용중인 이메일입니다.');
+                } else {
+                    Alert.alert('요청이 실패했습니다. 다시 시도해주시기 바랍니다.');
+                }
+            });
+    };
+
+    // 회원가입
+    // 1. 필수 정보 (이메일, 이름, 닉네임, 비밀번호, 비밀번호확인)
     handleSignUpNecessary = async (data) => {
         const { name, nickName, email, password, confirmPassword } = data;
         runInAction(() => {
@@ -95,7 +131,7 @@ export default class AuthViewModel extends DefaultViewModel {
         await document.getElementById('phone_input')?.focus();
     };
 
-    // 회원가입 - 2. 부가 정보 (연락처, 생년월일, 주소, 성별, 간단소개)
+    // 2. 부가 정보 (연락처, 생년월일, 주소, 성별, 간단소개)
     handleSignUpAdditional = async (data) => {
         const { phone, birthDay, addressDetail, gender, simpleIntroduction } = data;
         runInAction(() => {
@@ -108,7 +144,7 @@ export default class AuthViewModel extends DefaultViewModel {
         await this.handleSignUp();
     };
 
-    // 회원가입
+    // 3. 제출하기
     handleSignUp = () => {
         const phoneNumber = this.data.phone;
         const phoneNumberWithoutHyphens = phoneNumber.replace(/-/g, '');
@@ -154,6 +190,7 @@ export default class AuthViewModel extends DefaultViewModel {
     };
 
     // 로그인
+    // 제출하기
     handleSignIn = (data) => {
         return this.api
             .post('/v1/users/sign-in', data)

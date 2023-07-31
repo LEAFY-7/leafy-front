@@ -2,17 +2,20 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
+import * as Styled from './background.styles';
+
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { SignUphModel } from 'models/auth/signUp.model';
 import { authFormState, authItemState } from 'configs/form.config';
+import { theme } from 'configs/ui.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Div from 'components/atoms/Div/default-div';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
-import TextField from 'components/molecules/TextField';
+import TextField from 'components/molecules/TextField/default-textField';
 import InputCalender from 'components/organisms/Calender/input-calender';
 
 const SignUpAdditionalForm = () => {
@@ -46,34 +49,49 @@ const SignUpAdditionalForm = () => {
         <>
             <form onSubmit={handleSubmit(authViewModel.handleSignUpAdditional)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
-                    <Flex>
+                    <Styled.ParallelToHorizon>
                         <Controller
                             name={authItemState.phone.property}
                             control={control}
                             defaultValue=""
                             rules={authFormState.phone}
                             render={({ field: { value, onChange }, fieldState: { error } }) => (
-                                <TextField
-                                    id="phone_input"
-                                    type={authItemState.phone.type}
-                                    labelTitle={authItemState.phone.label}
-                                    value={value}
-                                    maxLength={13}
-                                    placeholder={'연락처를 입력해주세요.'}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        const onlyNumber = e.target.value
-                                            .replace(/[^0-9]/g, '')
-                                            .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-                                            .replace(/(\-{1,2})$/g, '');
-                                        onChange(onlyNumber);
-                                    }}
-                                    leftIcon={authItemState.phone.icon.main}
-                                    helperIcon={authItemState.phone.icon.helper}
-                                    error={!!error}
-                                    helperText={error?.message}
-                                />
+                                <TextField error={!!error}>
+                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                        <TextField.Label required>
+                                            {authItemState.phone.label}
+                                        </TextField.Label>
+                                        <TextField.Container
+                                            id="phone_container"
+                                            leftIcon={authItemState.phone.icon.main}
+                                        >
+                                            <TextField.Input
+                                                id="phone_input"
+                                                value={value}
+                                                type={authItemState.phone.type}
+                                                placeholder={authItemState.phone.placeHolder}
+                                                maxLength={13}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                    const onlyNumber = e.target.value
+                                                        .replace(/[^0-9]/g, '')
+                                                        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+                                                        .replace(/(\-{1,2})$/g, '');
+                                                    onChange(onlyNumber);
+                                                }}
+                                                style={{ width: '300px' }}
+                                            />
+                                        </TextField.Container>
+                                        <TextField.HelperText
+                                            leftIcon={authItemState.phone.icon.helper}
+                                            style={{ padding: '0 8px' }}
+                                        >
+                                            {error?.message}
+                                        </TextField.HelperText>
+                                    </TextField.Wrapper>
+                                </TextField>
                             )}
                         />
+
                         <InputCalender
                             name={authItemState.birthDay.property}
                             placeholder={authItemState.birthDay.placeHolder}
@@ -82,7 +100,7 @@ const SignUpAdditionalForm = () => {
                             control={control}
                             authItemState={authItemState.birthDay}
                         />
-                    </Flex>
+                    </Styled.ParallelToHorizon>
 
                     <Flex direction="column">
                         <label htmlFor="genderSelect">성별</label>
@@ -111,82 +129,121 @@ const SignUpAdditionalForm = () => {
                         />
                     </Flex>
 
-                    <Flex direction="column">
-                        <Flex justifyContent="center" alignItems="center" style={{ height: '100%' }}>
-                            <Controller
-                                name={authItemState.zoneCode.property}
-                                control={control}
-                                defaultValue={authViewModel.data?.zoneCode}
-                                rules={authFormState.zoneCode}
-                                render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                                    <>
-                                        <TextField
-                                            id={authItemState.zoneCode.property}
-                                            type={authItemState.zoneCode.type}
-                                            onClick={authViewModel.handleDaumAddress}
-                                            labelTitle={authItemState.zoneCode.label}
+                    <AddressZoneWrapper justifyContent="space-between" alignItems="center">
+                        <Controller
+                            name={authItemState.zoneCode.property}
+                            control={control}
+                            defaultValue={authViewModel.data?.zoneCode}
+                            rules={authFormState.zoneCode}
+                            render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
+                                <TextField error={!!error}>
+                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                        <TextField.Label required>
+                                            {authItemState.zoneCode.label}
+                                        </TextField.Label>
+                                        <TextField.Container
+                                            id="zoneCode_container"
                                             leftIcon={authItemState.zoneCode.icon.main}
-                                            helperIcon={authItemState.zoneCode.icon.helper}
-                                            placeholder={authItemState.zoneCode.placeHolder}
-                                            value={authViewModel.data.zoneCode}
-                                            readOnly
-                                            error={!!error && !!!authViewModel.data.zoneCode}
-                                            helperText={error?.message}
-                                        />
-                                    </>
-                                )}
-                            />
-                            <AddressButton onClick={authViewModel.handleDaumAddress} variant="secondary">
-                                주소
-                            </AddressButton>
-                        </Flex>
-                        <Flex>
-                            <Controller
-                                name={authItemState.address.property}
-                                control={control}
-                                defaultValue={authViewModel.data?.address}
-                                rules={authFormState.address}
-                                render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                                    <TextField
-                                        value={authViewModel.data.address}
-                                        id={authItemState.address.property}
-                                        type={authItemState.address.type}
-                                        onClick={authViewModel.handleDaumAddress}
-                                        labelTitle={authItemState.address.label}
-                                        leftIcon={authItemState.address.icon.main}
-                                        placeholder={authItemState.address.placeHolder}
-                                        helperIcon={authItemState.address.icon.helper}
-                                        readOnly
-                                        error={!!error && !!!authViewModel.data.address}
-                                        helperText={error?.message}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name={authItemState.addressDetail.property}
-                                control={control}
-                                defaultValue={authViewModel.data?.addressDetail}
-                                rules={authFormState.addressDetail}
-                                render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                                    <TextField
-                                        id="address_detail"
-                                        value={value}
-                                        type={authItemState.addressDetail.type}
-                                        labelTitle={authItemState.addressDetail.label}
-                                        leftIcon={authItemState.addressDetail.icon.main}
-                                        helperIcon={authItemState.addressDetail.icon.helper}
-                                        placeholder={authItemState.addressDetail.placeHolder}
-                                        error={!!error}
-                                        helperText={error?.message}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                            const { value } = e.target;
-                                            onChange(value);
-                                        }}
-                                    />
-                                )}
-                            />
-                        </Flex>
-                    </Flex>
+                                        >
+                                            <ZoneCodeInput
+                                                id={authItemState.zoneCode.property}
+                                                value={authViewModel.data.zoneCode}
+                                                type={authItemState.zoneCode.type}
+                                                placeholder={authItemState.zoneCode.placeHolder}
+                                                onClick={authViewModel.handleDaumAddress}
+                                                readOnly
+                                            />
+                                        </TextField.Container>
+                                        <TextField.HelperText
+                                            leftIcon={authItemState.zoneCode.icon.helper}
+                                            style={{ padding: '0 8px' }}
+                                        >
+                                            {error?.message}
+                                        </TextField.HelperText>
+                                    </TextField.Wrapper>
+                                </TextField>
+                            )}
+                        />
+                        <AddressButton onClick={authViewModel.handleDaumAddress} variant="primary">
+                            주소
+                        </AddressButton>
+                    </AddressZoneWrapper>
+                    <Styled.ParallelToHorizon>
+                        <Controller
+                            name={authItemState.address.property}
+                            control={control}
+                            defaultValue={authViewModel.data?.address}
+                            rules={authFormState.address}
+                            render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
+                                <>
+                                    <TextField error={!!error}>
+                                        <TextField.Wrapper style={{ height: '100px' }}>
+                                            <TextField.Label required>
+                                                {authItemState.address.label}
+                                            </TextField.Label>
+                                            <TextField.Container
+                                                id="address_container"
+                                                leftIcon={authItemState.address.icon.main}
+                                            >
+                                                <TextField.Input
+                                                    value={authViewModel.data.address}
+                                                    id={authItemState.address.property}
+                                                    type={authItemState.address.type}
+                                                    placeholder={authItemState.address.placeHolder}
+                                                    style={{ width: '300px' }}
+                                                    readOnly
+                                                    onClick={authViewModel.handleDaumAddress}
+                                                />
+                                            </TextField.Container>
+                                            <TextField.HelperText
+                                                leftIcon={authItemState.address.icon.helper}
+                                                style={{ padding: '0 8px' }}
+                                            >
+                                                {error?.message}
+                                            </TextField.HelperText>
+                                        </TextField.Wrapper>
+                                    </TextField>
+                                </>
+                            )}
+                        />
+                        <Controller
+                            name={authItemState.addressDetail.property}
+                            control={control}
+                            defaultValue={authViewModel.data?.addressDetail}
+                            rules={authFormState.addressDetail}
+                            render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
+                                <TextField error={!!error}>
+                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                        <TextField.Label required>
+                                            {authItemState.addressDetail.label}
+                                        </TextField.Label>
+                                        <TextField.Container
+                                            id="addressDetail_container"
+                                            leftIcon={authItemState.addressDetail.icon.main}
+                                        >
+                                            <TextField.Input
+                                                value={value}
+                                                id="address_detail"
+                                                type={authItemState.addressDetail.type}
+                                                placeholder={authItemState.addressDetail.placeHolder}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                    const { value } = e.target;
+                                                    onChange(value);
+                                                }}
+                                                style={{ width: '300px' }}
+                                            />
+                                        </TextField.Container>
+                                        <TextField.HelperText
+                                            leftIcon={authItemState.addressDetail.icon.helper}
+                                            style={{ padding: '0 8px' }}
+                                        >
+                                            {error?.message}
+                                        </TextField.HelperText>
+                                    </TextField.Wrapper>
+                                </TextField>
+                            )}
+                        />
+                    </Styled.ParallelToHorizon>
                     <Controller
                         name={authItemState.simpleIntroduction.property}
                         control={control}
@@ -219,10 +276,10 @@ const SignUpAdditionalForm = () => {
                         )}
                     />
                     <Div id="submit_btn" width={100} padding={8}>
-                        <SubmitButton variant="primary" onClick={authViewModel.handleToggle}>
+                        <SubmitButton variant="default" isBorder onClick={authViewModel.handleToggle}>
                             이전
                         </SubmitButton>
-                        <SubmitButton type="submit" variant="secondary" disabled={isSubmitting}>
+                        <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                             회원가입
                         </SubmitButton>
                     </Div>
@@ -244,5 +301,30 @@ const Wrapper = styled(Flex)`
 `;
 
 const AddressButton = styled(RectangleButton)`
-    transform: translateY(50%);
+    transform: translateY(10%);
+`;
+const ZoneCodeInput = styled(TextField.Input)`
+    ${theme.mediaQuery.mobile} {
+        width: 200px;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: 200px;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 300px;
+    }
+`;
+const AddressZoneWrapper = styled(Flex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: row;
+        width: 300px;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: row;
+        width: 300px;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+        width: 300px;
+    }
 `;

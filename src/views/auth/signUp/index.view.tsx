@@ -11,6 +11,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import SignUpNecessaryForm from './signup-necessary-form';
 import SignUpAdditionalForm from './signup-additional-form';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -23,7 +24,7 @@ const SignUpView = () => {
     }, [authViewModel.toggle]);
 
     return (
-        <PageContainer style={{ overflow: 'visible', height: 'auto' }}>
+        <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <Wrapper>
                 <Div variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
@@ -38,7 +39,11 @@ const SignUpView = () => {
                     </Typography>
                     {!authViewModel.toggle && <SignUpNecessaryForm />}
                     {authViewModel.toggle && <SignUpAdditionalForm />}
-                    <RectangleButton size="md" to="/auth/signin" backgroundColor="transparent">
+                    <RectangleButton
+                        size="md"
+                        to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}
+                        backgroundColor="transparent"
+                    >
                         로그인 바로가기
                     </RectangleButton>
                 </Div>

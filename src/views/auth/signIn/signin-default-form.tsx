@@ -9,7 +9,7 @@ import { authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import Div from 'components/atoms/Div/default-div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import TextFiled from 'components/molecules/TextField';
+import TextField from 'components/molecules/TextField/default-textField';
 
 const SignInDefaultForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -33,20 +33,32 @@ const SignInDefaultForm = () => {
                     control={control}
                     defaultValue={authViewModel.data.email}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.email.type}
-                            labelTitle={authItemState.email.label}
-                            leftIcon={authItemState.email.icon.main}
-                            helperIcon={authItemState.email.icon.helper}
-                            placeholder={authItemState.email.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label>{authItemState.email.label}</TextField.Label>
+                                <TextField.Container
+                                    id="email_container"
+                                    leftIcon={authItemState.email.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={value}
+                                        type={authItemState.email.type}
+                                        placeholder={authItemState.email.placeHolder}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width: '300px' }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.email.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
                     )}
                 />
 
@@ -55,20 +67,32 @@ const SignInDefaultForm = () => {
                     control={control}
                     defaultValue={authViewModel.data.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.password.type}
-                            labelTitle={authItemState.password.label}
-                            leftIcon={authItemState.password.icon.main}
-                            helperIcon={authItemState.password.icon.helper}
-                            placeholder={authItemState.password.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label>{authItemState.password.label}</TextField.Label>
+                                <TextField.Container
+                                    id="password_container"
+                                    leftIcon={authItemState.password.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={value}
+                                        type={authItemState.password.type}
+                                        placeholder={authItemState.password.placeHolder}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width: '300px' }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.password.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
                     )}
                 />
                 <Div id="submit_btn" width={100} padding={8} style={{ backgroundColor: 'transparent' }}>

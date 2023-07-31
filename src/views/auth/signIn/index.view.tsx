@@ -10,6 +10,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import SignInDefaultForm from './signin-default-form';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -36,9 +37,37 @@ const SignInView = () => {
                         식집사님 오늘은 어떤 식물을 보러 오셨나요?
                     </Typography>
                     <SignInDefaultForm />
-                    <RectangleButton size="md" to="/auth/signup" backgroundColor="transparent">
+                    <RectangleButton
+                        size="md"
+                        to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
+                        backgroundColor="transparent"
+                    >
                         회원가입 바로가기
                     </RectangleButton>
+                    <Styled.ParallelToHorizon style={{ width: '300px' }}>
+                        <Typography
+                            as="p"
+                            variant="BODY3"
+                            color="grey"
+                            fontSize="sm"
+                            textAlign="center"
+                            marginTop={4}
+                        >
+                            아이디를 찾으시겠습니까?
+                        </Typography>
+                        <Typography
+                            as="p"
+                            variant="BODY3"
+                            to={`${pageUrlConfig.auth}${pageUrlConfig.find}`}
+                            color="grey"
+                            fontWeight="bold"
+                            fontSize="sm"
+                            textAlign="center"
+                            marginTop={4}
+                        >
+                            아이디 찾기
+                        </Typography>
+                    </Styled.ParallelToHorizon>
                 </Div>
                 <Styled.SignInPlantImage src={Image} />
                 <Styled.SignInPlantImage src={Image} />

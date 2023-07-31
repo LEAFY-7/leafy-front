@@ -2,6 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
+import * as Styled from './background.styles';
+
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { SignUphModel } from 'models/auth/signUp.model';
@@ -10,7 +12,8 @@ import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Div from 'components/atoms/Div/default-div';
-import TextFiled from 'components/molecules/TextField';
+import TextField from 'components/molecules/TextField/default-textField';
+import DropButton from 'components/atoms/Button/drop-button';
 
 const SignUpNecessaryForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -32,88 +35,160 @@ const SignUpNecessaryForm = () => {
                     defaultValue={authViewModel.data.name}
                     rules={authFormState.name}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.name.type}
-                            labelTitle={authItemState.name.label}
-                            leftIcon={authItemState.name.icon.main}
-                            helperIcon={authItemState.name.icon.helper}
-                            placeholder={authItemState.name.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label required>{authItemState.name.label}</TextField.Label>
+                                <TextField.Container
+                                    id="name_container"
+                                    leftIcon={authItemState.name.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={value}
+                                        type={authItemState.name.type}
+                                        placeholder={authItemState.name.placeHolder}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width: '300px' }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.name.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
                     )}
                 />
-                <Controller
-                    name={authItemState.nickName.property}
-                    control={control}
-                    defaultValue={authViewModel.data.nickName}
-                    rules={authFormState.nickName}
-                    render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.nickName.type}
-                            labelTitle={authItemState.nickName.label}
-                            leftIcon={authItemState.nickName.icon.main}
-                            helperIcon={authItemState.nickName.icon.helper}
-                            placeholder={authItemState.nickName.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
-                    )}
-                />
-
-                <Controller
-                    name={authItemState.email.property}
-                    control={control}
-                    defaultValue={authViewModel.data.email}
-                    rules={authFormState.email}
-                    render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.email.type}
-                            labelTitle={authItemState.email.label}
-                            leftIcon={authItemState.email.icon.main}
-                            helperIcon={authItemState.email.icon.helper}
-                            placeholder={authItemState.email.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
-                    )}
-                />
-
+                <Flex id="nickName_wrapper">
+                    <Controller
+                        name={authItemState.nickName.property}
+                        control={control}
+                        defaultValue={authViewModel.data.nickName}
+                        rules={authFormState.nickName}
+                        render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
+                            <>
+                                <TextField error={!!error}>
+                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                        <TextField.Label required>
+                                            {authItemState.nickName.label}
+                                        </TextField.Label>
+                                        <TextField.Container
+                                            id="nickName_container"
+                                            leftIcon={authItemState.nickName.icon.main}
+                                        >
+                                            <TextField.Input
+                                                value={value}
+                                                type={authItemState.nickName.type}
+                                                placeholder={authItemState.nickName.placeHolder}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                    const { value } = e.target;
+                                                    onChange(value);
+                                                    authViewModel.handleInputChange('nickName', value);
+                                                }}
+                                                style={{ width: '230px' }}
+                                            />
+                                        </TextField.Container>
+                                        <TextField.HelperText
+                                            leftIcon={authItemState.nickName.icon.helper}
+                                            style={{ padding: '0 8px' }}
+                                        >
+                                            {error?.message}
+                                        </TextField.HelperText>
+                                    </TextField.Wrapper>
+                                </TextField>
+                            </>
+                        )}
+                    />
+                    <Styled.ParallelToHorizonButton
+                        variant="secondary"
+                        size="sm"
+                        style={{ margin: 0 }}
+                        onClick={authViewModel.handleCheckNickName}
+                    >
+                        확인
+                    </Styled.ParallelToHorizonButton>
+                </Flex>
+                <Flex>
+                    <Controller
+                        name={authItemState.email.property}
+                        control={control}
+                        defaultValue={authViewModel.data.email}
+                        rules={authFormState.email}
+                        render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
+                            <TextField error={!!error}>
+                                <TextField.Wrapper style={{ height: '100px' }}>
+                                    <TextField.Label required>{authItemState.email.label}</TextField.Label>
+                                    <TextField.Container
+                                        id="email_container"
+                                        leftIcon={authItemState.email.icon.main}
+                                    >
+                                        <TextField.Input
+                                            value={value}
+                                            type={authItemState.email.type}
+                                            placeholder={authItemState.email.placeHolder}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                const { value } = e.target;
+                                                onChange(value);
+                                                authViewModel.handleInputChange('email', value);
+                                            }}
+                                            style={{ width: '230px' }}
+                                        />
+                                    </TextField.Container>
+                                    <TextField.HelperText
+                                        leftIcon={authItemState.email.icon.helper}
+                                        style={{ padding: '0 8px' }}
+                                    >
+                                        {error?.message}
+                                    </TextField.HelperText>
+                                </TextField.Wrapper>
+                            </TextField>
+                        )}
+                    />
+                    <Styled.ParallelToHorizonButton
+                        variant="secondary"
+                        size="sm"
+                        style={{ margin: 0 }}
+                        onClick={authViewModel.handleCheckEmail}
+                    >
+                        확인
+                    </Styled.ParallelToHorizonButton>
+                </Flex>
                 <Controller
                     name={authItemState.password.property}
                     control={control}
                     defaultValue={authViewModel.data.password}
                     rules={authFormState.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.password.type}
-                            labelTitle={authItemState.password.label}
-                            leftIcon={authItemState.password.icon.main}
-                            helperIcon={authItemState.password.icon.helper}
-                            placeholder={authItemState.password.placeHolder}
-                            error={!!error}
-                            helperText={error?.message}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label required>{authItemState.password.label}</TextField.Label>
+                                <TextField.Container
+                                    id="password_container"
+                                    leftIcon={authItemState.password.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={value}
+                                        type={authItemState.password.type}
+                                        placeholder={authItemState.password.placeHolder}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width: '300px' }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.password.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
                     )}
                 />
                 <Controller
@@ -124,20 +199,34 @@ const SignUpNecessaryForm = () => {
                         (value) => value === watch(authItemState.password.property),
                     )}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <TextFiled
-                            value={value}
-                            type={authItemState.confirmPassword.type}
-                            labelTitle={authItemState.confirmPassword.label}
-                            leftIcon={authItemState.confirmPassword.icon.main}
-                            helperIcon={authItemState.confirmPassword.icon.helper}
-                            placeholder={authItemState.confirmPassword.placeHolder}
-                            error={!!error}
-                            helperText={error?.message || '비밀번호가 일치하지 않습니다.'}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                const { value } = e.target;
-                                onChange(value);
-                            }}
-                        />
+                        <TextField error={!!error}>
+                            <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Label required>
+                                    {authItemState.confirmPassword.label}
+                                </TextField.Label>
+                                <TextField.Container
+                                    id="password_container"
+                                    leftIcon={authItemState.confirmPassword.icon.main}
+                                >
+                                    <TextField.Input
+                                        value={value}
+                                        type={authItemState.confirmPassword.type}
+                                        placeholder={authItemState.confirmPassword.placeHolder}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const { value } = e.target;
+                                            onChange(value);
+                                        }}
+                                        style={{ width: '300px' }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.confirmPassword.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message || '비밀번호가 일치하지 않습니다.'}
+                                </TextField.HelperText>
+                            </TextField.Wrapper>
+                        </TextField>
                     )}
                 />
                 <Div id="submit_btn" width={100} padding={8}>
