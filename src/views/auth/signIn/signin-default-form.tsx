@@ -10,7 +10,6 @@ import Flex from 'components/atoms/Group/flex';
 import Div from 'components/atoms/Div/default-div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextField from 'components/molecules/TextField/default-textField';
-// import TextFiled from 'components/molecules/TextField';
 
 const SignInDefaultForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -36,7 +35,7 @@ const SignInDefaultForm = () => {
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
                             <TextField.Wrapper style={{ height: '100px' }}>
-                                <TextField.Label required>{authItemState.email.label}</TextField.Label>
+                                <TextField.Label>{authItemState.email.label}</TextField.Label>
                                 <TextField.Container
                                     id="email_container"
                                     leftIcon={authItemState.email.icon.main}
@@ -70,7 +69,7 @@ const SignInDefaultForm = () => {
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
                             <TextField.Wrapper style={{ height: '100px' }}>
-                                <TextField.Label required>{authItemState.password.label}</TextField.Label>
+                                <TextField.Label>{authItemState.password.label}</TextField.Label>
                                 <TextField.Container
                                     id="password_container"
                                     leftIcon={authItemState.password.icon.main}

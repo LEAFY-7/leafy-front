@@ -11,6 +11,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import SignUpNecessaryForm from './signup-necessary-form';
 import SignUpAdditionalForm from './signup-additional-form';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -38,7 +39,11 @@ const SignUpView = () => {
                     </Typography>
                     {!authViewModel.toggle && <SignUpNecessaryForm />}
                     {authViewModel.toggle && <SignUpAdditionalForm />}
-                    <RectangleButton size="md" to="/auth/signin" backgroundColor="transparent">
+                    <RectangleButton
+                        size="md"
+                        to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}
+                        backgroundColor="transparent"
+                    >
                         로그인 바로가기
                     </RectangleButton>
                 </Div>

@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/react';
 import { theme } from 'configs/ui.config';
 import Flex from 'components/atoms/Group/flex';
 
-const signInFirstAnimation = keyframes`
+const FindFirstAnimation = keyframes`
 
 0% {
     transform: scaleX(-1) rotate(30deg) rotateZ(0) translate(0, 0);
@@ -19,7 +19,7 @@ const signInFirstAnimation = keyframes`
   }
 
 `;
-const signInSecondAnimation = keyframes`
+const FindSecondAnimation = keyframes`
 
 0% {
     transform: scaleX(-1) rotateZ(0) translate(0, 0);
@@ -36,7 +36,7 @@ const signInSecondAnimation = keyframes`
 
 `;
 
-export const SignInPlantImage = styled.img`
+export const FindPlantImage = styled.img`
     position: absolute;
     top: 0;
     left: -2%;
@@ -44,17 +44,17 @@ export const SignInPlantImage = styled.img`
 
     &:nth-of-type(1) {
         transform: scaleX(-1) rotate(30deg);
-        margin-top: -10%;
+        margin-top: 20%;
 
         margin-left: -3%;
-        animation: ${signInFirstAnimation} 2.5s infinite ease-in-out;
+        animation: ${FindFirstAnimation} 2.5s infinite ease-in-out;
         animation-delay: 0.2s;
     }
 
     &:nth-of-type(2) {
-        margin-top: -20%;
+        margin-top: 10%;
         transform: scaleX(-1);
-        animation: ${signInSecondAnimation} 3.5s infinite ease-in-out;
+        animation: ${FindSecondAnimation} 3.5s infinite ease-in-out;
     }
 
     ${theme.mediaQuery.mobile} {

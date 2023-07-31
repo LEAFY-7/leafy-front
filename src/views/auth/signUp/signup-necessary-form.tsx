@@ -89,7 +89,7 @@ const SignUpNecessaryForm = () => {
                                                     onChange(value);
                                                     authViewModel.handleInputChange('nickName', value);
                                                 }}
-                                                style={{ width: '250px' }}
+                                                style={{ width: '230px' }}
                                             />
                                         </TextField.Container>
                                         <TextField.HelperText
@@ -106,7 +106,7 @@ const SignUpNecessaryForm = () => {
                     <Styled.ParallelToHorizonButton
                         variant="secondary"
                         size="sm"
-                        style={{ width: '50px', margin: 0 }}
+                        style={{ margin: 0 }}
                         onClick={authViewModel.handleCheckNickName}
                     >
                         확인
@@ -135,7 +135,7 @@ const SignUpNecessaryForm = () => {
                                                 onChange(value);
                                                 authViewModel.handleInputChange('email', value);
                                             }}
-                                            style={{ width: '250px' }}
+                                            style={{ width: '230px' }}
                                         />
                                     </TextField.Container>
                                     <TextField.HelperText
@@ -151,7 +151,7 @@ const SignUpNecessaryForm = () => {
                     <Styled.ParallelToHorizonButton
                         variant="secondary"
                         size="sm"
-                        style={{ width: '50px', margin: 0 }}
+                        style={{ margin: 0 }}
                         onClick={authViewModel.handleCheckEmail}
                     >
                         확인
