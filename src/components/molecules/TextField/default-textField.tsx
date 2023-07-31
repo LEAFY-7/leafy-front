@@ -23,6 +23,7 @@ interface ContainerProps extends IconProps {}
 
 interface LabelProps {
     required?: boolean;
+    requiredtext?: string;
     labelVariant?: TypographyVariant;
     color?: keyof typeof theme.colors;
     fontSize?: keyof typeof theme.fontSize;
@@ -33,11 +34,9 @@ interface InputProps {
     value: HTMLInputElement['value'];
     type: HTMLInputElement['type'];
     placeholder?: HTMLInputElement['placeholder'];
-
-    radius?: number;
+    maxLength?: HTMLInputElement['maxLength'];
+    readOnly?: HTMLInputElement['readOnly'];
     placeHolderFontSize?: keyof typeof theme.fontSize;
-    disabled?: boolean;
-    readOnly?: boolean;
 }
 interface HelperTextProps extends IconProps {
     helperVariant?: TypographyVariant;
@@ -78,6 +77,7 @@ const TextFieldWrapper = ({ paddingX = 8, paddingY = 8, children, ...rest }: Tex
 // Label
 const TextFieldLabel = ({
     required = false,
+    requiredtext = '필수 입력',
     labelVariant = 'BODY1',
     color = 'grey',
     fontSize = 'md',
@@ -91,6 +91,7 @@ const TextFieldLabel = ({
             as="label"
             width={100}
             required={required}
+            requiredtext={requiredtext}
             variant={labelVariant}
             color={color}
             fontSize={fontSize}
@@ -133,6 +134,7 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
         placeholder = '',
         placeHolderFontSize = 'md',
         readOnly = false,
+        maxLength = 999999,
         ...rest
     }: TextFieldInputProps,
     forwardedRef: React.Ref<HTMLInputElement>,
@@ -147,6 +149,7 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
             readOnly={readOnly}
             disabled={disabled}
             error={error}
+            maxLength={maxLength}
             {...rest}
         />
     );
@@ -154,7 +157,7 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
 
 // HelperText
 const TextFieldHelperText = ({
-    helperVariant = 'BODY2',
+    helperVariant = 'BODY3',
     textAlign = 'left',
     color = 'sementic',
     fontSize = 'sm',
@@ -180,7 +183,10 @@ const TextFieldHelperText = ({
                     {...rest}
                 >
                     {leftIcon && leftIcon}
+                    <Blank />
                     {children}
+                    <Blank />
+
                     {rightIcon && rightIcon}
                 </HelperText>
             )}
@@ -215,14 +221,15 @@ const Container = styled.div`
 `;
 
 const Label = styled(Typography)<LabelProps>`
-    ${({ required, theme }) =>
+    ${({ required, theme, requiredtext, fontSize }) =>
         required &&
         css`
             &::after {
-                content: '*';
+                content: '* ${requiredtext}';
                 position: absolute;
                 margin-left: 4px;
                 color: ${theme.colors.sementic};
+                font-size: calc(${theme.fontSize[fontSize]} - 6px);
             }
         `}
 `;
@@ -259,4 +266,9 @@ const Input = styled(DefaultInput)`
 const HelperText = styled(Typography)`
     display: flex;
     align-items: center;
+`;
+
+const Blank = styled.div`
+    width: 4px;
+    height: 4px;
 `;
