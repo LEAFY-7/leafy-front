@@ -13,8 +13,7 @@
             "tag": ["식물일지", "맛있는 햇빛", "오늘의 날씨"],
             "imgUrl": [
                 "https://api.slingacademy.com/public/sample-photos/1.jpeg",
-                "https://api.slingacademy.com/public/sample-photos/130.jpeg",
-                "https://api.slingacademy.com/public/sample-photos/2.jpeg"
+                "https://api.slingacademy.com/public/sample-photos/1.jpeg"
             ],
             "size": "big"
         },

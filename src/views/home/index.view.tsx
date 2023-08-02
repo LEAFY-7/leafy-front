@@ -27,6 +27,11 @@ const HomeView = () => {
                     return <Card item={item} key={`feed_card_${key}`} />;
                 })}
             </CardWrap>
+            <CardWrap>
+                {mainViewModel.feedList.map((item: FeedDto, key: number) => {
+                    return <Card item={item} key={`feed_card_${key}`} />;
+                })}
+            </CardWrap>
         </PageContainer>
     );
 };

@@ -8,7 +8,7 @@ interface IProps {
 
 export default function UserProfile(props: IProps) {
     const { id, name, profileImage, isAdmin } = props.data;
-    console.log(props.data);
+
     return (
         <Profile.Container>
             <Profile.Image src={profileImage} style={{ width: '48px', height: '48px' }} alt="" />
@@ -19,8 +19,16 @@ export default function UserProfile(props: IProps) {
 
 const Profile = {
     Container: styled.div`
+        width: 100%;
         display: flex;
+        align-items: center;
+        gap: 16px;
     `,
-    Name: styled.p``,
+    Name: styled.p`
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        height: fit-content;
+    `,
     Image: styled(LazyImage)``,
 };
