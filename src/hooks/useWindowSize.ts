@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
+import React from 'react';
 
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+const useWindowSize = (): { width: number; height: number } => {
+    const [windowSize, setWindowSize] = React.useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
 
-  useEffect(() => {
-    let animationFrameId: number;
+    React.useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
 
-    const handleResize = () => {
-      cancelAnimationFrame(animationFrameId);
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
-      animationFrameId = requestAnimationFrame(() => {
-        setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return windowSize;
+    return React.useMemo(() => windowSize, [windowSize]);
 };
+
 export default useWindowSize;
