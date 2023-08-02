@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { CSSProperties, MouseEventHandler } from 'react';
 import { buttonSize, buttonState, buttonStep, buttonText, buttonDrop } from './buttons.style';
 import { RxArrowTopRight } from 'react-icons/rx';
 import { TokenButtonState, states, steps, drop } from './button.types';
@@ -18,6 +18,7 @@ interface Props {
     showText: boolean;
     showDrop?: drop;
     disabled?: boolean;
+    onClick?: MouseEventHandler;
 }
 const dropState = (state: states): drop => {
     if (state === 'default' || state === 'disabled' || state === 'text') return false;

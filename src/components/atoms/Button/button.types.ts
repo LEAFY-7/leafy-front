@@ -1,4 +1,4 @@
-import { Properties, BorderValues } from '@tokens-studio/types';
+import { Properties, BorderValues, TokenValues, TokenTypeSchema, TokenTypes, SingleToken, DeepKeyTokenMap, CompositionTokenValue } from '@tokens-studio/types';
 import button from 'commons/tokens/button.json';
 
 const TokenButton = {
@@ -20,14 +20,16 @@ const TokenButtonSize = {
 
 type size = 'xl' | 'l' | 's';
 
-export const TokenButtonSizeList = (size: size) => {
+export const TokenButtonSizeList = (size: size) : CompositionTokenValue => {
     return {
-        width: TokenButtonSize[size][Properties.width].value,
-        height: TokenButtonSize[size][Properties.height].value,
-        vPadding: TokenButtonSize[size][Properties.verticalPadding].value,
-        hPadding: TokenButtonSize[size][Properties.horizontalPadding].value,
-        borderRadius: TokenButtonSize[size][Properties.borderRadius].value,
-        typography: TokenButtonSize[size][Properties.typography],
+        width: TokenButtonSize[size].width.value,
+        height: TokenButtonSize[size].height.value,
+        verticalPadding: TokenButtonSize[size].verticalPadding.value,
+        horizontalPadding: TokenButtonSize[size].horizontalPadding.value,
+        borderRadius: TokenButtonSize[size].borderRadius.value,
+        lineHeights: TokenButtonSize[size].typography.lineHeight.value,
+        fontSizes: TokenButtonSize[size].typography.fontSize.value,
+        fontWeights: TokenButtonSize[size].typography.fontWeight.value,
     };
 };
 
@@ -39,14 +41,14 @@ export type steps = 'primary' | 'secondary' | 'basic' | 'basic-disabled';
 export const TokenButtonState = (state: states, step: steps) => {
     return TokenButton[state][`sys-button-${step}`];
 };
-export const TokenButtonStyle = (state: states, step: steps) => {
+export const TokenButtonStyle = (state: states, step: steps) : CompositionTokenValue => {
     const token = TokenButtonState(state, step);
     return {
-        background: token[Properties.fill].value,
-        borderColors: token[Properties.border][BorderValues.BORDER_COLOR].value,
-        borderColor: token[Properties.borderColor]?.value,
-        borderWidth: token[Properties.border][BorderValues.BORDER_WIDTH].value,
-        borderStyle: token[Properties.border][BorderValues.BORDER_STYLE].value,
+        fill: token.fill.value,
+        borderColor: token.border.color.value,
+        composition: token.borderColor?.value,
+        borderWidth: token.border.width.value,
+        border: token.border.style.value,
     };
 };
 
@@ -60,8 +62,8 @@ const TokenButtonDropList = {
 export const TokenButtonDrop = (state) => {
     const dropList = state === 'pressed' ? 'reverse' : 'drop';
     return {
-        fill: TokenButtonDropList[dropList][Properties.fill].value,
-        opacity: TokenButtonDropList[dropList][Properties.opacity].value,
-        size: TokenButtonDropList[dropList][Properties.sizing].value,
+        fill: TokenButtonDropList[dropList].fill.value,
+        opacity: TokenButtonDropList[dropList].opacity.value,
+        size: TokenButtonDropList[dropList].sizing.value,
     };
 };

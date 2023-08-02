@@ -10,11 +10,11 @@ export const buttonSize = (size) => {
             overflow: hidden;
             width: ${TokenButtonSizeList(size).width};
             height: ${TokenButtonSizeList(size).height};
-            padding: ${TokenButtonSizeList(size).vPadding} ${TokenButtonSizeList(size).hPadding};
+            padding: ${TokenButtonSizeList(size).verticalPadding} ${TokenButtonSizeList(size).horizontalPadding};
             border-radius: ${TokenButtonSizeList(size).borderRadius};
-            font-size: ${TokenButtonSizeList(size).typography.fontSize.value};
-            font-weight: ${TokenButtonSizeList(size).typography.fontWeight.value};
-            line-height: ${TokenButtonSizeList(size).typography.lineHeight.value};
+            font-size: ${TokenButtonSizeList(size).fontSizes};
+            font-weight: ${TokenButtonSizeList(size).fontWeights};
+            line-height: ${TokenButtonSizeList(size).lineHeights};
         `
     }
 }
@@ -23,10 +23,10 @@ export const buttonStep = (state, step) => {
     return{
         [state] : {
         [step] : css `
-            background: ${TokenButtonStyle(state, step).background};
+            background: ${TokenButtonStyle(state, step).fill};
             border-width: ${TokenButtonStyle(state, step).borderWidth};
-            border-style: ${TokenButtonStyle(state, step).borderStyle};
-            border-color: ${TokenButtonStyle(state, step).borderColors};
+            border-style: ${TokenButtonStyle(state, step).border};
+            border-color: ${TokenButtonStyle(state, step).composition};
             border-color: ${TokenButtonStyle(state, step).borderColor};
         `
         }}
@@ -35,7 +35,7 @@ export const buttonStep = (state, step) => {
 export const buttonState = (state, step) => {
     return {
         state : css`
-            background-color: ${TokenButtonStyle(state, step).background};
+            background-color: ${TokenButtonStyle(state, step).fill};
         `
     }
 }
