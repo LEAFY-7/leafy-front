@@ -10,7 +10,7 @@ import * as Styled from './background.styles';
 import PageContainer from 'components/templates/page-container';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import FindEmailForm from './find-email-form';
 import FindPwdForm from './find-pwd-form';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
@@ -27,7 +27,7 @@ const FindView = () => {
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <Wrapper>
-                <Div variant="translucent" direction="column" width="700px" padding={24}>
+                <Div.Default variant="translucent" direction="column" width="700px" padding={24}>
                     {!authViewModel.toggle && (
                         <>
                             <FindEmailForm />
@@ -55,7 +55,7 @@ const FindView = () => {
                         </>
                     )}
 
-                    <Flex style={{ width: '300px' }}>
+                    <Flex.Default style={{ width: '300px' }}>
                         <Typography
                             as="p"
                             variant="BODY3"
@@ -78,8 +78,8 @@ const FindView = () => {
                         >
                             로그인 하기
                         </Typography>
-                    </Flex>
-                </Div>
+                    </Flex.Default>
+                </Div.Default>
             </Wrapper>
             <Styled.FindPlantImage src={Image} />
             <Styled.FindPlantImage src={Image} />

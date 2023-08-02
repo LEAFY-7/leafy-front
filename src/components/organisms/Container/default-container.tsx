@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
 import Box from 'components/atoms/Box/default-box';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import Hr from 'components/atoms/Hr/default-hr';
 import Typography from 'components/atoms/Typograph/default-typography';
 
@@ -187,12 +187,12 @@ const Container = Object.assign(ContainerWrapper, {
 
 export default Container;
 
-const HeaderWrapper = styled(Div)`
+const HeaderWrapper = styled(Div.Default)`
     padding-left: 24px;
     padding-right: 24px;
 `;
 
-const InnerWrapper = styled(Div)`
+const InnerWrapper = styled(Div.Default)`
     padding-left: 24px;
     padding-right: 24px;
 `;

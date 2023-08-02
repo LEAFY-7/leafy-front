@@ -7,7 +7,7 @@ import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextField from 'components/molecules/TextField/default-textField';
 
@@ -95,11 +95,16 @@ const SignInDefaultForm = () => {
                         </TextField>
                     )}
                 />
-                <Div id="submit_btn" width={100} padding={8} style={{ backgroundColor: 'transparent' }}>
+                <Div.Default
+                    id="submit_btn"
+                    width={100}
+                    padding={8}
+                    style={{ backgroundColor: 'transparent' }}
+                >
                     <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                         로그인하기
                     </SubmitButton>
-                </Div>
+                </Div.Default>
             </Wrapper>
         </form>
     );
@@ -111,7 +116,7 @@ const SubmitButton = styled(RectangleButton)`
     width: 100%;
 `;
 
-const Wrapper = styled(Flex)`
+const Wrapper = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
 `;

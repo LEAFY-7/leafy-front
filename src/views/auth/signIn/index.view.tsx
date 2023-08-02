@@ -5,12 +5,13 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import styled from '@emotion/styled';
 import * as Styled from './background.styles';
 
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import SignInDefaultForm from './signin-default-form';
 import PageContainer from 'components/templates/page-container';
 import pageUrlConfig from 'configs/pageUrl.config';
+import Flex from 'components/atoms/Group/flex';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -25,7 +26,7 @@ const SignInView = () => {
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <Wrapper>
-                <Div variant="translucent" direction="column" width="700px" padding={24}>
+                <Div.Default variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
                         as="span"
                         textAlign="center"
@@ -44,7 +45,7 @@ const SignInView = () => {
                     >
                         회원가입 바로가기
                     </RectangleButton>
-                    <Styled.ParallelToHorizon style={{ width: '300px' }}>
+                    <Flex.ParallelToHorizonOnTablet style={{ width: '300px' }}>
                         <Typography
                             as="p"
                             variant="BODY3"
@@ -67,8 +68,8 @@ const SignInView = () => {
                         >
                             아이디 찾기
                         </Typography>
-                    </Styled.ParallelToHorizon>
-                </Div>
+                    </Flex.ParallelToHorizonOnTablet>
+                </Div.Default>
                 <Styled.SignInPlantImage src={Image} />
                 <Styled.SignInPlantImage src={Image} />
             </Wrapper>

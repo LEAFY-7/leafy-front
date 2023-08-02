@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
-import * as Styled from './background.styles';
 
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
@@ -12,7 +11,7 @@ import { theme } from 'configs/ui.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
 import TextField from 'components/molecules/TextField/default-textField';
@@ -49,7 +48,7 @@ const SignUpAdditionalForm = () => {
         <>
             <form onSubmit={handleSubmit(authViewModel.handleSignUpAdditional)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
-                    <Styled.ParallelToHorizon>
+                    <Flex.ParallelToHorizonOnTablet>
                         <Controller
                             name={authItemState.phone.property}
                             control={control}
@@ -100,9 +99,9 @@ const SignUpAdditionalForm = () => {
                             control={control}
                             authItemState={authItemState.birthDay}
                         />
-                    </Styled.ParallelToHorizon>
+                    </Flex.ParallelToHorizonOnTablet>
 
-                    <Flex direction="column">
+                    <Flex.Default direction="column">
                         <label htmlFor="genderSelect">성별</label>
                         <Controller
                             name="gender"
@@ -127,7 +126,7 @@ const SignUpAdditionalForm = () => {
                                 </>
                             )}
                         />
-                    </Flex>
+                    </Flex.Default>
 
                     <AddressZoneWrapper justifyContent="space-between" alignItems="center">
                         <Controller
@@ -168,7 +167,7 @@ const SignUpAdditionalForm = () => {
                             주소
                         </AddressButton>
                     </AddressZoneWrapper>
-                    <Styled.ParallelToHorizon>
+                    <Flex.ParallelToHorizonOnTablet>
                         <Controller
                             name={authItemState.address.property}
                             control={control}
@@ -243,7 +242,7 @@ const SignUpAdditionalForm = () => {
                                 </TextField>
                             )}
                         />
-                    </Styled.ParallelToHorizon>
+                    </Flex.ParallelToHorizonOnTablet>
                     <Controller
                         name={authItemState.simpleIntroduction.property}
                         control={control}
@@ -275,14 +274,14 @@ const SignUpAdditionalForm = () => {
                             </>
                         )}
                     />
-                    <Div id="submit_btn" width={100} padding={8}>
+                    <Div.Default id="submit_btn" width={100} padding={8}>
                         <SubmitButton variant="default" isBorder onClick={authViewModel.handleToggle}>
                             이전
                         </SubmitButton>
                         <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                             회원가입
                         </SubmitButton>
-                    </Div>
+                    </Div.Default>
                 </Wrapper>
             </form>
         </>
@@ -295,7 +294,7 @@ const SubmitButton = styled(RectangleButton)`
     width: 100%;
 `;
 
-const Wrapper = styled(Flex)`
+const Wrapper = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
 `;
@@ -314,7 +313,7 @@ const ZoneCodeInput = styled(TextField.Input)`
         width: 300px;
     }
 `;
-const AddressZoneWrapper = styled(Flex)`
+const AddressZoneWrapper = styled(Flex.Default)`
     ${theme.mediaQuery.mobile} {
         flex-direction: row;
         width: 300px;

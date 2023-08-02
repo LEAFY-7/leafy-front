@@ -5,7 +5,7 @@ import { theme } from 'configs/ui.config';
 
 import PageContainer from 'components/templates/page-container';
 import DropButton from 'components/atoms/Button/drop-button';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
 import Box from 'components/atoms/Box/default-box';
 import Typography from 'components/atoms/Typograph/default-typography';
@@ -30,7 +30,7 @@ const MyView = () => {
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
-            <Flex style={{ width: '100%' }}>
+            <Flex.Default style={{ width: '100%' }}>
                 <BoxWithBackgroundImage
                     as="section"
                     height="280px"
@@ -50,16 +50,21 @@ const MyView = () => {
                     )}
                     <IntroductionBox>{user.simpleIntroduction}</IntroductionBox>
                 </BoxWithBackgroundImage>
-            </Flex>
+            </Flex.Default>
 
-            <Flex as="main" direction="column" alignItems="center" style={{ width: '100%' }}>
+            <Flex.Default as="main" direction="column" alignItems="center" style={{ width: '100%' }}>
                 <Container id="myInfo" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         나의 정보
                     </Container.Header>
                     <Container.Inner innerHeight={100} style={{ paddingRight: '0px' }}>
-                        <Div id="myInfo_wrapper" width={100} height={100} style={{ paddingLeft: '8px' }}>
-                            <Div
+                        <Div.Default
+                            id="myInfo_wrapper"
+                            width={100}
+                            height={100}
+                            style={{ paddingLeft: '8px' }}
+                        >
+                            <Div.Default
                                 id="myInfo_left"
                                 width={50}
                                 height={100}
@@ -103,16 +108,24 @@ const MyView = () => {
                                         {user.address}
                                     </Typography>
                                 </LabelWrapper>
-                                <Flex as="div" style={{ position: 'absolute', right: 0, bottom: '24px' }}>
+                                <Flex.Default
+                                    as="div"
+                                    style={{ position: 'absolute', right: 0, bottom: '24px' }}
+                                >
                                     <DropButton to={pageUrlConfig.myEdit}>내 정보 수정하러가기</DropButton>
-                                </Flex>
-                            </Div>
-                            <Div id="myInfo_right" width={50} padding={'8px'} justifyContent="flex-end">
-                                <Div size="xl" variant="translucent">
+                                </Flex.Default>
+                            </Div.Default>
+                            <Div.Default
+                                id="myInfo_right"
+                                width={50}
+                                padding={'8px'}
+                                justifyContent="flex-end"
+                            >
+                                <Div.Default size="xl" variant="translucent">
                                     그래프 위치
-                                </Div>
-                            </Div>
-                        </Div>
+                                </Div.Default>
+                            </Div.Default>
+                        </Div.Default>
                     </Container.Inner>
                 </Container>
 
@@ -152,7 +165,7 @@ const MyView = () => {
                     </Container.Header>
                     <Container.Inner innerHeight={100}>설정</Container.Inner>
                 </Container>
-            </Flex>
+            </Flex.Default>
         </PageContainer>
     );
 };
@@ -210,6 +223,6 @@ const Label = styled.label`
     color: ${theme.colors.grey};
 `;
 
-const LabelWrapper = styled(Flex)`
+const LabelWrapper = styled(Flex.Default)`
     margin-bottom: 16px;
 `;

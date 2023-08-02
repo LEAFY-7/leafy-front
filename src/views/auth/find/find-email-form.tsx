@@ -11,7 +11,6 @@ import { authFormState, authItemState } from 'configs/form.config';
 import TextField from 'components/molecules/TextField/default-textField';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const FindEmailForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -121,7 +120,7 @@ const FindEmailForm = () => {
 };
 export default observer(FindEmailForm);
 
-const FormContainer = styled(Flex)`
+const FormContainer = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
 `;

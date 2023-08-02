@@ -11,9 +11,8 @@ import { authFormState, authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import TextField from 'components/molecules/TextField/default-textField';
-import DropButton from 'components/atoms/Button/drop-button';
 
 const SignUpNecessaryForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -63,7 +62,7 @@ const SignUpNecessaryForm = () => {
                         </TextField>
                     )}
                 />
-                <Flex id="nickName_wrapper">
+                <Flex.Default id="nickName_wrapper">
                     <Controller
                         name={authItemState.nickName.property}
                         control={control}
@@ -111,8 +110,8 @@ const SignUpNecessaryForm = () => {
                     >
                         확인
                     </Styled.ParallelToHorizonButton>
-                </Flex>
-                <Flex>
+                </Flex.Default>
+                <Flex.Default>
                     <Controller
                         name={authItemState.email.property}
                         control={control}
@@ -156,7 +155,7 @@ const SignUpNecessaryForm = () => {
                     >
                         확인
                     </Styled.ParallelToHorizonButton>
-                </Flex>
+                </Flex.Default>
                 <Controller
                     name={authItemState.password.property}
                     control={control}
@@ -229,11 +228,11 @@ const SignUpNecessaryForm = () => {
                         </TextField>
                     )}
                 />
-                <Div id="submit_btn" width={100} padding={8}>
+                <Div.Default id="submit_btn" width={100} padding={8}>
                     <SubmitButton type="submit" variant="primary">
                         다음
                     </SubmitButton>
-                </Div>
+                </Div.Default>
             </Wrapper>
         </form>
     );
@@ -244,7 +243,7 @@ export default observer(SignUpNecessaryForm);
 const SubmitButton = styled(RectangleButton)`
     width: 100%;
 `;
-const Wrapper = styled(Flex)`
+const Wrapper = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
 `;

@@ -7,7 +7,7 @@ import { SignUphModel } from 'models/auth/signUp.model';
 
 import useToggle from 'hooks/useToggle';
 import { AuthItemType } from 'configs/form.config';
-import Flex from 'components/atoms/Group/flex';
+import Flex from 'components/atoms/Group/default-flex';
 import TextField from 'components/molecules/TextField/default-textField';
 
 interface Props<T extends keyof SignUphModel> {

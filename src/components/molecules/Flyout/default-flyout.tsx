@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { theme } from 'configs/ui.config';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 
 interface FlyoutContextProps {
@@ -148,7 +148,7 @@ const Wrapper = styled.span`
     position: relative;
 `;
 
-const ListWrapper = styled(Div)`
+const ListWrapper = styled(Div.Default)`
     position: absolute;
     top: 8px;
     left: 0px;
