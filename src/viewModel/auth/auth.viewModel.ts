@@ -84,7 +84,7 @@ export default class AuthViewModel extends DefaultViewModel {
     // 닉네임 중복 체크
     handleCheckNickName = () => {
         return this.api
-            .post('/v1/users/check/nickanme', {
+            .post('/v1/users/check/nickname', {
                 nickName: this.data.nickName,
             })
             .then((response: AxiosResponse) => {
