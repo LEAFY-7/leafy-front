@@ -1,5 +1,6 @@
 import { configure } from 'mobx';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import DefaultViewModel from 'viewModel/default.viewModel';
 import FeedViewModel from 'viewModel/feed/feed.viewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
@@ -23,6 +24,7 @@ export class RootStore {
     public feedViewModel: FeedViewModel;
     public myEditViewModel: MyEditViewModel;
     public noticeViewModel: NoticeViewModel;
+    public chatViewModel: ChatViewModel;
 
     constructor(initialData: MobxInitProps) {
         const initData = Object.assign(initialData, {});
@@ -35,6 +37,7 @@ export class RootStore {
         this.feedViewModel = new FeedViewModel(initData);
         this.myEditViewModel = new MyEditViewModel(initData);
         this.noticeViewModel = new NoticeViewModel(initData);
+        this.chatViewModel = new ChatViewModel(initData);
     }
 }
 
