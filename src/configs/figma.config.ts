@@ -10,7 +10,7 @@ export const TokenGlobalColor = {
     lgrey: global['greyscale-light-grey'].value,
     black: global['greyscale-dark'].value,
     grey: global['greyscale-dark-grey'].value,
-    blossom: global['semantic-import'].value,
+    blossom: global['bg-chat'].value,
 } as const;
 
 export const TokenGlobalLineHeight = {

@@ -45,7 +45,11 @@ const routeConfig = [
                 element: <NormalRoute allowedRoles={['NORMAL']} />,
                 children: [{ path: '', element: <SignUpView /> }],
             },
-            { path: `${pageUrlConfig.auth}${pageUrlConfig.find}`, element: <FindView /> },
+            {
+                path: `${pageUrlConfig.auth}${pageUrlConfig.find}`,
+                element: <NormalRoute allowedRoles={['NORMAL']} />,
+                children: [{ path: '', element: <FindView /> }],
+            },
             { path: `${pageUrlConfig.feedDetail}/:id`, element: <FeedDetailView /> },
             { path: pageUrlConfig.search, element: <SearchView /> },
             { path: pageUrlConfig.notice, element: <NoticeView /> },

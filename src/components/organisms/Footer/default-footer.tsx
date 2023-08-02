@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { BsInstagram } from 'react-icons/bs';
 import { AiFillFacebook, AiFillGithub } from 'react-icons/ai';
@@ -14,7 +13,7 @@ const publicURL = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
 const DefaultFooter = () => {
     return (
         <Wrapper>
-            <NavContainer as="nav" justifyContent="space-between" alignItems="center">
+            <Flex.ParallelToHorizonOnMobile as="nav" justifyContent="space-between" alignItems="center">
                 <IntroWrapper justifyContent="center" alignItems="center">
                     <LinkWrapper>
                         <img src={publicURL} style={{ width: '50px', height: '50px' }} />
@@ -43,10 +42,10 @@ const DefaultFooter = () => {
                         <AiFillGithub />
                     </IconButton>
                 </LinkContainer>
-            </NavContainer>
+            </Flex.ParallelToHorizonOnMobile>
             <Hr />
-            <Flex direction="column" style={{ padding: '16px' }}>
-                <Flex>
+            <Flex.Default direction="column" style={{ padding: '16px' }}>
+                <Flex.Default>
                     <Typography
                         as="p"
                         variant="BODY3"
@@ -61,14 +60,14 @@ const DefaultFooter = () => {
                     <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                         | 경기도 부천시 상동 546-10 월드프라자 6층 603호
                     </Typography>
-                </Flex>
+                </Flex.Default>
                 <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                     제2023-xxxxxx-xx-x-xxxxx호 | 사업자등록번호 : 123-45-6789 | 010-1234-5678
                 </Typography>
                 <Typography as="p" variant="BODY2" fontSize="sm" color="black">
                     &copy; 2023 Leafyer . All rights reserved.
                 </Typography>
-            </Flex>
+            </Flex.Default>
         </Wrapper>
     );
 };
@@ -77,7 +76,7 @@ export default DefaultFooter;
 
 const Wrapper = styled.footer`
     width: 100%;
-    height: 120px;
+    height: 100px;
     background-color: ${theme.palette.bgColor};
     display: flex;
     padding: 8px calc((100% - 1080px) / 2);
@@ -105,18 +104,7 @@ const IconButton = styled(RectangleButton)`
     padding: 0;
 `;
 
-const NavContainer = styled(Flex)`
-    ${theme.mediaQuery.mobile} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.tablet} {
-        flex-direction: row;
-    }
-    ${theme.mediaQuery.desktop} {
-        flex-direction: row;
-    }
-`;
-const IntroWrapper = styled(Flex)`
+const IntroWrapper = styled(Flex.Default)`
     ${theme.mediaQuery.mobile} {
         width: 100%;
         justify-content: flex-start;
@@ -130,7 +118,7 @@ const IntroWrapper = styled(Flex)`
     }
 `;
 
-const LinkContainer = styled(Flex)`
+const LinkContainer = styled(Flex.Default)`
     ${theme.mediaQuery.mobile} {
         display: none;
     }

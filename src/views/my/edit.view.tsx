@@ -13,12 +13,11 @@ import Container from 'components/organisms/Container/default-container';
 import InputCalender from 'components/organisms/Calender/input-calender';
 import TextField from 'components/molecules/TextField/default-textField';
 import Flex from 'components/atoms/Group/flex';
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Textarea from 'components/atoms/Textarea/default-textarea';
 import DropButton from 'components/atoms/Button/drop-button';
-import DropDiv from 'components/atoms/Div/drop-div';
 import RoundButton from 'components/atoms/Button/round-button';
 import { theme } from 'configs/ui.config';
 
@@ -62,7 +61,7 @@ const MyEditView = () => {
                     <InnerWrapper justifyContent="space-between">
                         <LeftSection width={25} direction="column">
                             <img src={`${publicURL}/image/default/default-user-img.svg`} />
-                            <DropDiv
+                            <Div.Drop
                                 size="xxs"
                                 style={{
                                     position: 'absolute',
@@ -71,7 +70,7 @@ const MyEditView = () => {
                                 }}
                             >
                                 <FcAddImage />
-                            </DropDiv>
+                            </Div.Drop>
                             <RoundButton variant="default" isBorder>
                                 사진 저장
                             </RoundButton>
@@ -290,7 +289,7 @@ const MyEditView = () => {
                                         </TextField>
                                     )}
                                 />
-                                <PhoneGenderWrapper>
+                                <Flex.ParallelToHorizonOnTablet>
                                     <Controller
                                         name={authItemState.phone.property}
                                         control={control}
@@ -335,7 +334,7 @@ const MyEditView = () => {
                                             </TextField>
                                         )}
                                     />
-                                    <Flex direction="column">
+                                    <Flex.Default direction="column">
                                         <label htmlFor="genderSelect">성별</label>
                                         <Controller
                                             name="gender"
@@ -364,8 +363,8 @@ const MyEditView = () => {
                                                 </>
                                             )}
                                         />
-                                    </Flex>
-                                </PhoneGenderWrapper>
+                                    </Flex.Default>
+                                </Flex.ParallelToHorizonOnTablet>
                                 <InputCalender
                                     name={authItemState.birthDay.property}
                                     placeholder={authItemState.birthDay.placeHolder}
@@ -410,7 +409,7 @@ const MyEditView = () => {
                                     />
                                     <AddressButton variant="primary">주소</AddressButton>
                                 </AddressZoneWrapper>
-                                <AddressWrapper>
+                                <Flex.ParallelToHorizonOnTablet>
                                     <Controller
                                         name={authItemState.address.property}
                                         control={control}
@@ -496,7 +495,7 @@ const MyEditView = () => {
                                             </TextField>
                                         )}
                                     />
-                                </AddressWrapper>
+                                </Flex.ParallelToHorizonOnTablet>
                                 <Controller
                                     name={authItemState.simpleIntroduction.property}
                                     control={control}
@@ -543,7 +542,7 @@ const MyEditView = () => {
 
 export default observer(MyEditView);
 
-const InnerWrapper = styled(Flex)`
+const InnerWrapper = styled(Flex.Default)`
     width: 100%;
     position: relative;
     ${theme.mediaQuery.mobile} {
@@ -559,7 +558,7 @@ const InnerWrapper = styled(Flex)`
         justify-content: space-between;
     }
 `;
-const LeftSection = styled(Div)`
+const LeftSection = styled(Div.Default)`
     position: relative;
 
     ${theme.mediaQuery.mobile} {
@@ -574,7 +573,7 @@ const LeftSection = styled(Div)`
     }
 `;
 
-const RightSection = styled(Div)`
+const RightSection = styled(Div.Default)`
     ${theme.mediaQuery.mobile} {
         width: 100%;
     }
@@ -588,36 +587,14 @@ const RightSection = styled(Div)`
 
 const AddressButton = styled(RectangleButton)`
     transform: translateY(10%);
-
-    ${theme.mediaQuery.mobile} {
-        width: max-content;
-        display: flex;
-    }
-    ${theme.mediaQuery.tablet} {
-        width: max-content;
-        display: flex;
-    }
-    ${theme.mediaQuery.desktop} {
-        width: max-content;
-        display: flex;
-    }
+    width: max-content;
+    display: flex;
 `;
 const SubmitButton = styled(DropButton)`
     transform: translateX(500%);
 `;
 
-const PhoneGenderWrapper = styled(Flex)`
-    ${theme.mediaQuery.mobile} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.tablet} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.desktop} {
-        flex-direction: row;
-    }
-`;
-const AddressZoneWrapper = styled(Flex)`
+const AddressZoneWrapper = styled(Flex.Default)`
     ${theme.mediaQuery.mobile} {
         flex-direction: row;
         width: 300px;
@@ -629,18 +606,6 @@ const AddressZoneWrapper = styled(Flex)`
     ${theme.mediaQuery.desktop} {
         flex-direction: row;
         width: 300px;
-    }
-`;
-
-const AddressWrapper = styled(Flex)`
-    ${theme.mediaQuery.mobile} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.tablet} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.desktop} {
-        flex-direction: row;
     }
 `;
 

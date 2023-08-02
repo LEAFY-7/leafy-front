@@ -120,7 +120,7 @@ const FindPwdForm = () => {
 
 export default observer(FindPwdForm);
 
-const FormContainer = styled(Flex)`
+const FormContainer = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
 `;

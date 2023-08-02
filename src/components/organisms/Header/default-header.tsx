@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { AiOutlineBell, AiOutlineUser } from 'react-icons/ai';
 
-import { UserDto } from 'dto/user/user.dto';
 import tokenModule from 'modules/token.module';
 import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
@@ -13,7 +12,6 @@ import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import Flyout from 'components/molecules/Flyout/default-flyout';
-import UserProfile from 'components/organisms/Profile/user-profile';
 
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
 
@@ -39,7 +37,7 @@ const DefaultHeader = () => {
                         <img src={`${publicURL}/image/logo/header-logo.svg`} />
                     </LinkWrapper>
                 </div>
-                <Flex justifyContent="center" alignItems="center" style={{ position: 'relative' }}>
+                <Flex.Default justifyContent="center" alignItems="center" style={{ position: 'relative' }}>
                     {!auth.userAuth ? (
                         <>
                             <RectangleButton
@@ -101,7 +99,7 @@ const DefaultHeader = () => {
                             </Flyout>
                         </>
                     )}
-                </Flex>
+                </Flex.Default>
             </HeaderWrap>
         </HeaderContainer>
     );

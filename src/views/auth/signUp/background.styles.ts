@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { theme } from 'configs/ui.config';
-import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const signUpFirstAnimation = keyframes`
@@ -64,18 +63,6 @@ export const SignUpPlantImage = styled.img`
     }
     ${theme.mediaQuery.desktop} {
         display: flex;
-    }
-`;
-
-export const ParallelToHorizon = styled(Flex)`
-    ${theme.mediaQuery.mobile} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.tablet} {
-        flex-direction: column;
-    }
-    ${theme.mediaQuery.desktop} {
-        flex-direction: row;
     }
 `;
 

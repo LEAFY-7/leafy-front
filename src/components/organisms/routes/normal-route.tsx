@@ -7,9 +7,9 @@ import { AllowedRole } from './index.types';
 const NormalRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
     const location = useLocation();
     const auth = React.useMemo(() => tokenModule.get(), [location]);
+
     if (
-        (location.pathname.includes(`${pageUrlConfig.auth}${pageUrlConfig.signIn}`) ||
-            location.pathname.includes(`${pageUrlConfig.auth}${pageUrlConfig.signUp}`)) &&
+        location.pathname.split('/')[1] === 'auth' &&
         ![auth.userAuth || 'NORMAL']?.some((role: AllowedRole) => allowedRoles?.includes(role))
     ) {
         return <Navigate to={`${pageUrlConfig.main}`} />;

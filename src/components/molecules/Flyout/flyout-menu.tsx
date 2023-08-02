@@ -29,14 +29,14 @@ const FlyoutMenu = ({ toggleEl, user, userShowState = true }: Props) => {
                 <List size="xl" variant="default">
                     <Header>
                         <TextAvatar text={user?.name || '기본 이름'} />
-                        <Flex direction="column">
+                        <Flex.Default direction="column">
                             <Typography variant="BODY2" marginLeft={8}>
                                 {user?.name || '기본 이름'}
                             </Typography>
                             <Typography variant="BODY2" marginLeft={8}>
                                 {userShowState ? '공개' : '비공개'}
                             </Typography>
-                        </Flex>
+                        </Flex.Default>
                     </Header>
                     <Item to={pageUrlConfig.feed}>게시글 보러가기</Item>
                     <Item to={pageUrlConfig.chat}>채팅하기 </Item>

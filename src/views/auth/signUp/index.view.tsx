@@ -5,7 +5,7 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import styled from '@emotion/styled';
 import * as Styled from './background.styles';
 
-import Div from 'components/atoms/Div/default-div';
+import Div from 'components/atoms/Div/div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
 import SignUpNecessaryForm from './signup-necessary-form';
@@ -26,7 +26,7 @@ const SignUpView = () => {
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <Wrapper>
-                <Div variant="translucent" direction="column" width="700px" padding={24}>
+                <Div.Default variant="translucent" direction="column" width="700px" padding={24}>
                     <Typography
                         as="span"
                         textAlign="center"
@@ -46,7 +46,7 @@ const SignUpView = () => {
                     >
                         로그인 바로가기
                     </RectangleButton>
-                </Div>
+                </Div.Default>
                 <Styled.SignUpPlantImage src={Image} />
                 <Styled.SignUpPlantImage src={Image} />
             </Wrapper>

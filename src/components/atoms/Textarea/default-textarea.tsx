@@ -6,10 +6,18 @@ import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
 import textareaStyle from './textarea.style';
 
+export type TextareaVariant = 'default' | 'primary' | 'secondary';
+export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 interface TextareaProps {
-    fontSize: keyof typeof theme.fontSize;
-    color: keyof typeof theme.colors;
-    placeholderColor: keyof typeof theme.colors;
+    value?: HTMLTextAreaElement['value'];
+    name?: HTMLTextAreaElement['name'];
+    variant?: TextareaVariant;
+    size?: TextareaSize;
+
+    fontSize?: keyof typeof theme.fontSize;
+    color?: keyof typeof theme.colors;
+    placeholderColor?: keyof typeof theme.colors;
     fontWeight?: keyof typeof theme.fontWeight;
     backgroundColor?: keyof typeof theme.colors;
     borderColor?: keyof typeof theme.colors;
@@ -25,20 +33,13 @@ interface TextareaProps {
     opacity?: number;
     textAlign?: CSSProperties['textAlign'];
     letterSpacing?: CSSProperties['letterSpacing'];
-    width?: CSSProperties['width'] | number;
-    height?: CSSProperties['height'] | number;
+    width?: CSSProperties['width'];
+    height?: CSSProperties['height'];
     boxShadow?: CSSProperties['boxShadow'];
     radius?: number;
     isBorder?: boolean;
 }
-interface Props
-    extends Partial<TextareaProps>,
-        Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLTextAreaElement>, 'color'> {
-    value?: string | number;
-    name?: string;
-    variant?: 'default' | 'primary' | 'secondary';
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-}
+type Props = React.PropsWithChildren<TextareaProps> & HTMLAttributes<HTMLTextAreaElement>;
 
 const Textarea = React.forwardRef(function Textarea(
     {
@@ -73,9 +74,7 @@ const Textarea = React.forwardRef(function Textarea(
     forwardedRef: React.Ref<HTMLTextAreaElement>,
 ) {
     const { width: w, height: h, fontSize: newFontSize, radius, borderWidth } = textareaStyle.sizeBox[size];
-
     const textareaVariant = useVariant({ variant: variant, callback: textareaStyle.variantStyles });
-
     const defaultTextareaStyle = css`
         width: ${width === 'inherit' ? w + 'px' : typeof width === 'number' ? `${width}%` : width};
         height: ${height === 'inherit' ? h + 'px' : typeof height === 'number' ? `${height}%` : height};

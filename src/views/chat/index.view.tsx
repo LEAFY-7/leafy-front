@@ -1,95 +1,111 @@
-import React from 'react';
 // import io from 'socket.io-client';
+import { observer } from 'mobx-react';
 import PageContainer from 'components/templates/page-container';
-import TextField from 'components/molecules/TextField/default-textField';
-import { Controller, useForm } from 'react-hook-form';
-import { SignUphModel } from 'models/auth/signUp.model';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import ChatViewModel from 'viewModel/chat/chat.viewModel';
 
+import styled from '@emotion/styled';
+import { theme } from 'configs/ui.config';
+
+import ChatList from './chat-list';
+import ChatRoom from './chat-room';
+import useWindowSize from 'hooks/useWindowSize';
 // let socket;
 
 const ChatView = () => {
+    const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
+    const windowSize = useWindowSize();
     // const ENDPOINT = 'http://localhost:5000/chat';
     // React.useEffect(() => {
     //     socket = io(ENDPOINT);
     //     console.log(socket);
 
     //     socket.emit('join', { name, room });
-    // }, [ENDPOINT]);
+    // }, [ENDPOINT]);s
 
-    const {
-        control,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<SignUphModel>({
-        defaultValues: {
-            name: '',
-            nickName: '',
-        },
-    });
-
-    const handleFormSubmit = (data) => {
-        console.log(data);
-    };
-
-    console.log(errors);
     return (
-        <PageContainer>
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <Controller
-                    name={'name'}
-                    control={control}
-                    defaultValue={''}
-                    rules={{
-                        required: '이름 입력은 필수 입니다.',
-                        minLength: {
-                            value: 2,
-                            message: '최소 2자리 이상 입력하셔야 합니다.',
-                        },
-                        maxLength: {
-                            value: 4,
-                            message: '최대 20자리 이하 입력하세야 합니다.',
-                        },
-                    }}
-                    render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                        <>
-                            <TextField error={!!error} disabled>
-                                <TextField.Wrapper style={{ height: '100px' }}>
-                                    <TextField.Label>아이디</TextField.Label>
-                                    <TextField.Container
-                                        id="input_container"
-                                        rightIcon={<RiLockPasswordLine />}
-                                    >
-                                        <TextField.Input
-                                            value={value}
-                                            type="text"
-                                            placeholder="안녕하세여"
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const { value } = e.target;
-                                                onChange(value);
-                                            }}
-                                            style={{ width: '300px' }}
-                                        />
-                                    </TextField.Container>
-                                    <TextField.HelperText
-                                        leftIcon={<RiLockPasswordLine />}
-                                        style={{ padding: '0 8px' }}
-                                    >
-                                        {error?.message}
-                                    </TextField.HelperText>
-                                </TextField.Wrapper>
-                            </TextField>
-                        </>
+        <PageContainer
+            style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                paddingTop: '4rem',
+            }}
+        >
+            {windowSize.width > 700 ? (
+                <>
+                    <LeftSection id="chat_list_section">
+                        <ChatList />
+                    </LeftSection>
+
+                    <RightSection id="chat_room_section">
+                        <ChatRoom />
+                    </RightSection>
+                </>
+            ) : (
+                <>
+                    {!chatViewModel.currentId && (
+                        <LeftSection id="chat_list_section">
+                            <ChatList />
+                        </LeftSection>
                     )}
-                />
-                <RectangleButton type="submit" variant="primary">
-                    버튼
-                </RectangleButton>
-            </form>
+
+                    {chatViewModel.currentId ? (
+                        <RightSection id="chat_room_section">
+                            <ChatRoom />
+                        </RightSection>
+                    ) : null}
+                </>
+            )}
         </PageContainer>
     );
 };
 
-export default ChatView;
+export default observer(ChatView);
+
+const CommonSection = styled.section`
+    height: 800px;
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: ${theme.colors.lgrey_50};
+    }
+
+    ::-webkit-scrollbar-thumb {
+        width: 10px;
+        background-color: ${theme.colors.lgrey};
+    }
+`;
+
+const LeftSection = styled(CommonSection)`
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 8px;
+
+    ${theme.mediaQuery.mobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: 400px;
+        align-items: center;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 300px;
+    }
+`;
+const RightSection = styled(CommonSection)`
+    box-sizing: border-box;
+    overflow: hidden;
+    /* ${theme.mediaQuery.mobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.tablet} {
+        width: auto;
+    }
+    ${theme.mediaQuery.desktop} {
+        width: 700px;
+    } */
+`;

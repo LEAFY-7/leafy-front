@@ -17,4 +17,5 @@ export enum ViewModelName {
     FEED = 'feedViewModel',
     MY_EDIT = 'myEditViewModel',
     NOTICE = 'noticeViewModel',
+    CHAT = 'chatViewModel',
 }

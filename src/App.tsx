@@ -16,7 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'react-calendar/dist/Calendar.css';
+import 'swiper/css/effect-fade';
+import 'swiper/swiper-bundle.css';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
