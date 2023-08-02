@@ -1,47 +1,40 @@
-/** @jsxImportSource @emotion/react */
-import React, { CSSProperties, HTMLAttributes } from 'react';
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import DefaultFlex from './default-flex';
 import { theme } from 'configs/ui.config';
 
-export interface FlexProps {
-    as?: 'div' | 'span' | 'main' | 'nav';
-    display?: 'flex' | 'inline-flex';
-    direction?: CSSProperties['flexDirection'];
-    wrap?: CSSProperties['flexWrap'];
-    justifyContent?: CSSProperties['justifyContent'];
-    alignItems?: CSSProperties['alignItems'];
-    alignContent?: CSSProperties['alignContent'];
-}
+/**
+ * 테블릿 환경일 때, direction을 row -> column 변경
+ */
+const ParallelToHorizonOnTablet = styled(DefaultFlex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+/**
+ * 모바일 환경일 때, direction을 row -> column 변경
+ */
+const ParallelToHorizonOnMobile = styled(DefaultFlex)`
+    ${theme.mediaQuery.mobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.tablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
 
-export interface Props extends HTMLAttributes<HTMLElement>, FlexProps {
-    id?: string;
-}
-
-const Flex = ({
-    id,
-    as: Component = 'span',
-    display = 'flex',
-    direction = 'row',
-    wrap = 'nowrap',
-    justifyContent = 'flex-start',
-    alignItems = 'flex-start',
-    alignContent = 'normal',
-    children,
-    ...rest
-}: React.PropsWithChildren<Props>) => {
-    const defaultFlexStyle = css`
-        display: ${display};
-        flex-direction: ${direction};
-        flex-wrap: ${wrap};
-        justify-content: ${justifyContent};
-        align-items: ${alignItems};
-        align-content: ${alignContent};
-    `;
-    return (
-        <Component id={id} css={defaultFlexStyle} {...rest}>
-            {children}
-        </Component>
-    );
+const Flex = {
+    Default: DefaultFlex,
+    ParallelToHorizonOnTablet: ParallelToHorizonOnTablet,
+    ParallelToHorizonOnMobile: ParallelToHorizonOnMobile,
 };
 
 export default Flex;

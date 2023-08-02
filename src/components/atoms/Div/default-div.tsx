@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { CSSProperties, HTMLAttributes } from 'react';
+import React, { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import { css } from '@emotion/react';
 import { theme } from 'configs/ui.config';
 import useVariant from 'hooks/useVariant';
@@ -37,37 +37,41 @@ interface DivProps {
 }
 
 type Props = React.PropsWithChildren<DivProps> & HTMLAttributes<HTMLDivElement>;
-const Div = ({
-    id,
-    size = 'default',
-    variant = 'default',
-    isBorder = false,
-    display = 'flex',
-    justifyContent = 'center',
-    alignItems = 'center',
-    direction = 'row',
-    width = 'inherit',
-    height = 'inherit',
-    minWidth = 'inherit',
-    maxWidth = 'inherit',
-    maxHeight = 'inherit',
-    minHeight = 'inherit',
-    overflowX = 'auto',
-    overflowY = 'auto',
-    padding = 0,
-    marginTop = 0,
-    marginRight = 0,
-    marginBottom = 0,
-    marginLeft = 0,
-    margin = 0,
-    backgroundColor = 'inherit',
-    borderColor = 'inherit',
-    color = 'inherit',
-    showScroll = false,
-    textAlign = 'left',
-    children,
-    ...rest
-}: Props) => {
+
+const DefaultDiv = React.forwardRef(function Div(
+    {
+        id,
+        size = 'default',
+        variant = 'default',
+        isBorder = false,
+        display = 'flex',
+        justifyContent = 'center',
+        alignItems = 'center',
+        direction = 'row',
+        width = 'inherit',
+        height = 'inherit',
+        minWidth = 'inherit',
+        maxWidth = 'inherit',
+        maxHeight = 'inherit',
+        minHeight = 'inherit',
+        overflowX = 'auto',
+        overflowY = 'auto',
+        padding = 0,
+        marginTop = 0,
+        marginRight = 0,
+        marginBottom = 0,
+        marginLeft = 0,
+        margin = 0,
+        backgroundColor = 'inherit',
+        borderColor = 'inherit',
+        color = 'inherit',
+        showScroll = false,
+        textAlign = 'left',
+        children,
+        ...rest
+    }: Props,
+    forwardedRef: React.Ref<HTMLDivElement>,
+) {
     const {
         width: w,
         height: h,
@@ -109,9 +113,9 @@ const Div = ({
         ${divVariants}
     `;
     return (
-        <div id={id} css={defaultBoxStyle} {...rest}>
+        <div id={id} css={defaultBoxStyle} ref={forwardedRef} {...rest}>
             {children}
         </div>
     );
-};
-export default Div;
+});
+export default DefaultDiv;
