@@ -6,6 +6,7 @@ import MainViewModel from 'viewModel/main/main.viewModel';
 import MyEditViewModel from 'viewModel/my/edit.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 let store: any = null;
 configure({ enforceActions: 'observed' });
@@ -21,6 +22,7 @@ export class RootStore {
     public userViewModel: UserViewModel;
     public feedViewModel: FeedViewModel;
     public myEditViewModel: MyEditViewModel;
+    public noticeViewModel: NoticeViewModel;
 
     constructor(initialData: MobxInitProps) {
         const initData = Object.assign(initialData, {});
@@ -32,6 +34,7 @@ export class RootStore {
         this.userViewModel = new UserViewModel(initData);
         this.feedViewModel = new FeedViewModel(initData);
         this.myEditViewModel = new MyEditViewModel(initData);
+        this.noticeViewModel = new NoticeViewModel(initData);
     }
 }
 
