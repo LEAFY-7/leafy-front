@@ -14,10 +14,13 @@ interface HeaderProps extends Pick<ContextProps, 'height'> {}
 interface BodyProps extends Pick<ContextProps, 'height'> {
     targetRef?: React.MutableRefObject<HTMLDivElement>;
 }
-interface YouMessageProps {
+interface CommonMessageProps {
+    isMe?: boolean;
+}
+interface YouMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
 }
-interface MeMessageProps {
+interface MeMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
 }
 interface FooterProps extends Pick<ContextProps, 'height'> {}
@@ -85,18 +88,18 @@ const ChatRoomFooter = ({ children, ...rest }: ChatRoomFooterProps) => {
 };
 
 // YouMessage
-const ChatRoomYouMessage = ({ id = '', children, ...rest }: ChatRoomYouMessageProps) => {
+const ChatRoomYouMessage = ({ isMe = false, id = '', children, ...rest }: ChatRoomYouMessageProps) => {
     return (
-        <MessageWrapper id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <YouMessage {...rest}>{children}</YouMessage>
         </MessageWrapper>
     );
 };
 
 // MeMessage
-const ChatRoomMeMessage = ({ id = '', children, ...rest }: ChatRoomMeMessageProps) => {
+const ChatRoomMeMessage = ({ isMe = true, id = '', children, ...rest }: ChatRoomMeMessageProps) => {
     return (
-        <MessageWrapper id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <MeMessage {...rest}>{children}</MeMessage>
         </MessageWrapper>
     );
@@ -138,7 +141,7 @@ const Body = styled.section<BodyProps>`
     width: 100%;
     height: ${({ height }) => `calc(${height} / 6 * 4)`};
     background-color: #fff8f8;
-    gap: 10px;
+    gap: 16px;
     overflow-y: scroll;
     padding: 8px 16px;
 
@@ -160,31 +163,60 @@ const Footer = styled.footer<FooterProps>`
     box-sizing: border-box;
 `;
 // Message Style
-const MessageWrapper = styled.div`
+const MessageWrapper = styled.div<CommonMessageProps>`
     position: relative;
     box-sizing: border-box;
     margin: 16px;
-
-    height: 100px;
     border-radius: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: ${({ isMe }) => (isMe ? 'flex-end' : 'flex-start')};
+    min-height: 40px;
 `;
-
-const YouMessage = styled.span`
-    position: absolute;
+const MessageBase = styled.span`
     max-width: 60%;
-    left: 0;
     padding: 16px 8px;
-    background-color: ${theme.colors.lgrey};
     border-radius: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+`;
+const YouMessage = styled(MessageBase)`
+    background-color: ${theme.colors.lgrey};
 `;
 
-const MeMessage = styled.span`
-    position: absolute;
-    max-width: 60%;
-
-    right: 0;
-    padding: 16px 8px;
+const MeMessage = styled(MessageBase)`
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
-    border-radius: 20px;
 `;
+
+// const MessageWrapper = styled.div`
+//     position: relative;
+//     box-sizing: border-box;
+//     margin: 16px;
+//     border-radius: 8%;
+
+//     height: 100px;
+// `;
+
+// const YouMessage = styled.span`
+//     position: absolute;
+//     max-width: 60%;
+//     left: 0;
+//     padding: 16px 8px;
+//     background-color: ${theme.colors.lgrey};
+//     border-radius: 20px;
+//     word-wrap: break-word;
+// `;
+
+// const MeMessage = styled.span`
+//     position: absolute;
+//     max-width: 60%;
+//     display: block;
+
+//     right: 0;
+//     padding: 16px 8px;
+//     background-color: ${theme.colors.secondary};
+//     color: ${theme.colors.white};
+//     border-radius: 20px;
+//     word-wrap: break-word;
+// `;
