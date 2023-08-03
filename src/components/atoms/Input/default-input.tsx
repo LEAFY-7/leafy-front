@@ -77,6 +77,8 @@ const Input = styled.input<Required<InputStyleProps>>`
         `}
 
     &::placeholder {
+        color: ${({ theme }) => theme.colors.grey};
+
         ${theme.mediaQuery.xsMobile} {
             font-size: ${theme.fontSize.xxs};
         }
