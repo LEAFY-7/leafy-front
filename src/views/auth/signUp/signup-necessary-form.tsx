@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
-import * as Styled from './background.styles';
 
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
@@ -11,8 +10,8 @@ import { authFormState, authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/div';
 import TextField from 'components/molecules/TextField/default-textField';
+import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 const SignUpNecessaryForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -28,6 +27,7 @@ const SignUpNecessaryForm = () => {
     return (
         <form onSubmit={handleSubmit(authViewModel.handleSignUpNecessary)} noValidate>
             <Wrapper id="form_wrapper" direction="column">
+                {/* 이름 */}
                 <Controller
                     name={authItemState.name.property}
                     control={control}
@@ -35,7 +35,7 @@ const SignUpNecessaryForm = () => {
                     rules={authFormState.name}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label required>{authItemState.name.label}</TextField.Label>
                                 <TextField.Container
                                     id="name_container"
@@ -49,7 +49,6 @@ const SignUpNecessaryForm = () => {
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width: '300px' }}
                                     />
                                 </TextField.Container>
                                 <TextField.HelperText
@@ -58,11 +57,13 @@ const SignUpNecessaryForm = () => {
                                 >
                                     {error?.message}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
                     )}
                 />
-                <Flex.Default id="nickName_wrapper">
+                {/* 이름 */}
+                <Flex.TextFieldFlexWrapper>
+                    {/* 닉네임 */}
                     <Controller
                         name={authItemState.nickName.property}
                         control={control}
@@ -71,7 +72,7 @@ const SignUpNecessaryForm = () => {
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <>
                                 <TextField error={!!error}>
-                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                    <TextField.Wrapper style={{ height: '100px', width: '80%' }}>
                                         <TextField.Label required>
                                             {authItemState.nickName.label}
                                         </TextField.Label>
@@ -88,7 +89,6 @@ const SignUpNecessaryForm = () => {
                                                     onChange(value);
                                                     authViewModel.handleInputChange('nickName', value);
                                                 }}
-                                                style={{ width: '230px' }}
                                             />
                                         </TextField.Container>
                                         <TextField.HelperText
@@ -102,16 +102,19 @@ const SignUpNecessaryForm = () => {
                             </>
                         )}
                     />
-                    <Styled.ParallelToHorizonButton
+                    <RectangleButton
                         variant="secondary"
                         size="sm"
-                        style={{ margin: 0 }}
+                        style={{ width: '15%', height: '30px', transform: 'translateY(110%)' }}
                         onClick={authViewModel.handleCheckNickName}
                     >
                         확인
-                    </Styled.ParallelToHorizonButton>
-                </Flex.Default>
-                <Flex.Default>
+                    </RectangleButton>
+                    {/* 닉네임 */}
+                </Flex.TextFieldFlexWrapper>
+
+                <Flex.TextFieldFlexWrapper>
+                    {/* 이메일 */}
                     <Controller
                         name={authItemState.email.property}
                         control={control}
@@ -119,7 +122,7 @@ const SignUpNecessaryForm = () => {
                         rules={authFormState.email}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <TextField error={!!error}>
-                                <TextField.Wrapper style={{ height: '100px' }}>
+                                <TextField.Wrapper style={{ height: '100px', width: '80%' }}>
                                     <TextField.Label required>{authItemState.email.label}</TextField.Label>
                                     <TextField.Container
                                         id="email_container"
@@ -134,7 +137,6 @@ const SignUpNecessaryForm = () => {
                                                 onChange(value);
                                                 authViewModel.handleInputChange('email', value);
                                             }}
-                                            style={{ width: '230px' }}
                                         />
                                     </TextField.Container>
                                     <TextField.HelperText
@@ -147,15 +149,17 @@ const SignUpNecessaryForm = () => {
                             </TextField>
                         )}
                     />
-                    <Styled.ParallelToHorizonButton
+                    <RectangleButton
                         variant="secondary"
                         size="sm"
-                        style={{ margin: 0 }}
+                        style={{ width: '15%', height: '30px', transform: 'translateY(110%)' }}
                         onClick={authViewModel.handleCheckEmail}
                     >
                         확인
-                    </Styled.ParallelToHorizonButton>
-                </Flex.Default>
+                    </RectangleButton>
+                    {/* 이메일 */}
+                </Flex.TextFieldFlexWrapper>
+                {/* 비밀번호 */}
                 <Controller
                     name={authItemState.password.property}
                     control={control}
@@ -163,7 +167,7 @@ const SignUpNecessaryForm = () => {
                     rules={authFormState.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label required>{authItemState.password.label}</TextField.Label>
                                 <TextField.Container
                                     id="password_container"
@@ -177,7 +181,6 @@ const SignUpNecessaryForm = () => {
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width: '300px' }}
                                     />
                                 </TextField.Container>
                                 <TextField.HelperText
@@ -186,10 +189,12 @@ const SignUpNecessaryForm = () => {
                                 >
                                     {error?.message}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
                     )}
                 />
+                {/* 비밀번호 */}
+                {/* 비밀번호 확인 */}
                 <Controller
                     name={authItemState.confirmPassword.property}
                     control={control}
@@ -199,12 +204,12 @@ const SignUpNecessaryForm = () => {
                     )}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label required>
                                     {authItemState.confirmPassword.label}
                                 </TextField.Label>
                                 <TextField.Container
-                                    id="password_container"
+                                    id="confirmPassword_container"
                                     leftIcon={authItemState.confirmPassword.icon.main}
                                 >
                                     <TextField.Input
@@ -215,7 +220,6 @@ const SignUpNecessaryForm = () => {
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width: '300px' }}
                                     />
                                 </TextField.Container>
                                 <TextField.HelperText
@@ -224,15 +228,24 @@ const SignUpNecessaryForm = () => {
                                 >
                                     {error?.message || '비밀번호가 일치하지 않습니다.'}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
                     )}
                 />
-                <Div.Default id="submit_btn" width={100} padding={8}>
+                {/* 비밀번호 확인 */}
+                <div
+                    id="submit_btn"
+                    style={{
+                        display: 'flex',
+                        width: '100%',
+                        backgroundColor: 'transparent',
+                        padding: '8px',
+                    }}
+                >
                     <SubmitButton type="submit" variant="primary">
                         다음
                     </SubmitButton>
-                </Div.Default>
+                </div>
             </Wrapper>
         </form>
     );

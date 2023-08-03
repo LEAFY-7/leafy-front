@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { theme } from 'configs/ui.config';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const signUpFirstAnimation = keyframes`
 
@@ -40,6 +39,27 @@ export const SignUpPlantImage = styled.img`
     position: absolute;
     z-index: -1;
 
+    ${theme.mediaQuery.xsMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smTablet} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        display: none;
+    }
+    ${theme.mediaQuery.desktop} {
+        display: block;
+    }
+
     &:nth-of-type(1) {
         left: 1%;
         transform: scaleX(-1) rotate(30deg);
@@ -50,23 +70,8 @@ export const SignUpPlantImage = styled.img`
 
     &:nth-of-type(2) {
         margin-top: -20%;
-        right: -10%;
+        right: -5%;
         transform: scaleX(-1) rotate(-45deg);
         animation: ${signUpSecondAnimation} 3.5s infinite ease-in-out;
     }
-
-    ${theme.mediaQuery.mobile} {
-        display: none;
-    }
-    ${theme.mediaQuery.tablet} {
-        display: none;
-    }
-    ${theme.mediaQuery.desktop} {
-        display: flex;
-    }
-`;
-
-export const ParallelToHorizonButton = styled(RectangleButton)`
-    transform: translateY(170%);
-    width: 100%;
 `;

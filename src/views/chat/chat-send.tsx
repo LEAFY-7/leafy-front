@@ -12,8 +12,6 @@ const ChatSend = () => {
     return (
         <Wrapper>
             <Textarea
-                width={100}
-                height={100}
                 ref={chatViewModel?.textareaRef}
                 value={chatViewModel?.myMessage}
                 onChange={chatViewModel.handleMessage}

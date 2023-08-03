@@ -85,10 +85,10 @@ const LeftSection = styled(CommonSection)`
     gap: 8px;
     padding-right: 8px;
 
-    ${theme.mediaQuery.mobile} {
+    ${theme.mediaQuery.mdMobile} {
         width: 100%;
     }
-    ${theme.mediaQuery.tablet} {
+    ${theme.mediaQuery.mdTablet} {
         width: 400px;
         align-items: center;
     }
@@ -99,13 +99,4 @@ const LeftSection = styled(CommonSection)`
 const RightSection = styled(CommonSection)`
     box-sizing: border-box;
     overflow: hidden;
-    /* ${theme.mediaQuery.mobile} {
-        width: 100%;
-    }
-    ${theme.mediaQuery.tablet} {
-        width: auto;
-    }
-    ${theme.mediaQuery.desktop} {
-        width: 700px;
-    } */
 `;

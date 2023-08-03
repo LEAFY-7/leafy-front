@@ -7,9 +7,9 @@ import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
-import Div from 'components/atoms/Div/div';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import TextField from 'components/molecules/TextField/default-textField';
+import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 const SignInDefaultForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
@@ -28,13 +28,14 @@ const SignInDefaultForm = () => {
     return (
         <form aria-label="signin" onSubmit={handleSubmit(authViewModel.handleSignIn)} noValidate>
             <Wrapper id="form_wrapper" direction="column">
+                {/* 이메일 */}
                 <Controller
                     name={authItemState.email.property as 'email'}
                     control={control}
                     defaultValue={authViewModel.data.email}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label>{authItemState.email.label}</TextField.Label>
                                 <TextField.Container
                                     id="email_container"
@@ -48,7 +49,6 @@ const SignInDefaultForm = () => {
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width: '300px' }}
                                     />
                                 </TextField.Container>
                                 <TextField.HelperText
@@ -57,18 +57,19 @@ const SignInDefaultForm = () => {
                                 >
                                     {error?.message}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
                     )}
                 />
-
+                {/* 이메일 */}
+                {/* 비밀번호 */}
                 <Controller
                     name={authItemState.password.property as 'password'}
                     control={control}
                     defaultValue={authViewModel.data.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label>{authItemState.password.label}</TextField.Label>
                                 <TextField.Container
                                     id="password_container"
@@ -82,7 +83,6 @@ const SignInDefaultForm = () => {
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width: '300px' }}
                                     />
                                 </TextField.Container>
                                 <TextField.HelperText
@@ -91,20 +91,24 @@ const SignInDefaultForm = () => {
                                 >
                                     {error?.message}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
                     )}
                 />
-                <Div.Default
+                {/* 비밀번호 */}
+                <div
                     id="submit_btn"
-                    width={100}
-                    padding={8}
-                    style={{ backgroundColor: 'transparent' }}
+                    style={{
+                        display: 'flex',
+                        width: '100%',
+                        backgroundColor: 'transparent',
+                        padding: '8px',
+                    }}
                 >
                     <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                         로그인하기
                     </SubmitButton>
-                </Div.Default>
+                </div>
             </Wrapper>
         </form>
     );
