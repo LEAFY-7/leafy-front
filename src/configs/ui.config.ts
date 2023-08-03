@@ -36,14 +36,24 @@ export const fontWeight = {
 };
 
 export const breakpoint = {
-    mobile: '320px',
-    tablet: '768px',
-    desktop: '1080px',
+    xsMobile: '319.9px',
+    smMobile: '320px',
+    mdMobile: '375px',
+    lgMobile: '425px',
+    smTablet: '576px',
+    mdTablet: '768px',
+    lgTablet: '1024px',
+    desktop: '1200px',
 };
 
 export const mediaQuery = {
-    mobile: `@media only screen and (min-width: ${breakpoint.mobile})`,
-    tablet: `@media only screen and (min-width: ${breakpoint.tablet})`,
+    xsMobile: `@media only screen and (max-width: ${breakpoint.xsMobile})`,
+    smMobile: `@media only screen and (min-width: ${breakpoint.smMobile})`,
+    mdMobile: `@media only screen and (min-width: ${breakpoint.mdMobile})`,
+    lgMobile: `@media only screen and (min-width: ${breakpoint.lgMobile})`,
+    smTablet: `@media only screen and (min-width: ${breakpoint.smTablet})`,
+    mdTablet: `@media only screen and (min-width: ${breakpoint.mdTablet})`,
+    lgTablet: `@media only screen and (min-width: ${breakpoint.lgTablet})`,
     desktop: `@media only screen and (min-width: ${breakpoint.desktop})`,
 };
 
