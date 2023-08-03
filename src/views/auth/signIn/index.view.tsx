@@ -21,7 +21,7 @@ const SignInView = () => {
     React.useEffect(() => {
         authViewModel.handleTimeoutId();
         return () => clearTimeout(authViewModel.handleTimeoutId());
-    }, [authViewModel.toggle]);
+    }, [authViewModel.isActive]);
 
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh' }}>

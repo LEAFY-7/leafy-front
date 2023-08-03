@@ -5,7 +5,7 @@ import DefaultViewModel from 'viewModel/default.viewModel';
 interface IProps {}
 
 export default class ChatViewModel extends DefaultViewModel {
-    public toggle: boolean;
+    public isActive: boolean;
     public currentId: number;
     public myMessage: string;
 
@@ -16,7 +16,6 @@ export default class ChatViewModel extends DefaultViewModel {
 
     constructor(props: IProps) {
         super(props);
-        this.toggle = false;
         this.currentId = 0;
         this.myMessage = '';
         this.messages = [];
@@ -26,7 +25,6 @@ export default class ChatViewModel extends DefaultViewModel {
         this.previousScrollHeightRef = React.createRef<number | null>();
 
         makeObservable(this, {
-            toggle: observable,
             currentId: observable,
             myMessage: observable,
             messages: observable,
@@ -37,7 +35,6 @@ export default class ChatViewModel extends DefaultViewModel {
             handleMessage: action,
             createMessageByButton: action,
             createMessageByEnter: action,
-            handleToggle: action,
             handleCurrentUserId: action,
             handleOutChatRoom: action,
         });
@@ -182,13 +179,6 @@ export default class ChatViewModel extends DefaultViewModel {
             this.myMessage = '';
         });
     };
-    // 토글
-    handleToggle = () => {
-        runInAction(() => {
-            this.toggle = !this.toggle;
-        });
-    };
-
     // 채팅방 보여주는 이벤트
     handleIsShowRoom = (time: number = 100) => {
         return setTimeout(() => {

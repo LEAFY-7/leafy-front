@@ -21,7 +21,7 @@ const SignUpView = () => {
     React.useEffect(() => {
         authViewModel.handleTimeoutId();
         return () => clearTimeout(authViewModel.handleTimeoutId());
-    }, [authViewModel.toggle]);
+    }, [authViewModel.isActive]);
 
     return (
         <PageContainer style={{ overflow: 'visible' }}>
@@ -36,8 +36,8 @@ const SignUpView = () => {
                 >
                     식집사님을 초대합니다.
                 </Typography>
-                {!authViewModel.toggle && <SignUpNecessaryForm />}
-                {authViewModel.toggle && <SignUpAdditionalForm />}
+                {!authViewModel.isActive && <SignUpNecessaryForm />}
+                {authViewModel.isActive && <SignUpAdditionalForm />}
                 <RectangleButton
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}

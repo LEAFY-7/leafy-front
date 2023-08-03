@@ -22,11 +22,11 @@ const FindView = () => {
     React.useEffect(() => {
         authViewModel.handleTimeoutId();
         return () => clearTimeout(authViewModel.handleTimeoutId());
-    }, [authViewModel.toggle]);
+    }, [authViewModel.isActive]);
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
             <AuthTemplate>
-                {!authViewModel.toggle && (
+                {!authViewModel.isActive && (
                     <>
                         <FindEmailForm />
                         <RectangleButton
@@ -39,7 +39,7 @@ const FindView = () => {
                         </RectangleButton>
                     </>
                 )}
-                {authViewModel.toggle && (
+                {authViewModel.isActive && (
                     <>
                         <FindPwdForm />
                         <RectangleButton
