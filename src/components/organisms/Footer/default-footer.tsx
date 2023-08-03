@@ -7,21 +7,22 @@ import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
 import Hr from 'components/atoms/Hr/default-hr';
 import Typography from 'components/atoms/Typograph/default-typography';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const publicURL = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
 
 const DefaultFooter = () => {
     return (
         <Wrapper>
-            <Flex.ParallelToHorizonOnMobile as="nav" justifyContent="space-between" alignItems="center">
-                <IntroWrapper justifyContent="center" alignItems="center">
+            <Flex.RowToColumnOnMobileLg as="nav" justifyContent="space-between" alignItems="center">
+                <Flex.RowToColumnOnMobileSm alignItems="center">
                     <LinkWrapper>
                         <img src={publicURL} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
                     <LinkButton to={'/'} fontSize="sm">
                         소개
                     </LinkButton>
-                    <LinkButton to={'/'} fontSize="sm">
+                    <LinkButton to={pageUrlConfig.notice} fontSize="sm">
                         고객 센터
                     </LinkButton>
                     <LinkButton to={'/'} fontSize="sm">
@@ -30,8 +31,8 @@ const DefaultFooter = () => {
                     <LinkButton to={'/'} fontSize="sm" fontWeight="bold">
                         개인정보 처리방침
                     </LinkButton>
-                </IntroWrapper>
-                <LinkContainer>
+                </Flex.RowToColumnOnMobileSm>
+                <Flex.Default>
                     <IconButton to={'/'}>
                         <BsInstagram />
                     </IconButton>
@@ -41,11 +42,11 @@ const DefaultFooter = () => {
                     <IconButton to={'/'}>
                         <AiFillGithub />
                     </IconButton>
-                </LinkContainer>
-            </Flex.ParallelToHorizonOnMobile>
+                </Flex.Default>
+            </Flex.RowToColumnOnMobileLg>
             <Hr />
             <Flex.Default direction="column" style={{ padding: '16px' }}>
-                <Flex.Default>
+                <Flex.RowToColumnOnMobileSm>
                     <Typography
                         as="p"
                         variant="BODY3"
@@ -60,12 +61,12 @@ const DefaultFooter = () => {
                     <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                         | 경기도 부천시 상동 546-10 월드프라자 6층 603호
                     </Typography>
-                </Flex.Default>
+                </Flex.RowToColumnOnMobileSm>
                 <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                     제2023-xxxxxx-xx-x-xxxxx호 | 사업자등록번호 : 123-45-6789 | 010-1234-5678
                 </Typography>
                 <Typography as="p" variant="BODY2" fontSize="sm" color="black">
-                    &copy; 2023 Leafyer . All rights reserved.
+                    &copy; {new Date().getFullYear()} Leafyer . All rights reserved.
                 </Typography>
             </Flex.Default>
         </Wrapper>
@@ -104,28 +105,20 @@ const IconButton = styled(RectangleButton)`
     padding: 0;
 `;
 
-const IntroWrapper = styled(Flex.Default)`
-    ${theme.mediaQuery.mobile} {
-        width: 100%;
-        justify-content: flex-start;
+/* ${theme.mediaQuery.smallMobile} {
+        margin-right: 0px;
+        font-size: ${theme.fontSize.xs};
     }
-    ${theme.mediaQuery.tablet} {
-        width: auto;
-        justify-content: flex-start;
-    }
-    ${theme.mediaQuery.desktop} {
-        width: auto;
-    }
-`;
 
-const LinkContainer = styled(Flex.Default)`
     ${theme.mediaQuery.mobile} {
-        display: none;
+        margin-right: 8px;
+        font-size: ${theme.fontSize.sm};
     }
     ${theme.mediaQuery.tablet} {
-        display: flex;
+        margin-right: 12px;
+        font-size: ${theme.fontSize.sm};
     }
     ${theme.mediaQuery.desktop} {
-        display: flex;
-    }
-`;
+        margin-right: 16px;
+        font-size: ${theme.fontSize.md};
+    }*/

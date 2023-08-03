@@ -3,10 +3,10 @@ import { theme } from 'configs/ui.config';
 import DefaultTypography from './default-typography';
 
 const ResponsiveSize = styled(DefaultTypography)`
-    ${theme.mediaQuery.mobile} {
+    ${theme.mediaQuery.mdMobile} {
         font-size: ${theme.fontSize.md};
     }
-    ${theme.mediaQuery.tablet} {
+    ${theme.mediaQuery.mdTablet} {
         font-size: ${theme.fontSize.lg};
     }
     ${theme.mediaQuery.desktop} {

@@ -14,7 +14,7 @@ export const variantStyles = {
         color: ${palette.text.white};
     `,
     translucent: ({ palette }: Theme) => css`
-        background: ${palette.translucent.backgroundColor};
+        background: #fff;
         box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15), inset 5px 5px 10px rgba(250, 250, 250, 0.15);
         backdrop-filter: blur(15px);
         color: ${palette.text.black};

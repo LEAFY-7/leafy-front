@@ -168,6 +168,7 @@ const ContainerInner = ({
 
     return (
         <InnerWrapper
+            id="inner_container"
             width={100}
             variant={innerVariant}
             height={newInnerHeight}
@@ -188,11 +189,44 @@ const Container = Object.assign(ContainerWrapper, {
 export default Container;
 
 const HeaderWrapper = styled(Div.Default)`
-    padding-left: 24px;
-    padding-right: 24px;
+    ${theme.mediaQuery.xsMobile} {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ${theme.mediaQuery.smMobile} {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 `;
 
 const InnerWrapper = styled(Div.Default)`
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0;
+    ${theme.mediaQuery.xsMobile} {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ${theme.mediaQuery.smMobile} {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 `;

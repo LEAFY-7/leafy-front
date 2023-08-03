@@ -7,8 +7,8 @@ import { SignUphModel } from 'models/auth/signUp.model';
 
 import useToggle from 'hooks/useToggle';
 import { AuthItemType } from 'configs/form.config';
-import Flex from 'components/atoms/Group/default-flex';
 import TextField from 'components/molecules/TextField/default-textField';
+import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 interface Props<T extends keyof SignUphModel> {
     width?: string;
@@ -60,15 +60,15 @@ const InputCalender = <T extends keyof SignUphModel>({
     }, []);
 
     return (
-        <Wrapper {...rest}>
+        <>
             <Controller
                 name={authItemState.property}
                 control={control}
                 rules={{ required }}
                 render={({ field: { onChange }, fieldState: { error } }) => (
-                    <Flex>
-                        <TextField error={!!error}>
-                            <TextField.Wrapper style={{ height: '100px' }}>
+                    <Wrapper>
+                        <TextField error={!!error} {...rest}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                 <TextField.Label required>{authItemState.label}</TextField.Label>
                                 <TextField.Container
                                     id="calender_container"
@@ -84,7 +84,6 @@ const InputCalender = <T extends keyof SignUphModel>({
                                             const { value } = e.target;
                                             onChange(value);
                                         }}
-                                        style={{ width }}
                                         readOnly
                                     />
                                 </TextField.Container>
@@ -94,7 +93,7 @@ const InputCalender = <T extends keyof SignUphModel>({
                                 >
                                     {error?.message}
                                 </TextField.HelperText>
-                            </TextField.Wrapper>
+                            </ResponsiveTextFieldWrapper.AUTH>
                         </TextField>
 
                         {isOpen && (
@@ -108,16 +107,16 @@ const InputCalender = <T extends keyof SignUphModel>({
                                 />
                             </CalenderContainer>
                         )}
-                    </Flex>
+                    </Wrapper>
                 )}
             />
-        </Wrapper>
+        </>
     );
 };
 
 export default InputCalender;
 
-const Wrapper = styled.div`
+const Wrapper = styled.span`
     position: relative;
 `;
 const CalenderContainer = styled.div`
