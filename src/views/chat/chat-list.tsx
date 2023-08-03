@@ -30,7 +30,7 @@ const ChatList = () => {
                     >
                         <ChatCard.Wrapper
                             width="100%"
-                            onClick={() => chatViewModel.handleCurrentUserId(profile.userId)}
+                            onClick={() => chatViewModel.handleChangeCurrentUserId(profile.userId)}
                         >
                             <ChatCard.Image src={profile.url} alt="기본이미지" />
                             <ChatCard.Counter>{profile.count}</ChatCard.Counter>

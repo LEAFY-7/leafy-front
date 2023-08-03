@@ -10,16 +10,20 @@ import Flex from 'components/atoms/Group/flex';
 const ChatSend = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     return (
-        <Wrapper>
+        <Wrapper justifyContent="center" alignItems="center">
             <Textarea
                 ref={chatViewModel?.textareaRef}
                 value={chatViewModel?.myMessage}
-                onChange={chatViewModel.handleMessage}
-                onKeyDown={(e) => chatViewModel.createMessageByEnter(e, 'HOST')}
+                onChange={chatViewModel.handleChangeMessage}
+                onKeyDown={(e) => chatViewModel.handleSendMessageByEnter(e, 'HOST')}
                 fontSize="md"
-                style={{ padding: '16px 24px' }}
+                style={{ padding: '16px 24px', width: '80%', height: '100%' }}
             />
-            <SendButton variant="primary" onClick={() => chatViewModel.createMessageByButton('HOST')}>
+            <SendButton
+                variant="primary"
+                onClick={() => chatViewModel.handleSendMessageByButton('HOST')}
+                style={{ width: '20%' }}
+            >
                 입력
             </SendButton>
         </Wrapper>
@@ -31,6 +35,7 @@ export default observer(ChatSend);
 const Wrapper = styled(Flex.Default)`
     padding: 16px;
     height: 100%;
+    box-sizing: border-box;
 `;
 
 const SendButton = styled(RectangleButton)`

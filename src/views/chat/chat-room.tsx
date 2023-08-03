@@ -16,7 +16,7 @@ import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const ChatRoom = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
-    const targetRef = useIntersectionObserver(chatViewModel.getMoreMessageAtTop, {
+    const targetRef = useIntersectionObserver(chatViewModel.componentDidUpdate, {
         root: null,
         rootMargin: '100px',
         threshold: 1,
@@ -24,8 +24,8 @@ const ChatRoom = () => {
 
     React.useEffect(() => {
         chatViewModel.componentDidMount();
-        chatViewModel.handleIsShowRoom(300);
-        return () => clearTimeout(chatViewModel.handleIsShowRoom(300));
+        chatViewModel.handleShowChatRoom(300);
+        return () => clearTimeout(chatViewModel.handleShowChatRoom(300));
     }, [chatViewModel.currentId]);
 
     return (
@@ -44,7 +44,7 @@ const ChatRoom = () => {
                         <Room.Header>
                             <Flex.Default justifyContent="center" alignItems="center">
                                 <RectangleButton
-                                    onClick={chatViewModel.handleOutChatRoom}
+                                    onClick={chatViewModel.handleLeaveChatRoom}
                                     style={{ padding: 0, margin: 0 }}
                                 >
                                     <IoIosArrowBack />
