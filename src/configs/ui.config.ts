@@ -100,7 +100,7 @@ export const dark = {
         sementic: colors.white,
         white: colors.white,
         black: colors.white,
-        grey: colors.white,
+        grey: colors.black,
         blossom: colors.white,
         lgrey: colors.white,
     },

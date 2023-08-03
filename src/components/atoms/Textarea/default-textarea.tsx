@@ -71,6 +71,7 @@ const DefaultTextarea = React.forwardRef(function DefaultTextarea(
 export default DefaultTextarea;
 
 const Textarea = styled.textarea<Required<TextareaStyleProps>>`
+    resize: none;
     border-radius: 8px;
     padding: 4px;
     border: ${({ isBorder }) => (isBorder ? '1px' : 0)};

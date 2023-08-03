@@ -41,6 +41,7 @@ const SignInView = () => {
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
                     backgroundColor="transparent"
+                    style={{ color: 'black' }}
                 >
                     회원가입 바로가기
                 </RectangleButton>

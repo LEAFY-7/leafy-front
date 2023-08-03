@@ -10,8 +10,8 @@ import AuthTemplate from 'components/templates/auth-template';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
 
-import SignUpNecessaryForm from './signup-necessary-form';
-import SignUpAdditionalForm from './signup-additional-form';
+import SignUpNecessaryForm from './signup-first-form';
+import SignUpAdditionalForm from './signup-second-form';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -42,6 +42,7 @@ const SignUpView = () => {
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}
                     backgroundColor="transparent"
+                    style={{ color: 'black' }}
                 >
                     로그인 바로가기
                 </RectangleButton>

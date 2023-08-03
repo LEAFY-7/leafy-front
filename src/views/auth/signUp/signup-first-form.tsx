@@ -103,7 +103,7 @@ const SignUpNecessaryForm = () => {
                         )}
                     />
                     <RectangleButton
-                        variant="secondary"
+                        variant="primary"
                         size="sm"
                         style={{ width: '15%', height: '30px', transform: 'translateY(110%)' }}
                         onClick={authViewModel.handleCheckNickName}
@@ -150,7 +150,7 @@ const SignUpNecessaryForm = () => {
                         )}
                     />
                     <RectangleButton
-                        variant="secondary"
+                        variant="primary"
                         size="sm"
                         style={{ width: '15%', height: '30px', transform: 'translateY(110%)' }}
                         onClick={authViewModel.handleCheckEmail}
