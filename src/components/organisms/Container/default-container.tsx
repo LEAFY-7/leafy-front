@@ -12,8 +12,6 @@ interface WrapperProps {
     divVariant?: 'default' | 'primary' | 'secondary' | 'translucent';
     header?: string;
     isHeaderLine?: boolean;
-    marginTop?: number;
-    marginBottom?: number;
     wrapperHeight?: CSSProperties['height'];
     justifyContent?: CSSProperties['justifyContent'];
     alignItems?: CSSProperties['alignItems'];
@@ -64,8 +62,6 @@ const ContainerWrapper = ({
     header,
     wrapperHeight = '540px',
     isHeaderLine = false,
-    marginTop = 8,
-    marginBottom = 8,
     justifyContent = 'center',
     alignItems = 'center',
     children,
@@ -80,8 +76,6 @@ const ContainerWrapper = ({
             width={100}
             height={newWrapperHeight}
             padding="8px"
-            marginTop={marginTop}
-            marginBottom={marginBottom}
             display="flex"
             direction="column"
             justifyContent={justifyContent}
@@ -210,7 +204,7 @@ const HeaderWrapper = styled(Div.Default)`
 `;
 
 const InnerWrapper = styled(Div.Default)`
-    padding: 0;
+    padding: 32px;
     ${theme.mediaQuery.xsMobile} {
         padding-left: 0px;
         padding-right: 0px;

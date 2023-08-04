@@ -1,23 +1,24 @@
 import styled from '@emotion/styled';
-import { BsInstagram } from 'react-icons/bs';
-import { AiFillFacebook, AiFillGithub } from 'react-icons/ai';
+import { BsInstagram as InstarIcon } from 'react-icons/bs';
+import { AiFillFacebook as FaceBookIcon, AiFillGithub as GithubIcon } from 'react-icons/ai';
 import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
+
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
-import Hr from 'components/atoms/Hr/default-hr';
 import Typography from 'components/atoms/Typograph/default-typography';
-import pageUrlConfig from 'configs/pageUrl.config';
+import Hr from 'components/atoms/Hr/default-hr';
 
-const publicURL = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
-
+const logoPath = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
+const textPath = process.env.PUBLIC_URL + '/image/logo/text-logo.svg';
 const DefaultFooter = () => {
     return (
         <Wrapper>
             <Flex.RowToColumnOnMobileLg as="nav" justifyContent="space-between" alignItems="center">
                 <Flex.RowToColumnOnMobileSm alignItems="center">
                     <LinkWrapper>
-                        <img src={publicURL} style={{ width: '50px', height: '50px' }} />
+                        <img src={logoPath} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
                     <LinkButton to={'/'} fontSize="sm">
                         소개
@@ -32,17 +33,17 @@ const DefaultFooter = () => {
                         개인정보 처리방침
                     </LinkButton>
                 </Flex.RowToColumnOnMobileSm>
-                <Flex.Default>
-                    <IconButton to={'/'}>
-                        <BsInstagram />
+                <ShowIconLinkAtBasic>
+                    <IconButton href="https://www.google.com">
+                        <InstarIcon />
                     </IconButton>
-                    <IconButton to={'/'}>
-                        <AiFillFacebook />
+                    <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                        <FaceBookIcon />
                     </IconButton>
-                    <IconButton to={'/'}>
-                        <AiFillGithub />
+                    <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                        <GithubIcon />
                     </IconButton>
-                </Flex.Default>
+                </ShowIconLinkAtBasic>
             </Flex.RowToColumnOnMobileLg>
             <Hr />
             <Flex.Default direction="column" style={{ padding: '16px' }}>
@@ -69,6 +70,17 @@ const DefaultFooter = () => {
                     &copy; {new Date().getFullYear()} Leafyer . All rights reserved.
                 </Typography>
             </Flex.Default>
+            <ShowIconLinkAtMobile>
+                <IconButton href="https://www.google.com">
+                    <InstarIcon />
+                </IconButton>
+                <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                    <FaceBookIcon />
+                </IconButton>
+                <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                    <GithubIcon />
+                </IconButton>
+            </ShowIconLinkAtMobile>
         </Wrapper>
     );
 };
@@ -101,24 +113,44 @@ const LinkButton = styled(RectangleButton)`
     margin-right: 16px;
 `;
 
-const IconButton = styled(RectangleButton)`
-    padding: 0;
+const IconButton = styled.a`
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
-/* ${theme.mediaQuery.smallMobile} {
-        margin-right: 0px;
-        font-size: ${theme.fontSize.xs};
+const ShowIconLinkAtBasic = styled(Flex.Default)`
+    ${theme.mediaQuery.xsMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smMobile} {
+        display: none;
     }
 
-    ${theme.mediaQuery.mobile} {
-        margin-right: 8px;
-        font-size: ${theme.fontSize.sm};
+    ${theme.mediaQuery.mdMobile} {
+        display: none;
     }
-    ${theme.mediaQuery.tablet} {
-        margin-right: 12px;
-        font-size: ${theme.fontSize.sm};
+
+    ${theme.mediaQuery.lgMobile} {
+        display: none;
     }
-    ${theme.mediaQuery.desktop} {
-        margin-right: 16px;
-        font-size: ${theme.fontSize.md};
-    }*/
+
+    ${theme.mediaQuery.smTablet} {
+        display: flex;
+    }
+`;
+
+const ShowIconLinkAtMobile = styled(Flex.Default)`
+    ${theme.mediaQuery.mdMobile} {
+        display: flex;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        display: flex;
+    }
+    ${theme.mediaQuery.smTablet} {
+        display: none;
+    }
+`;

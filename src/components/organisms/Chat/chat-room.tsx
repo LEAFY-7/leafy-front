@@ -188,35 +188,3 @@ const MeMessage = styled(MessageBase)`
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
 `;
-
-// const MessageWrapper = styled.div`
-//     position: relative;
-//     box-sizing: border-box;
-//     margin: 16px;
-//     border-radius: 8%;
-
-//     height: 100px;
-// `;
-
-// const YouMessage = styled.span`
-//     position: absolute;
-//     max-width: 60%;
-//     left: 0;
-//     padding: 16px 8px;
-//     background-color: ${theme.colors.lgrey};
-//     border-radius: 20px;
-//     word-wrap: break-word;
-// `;
-
-// const MeMessage = styled.span`
-//     position: absolute;
-//     max-width: 60%;
-//     display: block;
-
-//     right: 0;
-//     padding: 16px 8px;
-//     background-color: ${theme.colors.secondary};
-//     color: ${theme.colors.white};
-//     border-radius: 20px;
-//     word-wrap: break-word;
-// `;
