@@ -9,14 +9,14 @@ import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
 
 import Room from 'components/organisms/Chat/chat-room';
-import ChatSend from './chat-send';
 import Typography from 'components/atoms/Typograph/typography';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
+import ChatSend from './chat-send';
 
 const ChatRoom = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
-    const targetRef = useIntersectionObserver(chatViewModel.componentDidUpdate, {
+    const targetRef = useIntersectionObserver(chatViewModel.handleGetMoreMessages, {
         root: null,
         rootMargin: '100px',
         threshold: 1,
@@ -25,8 +25,12 @@ const ChatRoom = () => {
     React.useEffect(() => {
         chatViewModel.componentDidMount();
         chatViewModel.handleShowChatRoom(300);
+        chatViewModel.handleSaveCurrentScrollTop();
+
         return () => clearTimeout(chatViewModel.handleShowChatRoom(300));
     }, [chatViewModel.currentId]);
+
+    // console.log(chatViewModel.chatContainerRef.current.scrollHeight);
 
     return (
         <>

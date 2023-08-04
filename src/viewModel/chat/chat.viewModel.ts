@@ -1,6 +1,16 @@
-import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 import React from 'react';
+import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
+
+const tempMessage = [
+    '이것은 임시 메시지 ㅋㅋㅋㅋㅋㅋㅋㅋ',
+    '하하하하하하하 ㅋㅋㅋㅋㅋㅋㅋㅋ',
+    'ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
+    'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
+    '안녕핫게요',
+    '임시 메시지입니다. ',
+    'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
+];
 
 interface IProps {}
 
@@ -10,12 +20,8 @@ export default class ChatViewModel extends DefaultViewModel {
     public myMessage: string;
 
     public messages: Array<{ state: string; message: string; index: number; time: string; isRead: boolean }>;
-    public textareaRef: React.RefObject<HTMLTextAreaElement>;
     public chatContainerRef: React.RefObject<HTMLElement>;
     public previousScrollHeightRef: unknown | number;
-
-    public isLoadingPrevMessages: boolean;
-    public isShouldLoadPrevMessages: boolean;
 
     constructor(props: IProps) {
         super(props);
@@ -23,44 +29,34 @@ export default class ChatViewModel extends DefaultViewModel {
         this.myMessage = '';
         this.messages = [];
 
-        this.textareaRef = React.createRef<HTMLTextAreaElement>();
         this.chatContainerRef = React.createRef<HTMLElement>();
         this.previousScrollHeightRef = React.createRef<number | null>();
-
-        this.isLoadingPrevMessages = false;
-        this.isShouldLoadPrevMessages = false;
 
         makeObservable(this, {
             currentId: observable,
             myMessage: observable,
             messages: observable,
-            textareaRef: observable,
             chatContainerRef: observable,
             previousScrollHeightRef: observable,
 
-            isLoadingPrevMessages: observable,
-            isShouldLoadPrevMessages: observable,
-
+            // 스크롤 이동 관련
+            handleSaveCurrentScrollTop: observable,
+            // 메시지 전송 관련
             handleSendMessageByButton: action,
             handleSendMessageByEnter: action,
-
             handleChangeMessage: action,
+            // 채팅방 이동과 관련
             handleChangeCurrentUserId: action,
             handleLeaveChatRoom: action,
         });
 
         autorun(() => {
-            this.scrollToBottom(); // componentDidUpdate 기능
+            this.handleScrollToBottom(); // componentDidUpdate 기능
         });
     }
 
-    private handleTextareaCursorRewind = () => {
-        if (!this.textareaRef.current) return;
-        this.textareaRef.current.selectionStart = 0;
-        this.textareaRef.current.selectionEnd = 0;
-    };
     // 임시 - 메시지 추가
-    private generateMessages = () => {
+    private createMessages = () => {
         return new Array(20).fill(null).map((_, index) => ({
             state: Math.random() < 0.5 ? 'HOST' : 'MEMBER',
             message: '기존 메시지 입니다.',
@@ -70,18 +66,22 @@ export default class ChatViewModel extends DefaultViewModel {
         }));
     };
     // 임시 - 역방향 메시지 추가
-    private generatePrevMessages = () => {
-        return new Array(20).fill(null).map((_, index) => ({
-            state: Math.random() < 0.5 ? 'HOST' : 'MEMBER',
-            message: '새로운 메시지 ' + new Date().getSeconds() + index,
-            time: `${new Date().getHours()} : ${new Date().getMinutes()} : ${new Date().getSeconds()}`,
-            index: new Date().getSeconds() + index,
-            isRead: true,
-        }));
+    private createPrevMessages = () => {
+        return new Array(20).fill(null).map((_, index) => {
+            const randomIndex = Math.floor(Math.random() * tempMessage.length); // 루프마다 새로운 랜덤 인덱스 생성
+
+            return {
+                state: Math.random() < 0.5 ? 'HOST' : 'MEMBER',
+                message: tempMessage[randomIndex] + new Date().getSeconds() + index,
+                time: `${new Date().getHours()} : ${new Date().getMinutes()} : ${new Date().getSeconds()}`,
+                index: new Date().getSeconds() + index,
+                isRead: true,
+            };
+        });
     };
 
     // 채팅창 맽 밑으로 이동
-    private scrollToBottom = () => {
+    private handleScrollToBottom = () => {
         const chatContainer = this.chatContainerRef.current;
         if (chatContainer) {
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -89,7 +89,7 @@ export default class ChatViewModel extends DefaultViewModel {
     };
 
     // 읽지 않은 상태의 index찾기
-    private scrollToMessage = (index) => {
+    private handleScrollToMessage = (index) => {
         const chatContainer = this.chatContainerRef.current;
         if (chatContainer) {
             const messageElement = chatContainer.querySelector(`[data-index="${index}"]`);
@@ -98,83 +98,64 @@ export default class ChatViewModel extends DefaultViewModel {
             }
         }
     };
-    // 현재 창에서 맨 위의 높이
-    private handleScrollSave = () => {
+    // 현재 창에서 맨 위의 높이 저장
+    handleSaveCurrentScrollTop = () => {
         const chatContainer = this.chatContainerRef.current;
         if (!chatContainer) return;
-        this.previousScrollHeightRef = chatContainer.scrollTop;
+        console.log('처음에 스크롤 상단의 높이', chatContainer.scrollHeight);
+        this.previousScrollHeightRef = chatContainer.scrollHeight;
         return this.previousScrollHeightRef;
+    };
+    handleDeleteCurrentScrollTop = () => {
+        if (!this.chatContainerRef.current) return;
+        this.chatContainerRef = null;
+        this.previousScrollHeightRef = null;
     };
 
     // 읽지 않은 상태부터 위치
-    private scrollToUnRead = () => {
+    private handleLocateScrollToUnRead = () => {
         const firstUnreadIndex = this.messages.findIndex((message) => !message.isRead);
         if (firstUnreadIndex !== -1) {
             setTimeout(() => {
-                this.scrollToMessage(firstUnreadIndex);
+                this.handleScrollToMessage(firstUnreadIndex);
             }, 0);
         } else {
-            this.scrollToBottom();
+            this.handleScrollToBottom();
         }
     };
     // 초기 데이터 가져오기
     getMessages = () => {
-        const newMessages = this.generateMessages();
+        const newMessages = this.createMessages();
         this.messages = newMessages;
-        this.handleScrollSave();
     };
 
     // 역방향 데이터 패칭
     getPrevMessageAtTop = () => {
         const chatContainer = this.chatContainerRef.current;
+        console.log(chatContainer.scrollHeight, chatContainer.clientHeight, chatContainer.scrollTop);
 
         if (!chatContainer) return;
 
-        const newMessages = this.generatePrevMessages();
+        const newMessages = this.createPrevMessages();
 
         runInAction(() => {
             this.messages = [...newMessages, ...this.messages];
         });
 
+        console.log(chatContainer.scrollHeight, chatContainer.clientHeight, this.previousScrollHeightRef);
+        console.log(chatContainer.scrollHeight - (this.previousScrollHeightRef as number));
         setTimeout(() => {
-            chatContainer.scrollTop = (this.previousScrollHeightRef as number) - chatContainer.clientHeight;
+            chatContainer.scrollTop = chatContainer.scrollHeight - (this.previousScrollHeightRef as number);
         }, 0);
-    };
-
-    private getFetchPrevMessages = async () => {
-        if (this.isLoadingPrevMessages) return;
-
-        this.isLoadingPrevMessages = true;
-        const preHeight = this.handleScrollSave();
-
-        try {
-            // 실제로 데이터를 불러오는 로직을 수행
-            const newMessages = await this.generatePrevMessages();
-
-            runInAction(() => {
-                this.messages = [...newMessages, ...this.messages];
-            });
-
-            setTimeout(() => {
-                if (typeof preHeight === 'number' && this.chatContainerRef.current) {
-                    this.chatContainerRef.current.scrollTop =
-                        this.chatContainerRef.current.scrollHeight - preHeight;
-                }
-            }, 0);
-        } catch (error) {
-            console.error('이전 메시지 불러오기 실패', error);
-        } finally {
-            this.isLoadingPrevMessages = false;
-        }
     };
 
     componentDidMount = () => {
         this.getMessages();
-        this.scrollToUnRead();
+        this.handleLocateScrollToUnRead();
     };
 
-    componentDidUpdate = () => {
-        this.getFetchPrevMessages();
+    handleGetMoreMessages = () => {
+        this.getPrevMessageAtTop();
     };
 
     // 메시지 보내기 - 전송버튼
@@ -193,7 +174,7 @@ export default class ChatViewModel extends DefaultViewModel {
         });
 
         setTimeout(() => {
-            this.scrollToBottom();
+            this.handleScrollToBottom();
         }, 0);
     };
 
@@ -202,7 +183,6 @@ export default class ChatViewModel extends DefaultViewModel {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             this.handleSendMessageByButton(state);
-            this.handleTextareaCursorRewind;
         }
     };
     // 메시지 입력창
@@ -214,13 +194,13 @@ export default class ChatViewModel extends DefaultViewModel {
     };
     // 채팅방 바꾸기
     handleChangeCurrentUserId = (id: number) => {
-        runInAction(() => {
+        return runInAction(() => {
             this.currentId = id;
         });
     };
     // 채팅방 나가기
     handleLeaveChatRoom = () => {
-        runInAction(() => {
+        return runInAction(() => {
             this.currentId = 0;
             this.myMessage = '';
         });

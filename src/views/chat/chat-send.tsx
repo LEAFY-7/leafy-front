@@ -3,16 +3,15 @@ import styled from '@emotion/styled';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
 
-import Textarea from 'components/atoms/Textarea/default-textarea';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Textarea from 'components/atoms/Textarea/default-textarea';
 
 const ChatSend = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     return (
         <Wrapper justifyContent="center" alignItems="center">
             <Textarea
-                ref={chatViewModel?.textareaRef}
                 value={chatViewModel?.myMessage}
                 onChange={chatViewModel.handleChangeMessage}
                 onKeyDown={(e) => chatViewModel.handleSendMessageByEnter(e, 'HOST')}

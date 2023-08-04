@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
-
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
+
 import ChatCard from 'components/organisms/Chat/chat-card';
 import Typography from 'components/atoms/Typograph/typography';
 
