@@ -32,7 +32,7 @@ const ChatView = () => {
                 style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'flex-start',
+                    //  alignItems: 'flex-start',
                     paddingTop: '4rem',
                 }}
             >
@@ -67,14 +67,16 @@ const ChatView = () => {
                 <RectangleButton backgroundColor="transparent" onClick={chatViewModel.handleLeaveChatRoom}>
                     <UserIcon size={40} color="#fff" />
                 </RectangleButton>
-                <RectangleButton backgroundColor="transparent">
+                <RectangleButton
+                    backgroundColor="transparent"
+                    onClick={() => chatViewModel.handleChangeCurrentUserId(chatViewModel.prevCurrentId)}
+                >
                     <ChatIcon size={40} color="#fff" />
                 </RectangleButton>
             </ShowAtMobile>
         </>
     );
 };
-
 export default observer(ChatView);
 
 const CommonSection = styled.section`
@@ -83,13 +85,13 @@ const CommonSection = styled.section`
     overflow-y: scroll;
     overflow-x: hidden;
 
-    ::-webkit-scrollbar {
-        width: 10px;
-        background-color: ${theme.colors.lgrey_50};
-    }
-
+    ::-webkit-scrollbar,
     ::-webkit-scrollbar-thumb {
-        width: 10px;
+        overflow: visible;
+        border-radius: 4px;
+        width: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
         background-color: ${theme.colors.lgrey};
     }
 `;

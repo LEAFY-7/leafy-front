@@ -2,6 +2,7 @@ import type { CSSProperties, HTMLAttributes, HtmlHTMLAttributes } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
+import Flex from 'components/atoms/Group/flex';
 
 interface ContextProps {
     currentId: number;
@@ -12,7 +13,7 @@ interface WrapperProps extends Pick<ContextProps, 'height'> {
 }
 interface HeaderProps extends Pick<ContextProps, 'height'> {}
 interface BodyProps extends Pick<ContextProps, 'height'> {
-    targetRef?: React.MutableRefObject<HTMLDivElement>;
+    isScrollMoved?: boolean;
 }
 interface CommonMessageProps {
     isMe?: boolean;
@@ -66,13 +67,12 @@ const ChatRoomHeader = ({ children, ...rest }: ChatRoomHeaderProps) => {
 };
 // Body
 const ChatRoomBody = React.forwardRef(function ChatRoomBody(
-    { targetRef = null, children, ...rest }: ChatRoomBodyProps,
+    { isScrollMoved = false, children, ...rest }: ChatRoomBodyProps,
     forwardedRef: React.Ref<HTMLElement>,
 ) {
     const { height } = useChatRoomContext();
     return (
-        <Body height={height} ref={forwardedRef} {...rest}>
-            <div id="temp" ref={targetRef} style={{ height: '50px' }}></div>
+        <Body height={height} isScrollMoved={isScrollMoved} ref={forwardedRef} {...rest}>
             {children}
         </Body>
     );
@@ -92,6 +92,10 @@ const ChatRoomYouMessage = ({ isMe = false, id = '', children, ...rest }: ChatRo
     return (
         <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <YouMessage {...rest}>{children}</YouMessage>
+            <Flex.Default>
+                <span>시간</span>
+                <span>unread</span>
+            </Flex.Default>
         </MessageWrapper>
     );
 };
@@ -101,6 +105,10 @@ const ChatRoomMeMessage = ({ isMe = true, id = '', children, ...rest }: ChatRoom
     return (
         <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <MeMessage {...rest}>{children}</MeMessage>
+            <Flex.Default>
+                <span>unread</span>
+                <span>시간</span>
+            </Flex.Default>
         </MessageWrapper>
     );
 };
@@ -118,6 +126,7 @@ export default ChatRoom;
 
 // Wrapper Style
 const Wrapper = styled.div<WrapperProps>`
+    position: relative;
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     display: flex;
@@ -130,28 +139,33 @@ const Wrapper = styled.div<WrapperProps>`
 `;
 // Header Style
 const Header = styled.header<HeaderProps>`
+    position: absolute;
+    top: 0;
     width: 100%;
     height: ${({ height }) => `calc(${height} / 6)`};
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 2;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fafafa 0%, rgba(250, 250, 250, 0.6) 100%);
 `;
 // Body Style
 const Body = styled.section<BodyProps>`
     width: 100%;
-    height: ${({ height }) => `calc(${height} / 6 * 4)`};
+    height: ${({ height }) => `calc(${height} / 6 * 5)`};
     background-color: #fff8f8;
     gap: 16px;
     overflow-y: scroll;
-    padding: 8px 16px;
+    padding: 8px;
 
-    ::-webkit-scrollbar {
-        width: 10px;
-        background-color: ${theme.colors.lgrey_50};
-    }
-
+    ::-webkit-scrollbar,
     ::-webkit-scrollbar-thumb {
-        width: 10px;
+        overflow: visible;
+        border-radius: 4px;
+        width: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
         background-color: ${theme.colors.lgrey};
     }
 `;
@@ -181,7 +195,7 @@ const MessageBase = styled.span`
     overflow-wrap: break-word;
 `;
 const YouMessage = styled(MessageBase)`
-    background-color: ${theme.colors.lgrey};
+    background-color: ${theme.colors.lgrey_50};
 `;
 
 const MeMessage = styled(MessageBase)`
