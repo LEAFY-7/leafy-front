@@ -241,7 +241,14 @@ export default class ChatViewModel extends DefaultViewModel {
         return runInAction(() => {
             this.currentId = id;
             this.prevCurrentId = id;
-            this.chatList.currentPage = 1;
+            this.chatList = {
+                pages: new Map(),
+                loading: false,
+                hasMore: true,
+                totalPage: 5,
+                currentPage: 1,
+                pageSize: 20,
+            };
         });
     };
     // 채팅방 나가기
@@ -249,7 +256,14 @@ export default class ChatViewModel extends DefaultViewModel {
         return runInAction(() => {
             this.currentId = 0;
             this.myMessage = '';
-            this.chatList.currentPage = 1;
+            this.chatList = {
+                pages: new Map(),
+                loading: false,
+                hasMore: true,
+                totalPage: 5,
+                currentPage: 1,
+                pageSize: 20,
+            };
         });
     };
     // 채팅방 보여주는 이벤트

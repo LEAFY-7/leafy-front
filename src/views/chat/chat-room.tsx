@@ -31,6 +31,7 @@ const ChatRoom = () => {
         chatViewModel.handleGetMessageWhenDidMount();
     }, [chatViewModel.currentId]);
 
+    console.log(chatViewModel.chatList.currentPage);
     return (
         <>
             {!chatViewModel?.currentId && (
@@ -62,9 +63,9 @@ const ChatRoom = () => {
                                     <BackIcon size={25} />
                                 </RectangleButton>
 
-                                <Typography.Default variant="BODY1" marginLeft={8} style={{ width: '100%' }}>
+                                <HeaderTitle variant="BODY1" marginLeft={8} style={{ width: '100%' }}>
                                     {chatViewModel.currentId}님과의 채팅
-                                </Typography.Default>
+                                </HeaderTitle>
                             </Flex.Default>
 
                             <Flyout isOpen={openState.isOpen} toggle={openState.toggle}>
@@ -78,10 +79,10 @@ const ChatRoom = () => {
                                 </Toggle>
                                 <OverLay />
                                 <MyMenuWrapper>
-                                    <MenuList size="lg" variant="default">
+                                    <MenuList size="md" variant="default">
                                         <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
                                         <UserItem to={`${pageUrlConfig.user}/1`}>내 채널 바로가기</UserItem>
-                                        <UserItem to={`${pageUrlConfig}/2`}>채널 보러가기</UserItem>
+                                        <UserItem to={`${pageUrlConfig}/2`}>상대방 채널 보러가기</UserItem>
                                         <UserItem>구독 하기</UserItem>
                                         <UserItem>신고 하기</UserItem>
                                     </MenuList>
@@ -165,7 +166,7 @@ const NoneChatRoomBody = styled(Room.Body)`
     align-items: center;
     background-color: #fff;
 `;
-// Flyout - 하단 메뉴
+// Flyout - 햄버거 버튼
 const Toggle = styled(Flyout.Toggle)`
     position: relative;
     cursor: pointer;
@@ -204,5 +205,18 @@ const UserItem = styled(Flyout.Item)`
         border-color: ${theme.palette.secondary.borderColor};
         background-color: ${theme.palette.secondary.backgroundColor};
         color: ${theme.palette.text.white};
+    }
+`;
+
+const HeaderTitle = styled(Typography.Default)`
+    ${theme.mediaQuery.xsMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        display: block;
     }
 `;

@@ -67,12 +67,13 @@ const ChatView = () => {
                 <RectangleButton backgroundColor="transparent" onClick={chatViewModel.handleLeaveChatRoom}>
                     <UserIcon size={40} color="#fff" />
                 </RectangleButton>
-                <RectangleButton
+                <ChatIconButton
                     backgroundColor="transparent"
                     onClick={() => chatViewModel.handleChangeCurrentUserId(chatViewModel.prevCurrentId)}
+                    disabled={!!chatViewModel.currentId}
                 >
                     <ChatIcon size={40} color="#fff" />
-                </RectangleButton>
+                </ChatIconButton>
             </ShowAtMobile>
         </>
     );
@@ -133,5 +134,10 @@ const ShowAtMobile = styled(Flex.Default)`
     }
     ${theme.mediaQuery.smTablet} {
         display: none;
+    }
+`;
+const ChatIconButton = styled(RectangleButton)`
+    &:disabled {
+        background-color: transparent;
     }
 `;
