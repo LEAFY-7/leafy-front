@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { theme } from 'configs/ui.config';
 import { CSSProperties, ReactElement } from 'react';
 
 interface IProps {

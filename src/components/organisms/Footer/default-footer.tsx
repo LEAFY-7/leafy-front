@@ -92,7 +92,7 @@ const Wrapper = styled.footer`
     height: 100px;
     background-color: ${theme.palette.bgColor};
     display: flex;
-    padding: 8px calc((100% - 1080px) / 2);
+    padding: 16px;
     flex-direction: column;
     z-index: 1;
     &::before {
