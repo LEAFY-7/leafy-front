@@ -1,50 +1,30 @@
 import styled from '@emotion/styled';
-import Button from 'components/atoms/Button/button';
+import { theme } from 'configs/ui.config';
 import { MouseEventHandler, ReactElement } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 interface Props {
-    length: number;
+    target: number;
     limit: number;
     // onClick: MouseEventHandler;
 }
-/** length: 데이터 총 길이, limit: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
-const PageButton = ({ length, limit }: Props): ReactElement => {
+/** limit: 데이터 총 길이, target: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
+const PageButton = ({ target, limit }: Props): ReactElement => {
     const handleClickButton = (e) => {
         const id = e.currentTarget.dataset;
     };
-    const perPageList = Math.ceil(length / limit);
+    const perPageList = Math.ceil(limit / target);
     const countArray = [...Array(perPageList)].map((e, i) => (e = i + 1));
     return (
         <PageButtonContainer>
-            <Button
-                variant="basic"
-                state="default"
-                type="button"
-                condition={true}
-                size="s"
-                text="prev"
-                showText={false}
-                showIcon={true}
-                leftIcon={<IoIosArrowBack />}
-            />
+            <ArrowButton type="button">
+                <IoIosArrowBack />
+            </ArrowButton>
             {countArray.map((e) => {
-                return (
-                    <p data-id={e} onClick={handleClickButton}>
-                        {e}
-                    </p>
-                );
+                return <p data-id={e}>{e}</p>;
             })}
-            <Button
-                variant="basic"
-                state="default"
-                type="button"
-                condition={true}
-                size="s"
-                text="next"
-                showText={false}
-                showIcon={true}
-                leftIcon={<IoIosArrowForward />}
-            />
+            <ArrowButton type="button">
+                <IoIosArrowForward />
+            </ArrowButton>
         </PageButtonContainer>
     );
 };
@@ -58,4 +38,12 @@ const PageButtonContainer = styled.div`
     flex-shrink: 0;
     flex-grow: 1;
     gap: 1.5em;
+    align-items: center;
+    margin-top: 1em;
+`;
+
+const ArrowButton = styled.button`
+    border-radius: 50%;
+    background: ${theme.colors.white};
+    padding: 0.5em;
 `;

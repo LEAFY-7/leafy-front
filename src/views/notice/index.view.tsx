@@ -47,7 +47,7 @@ const NoticeView = () => {
                 })}
             </NoticeWrap>
             <PagingWrap>
-                <PageButton length={20} limit={10} />
+                <PageButton limit={20} target={10} />
             </PagingWrap>
         </PageContainer>
     );
