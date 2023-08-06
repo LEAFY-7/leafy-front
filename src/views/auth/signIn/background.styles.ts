@@ -41,9 +41,29 @@ export const SignInPlantImage = styled.img`
     left: -2%;
     z-index: -1;
 
+    ${theme.mediaQuery.xsMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        display: none;
+    }
+    ${theme.mediaQuery.smTablet} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        display: none;
+    }
+    ${theme.mediaQuery.desktop} {
+        display: block;
+    }
     &:nth-of-type(1) {
         transform: scaleX(-1) rotate(30deg);
-        margin-top: -10%;
+        margin-top: 20%;
 
         margin-left: -3%;
         animation: ${signInFirstAnimation} 2.5s infinite ease-in-out;
@@ -51,18 +71,8 @@ export const SignInPlantImage = styled.img`
     }
 
     &:nth-of-type(2) {
-        margin-top: -20%;
+        margin-top: 10%;
         transform: scaleX(-1);
         animation: ${signInSecondAnimation} 3.5s infinite ease-in-out;
-    }
-
-    ${theme.mediaQuery.mobile} {
-        display: none;
-    }
-    ${theme.mediaQuery.tablet} {
-        display: none;
-    }
-    ${theme.mediaQuery.desktop} {
-        display: flex;
     }
 `;

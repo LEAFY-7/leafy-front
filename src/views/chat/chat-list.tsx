@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
-
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
+
 import ChatCard from 'components/organisms/Chat/chat-card';
 import Typography from 'components/atoms/Typograph/typography';
 
@@ -30,7 +30,7 @@ const ChatList = () => {
                     >
                         <ChatCard.Wrapper
                             width="100%"
-                            onClick={() => chatViewModel.handleCurrentUserId(profile.userId)}
+                            onClick={() => chatViewModel.handleChangeCurrentUserId(profile.userId)}
                         >
                             <ChatCard.Image src={profile.url} alt="기본이미지" />
                             <ChatCard.Counter>{profile.count}</ChatCard.Counter>

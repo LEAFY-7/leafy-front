@@ -2,6 +2,7 @@ import type { HTMLAttributes, CSSProperties } from 'react';
 import React, { forwardRef } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { theme } from 'configs/ui.config';
 
 interface InputStyleProps {
     error?: boolean;
@@ -74,4 +75,24 @@ const Input = styled.input<Required<InputStyleProps>>`
             border-style: solid;
             border-width: 1.5px;
         `}
+
+    &::placeholder {
+        color: ${({ theme }) => theme.colors.grey};
+
+        ${theme.mediaQuery.xsMobile} {
+            font-size: ${theme.fontSize.xxs};
+        }
+
+        ${theme.mediaQuery.smMobile} {
+            font-size: ${theme.fontSize.xxs};
+        }
+
+        ${theme.mediaQuery.mdMobile} {
+            font-size: ${theme.fontSize.sm};
+        }
+
+        ${theme.mediaQuery.lgMobile} {
+            font-size: ${theme.fontSize.sm};
+        }
+    }
 `;

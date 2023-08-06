@@ -13,7 +13,7 @@ interface IProps {}
 export default class AuthViewModel extends DefaultViewModel {
     public data: SignUphModel;
     public daum: DaumModule;
-    public toggle: boolean;
+    public isActive: boolean;
 
     constructor(props: IProps) {
         super(props);
@@ -35,10 +35,10 @@ export default class AuthViewModel extends DefaultViewModel {
             addressIsHide: true,
         };
         this.daum = DaumModule.getInstance();
-        this.toggle = false;
+        this.isActive = false;
 
         makeObservable(this, {
-            toggle: observable,
+            isActive: observable,
             data: observable,
 
             handleToggle: action,
@@ -63,7 +63,7 @@ export default class AuthViewModel extends DefaultViewModel {
 
     handleToggle = () => {
         runInAction(() => {
-            this.toggle = !this.toggle;
+            this.isActive = !this.isActive;
         });
     };
     handleTimeoutId = (time: number = 100) => {

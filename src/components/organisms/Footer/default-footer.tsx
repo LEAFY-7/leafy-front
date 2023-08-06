@@ -1,27 +1,29 @@
 import styled from '@emotion/styled';
-import { BsInstagram } from 'react-icons/bs';
-import { AiFillFacebook, AiFillGithub } from 'react-icons/ai';
+import { BsInstagram as InstarIcon } from 'react-icons/bs';
+import { AiFillFacebook as FaceBookIcon, AiFillGithub as GithubIcon } from 'react-icons/ai';
 import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
+
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
-import Hr from 'components/atoms/Hr/default-hr';
 import Typography from 'components/atoms/Typograph/default-typography';
+import Hr from 'components/atoms/Hr/default-hr';
 
-const publicURL = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
-
+const logoPath = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
+const textPath = process.env.PUBLIC_URL + '/image/logo/text-logo.svg';
 const DefaultFooter = () => {
     return (
         <Wrapper>
-            <Flex.ParallelToHorizonOnMobile as="nav" justifyContent="space-between" alignItems="center">
-                <IntroWrapper justifyContent="center" alignItems="center">
+            <Flex.RowToColumnOnMobileLg as="nav" justifyContent="space-between" alignItems="center">
+                <Flex.RowToColumnOnMobileSm alignItems="center">
                     <LinkWrapper>
-                        <img src={publicURL} style={{ width: '50px', height: '50px' }} />
+                        <img src={logoPath} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
                     <LinkButton to={'/'} fontSize="sm">
                         소개
                     </LinkButton>
-                    <LinkButton to={'/'} fontSize="sm">
+                    <LinkButton to={pageUrlConfig.notice} fontSize="sm">
                         고객 센터
                     </LinkButton>
                     <LinkButton to={'/'} fontSize="sm">
@@ -30,22 +32,22 @@ const DefaultFooter = () => {
                     <LinkButton to={'/'} fontSize="sm" fontWeight="bold">
                         개인정보 처리방침
                     </LinkButton>
-                </IntroWrapper>
-                <LinkContainer>
-                    <IconButton to={'/'}>
-                        <BsInstagram />
+                </Flex.RowToColumnOnMobileSm>
+                <ShowIconLinkAtBasic>
+                    <IconButton href="https://www.google.com">
+                        <InstarIcon />
                     </IconButton>
-                    <IconButton to={'/'}>
-                        <AiFillFacebook />
+                    <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                        <FaceBookIcon />
                     </IconButton>
-                    <IconButton to={'/'}>
-                        <AiFillGithub />
+                    <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                        <GithubIcon />
                     </IconButton>
-                </LinkContainer>
-            </Flex.ParallelToHorizonOnMobile>
+                </ShowIconLinkAtBasic>
+            </Flex.RowToColumnOnMobileLg>
             <Hr />
             <Flex.Default direction="column" style={{ padding: '16px' }}>
-                <Flex.Default>
+                <Flex.RowToColumnOnMobileSm>
                     <Typography
                         as="p"
                         variant="BODY3"
@@ -60,14 +62,25 @@ const DefaultFooter = () => {
                     <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                         | 경기도 부천시 상동 546-10 월드프라자 6층 603호
                     </Typography>
-                </Flex.Default>
+                </Flex.RowToColumnOnMobileSm>
                 <Typography as="p" variant="BODY3" fontSize="sm" color="black" marginBottom={8}>
                     제2023-xxxxxx-xx-x-xxxxx호 | 사업자등록번호 : 123-45-6789 | 010-1234-5678
                 </Typography>
                 <Typography as="p" variant="BODY2" fontSize="sm" color="black">
-                    &copy; 2023 Leafyer . All rights reserved.
+                    &copy; {new Date().getFullYear()} Leafyer . All rights reserved.
                 </Typography>
             </Flex.Default>
+            <ShowIconLinkAtMobile>
+                <IconButton href="https://www.google.com">
+                    <InstarIcon />
+                </IconButton>
+                <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                    <FaceBookIcon />
+                </IconButton>
+                <IconButton href="https://github.com/LEAFY-7/leafy-front" target="_blank">
+                    <GithubIcon />
+                </IconButton>
+            </ShowIconLinkAtMobile>
         </Wrapper>
     );
 };
@@ -100,32 +113,44 @@ const LinkButton = styled(RectangleButton)`
     margin-right: 16px;
 `;
 
-const IconButton = styled(RectangleButton)`
-    padding: 0;
+const IconButton = styled.a`
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
-const IntroWrapper = styled(Flex.Default)`
-    ${theme.mediaQuery.mobile} {
-        width: 100%;
-        justify-content: flex-start;
-    }
-    ${theme.mediaQuery.tablet} {
-        width: auto;
-        justify-content: flex-start;
-    }
-    ${theme.mediaQuery.desktop} {
-        width: auto;
-    }
-`;
-
-const LinkContainer = styled(Flex.Default)`
-    ${theme.mediaQuery.mobile} {
+const ShowIconLinkAtBasic = styled(Flex.Default)`
+    ${theme.mediaQuery.xsMobile} {
         display: none;
     }
-    ${theme.mediaQuery.tablet} {
+    ${theme.mediaQuery.smMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.smTablet} {
         display: flex;
     }
-    ${theme.mediaQuery.desktop} {
+`;
+
+const ShowIconLinkAtMobile = styled(Flex.Default)`
+    ${theme.mediaQuery.mdMobile} {
         display: flex;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        display: flex;
+    }
+    ${theme.mediaQuery.smTablet} {
+        display: none;
     }
 `;

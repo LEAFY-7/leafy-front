@@ -7,14 +7,12 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { SignUphModel } from 'models/auth/signUp.model';
 import { authFormState, authItemState } from 'configs/form.config';
-import { theme } from 'configs/ui.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/div';
-import Textarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
 import TextField from 'components/molecules/TextField/default-textField';
+import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 import InputCalender from 'components/organisms/Calender/input-calender';
 
 const SignUpAdditionalForm = () => {
@@ -48,7 +46,8 @@ const SignUpAdditionalForm = () => {
         <>
             <form onSubmit={handleSubmit(authViewModel.handleSignUpAdditional)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
-                    <Flex.ParallelToHorizonOnTablet>
+                    <Flex.RowToColumnOnTabletSm>
+                        {/* 연락처 */}
                         <Controller
                             name={authItemState.phone.property}
                             control={control}
@@ -56,7 +55,7 @@ const SignUpAdditionalForm = () => {
                             rules={authFormState.phone}
                             render={({ field: { value, onChange }, fieldState: { error } }) => (
                                 <TextField error={!!error}>
-                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                    <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                         <TextField.Label required>
                                             {authItemState.phone.label}
                                         </TextField.Label>
@@ -77,7 +76,6 @@ const SignUpAdditionalForm = () => {
                                                         .replace(/(\-{1,2})$/g, '');
                                                     onChange(onlyNumber);
                                                 }}
-                                                style={{ width: '300px' }}
                                             />
                                         </TextField.Container>
                                         <TextField.HelperText
@@ -86,10 +84,12 @@ const SignUpAdditionalForm = () => {
                                         >
                                             {error?.message}
                                         </TextField.HelperText>
-                                    </TextField.Wrapper>
+                                    </ResponsiveTextFieldWrapper.AUTH>
                                 </TextField>
                             )}
                         />
+                        {/* 연락처 */}
+                        {/* 생년월일 */}
 
                         <InputCalender
                             name={authItemState.birthDay.property}
@@ -99,9 +99,11 @@ const SignUpAdditionalForm = () => {
                             control={control}
                             authItemState={authItemState.birthDay}
                         />
-                    </Flex.ParallelToHorizonOnTablet>
+                        {/* 생년월일 */}
+                    </Flex.RowToColumnOnTabletSm>
 
                     <Flex.Default direction="column">
+                        {/* 성별 */}
                         <label htmlFor="genderSelect">성별</label>
                         <Controller
                             name="gender"
@@ -126,9 +128,11 @@ const SignUpAdditionalForm = () => {
                                 </>
                             )}
                         />
+                        {/* 성별 */}
                     </Flex.Default>
 
-                    <AddressZoneWrapper justifyContent="space-between" alignItems="center">
+                    <Flex.TextFieldFlexWrapper justifyContent="space-between" alignItems="center">
+                        {/* 우편번호 */}
                         <Controller
                             name={authItemState.zoneCode.property}
                             control={control}
@@ -136,7 +140,7 @@ const SignUpAdditionalForm = () => {
                             rules={authFormState.zoneCode}
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <TextField error={!!error}>
-                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                    <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                         <TextField.Label required>
                                             {authItemState.zoneCode.label}
                                         </TextField.Label>
@@ -144,7 +148,7 @@ const SignUpAdditionalForm = () => {
                                             id="zoneCode_container"
                                             leftIcon={authItemState.zoneCode.icon.main}
                                         >
-                                            <ZoneCodeInput
+                                            <TextField.Input
                                                 id={authItemState.zoneCode.property}
                                                 value={authViewModel.data.zoneCode}
                                                 type={authItemState.zoneCode.type}
@@ -159,15 +163,21 @@ const SignUpAdditionalForm = () => {
                                         >
                                             {error?.message}
                                         </TextField.HelperText>
-                                    </TextField.Wrapper>
+                                    </ResponsiveTextFieldWrapper.AUTH>
                                 </TextField>
                             )}
                         />
-                        <AddressButton onClick={authViewModel.handleDaumAddress} variant="primary">
+                        <RectangleButton
+                            onClick={authViewModel.handleDaumAddress}
+                            variant="primary"
+                            style={{ transform: 'translateY(10%)' }}
+                        >
                             주소
-                        </AddressButton>
-                    </AddressZoneWrapper>
-                    <Flex.ParallelToHorizonOnTablet>
+                        </RectangleButton>
+                        {/* 우편번호 */}
+                    </Flex.TextFieldFlexWrapper>
+                    <Flex.RowToColumnOnTabletSm>
+                        {/* 주소 */}
                         <Controller
                             name={authItemState.address.property}
                             control={control}
@@ -176,7 +186,7 @@ const SignUpAdditionalForm = () => {
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <>
                                     <TextField error={!!error}>
-                                        <TextField.Wrapper style={{ height: '100px' }}>
+                                        <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                             <TextField.Label required>
                                                 {authItemState.address.label}
                                             </TextField.Label>
@@ -189,7 +199,6 @@ const SignUpAdditionalForm = () => {
                                                     id={authItemState.address.property}
                                                     type={authItemState.address.type}
                                                     placeholder={authItemState.address.placeHolder}
-                                                    style={{ width: '300px' }}
                                                     readOnly
                                                     onClick={authViewModel.handleDaumAddress}
                                                 />
@@ -200,11 +209,13 @@ const SignUpAdditionalForm = () => {
                                             >
                                                 {error?.message}
                                             </TextField.HelperText>
-                                        </TextField.Wrapper>
+                                        </ResponsiveTextFieldWrapper.AUTH>
                                     </TextField>
                                 </>
                             )}
                         />
+                        {/* 주소 */}
+                        {/* 상세주소 */}
                         <Controller
                             name={authItemState.addressDetail.property}
                             control={control}
@@ -212,7 +223,7 @@ const SignUpAdditionalForm = () => {
                             rules={authFormState.addressDetail}
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <TextField error={!!error}>
-                                    <TextField.Wrapper style={{ height: '100px' }}>
+                                    <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                         <TextField.Label required>
                                             {authItemState.addressDetail.label}
                                         </TextField.Label>
@@ -229,7 +240,6 @@ const SignUpAdditionalForm = () => {
                                                     const { value } = e.target;
                                                     onChange(value);
                                                 }}
-                                                style={{ width: '300px' }}
                                             />
                                         </TextField.Container>
                                         <TextField.HelperText
@@ -238,50 +248,63 @@ const SignUpAdditionalForm = () => {
                                         >
                                             {error?.message}
                                         </TextField.HelperText>
-                                    </TextField.Wrapper>
+                                    </ResponsiveTextFieldWrapper.AUTH>
                                 </TextField>
                             )}
                         />
-                    </Flex.ParallelToHorizonOnTablet>
+                        {/* 상세주소 */}
+                    </Flex.RowToColumnOnTabletSm>
+                    {/* 간단소개 */}
                     <Controller
                         name={authItemState.simpleIntroduction.property}
                         control={control}
                         defaultValue={authViewModel.data?.simpleIntroduction}
                         rules={authFormState.simpleIntroduction}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                            <>
-                                <Textarea
-                                    id="address_detail"
-                                    value={value}
-                                    placeholder={authItemState.simpleIntroduction.placeHolder}
-                                    width={96}
-                                    paddingLeft={16}
-                                    paddingRight={16}
-                                    height="100px"
-                                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                                        const { value } = e.target;
-                                        onChange(value);
-                                    }}
-                                />
-                                <Typography variant="BODY3" color="sementic" marginLeft={8}>
-                                    {!!error && (
-                                        <>
-                                            {authItemState.simpleIntroduction.icon.helper}
-                                            {error?.message}
-                                        </>
-                                    )}
-                                </Typography>
-                            </>
+                            <TextField error={!!error}>
+                                <ResponsiveTextFieldWrapper.AUTH style={{ width: '100%' }}>
+                                    <TextField.Label required>
+                                        {authItemState.addressDetail.label}
+                                    </TextField.Label>
+                                    <TextField.Container id="simpleIntroduction_container">
+                                        <TextField.Textarea
+                                            id="simpleIntroduction"
+                                            value={value}
+                                            placeholder={authItemState.simpleIntroduction.placeHolder}
+                                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                                                const { value } = e.target;
+                                                onChange(value);
+                                            }}
+                                            style={{ height: '100px', padding: '24px' }}
+                                        />
+                                    </TextField.Container>
+                                    <TextField.HelperText
+                                        leftIcon={authItemState.addressDetail.icon.helper}
+                                        style={{ padding: '0 8px' }}
+                                    >
+                                        {error?.message}
+                                    </TextField.HelperText>
+                                </ResponsiveTextFieldWrapper.AUTH>
+                            </TextField>
                         )}
                     />
-                    <Div.Default id="submit_btn" width={100} padding={8}>
+                    {/* 간단소개 */}
+                    <div
+                        id="submit_btn"
+                        style={{
+                            display: 'flex',
+                            width: '100%',
+                            backgroundColor: 'transparent',
+                            padding: '8px',
+                        }}
+                    >
                         <SubmitButton variant="default" isBorder onClick={authViewModel.handleToggle}>
                             이전
                         </SubmitButton>
                         <SubmitButton type="submit" variant="primary" disabled={isSubmitting}>
                             회원가입
                         </SubmitButton>
-                    </Div.Default>
+                    </div>
                 </Wrapper>
             </form>
         </>
@@ -297,33 +320,4 @@ const SubmitButton = styled(RectangleButton)`
 const Wrapper = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
-`;
-
-const AddressButton = styled(RectangleButton)`
-    transform: translateY(10%);
-`;
-const ZoneCodeInput = styled(TextField.Input)`
-    ${theme.mediaQuery.mobile} {
-        width: 200px;
-    }
-    ${theme.mediaQuery.tablet} {
-        width: 200px;
-    }
-    ${theme.mediaQuery.desktop} {
-        width: 300px;
-    }
-`;
-const AddressZoneWrapper = styled(Flex.Default)`
-    ${theme.mediaQuery.mobile} {
-        flex-direction: row;
-        width: 300px;
-    }
-    ${theme.mediaQuery.tablet} {
-        flex-direction: row;
-        width: 300px;
-    }
-    ${theme.mediaQuery.desktop} {
-        flex-direction: row;
-        width: 300px;
-    }
 `;

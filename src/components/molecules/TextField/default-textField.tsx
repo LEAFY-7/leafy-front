@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import Typography, { TypographyVariant } from 'components/atoms/Typograph/default-typography';
 import DefaultInput from 'components/atoms/Input/default-input';
 import { css } from '@emotion/react';
+import DefaultTextarea from 'components/atoms/Textarea/default-textarea';
 
 interface TextFieldContextProps {
     error?: boolean;
@@ -36,8 +37,14 @@ interface InputProps {
     placeholder?: HTMLInputElement['placeholder'];
     maxLength?: HTMLInputElement['maxLength'];
     readOnly?: HTMLInputElement['readOnly'];
-    placeHolderFontSize?: keyof typeof theme.fontSize;
 }
+interface TextareaProps {
+    value: HTMLTextAreaElement['value'];
+    readOnly?: HTMLTextAreaElement['readOnly'];
+    placeholder?: HTMLTextAreaElement['placeholder'];
+    maxLength?: HTMLTextAreaElement['maxLength'];
+}
+
 interface HelperTextProps extends IconProps {
     helperVariant?: TypographyVariant;
     color?: keyof typeof theme.colors;
@@ -51,6 +58,8 @@ type TextFieldWrapperProps = React.PropsWithChildren<WrapperProps> & HTMLAttribu
 type TextFieldContainerProps = React.PropsWithChildren<ContainerProps> & HTMLAttributes<HTMLElement>;
 type TextFieldLabelProps = React.PropsWithChildren<LabelProps> & HTMLAttributes<HTMLLabelElement>;
 type TextFieldInputProps = React.PropsWithChildren<InputProps> & HTMLAttributes<HTMLInputElement>;
+type TextFieldTextareaProps = React.PropsWithChildren<TextareaProps> & HTMLAttributes<HTMLTextAreaElement>;
+
 type TextFieldHelperTextProps = React.PropsWithChildren<HelperTextProps> &
     Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement | HTMLTextAreaElement>, 'color'>;
 
@@ -69,7 +78,7 @@ const TextFieldProvider = ({ error, disabled, children }: TextFieldProviderProps
 // Wrapper
 const TextFieldWrapper = ({ paddingX = 8, paddingY = 8, children, ...rest }: TextFieldWrapperProps) => {
     return (
-        <Wrapper paddingX={paddingX} paddingY={paddingY} {...rest}>
+        <Wrapper id="textField_wrapper" paddingX={paddingX} paddingY={paddingY} {...rest}>
             {children}
         </Wrapper>
     );
@@ -132,7 +141,6 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
         value = '',
         type = 'text',
         placeholder = '',
-        placeHolderFontSize = 'md',
         readOnly = false,
         maxLength = 999999,
         ...rest
@@ -150,6 +158,26 @@ const TextFieldInput = React.forwardRef(function TextFieldInput(
             disabled={disabled}
             error={error}
             maxLength={maxLength}
+            {...rest}
+        />
+    );
+});
+
+// Textarea
+const TextFieldTextarea = React.forwardRef(function TextFieldTextarea(
+    { value = '', placeholder = '', readOnly = false, maxLength = 999999, ...rest }: TextFieldTextareaProps,
+    forwardedRef: React.Ref<HTMLTextAreaElement>,
+) {
+    const { error, disabled } = useTextFieldContext();
+    return (
+        <Textarea
+            value={value}
+            ref={forwardedRef}
+            placeholder={placeholder}
+            readOnly={readOnly}
+            maxLength={maxLength}
+            disabled={disabled}
+            error={error}
             {...rest}
         />
     );
@@ -182,12 +210,12 @@ const TextFieldHelperText = ({
                     marginTop={8}
                     {...rest}
                 >
-                    {leftIcon && leftIcon}
+                    {leftIcon && <HelperIcon>{leftIcon}</HelperIcon>}
                     <Blank />
                     {children}
                     <Blank />
 
-                    {rightIcon && rightIcon}
+                    {rightIcon && <HelperIcon>{rightIcon}</HelperIcon>}
                 </HelperText>
             )}
         </>
@@ -199,6 +227,7 @@ const TextField = Object.assign(TextFieldProvider, {
     Container: TextFieldContainer,
     Label: TextFieldLabel,
     Input: TextFieldInput,
+    Textarea: TextFieldTextarea,
     HelperText: TextFieldHelperText,
 });
 
@@ -208,6 +237,9 @@ const Wrapper = styled.div<Required<WrapperProps>>`
     display: flex;
     flex-direction: column;
     padding: ${({ paddingX, paddingY }) => `${paddingY}px ${paddingX}px`};
+
+    margin-top: 4px;
+    margin-bottom: 4px;
 `;
 
 const Container = styled.div`
@@ -216,11 +248,12 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-    width: max-content;
+    width: 100%;
     height: max-content;
 `;
 
 const Label = styled(Typography)<LabelProps>`
+    width: 100%;
     ${({ required, theme, requiredtext, fontSize }) =>
         required &&
         css`
@@ -230,6 +263,36 @@ const Label = styled(Typography)<LabelProps>`
                 margin-left: 4px;
                 color: ${theme.colors.sementic};
                 font-size: calc(${theme.fontSize[fontSize]} - 6px);
+
+                ${theme.mediaQuery.xsMobile} {
+                    content: '*';
+                }
+                ${theme.mediaQuery.smMobile} {
+                    font-size: calc(${theme.fontSize[fontSize]} - 8px);
+                }
+
+                ${theme.mediaQuery.mdMobile} {
+                    font-size: calc(${theme.fontSize[fontSize]} - 8px);
+                }
+
+                ${theme.mediaQuery.lgMobile} {
+                    font-size: calc(${theme.fontSize[fontSize]} - 6px);
+                }
+
+                ${theme.mediaQuery.smTablet} {
+                    width: auto;
+                }
+
+                ${theme.mediaQuery.mdTablet} {
+                    width: auto;
+                }
+
+                ${theme.mediaQuery.lgTablet} {
+                    width: auto;
+                }
+                ${theme.mediaQuery.desktop} {
+                    width: auto;
+                }
             }
         `}
 `;
@@ -253,6 +316,7 @@ const RightIcon = styled.div<Required<{ disabled?: boolean }>>`
 `;
 
 const Input = styled(DefaultInput)`
+    width: 100%;
     padding: 8px 24px;
     color: ${({ theme }) => theme.colors.inherit};
 
@@ -262,13 +326,48 @@ const Input = styled(DefaultInput)`
         }
     }
 `;
+const Textarea = styled(DefaultTextarea)`
+    width: 100%;
+    ${theme.mediaQuery.xsMobile} {
+        padding: 2px;
+    }
+
+    ${theme.mediaQuery.smMobile} {
+        padding: 8px;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        padding: 8px 12px;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        padding: 8px 24px;
+    }
+`;
 
 const HelperText = styled(Typography)`
-    display: flex;
     align-items: center;
+
+    @media only screen and (max-width: 200px) {
+        display: none;
+    }
+
+    ${theme.mediaQuery.smMobile} {
+        display: flex;
+    }
 `;
 
 const Blank = styled.div`
     width: 4px;
     height: 4px;
+`;
+
+const HelperIcon = styled.span`
+    ${theme.mediaQuery.xsMobile} {
+        display: none;
+    }
+
+    ${theme.mediaQuery.smMobile} {
+        display: block;
+    }
 `;

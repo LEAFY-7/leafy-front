@@ -6,19 +6,19 @@ const useWindowSize = (): { width: number; height: number } => {
         height: window.innerHeight,
     });
 
-    React.useEffect(() => {
-        const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
+    const handleResize = React.useCallback(() => {
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    }, []);
 
+    React.useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [handleResize]);
 
     return React.useMemo(() => windowSize, [windowSize]);
 };

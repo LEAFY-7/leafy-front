@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { AiOutlineBell, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineBell as AlarmIcon, AiOutlineUser as UserIcon } from 'react-icons/ai';
 
 import tokenModule from 'modules/token.module';
 import { theme } from 'configs/ui.config';
@@ -60,7 +60,9 @@ const DefaultHeader = () => {
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Toggle id="alarm__wrapper">
                                     {/* 알람 아이콘 */}
-                                    <AiOutlineBell size={20} color="grey" />
+                                    <IconWrapper>
+                                        <AlarmIcon size={20} color="grey" />
+                                    </IconWrapper>
                                     {/* 알람 아이콘 */}
                                 </Toggle>
                                 <AlarmMenuWrapper>
@@ -81,7 +83,9 @@ const DefaultHeader = () => {
                             <Flyout isOpen={values.isOpen} toggle={values.toggle}>
                                 <Toggle id="user__wrapper">
                                     {/* 회원정보 아이콘 */}
-                                    <AiOutlineUser size={20} color="grey" />
+                                    <IconWrapper>
+                                        <UserIcon size={20} color="grey" />
+                                    </IconWrapper>
                                     {/* 회원정보 아이콘 */}
                                 </Toggle>
                                 <MyMenuWrapper>
@@ -130,6 +134,16 @@ const HeaderWrap = styled.div`
     & img {
         width: 100%;
         height: 48px;
+    }
+`;
+
+const IconWrapper = styled.div`
+    width: fit-content;
+    margin-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    &:last-of-type {
+        margin-right: 0;
     }
 `;
 

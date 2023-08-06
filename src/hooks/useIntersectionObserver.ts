@@ -6,12 +6,13 @@ const useIntersectionObserver = (callback, options) => {
     React.useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             const entry = entries[0];
-            if (entry.isIntersecting && entry.boundingClientRect.top > 100) {
+            if (entry.isIntersecting && entry.boundingClientRect.top > 0) {
                 callback();
             }
         }, options);
 
         if (targetRef.current) {
+            console.log('여기');
             observer.observe(targetRef.current);
         }
 

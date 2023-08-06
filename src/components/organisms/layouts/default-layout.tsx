@@ -10,7 +10,7 @@ const DefaultLayout = () => {
         <>
             <DefaultHeader />
             <Outlet />
-            {<DefaultFooter />}
+            {notFooter !== 'chat' && <DefaultFooter />}
         </>
     );
 };

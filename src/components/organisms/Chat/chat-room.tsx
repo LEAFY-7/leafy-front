@@ -2,6 +2,7 @@ import type { CSSProperties, HTMLAttributes, HtmlHTMLAttributes } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
+import Flex from 'components/atoms/Group/flex';
 
 interface ContextProps {
     currentId: number;
@@ -12,12 +13,15 @@ interface WrapperProps extends Pick<ContextProps, 'height'> {
 }
 interface HeaderProps extends Pick<ContextProps, 'height'> {}
 interface BodyProps extends Pick<ContextProps, 'height'> {
-    targetRef?: React.MutableRefObject<HTMLDivElement>;
+    isScrollMoved?: boolean;
 }
-interface YouMessageProps {
+interface CommonMessageProps {
+    isMe?: boolean;
+}
+interface YouMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
 }
-interface MeMessageProps {
+interface MeMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
 }
 interface FooterProps extends Pick<ContextProps, 'height'> {}
@@ -63,13 +67,12 @@ const ChatRoomHeader = ({ children, ...rest }: ChatRoomHeaderProps) => {
 };
 // Body
 const ChatRoomBody = React.forwardRef(function ChatRoomBody(
-    { targetRef = null, children, ...rest }: ChatRoomBodyProps,
+    { isScrollMoved = false, children, ...rest }: ChatRoomBodyProps,
     forwardedRef: React.Ref<HTMLElement>,
 ) {
     const { height } = useChatRoomContext();
     return (
-        <Body height={height} ref={forwardedRef} {...rest}>
-            <div id="temp" ref={targetRef} style={{ height: '50px' }}></div>
+        <Body height={height} isScrollMoved={isScrollMoved} ref={forwardedRef} {...rest}>
             {children}
         </Body>
     );
@@ -85,19 +88,27 @@ const ChatRoomFooter = ({ children, ...rest }: ChatRoomFooterProps) => {
 };
 
 // YouMessage
-const ChatRoomYouMessage = ({ id = '', children, ...rest }: ChatRoomYouMessageProps) => {
+const ChatRoomYouMessage = ({ isMe = false, id = '', children, ...rest }: ChatRoomYouMessageProps) => {
     return (
-        <MessageWrapper id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <YouMessage {...rest}>{children}</YouMessage>
+            <Flex.Default>
+                <span>시간</span>
+                <span>unread</span>
+            </Flex.Default>
         </MessageWrapper>
     );
 };
 
 // MeMessage
-const ChatRoomMeMessage = ({ id = '', children, ...rest }: ChatRoomMeMessageProps) => {
+const ChatRoomMeMessage = ({ isMe = true, id = '', children, ...rest }: ChatRoomMeMessageProps) => {
     return (
-        <MessageWrapper id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
             <MeMessage {...rest}>{children}</MeMessage>
+            <Flex.Default>
+                <span>unread</span>
+                <span>시간</span>
+            </Flex.Default>
         </MessageWrapper>
     );
 };
@@ -115,6 +126,7 @@ export default ChatRoom;
 
 // Wrapper Style
 const Wrapper = styled.div<WrapperProps>`
+    position: relative;
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     display: flex;
@@ -127,28 +139,33 @@ const Wrapper = styled.div<WrapperProps>`
 `;
 // Header Style
 const Header = styled.header<HeaderProps>`
+    position: absolute;
+    top: 0;
     width: 100%;
     height: ${({ height }) => `calc(${height} / 6)`};
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 2;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fafafa 0%, rgba(250, 250, 250, 0.6) 100%);
 `;
 // Body Style
 const Body = styled.section<BodyProps>`
     width: 100%;
-    height: ${({ height }) => `calc(${height} / 6 * 4)`};
+    height: ${({ height }) => `calc(${height} / 6 * 5)`};
     background-color: #fff8f8;
-    gap: 10px;
+    gap: 16px;
     overflow-y: scroll;
-    padding: 8px 16px;
+    padding: 8px;
 
-    ::-webkit-scrollbar {
-        width: 10px;
-        background-color: ${theme.colors.lgrey_50};
-    }
-
+    ::-webkit-scrollbar,
     ::-webkit-scrollbar-thumb {
-        width: 10px;
+        overflow: visible;
+        border-radius: 4px;
+        width: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
         background-color: ${theme.colors.lgrey};
     }
 `;
@@ -160,31 +177,28 @@ const Footer = styled.footer<FooterProps>`
     box-sizing: border-box;
 `;
 // Message Style
-const MessageWrapper = styled.div`
+const MessageWrapper = styled.div<CommonMessageProps>`
     position: relative;
     box-sizing: border-box;
     margin: 16px;
-
-    height: 100px;
     border-radius: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: ${({ isMe }) => (isMe ? 'flex-end' : 'flex-start')};
+    min-height: 40px;
 `;
-
-const YouMessage = styled.span`
-    position: absolute;
+const MessageBase = styled.span`
     max-width: 60%;
-    left: 0;
     padding: 16px 8px;
-    background-color: ${theme.colors.lgrey};
     border-radius: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+`;
+const YouMessage = styled(MessageBase)`
+    background-color: ${theme.colors.lgrey_50};
 `;
 
-const MeMessage = styled.span`
-    position: absolute;
-    max-width: 60%;
-
-    right: 0;
-    padding: 16px 8px;
+const MeMessage = styled(MessageBase)`
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
-    border-radius: 20px;
 `;

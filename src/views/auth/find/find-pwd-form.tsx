@@ -10,7 +10,6 @@ import { authFormState, authItemState } from 'configs/form.config';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import TextField from 'components/molecules/TextField/default-textField';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const FindPwdForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
