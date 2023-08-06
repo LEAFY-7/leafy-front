@@ -3,7 +3,7 @@ import { UserDto } from 'dto/user/user.dto';
 
 export class FeedDto {
     @Expose({ name: 'id' })
-    public readonly id: string = '';
+    public readonly id: number = 0;
 
     @Expose({ name: 'author' })
     @Type(() => UserDto)

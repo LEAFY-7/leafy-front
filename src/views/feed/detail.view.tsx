@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import LazyImage from 'components/atoms/LazyImage/default-image';
 import UserProfile from 'components/organisms/Profile/user-profile';
 import PageContainer from 'components/templates/page-container';
+import { CommentDto } from 'dto/feed/comment.dto';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect, useRef, useState } from 'react';
@@ -22,17 +23,16 @@ const FeedDetailView = () => {
     const swiperRef = useRef();
 
     useEffect(() => {
-        feedViewModel.getMe();
+        // feedViewModel.getMe();
         feedViewModel.getDetail(+id);
     }, []);
 
-    const handleSlide = (swiper: SwiperEventType) => {
+    const handleSlidePage = (swiper: SwiperEventType) => {
         setIsMove(true);
         setTimeout(() => {
             setSwiperPage(swiper.realIndex);
             setIsMove(false);
-        }, 400);
-        console.log(swiperRef);
+        }, 0.8);
     };
 
     const getSlideImage = (position: number): string => {
@@ -50,7 +50,7 @@ const FeedDetailView = () => {
                     slidesPerView={1}
                     spaceBetween={16}
                     navigation
-                    onSlideChange={handleSlide}
+                    onSlideChange={handleSlidePage}
                     loop
                     imageLength={feedViewModel.detail.imgUrl.length}
                     ref={swiperRef}
@@ -71,7 +71,6 @@ const FeedDetailView = () => {
                         style={{ width: '100%', height: '430px', objectFit: 'cover', borderRadius: '16px' }}
                         className="preview_cards"
                         isMove={isMove}
-                        isNext={false}
                     />
                 )}
                 {feedViewModel.detail.imgUrl.length >= 3 && (
@@ -87,31 +86,46 @@ const FeedDetailView = () => {
                         }}
                         className="preview_cards"
                         isMove={isMove}
-                        isNext={false}
                     />
                 )}
             </ImageWrap>
             <Content.Title>{feedViewModel.detail.title}</Content.Title>
             <Content.Desc>{feedViewModel.detail.content}</Content.Desc>
+            <Content.IconWrap>
+                <div>
+                    <Content.Icon />
+                    <Content.Desc>999+</Content.Desc>
+                </div>
+                <div>
+                    <Content.Icon />
+                    <Content.Desc>999+</Content.Desc>
+                </div>
+                <div>
+                    <Content.Icon />
+                </div>
+            </Content.IconWrap>
+            <Comment.Wrap>
+                <UserProfile data={feedViewModel.detail.author} style={{ width: '24px', height: '24px' }} />
+                <input value="댓글입력" onChange={() => {}} />
+                {feedViewModel.commentList.map((comment: CommentDto, key: number) => {
+                    return (
+                        <div key={`comment_${key}`}>
+                            <UserProfile
+                                data={feedViewModel.detail.author}
+                                style={{ width: '24px', height: '24px' }}
+                            />
+                            <p>{comment.content}</p>
+                        </div>
+                    );
+                })}
+            </Comment.Wrap>
         </PageContainer>
     );
 };
 
 export default observer(FeedDetailView);
 
-const ImageChangeNext = keyframes`
-    from {
-        transform: translate(0);
-        opacity:1;
-    }
-
-    to {
-        transform: translate(-150%);
-        opacity:0;
-    }
-`;
-
-const ImageChangePrev = keyframes`
+const ImageChange = keyframes`
     from {
         opacity:1;
     }
@@ -137,36 +151,27 @@ const ImageWrap = styled.div`
     width: 100%;
     display: flex;
 
-    & :nth-child(2) {
+    &span:nth-child(1) {
+        flex-shrink: 0;
         width: 30%;
     }
-    & :nth-child(3) {
+    &span:nth-child(2) {
+        flex-shrink: 0;
         width: 20%;
     }
 `;
 
-const LazyImages = styled(LazyImage)<{ isMove: boolean; isNext: boolean }>`
-    ${({ isMove, isNext }) => {
-        if (isNext) {
-            return isMove
-                ? `animation: ${ImageChangeNext} 0.4s ease;`
-                : `animation: ${ImageLoad} 1.8s 0.2s both;`;
-        } else {
-            return isMove
-                ? `animation: ${ImageChangePrev} 0.4s ease;`
-                : `animation: ${ImageLoad} 1.8s 0.2s both;`;
-        }
-    }}
+const LazyImages = styled(LazyImage)<{ isMove: boolean }>`
+    ${({ isMove }) =>
+        isMove ? `animation: ${ImageChange} 0.8s ease;` : `animation: ${ImageLoad} 0.8s both;`}}
 `;
 
 const SwiperWrap = styled(Swiper)<{ imageLength: number }>`
     position: relative;
+    flex-shrink: 0;
     left: -16px;
-    padding-left: 16px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0;
     height: 430px;
+    margin: 0;
 
     & .swiper-slide,
     & span,
@@ -176,6 +181,20 @@ const SwiperWrap = styled(Swiper)<{ imageLength: number }>`
         object-fit: cover;
         border-radius: 16px;
     }
+
+    ${({ imageLength }) => {
+        switch (imageLength) {
+            case 1:
+                return `width: 100%;`;
+
+            case 2:
+                return `width: 60%;`;
+
+            default:
+                return `width: 50%;
+                max-width: 600px;`;
+        }
+    }}
 `;
 
 const Content = {
@@ -186,6 +205,7 @@ const Content = {
         font-style: normal;
         font-weight: 700;
         line-height: 40px;
+        text-align: center;
         margin: 0;
     `,
     Desc: styled.p`
@@ -193,6 +213,46 @@ const Content = {
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
-        line-height: 22px;
+        line-height: 2;
+    `,
+    IconWrap: styled.div`
+        margin: 0;
+        margin-left: auto;
+        width: 200px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        & div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            & p {
+                height: 18px;
+            }
+        }
+
+        & * {
+            font-size: 14px;
+        }
+    `,
+    Icon: styled.div`
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: red;
+    `,
+};
+
+const Comment = {
+    Wrap: styled.div`
+        width: 100%;
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     `,
 };

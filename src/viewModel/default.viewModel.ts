@@ -42,7 +42,7 @@ export default class DefaultViewModel {
 
     getMe = async () => {
         await this.api
-            .get('/v1/me')
+            .get('/v1/users')
             .then((result: AxiosResponse<UserDto>) => {
                 runInAction(() => {
                     this.me = plainToInstance(UserDto, result.data);
