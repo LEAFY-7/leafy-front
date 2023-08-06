@@ -18,11 +18,11 @@ interface IProps {
     pathname?: Pathname;
 }
 
-const SearchForm = (props: IProps): ReactElement => {
+const SearchBar = (props: IProps): ReactElement => {
     const [search, setSearch] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const navigate = useNavigate();
-    const { pathname } = useLocation();
+    // const [searchResults, setSearchResults] = useState([]);
+    // const navigate = useNavigate();
+    // const { pathname } = useLocation();
 
     const { isFilter = false, value, required, dataset, name, placeholder } = props;
 
@@ -30,33 +30,33 @@ const SearchForm = (props: IProps): ReactElement => {
     const onChange = (e) => {
         setSearch(`${e.target.value}`);
     };
-    const onSubmit = (e) => {
-        e.preventDefault();
-        navigate(`${pathname}?q=${search}`);
-    };
+    // const onSubmit = (e) => {
+    //     e.preventDefault();
+    //     navigate(`${pathname}?q=${search}`);
+    // };
 
-    const useQuery = () => {
-        return new URLSearchParams(useLocation()[pathname]);
-    };
+    // const useQuery = () => {
+    //     return new URLSearchParams(useLocation()[pathname]);
+    // };
 
-    let query = useQuery();
-    const searchTerm = query.get('q');
+    // let query = useQuery();
+    // const searchTerm = query.get('q');
 
-    useEffect(() => {
-        if (searchTerm) fetchSearch(searchTerm);
-    }, [searchTerm]);
+    // useEffect(() => {
+    //     if (searchTerm) fetchSearch(searchTerm);
+    // }, [searchTerm]);
 
-    const fetchSearch = async (searchTerm) => {
-        try {
-            const request = await axios.get('');
-            setSearchResults(request.data.results);
-        } catch (error) {
-            console.log('error', error);
-        }
-    };
+    // const fetchSearch = async (searchTerm) => {
+    //     try {
+    //         const request = await axios.get('');
+    //         setSearchResults(request.data.results);
+    //     } catch (error) {
+    //         console.log('error', error);
+    //     }
+    // };
 
     return (
-        <SearchStyle onSubmit={onSubmit}>
+        <SearchStyle /*onSubmit={onSubmit}*/>
             {isFilter && <></>}
             <Input
                 value={value}
@@ -77,12 +77,13 @@ const SearchForm = (props: IProps): ReactElement => {
                 showIcon={true}
                 text="검색"
                 leftIcon={icon}
+                condition={true}
             />
         </SearchStyle>
     );
 };
 
-export default SearchForm;
+export default SearchBar;
 
 const SearchStyle = styled.form`
     display: flex;

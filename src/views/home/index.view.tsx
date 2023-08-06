@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
+import Button from 'components/atoms/Button/button';
 
 /**
  * 메인페이지

@@ -1,8 +1,10 @@
-import { css } from '@emotion/react';
 import PageContainer from 'components/templates/page-container';
 import Typography from 'components/atoms/Typograph/default-typography';
-import Search from 'components/molecules/Search/search';
+import SearchBar from 'components/molecules/Search/searchbar';
 import SearchResults from 'components/molecules/Search/result';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import Box from 'components/atoms/Box/default-box';
+import PageButton from 'components/organisms/Pagination/pagebutton';
 
 import { NoticeDto } from 'dto/notice/notice.dto';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
@@ -11,9 +13,6 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
-import Box from 'components/atoms/Box/default-box';
-import Flex from 'components/atoms/Group/flex';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -30,7 +29,7 @@ const NoticeView = () => {
                         공지사항
                     </Typography>
                 </LinkWrapper>
-                <Search placeholder="공지 검색" pathname="notice/detail" />
+                <SearchBar placeholder="공지 검색" />
             </Box>
 
             <Typography variant="BODY2" color="white" textAlign="center" marginBottom={25}>
@@ -47,6 +46,9 @@ const NoticeView = () => {
                     return <SearchResults item={item} />;
                 })}
             </NoticeWrap>
+            <PagingWrap>
+                <PageButton length={20} limit={10} />
+            </PagingWrap>
         </PageContainer>
     );
 };
@@ -80,3 +82,5 @@ const Title = styled.span`
 const Date = styled.span`
     flex-grow: 0.15;
 `;
+
+const PagingWrap = styled.div``;

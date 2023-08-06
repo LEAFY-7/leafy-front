@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import SearchForm from './search';
 import Linker from 'components/atoms/Linker/linker';
 import pageUrlConfig from 'configs/pageUrl.config';
 import { NoticeDto } from 'dto/notice/notice.dto';

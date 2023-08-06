@@ -75,8 +75,10 @@ export const Button = ({
 
 export default Button;
 
+type union = false | true;
+
 //button disabled 상태 변경 함수
-export const handleButtonState = (condition) => {
+export const handleButtonState = (condition: union) => {
     if (condition) return 'default';
     return 'disabled';
 };
