@@ -4,18 +4,20 @@ import pageUrlConfig from 'configs/pageUrl.config';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { theme } from 'configs/ui.config';
 import Typography from 'components/atoms/Typograph/default-typography';
+import { CSSProperties } from 'react';
 
 interface ResultProps {
     item: NoticeDto;
+    titleColor?: keyof typeof theme.colors;
 }
 
-const NoticeList = ({ item }: ResultProps) => {
+const NoticeList = ({ item, titleColor }: ResultProps) => {
     return (
         <>
-            <Linker href={`${pageUrlConfig.notice}/detail/${item.id}`}>
+            <Linker href={`${pageUrlConfig.notice}/${item.id}`}>
                 <ListStyle variant="BODY2" textAlign="center">
                     <span>{item.id}</span>
-                    <TitleStyle variant="BODY2" color="black" textAlign="center">
+                    <TitleStyle variant="BODY2" color={titleColor} textAlign="center">
                         {item.title}
                     </TitleStyle>
                     <Count>{item.viewCount}</Count>

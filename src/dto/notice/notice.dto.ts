@@ -12,4 +12,7 @@ export class NoticeDto {
     
     @Expose({ name: 'date' })
     public readonly date: string = '';
+
+    @Expose({ name: 'content' })
+    public readonly content: string = '';
 }

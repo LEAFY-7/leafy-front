@@ -19,8 +19,8 @@ const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
 
     useEffect(() => {
-        noticeViewModel.getNoticeData();
         noticeViewModel.getMe();
+        noticeViewModel.getNoticeData();
     }, []);
 
     const offset = 0;
@@ -53,7 +53,7 @@ const NoticeView = () => {
 
             <NoticeWrap>
                 {noticeViewModel.noticeList.slice(offset, offset + target).map((item: NoticeDto) => {
-                    return <NoticeList item={item} />;
+                    return <NoticeList item={item} titleColor="white" />;
                 })}
             </NoticeWrap>
             <PageButton
