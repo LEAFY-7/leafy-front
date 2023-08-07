@@ -7,7 +7,7 @@ import { TokenButtonState, states, steps, drop } from './button.types';
 interface Props {
     id?: string;
     //disabled 상태에서 벗어나기 위한 조건
-    condition?: boolean;
+    isActive?: boolean;
     size: 'xl' | 'l' | 's';
     type: 'button' | 'submit' | 'reset';
     variant: 'primary' | 'secondary' | 'basic';
@@ -26,7 +26,7 @@ const dropState = (state: states): drop => {
 };
 export const Button = ({
     id,
-    condition = false,
+    isActive = true,
     /* 필수, 변경 값*/
     state = 'default',
     type = 'button',
@@ -49,7 +49,7 @@ export const Button = ({
     const stepCss = buttonStep(handle, variant)[handle][variant].styles;
     const stateCss = buttonState(handle, variant).state.styles;
     const textCss = buttonText('text', variant).state.styles;
-    if (handleButtonState(condition) === 'disabled') {
+    if (handleButtonState(isActive) === 'disabled') {
         return (
             <button css={[sizeCss, stepCss, stateCss, textCss, dropCss]}>
                 {showText && text}
@@ -75,10 +75,8 @@ export const Button = ({
 
 export default Button;
 
-type union = false | true;
-
 //button disabled 상태 변경 함수
-export const handleButtonState = (condition: union) => {
-    if (condition) return 'default';
+export const handleButtonState = (isActive: boolean) => {
+    if (isActive) return 'default';
     return 'disabled';
 };

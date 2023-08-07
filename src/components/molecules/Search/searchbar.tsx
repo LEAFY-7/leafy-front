@@ -77,7 +77,6 @@ const SearchBar = (props: IProps): ReactElement => {
                 showIcon={true}
                 text="검색"
                 leftIcon={icon}
-                condition={true}
             />
         </SearchStyle>
     );

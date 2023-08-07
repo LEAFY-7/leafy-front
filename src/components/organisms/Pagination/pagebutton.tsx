@@ -3,6 +3,7 @@ import { colors, fontWeight, theme } from 'configs/ui.config';
 import { type } from 'os';
 import { MouseEventHandler, ReactElement, useState } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 interface Props {
     target: number;
     limit: number;
@@ -40,8 +41,7 @@ const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
                     setPage(offset);
                 }}
             >
-                <IoIosArrowBack />
-                <IoIosArrowBack />
+                <MdKeyboardDoubleArrowLeft />
             </ArrowButton>
             <ArrowButton
                 type="button"
@@ -95,8 +95,7 @@ const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
                     console.log(page, offset);
                 }}
             >
-                <IoIosArrowForward />
-                <IoIosArrowForward />
+                <MdKeyboardDoubleArrowRight />
             </ArrowButton>
         </PageButtonContainer>
     );
