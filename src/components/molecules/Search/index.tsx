@@ -12,7 +12,7 @@ interface IProps {
     isFilter?: boolean;
 }
 
-export default function SearchBar(props: IProps): ReactElement {
+export default function Search(props: IProps): ReactElement {
     const { isFilter = false, value, required, onChange, dataset, name, style, placeholder } = props;
     return (
         <div>
