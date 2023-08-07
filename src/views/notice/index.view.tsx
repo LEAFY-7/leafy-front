@@ -21,6 +21,10 @@ const NoticeView = () => {
         noticeViewModel.getNoticeData();
     }, []);
 
+    const offset = 0;
+    const limit = 10;
+
+    const handlePagingList = () => {};
     return (
         <PageContainer>
             <Box marginBottom={96}>
@@ -42,13 +46,11 @@ const NoticeView = () => {
             </Typography>
 
             <NoticeWrap>
-                {noticeViewModel.noticeList.map((item: NoticeDto) => {
+                {noticeViewModel.noticeList.slice(offset, offset + limit).map((item: NoticeDto) => {
                     return <SearchResults item={item} />;
                 })}
             </NoticeWrap>
-            <PagingWrap>
-                <PageButton limit={20} target={10} />
-            </PagingWrap>
+            <PageButton limit={350} target={10} onClick={handlePagingList} />
         </PageContainer>
     );
 };
@@ -82,5 +84,3 @@ const Title = styled.span`
 const Date = styled.span`
     flex-grow: 0.15;
 `;
-
-const PagingWrap = styled.div``;
