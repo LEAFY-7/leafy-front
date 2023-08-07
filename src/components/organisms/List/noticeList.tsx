@@ -9,10 +9,10 @@ interface ResultProps {
     item: NoticeDto;
 }
 
-const SearchResults = ({ item }: ResultProps) => {
+const NoticeList = ({ item }: ResultProps) => {
     return (
         <>
-            <Linker href={`${pageUrlConfig.noticeDetail}/${item.id}`}>
+            <Linker href={`${pageUrlConfig.notice}/detail/${item.id}`}>
                 <ListStyle variant="BODY2" textAlign="center">
                     <span>{item.id}</span>
                     <TitleStyle variant="BODY2" color="black" textAlign="center">
@@ -26,7 +26,7 @@ const SearchResults = ({ item }: ResultProps) => {
     );
 };
 
-export default SearchResults;
+export default NoticeList;
 
 const ListStyle = styled(Typography)`
     border-radius: 12px;

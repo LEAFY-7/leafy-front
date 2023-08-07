@@ -1,10 +1,11 @@
 import PageContainer from 'components/templates/page-container';
 import Typography from 'components/atoms/Typograph/default-typography';
 import SearchBar from 'components/molecules/Search/searchbar';
-import SearchResults from 'components/molecules/Search/result';
+import NoticeList from 'components/organisms/List/noticeList';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import Box from 'components/atoms/Box/default-box';
 import PageButton from 'components/organisms/Pagination/pagebutton';
+import Button from 'components/atoms/Button/button';
 
 import { NoticeDto } from 'dto/notice/notice.dto';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
@@ -19,12 +20,17 @@ const NoticeView = () => {
 
     useEffect(() => {
         noticeViewModel.getNoticeData();
+        noticeViewModel.getMe();
     }, []);
 
     const offset = 0;
-    const limit = 10;
+    const target = 10;
 
+    //getMe를 이용해서 등록하기 버튼 분기처리
+    const isAdmin = noticeViewModel.me.isAdmin || false;
     const handlePagingList = () => {};
+
+    console.log(noticeViewModel.getMe());
     return (
         <PageContainer>
             <Box marginBottom={96}>
@@ -46,11 +52,30 @@ const NoticeView = () => {
             </Typography>
 
             <NoticeWrap>
-                {noticeViewModel.noticeList.slice(offset, offset + limit).map((item: NoticeDto) => {
-                    return <SearchResults item={item} />;
+                {noticeViewModel.noticeList.slice(offset, offset + target).map((item: NoticeDto) => {
+                    return <NoticeList item={item} />;
                 })}
             </NoticeWrap>
-            <PageButton limit={350} target={10} onClick={handlePagingList} />
+            <PageButton
+                limit={noticeViewModel.noticeList.length}
+                target={target}
+                onClick={handlePagingList}
+            />
+            <div style={{ display: `flex`, marginLeft: `auto` }}>
+                {isAdmin ? (
+                    <Button
+                        type="button"
+                        state="default"
+                        variant="primary"
+                        size="l"
+                        text="등록하기"
+                        showText={true}
+                        showIcon={false}
+                    />
+                ) : (
+                    <></>
+                )}
+            </div>
         </PageContainer>
     );
 };

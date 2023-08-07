@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Typography from 'components/atoms/Typograph/default-typography';
 import { colors, fontWeight, theme } from 'configs/ui.config';
 import { type } from 'os';
 import { MouseEventHandler, ReactElement, useState } from 'react';
@@ -10,13 +11,12 @@ interface Props {
     onClick: MouseEventHandler;
 }
 /** limit: 데이터 총 길이, target: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
-const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
+const PageButton = ({ target = 0, limit = 0, onClick }: Props): ReactElement => {
     const [page, setPage] = useState<number>(1);
     const [offset, setOffset] = useState<number>(0);
     const handleClickButton = (e) => {
         const id = e.currentTarget.dataset.id;
     };
-
     //한번에 보여줄 페이지네이션 개수
     const visiblePageCount: number = 8;
 
