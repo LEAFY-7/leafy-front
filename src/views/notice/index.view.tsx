@@ -53,7 +53,7 @@ const NoticeView = () => {
 
             <NoticeWrap>
                 {noticeViewModel.noticeList.slice(offset, offset + target).map((item: NoticeDto) => {
-                    return <NoticeList item={item} titleColor="white" />;
+                    return <NoticeList item={item} titleColor="black" />;
                 })}
             </NoticeWrap>
             <PageButton
@@ -89,6 +89,7 @@ const NoticeWrap = styled.div`
     border-radius: 12px;
     background-color: ${theme.colors.white};
     width: 100%;
+    box-shadow: 0 5px 10px 0 ${theme.colors.lgrey};
 `;
 
 const NoticeTitle = styled.div`
@@ -100,6 +101,7 @@ const NoticeTitle = styled.div`
     flex-shrink: 0;
     gap: 16px;
     padding: 1em;
+    box-shadow: 0 5px 10px 0 ${theme.colors.lgrey};
 `;
 
 const Title = styled.span`
