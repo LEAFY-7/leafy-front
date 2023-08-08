@@ -10,7 +10,7 @@ import Button from 'components/atoms/Button/button';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
@@ -22,15 +22,16 @@ const NoticeView = () => {
         noticeViewModel.getMe();
         noticeViewModel.getNoticeData();
     }, []);
-
-    const offset = 0;
-    const target = 3;
+    /* 페이지네이션에 필요한 변수들 */
+    //1. PageButton에 들어갈 상태 - 현재 페이지를 데려옴
+    const [page, setPage] = useState<number>(1);
+    //2. 한번에 보여줄 리스트 개수
+    const limit = 3;
+    //3. 한번에 보여줄 리스트의 시작지점
+    const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
     const isAdmin = noticeViewModel.me.isAdmin || false;
-    const handlePagingList = () => {};
-
-    console.log(noticeViewModel.getMe());
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
@@ -52,14 +53,15 @@ const NoticeView = () => {
             </Typography>
 
             <NoticeWrap>
-                {noticeViewModel.noticeList.slice(offset, offset + target).map((item: NoticeDto) => {
+                {noticeViewModel.noticeList.slice(offset, offset + limit).map((item: NoticeDto) => {
                     return <NoticeList item={item} titleColor="black" />;
                 })}
             </NoticeWrap>
             <PageButton
-                limit={noticeViewModel.noticeList.length}
-                target={target}
-                onClick={handlePagingList}
+                limit={limit}
+                target={noticeViewModel.noticeList.length}
+                page={page}
+                setPage={setPage}
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin ? (

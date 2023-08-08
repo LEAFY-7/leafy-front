@@ -10,7 +10,7 @@ import { theme } from 'configs/ui.config';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 /**
@@ -19,11 +19,16 @@ import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 const NoticeDetailView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         noticeViewModel.getNoticeDetail(id);
         noticeViewModel.getMe();
     }, []);
+    //게시글 제목 클릭시 직전 페이지로 이동
+    const onclick = () => {
+        navigate(-1);
+    };
 
     const offset = noticeViewModel.detail;
     const isAdmin = noticeViewModel.me.isAdmin || false;
@@ -45,7 +50,7 @@ const NoticeDetailView = () => {
                     <Date>날짜</Date>
                 </NoticeTitle>
             </Typography>
-            <NoticeWrap>
+            <NoticeWrap onClick={onclick}>
                 <NoticeList item={offset} titleColor="black" />
             </NoticeWrap>
             <NoticeContent>{noticeViewModel.detail.content}</NoticeContent>

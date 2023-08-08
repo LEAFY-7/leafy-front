@@ -4,7 +4,6 @@ import pageUrlConfig from 'configs/pageUrl.config';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { theme } from 'configs/ui.config';
 import Typography from 'components/atoms/Typograph/default-typography';
-import { CSSProperties } from 'react';
 
 interface ResultProps {
     item: NoticeDto;
