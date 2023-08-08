@@ -29,8 +29,8 @@ const NoticeDetailView = () => {
     const isAdmin = noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
-            <Box marginBottom={96}>
-                <LinkWrapper>
+            <Box marginBottom={96} marginTop={96}>
+                <LinkWrapper to="/notice">
                     <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
                         공지사항
                     </Typography>

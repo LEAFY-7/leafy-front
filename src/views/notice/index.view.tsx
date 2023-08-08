@@ -24,7 +24,7 @@ const NoticeView = () => {
     }, []);
 
     const offset = 0;
-    const target = 10;
+    const target = 3;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
     const isAdmin = noticeViewModel.me.isAdmin || false;
@@ -33,8 +33,8 @@ const NoticeView = () => {
     console.log(noticeViewModel.getMe());
     return (
         <PageContainer>
-            <Box marginBottom={96}>
-                <LinkWrapper>
+            <Box marginBottom={96} marginTop={96}>
+                <LinkWrapper to="/notice">
                     <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
                         공지사항
                     </Typography>

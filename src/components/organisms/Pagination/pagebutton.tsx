@@ -49,9 +49,10 @@ const PageButton = ({ target = 0, limit = 0, onClick }: Props): ReactElement => 
                 onClick={() => {
                     //개별 page 단위로 넘기는 버튼
                     setPage(page - 1);
-                    if (page < offset + visiblePageCount) {
+                    if (page < offset + visiblePageCount && offset > 0) {
                         setOffset(offset - visiblePageCount);
                     }
+                    console.log(page, offset);
                 }}
             >
                 <IoIosArrowBack />
