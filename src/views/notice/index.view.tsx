@@ -64,7 +64,7 @@ const NoticeView = () => {
                 setPage={setPage}
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {isAdmin ? (
+                {isAdmin && (
                     <Button
                         type="button"
                         state="default"
@@ -74,8 +74,6 @@ const NoticeView = () => {
                         showText={true}
                         showIcon={false}
                     />
-                ) : (
-                    <></>
                 )}
             </div>
         </PageContainer>

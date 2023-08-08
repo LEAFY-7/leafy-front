@@ -26,7 +26,7 @@ const NoticeDetailView = () => {
         noticeViewModel.getMe();
     }, []);
     //게시글 제목 클릭시 직전 페이지로 이동
-    const onclick = () => {
+    const onClickToBack = () => {
         navigate(-1);
     };
 
@@ -50,12 +50,12 @@ const NoticeDetailView = () => {
                     <Date>날짜</Date>
                 </NoticeTitle>
             </Typography>
-            <NoticeWrap onClick={onclick}>
+            <NoticeWrap onClick={onClickToBack}>
                 <NoticeList item={offset} titleColor="black" />
             </NoticeWrap>
             <NoticeContent>{noticeViewModel.detail.content}</NoticeContent>
             <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {isAdmin ? (
+                {isAdmin && (
                     <Button
                         type="button"
                         state="default"
@@ -65,8 +65,6 @@ const NoticeDetailView = () => {
                         showText={true}
                         showIcon={false}
                     />
-                ) : (
-                    <></>
                 )}
             </div>
         </PageContainer>
