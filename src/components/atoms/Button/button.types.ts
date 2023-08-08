@@ -1,4 +1,4 @@
-import { Properties, BorderValues, TokenValues, TokenTypeSchema, TokenTypes, SingleToken, DeepKeyTokenMap, CompositionTokenValue } from '@tokens-studio/types';
+import { CompositionTokenValue } from '@tokens-studio/types';
 import button from 'commons/tokens/button.json';
 
 const TokenButton = {

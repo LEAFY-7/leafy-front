@@ -65,7 +65,7 @@ const SearchBar = (props: IProps): ReactElement => {
                 dataset={dataset}
                 name={name}
                 placeholder={placeholder}
-                style={{ flexGrow: `1`, flexBasis: `90%`, height: `100%`, padding: `1em`, border: 'none' }}
+                style={{ flexGrow: `1`, flexBasis: `90%`, height: `100%`, border: 'none' }}
             />
 
             <Button
@@ -92,7 +92,7 @@ const SearchStyle = styled.form`
     background: ${theme.colors.white};
     border-radius: 20px;
     overflow: hidden;
-    padding: 0.5em;
+    padding: 0 0.5em;
     margin: auto;
 `;
 const SearchBtnStyle = styled.button`

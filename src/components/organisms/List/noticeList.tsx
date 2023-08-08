@@ -7,15 +7,16 @@ import Typography from 'components/atoms/Typograph/default-typography';
 
 interface ResultProps {
     item: NoticeDto;
+    titleColor?: keyof typeof theme.colors;
 }
 
-const SearchResults = ({ item }: ResultProps) => {
+const NoticeList = ({ item, titleColor }: ResultProps) => {
     return (
         <>
-            <Linker href={`${pageUrlConfig.noticeDetail}/${item.id}`}>
+            <Linker href={`${pageUrlConfig.notice}/${item.id}`}>
                 <ListStyle variant="BODY2" textAlign="center">
                     <span>{item.id}</span>
-                    <TitleStyle variant="BODY2" color="black" textAlign="center">
+                    <TitleStyle variant="BODY2" color={titleColor} textAlign="center">
                         {item.title}
                     </TitleStyle>
                     <Count>{item.viewCount}</Count>
@@ -26,7 +27,7 @@ const SearchResults = ({ item }: ResultProps) => {
     );
 };
 
-export default SearchResults;
+export default NoticeList;
 
 const ListStyle = styled(Typography)`
     border-radius: 12px;

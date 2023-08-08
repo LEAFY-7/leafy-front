@@ -1,27 +1,24 @@
 import styled from '@emotion/styled';
-import { colors, fontWeight, theme } from 'configs/ui.config';
-import { type } from 'os';
-import { MouseEventHandler, ReactElement, useState } from 'react';
+import { theme } from 'configs/ui.config';
+import { ReactElement, useState } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 interface Props {
     target: number;
     limit: number;
-    onClick: MouseEventHandler;
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-/** limit: 데이터 총 길이, target: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
-const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
-    const [page, setPage] = useState<number>(1);
+
+/** target: 데이터 총 길이, limit: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
+const PageButton = ({ limit = 1, target = 0, page, setPage }: Props): ReactElement => {
     const [offset, setOffset] = useState<number>(0);
-    const handleClickButton = (e) => {
-        const id = e.currentTarget.dataset.id;
-    };
 
     //한번에 보여줄 페이지네이션 개수
     const visiblePageCount: number = 8;
 
     // 페이지네이션 마지막 페이지 숫자
-    const totalPageCount: number = Math.ceil(limit / target);
+    const totalPageCount: number = Math.ceil(target / limit);
 
     //페이지네이션 범위만큼 숫자 생성
     const totalNavArray: number[] = [...Array(totalPageCount)].map((e, i) => (e = i + 1));
@@ -49,7 +46,7 @@ const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
                 onClick={() => {
                     //개별 page 단위로 넘기는 버튼
                     setPage(page - 1);
-                    if (page < offset + visiblePageCount) {
+                    if (page < offset + visiblePageCount && offset > 0) {
                         setOffset(offset - visiblePageCount);
                     }
                 }}
@@ -60,7 +57,9 @@ const PageButton = ({ target, limit, onClick }: Props): ReactElement => {
                 return (
                     <p
                         data-id={e}
-                        onClick={() => setPage(e)}
+                        onClick={() => {
+                            setPage(e);
+                        }}
                         style={
                             //현재 페이지는 굵게 표시
                             e === page ? { fontWeight: `700` } : { fontWeight: `500` }
