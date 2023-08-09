@@ -1,31 +1,32 @@
-// import io from 'socket.io-client';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { BiUserCircle as UserIcon } from 'react-icons/bi';
 import { BsFillChatDotsFill as ChatIcon } from 'react-icons/bs';
-import PageContainer from 'components/templates/page-container';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import useWindowSize from 'hooks/useWindowSize';
 import { theme } from 'configs/ui.config';
 
-import ChatList from './chat-list';
-import ChatRoom from './chat-room';
+import PageContainer from 'components/templates/page-container';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-// let socket;
+
+import ChatList from './chat-list';
+import ChatRoom from './chat-room';
 
 const ChatView = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     const windowSize = useWindowSize();
-    // const ENDPOINT = 'http://localhost:5000/chat';
+    // const location = useLocation();
+
     // React.useEffect(() => {
-    //     socket = io(ENDPOINT);
-    //     console.log(socket);
+    //     chatViewModel.handleConnectSocket();
+    //     chatViewModel.handleGetQueryParams(location.search);
 
-    //     socket.emit('join', { name, room });
-    // }, [ENDPOINT]);s
-
+    //     return () => {
+    //         chatViewModel.handleDisconnectSocket();
+    //     };
+    // }, [location]);
     return (
         <>
             <PageContainer
@@ -34,6 +35,7 @@ const ChatView = () => {
                     justifyContent: 'space-between',
                     //  alignItems: 'flex-start',
                     paddingTop: '4rem',
+                    height: '100%',
                 }}
             >
                 {windowSize.width > 575 ? (

@@ -18,11 +18,7 @@ const ChatSend = () => {
                 fontSize="md"
                 style={{ padding: '16px 24px', width: '80%', height: '100%' }}
             />
-            <SendButton
-                variant="primary"
-                onClick={() => chatViewModel.handleSendMessageByButton('HOST')}
-                style={{ width: '20%' }}
-            >
+            <SendButton variant="primary" onClick={chatViewModel.handleSendMessage} style={{ width: '20%' }}>
                 입력
             </SendButton>
         </Wrapper>
