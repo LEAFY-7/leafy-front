@@ -1,6 +1,12 @@
 import React from 'react';
+import io, { Socket } from 'socket.io-client';
 import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
+import { plainToInstance } from 'class-transformer';
+import { ChatMessageDto } from 'dto/chat/chat-message.dto';
+import socketConfigs from 'configs/socket.config';
+import { timeStamp } from 'console';
+import { ChatRoomModel } from 'models/chat/chatRoom.model';
 
 const tempMessage = [
     '이것은 임시 메시지 ㅋㅋㅋㅋㅋㅋㅋㅋ',
@@ -17,11 +23,26 @@ interface IProps {}
 type Message = { state: string; message: string; index: number; time: string; isRead: boolean };
 
 export default class ChatViewModel extends DefaultViewModel {
+    public socket: Socket;
+    public roomState: ChatRoomModel;
+    public newMsgs: ChatMessageDto[];
+
+    // 소켓
     public isRoomEnter: boolean;
     public currentId: number;
     public prevCurrentId: number;
     public myMessage: string;
     public chatContainerRef: React.RefObject<HTMLElement>;
+    public endpoint: string;
+
+    public newChatList: {
+        totalPage: number;
+        currentPage: number;
+        pageSize: number;
+        loading: boolean;
+        hasMore: boolean;
+        pages: Map<number, ChatMessageDto[]>;
+    };
 
     public chatList: {
         totalPage: number;
@@ -35,11 +56,33 @@ export default class ChatViewModel extends DefaultViewModel {
     constructor(props: IProps) {
         super(props);
         this.chatContainerRef = React.createRef<HTMLElement>();
+        this.endpoint = 'http://localhost:5000/chat';
+        this.socket = null;
+        this.roomState = {
+            roomId: '',
+            me: 0,
+            you: 0,
+        };
+
+        /**
+         *
+         */
+
+        this.newMsgs = [];
 
         this.isRoomEnter = false;
         this.currentId = 0;
         this.prevCurrentId = 0;
         this.myMessage = '';
+
+        this.newChatList = {
+            pages: new Map(),
+            loading: false,
+            hasMore: true,
+            totalPage: 5,
+            currentPage: 1,
+            pageSize: 20,
+        };
 
         this.chatList = {
             pages: new Map(),
@@ -51,12 +94,21 @@ export default class ChatViewModel extends DefaultViewModel {
         };
 
         makeObservable(this, {
+            socket: observable,
+            roomState: observable,
+            newMsgs: observable,
+
+            //
             chatContainerRef: observable,
             isRoomEnter: observable,
             currentId: observable,
             prevCurrentId: observable,
             myMessage: observable,
             chatList: observable,
+
+            // 소켓 관련
+            handleConnectSocket: action,
+            handleDisconnectSocket: action,
 
             // 메시지 전송 관련
             handleSendMessageByButton: action,
@@ -152,16 +204,68 @@ export default class ChatViewModel extends DefaultViewModel {
         this.handleScrollToPrevMessage(this.chatList.pageSize - 1);
     };
 
+    // 연결 성공
+    handleConnectSocket() {
+        const socket = io(this.endpoint);
+
+        return runInAction(() => {
+            this.socket = socket;
+        });
+    }
+
+    // 연결 끊기
+    handleDisconnectSocket() {
+        this.socket.disconnect();
+        this.newMsgs = [];
+    }
+
+    // 쿼리 찾기
+    handleGetQueryParams(query: string) {
+        const queryParams = new URLSearchParams(query);
+        const me = queryParams.get('me');
+        const you = queryParams.get('you');
+        if (!me || !you) return;
+        const sortedValues = [me, you].sort();
+        const roomId = sortedValues.join('_');
+
+        runInAction(() => {
+            this.roomState.roomId = roomId;
+            this.roomState.me = +me;
+            this.roomState.you = +you;
+        });
+        return roomId;
+    }
+
+    // 채팅방에 들어왔을 떄
+    handleJoinRoom = async () => {
+        await this.socket.emit('join', { roomId: this.roomState.roomId, myId: this.roomState.me });
+        await this.socket.on('messageHistory', (messages) => {
+            const loadMessage = messages.map((message) => plainToInstance(ChatMessageDto, message));
+            return runInAction(() => {
+                this.newChatList.pages.set(this.newChatList.currentPage, loadMessage);
+            });
+        });
+    };
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
     // 초기 데이터 패칭
-    getMessages = () => {
+    getMessages() {
         const newMessages = this.createMessages();
         return runInAction(() => {
             this.chatList.pages.set(this.chatList.currentPage, newMessages);
         });
-    };
+    }
 
     // 새로운 데이터 패칭
-    getPrevMessageAtTop = () => {
+    getPrevMessageAtTop() {
         this.chatList.loading = true;
 
         const newPrevMessages = this.createPrevMessages();
@@ -180,7 +284,7 @@ export default class ChatViewModel extends DefaultViewModel {
             this.chatList.loading = false;
             this.chatList.currentPage = newCurrentPage;
         });
-    };
+    }
 
     // 초기 마운트 될 때,
     handleGetMessageWhenDidMount = async () => {
@@ -195,6 +299,24 @@ export default class ChatViewModel extends DefaultViewModel {
         setTimeout(() => {
             this.handleLocateScrollToPrev();
         }, 0);
+    };
+
+    // 소켓 메시지 보내기
+    handleSendMessage = () => {
+        const socket = this.socket;
+        if (socket) {
+            socket.emit(socketConfigs.send, {
+                roomId: this.roomState.roomId,
+                myId: this.roomState.you,
+                text: this.myMessage,
+            });
+        }
+        socket.on(socketConfigs.receiveMessage, (message) => {
+            runInAction(() => {
+                const newMessage = plainToInstance(ChatMessageDto, message);
+                this.newMsgs = [...this.newMsgs, newMessage];
+            });
+        });
     };
 
     // 메시지 보내기 - 전송버튼
