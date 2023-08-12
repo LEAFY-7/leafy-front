@@ -32,7 +32,6 @@ const ChatView = () => {
 
         return () => {
             clearTimeout(chatViewModel.handleShowChatRoom(300));
-            // chatViewModel.handleDisconnectSocket();
         };
     }, [location]);
 

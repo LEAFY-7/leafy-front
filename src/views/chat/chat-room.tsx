@@ -49,9 +49,6 @@ const ChatRoom = () => {
         navigate('/chat');
     };
 
-    // console.log('음', chatViewModel.lastMessageId, chatViewModel.lastNextMessageId);
-
-    console.log('밑으로 데이터', chatViewModel.nextMessageList.pages);
     return (
         <>
             {chatViewModel?.roomState.you ? (
@@ -111,8 +108,6 @@ const ChatRoom = () => {
                                             chatViewModel?.prevMessageList.pages.get(pageNumber);
                                         if (Array.isArray(pageMessages)) {
                                             const currentPage = chatViewModel?.prevMessageList.currentPage;
-
-                                            // console.log('여기에 랜더링', pageMessages);
                                             return (
                                                 <React.Fragment key={pageNumber}>
                                                     {pageMessages.map((message, i) => (
@@ -151,8 +146,6 @@ const ChatRoom = () => {
                                     const pageMessages = chatViewModel?.nextMessageList.pages.get(pageNumber);
                                     if (Array.isArray(pageMessages)) {
                                         const currentPage = chatViewModel?.nextMessageList.currentPage;
-
-                                        console.log('여기에 랜더링', pageMessages);
                                         return (
                                             <React.Fragment key={pageNumber}>
                                                 {pageMessages.map((message, i) => (

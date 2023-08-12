@@ -12,7 +12,7 @@ const ChatSend = () => {
     return (
         <Wrapper justifyContent="center" alignItems="center">
             <Textarea
-                value={chatViewModel?.myMessage}
+                value={chatViewModel?.myText}
                 onChange={chatViewModel.handleChangeMessage}
                 onKeyDown={chatViewModel.handleSendMessageByEnter}
                 fontSize="md"
