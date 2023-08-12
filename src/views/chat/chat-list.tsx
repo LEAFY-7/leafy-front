@@ -1,10 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
 
 import ChatCard from 'components/organisms/Chat/chat-card';
 import Typography from 'components/atoms/Typograph/typography';
-import { useNavigate } from 'react-router-dom';
 
 const url =
     'https://img.khan.co.kr/news/2023/04/04/news-p.v1.20230404.57d4bed2d0b4401f83dff7102d430885_P1.png';
@@ -22,10 +22,11 @@ const ChatList = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     const navigate = useNavigate();
 
-    const handleChangeRoom = (id: number) => {
-        chatViewModel.handleChangeCurrentUserId(id);
-        navigate(`?me=${me}&you=${id}`);
+    const handleChangeRoom = async (id: number) => {
+        if (id === chatViewModel.roomState.you) return;
+        await navigate(`?me=${me}&you=${id}`);
     };
+
     return (
         <>
             {profiles.map((profile, index) =>
@@ -33,7 +34,7 @@ const ChatList = () => {
                     <ChatCard
                         key={index}
                         userId={profile.userId}
-                        isVisit={profile.userId === chatViewModel.currentId}
+                        isVisit={profile.userId === chatViewModel.roomState.you}
                     >
                         <ChatCard.Wrapper width="100%" onClick={() => handleChangeRoom(profile.userId)}>
                             <ChatCard.Image src={profile.url} alt="기본이미지" />

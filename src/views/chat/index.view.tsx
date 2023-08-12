@@ -1,7 +1,12 @@
+import React from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { useLocation } from 'react-router-dom';
+
 import { BiUserCircle as UserIcon } from 'react-icons/bi';
 import { BsFillChatDotsFill as ChatIcon } from 'react-icons/bs';
+
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import useWindowSize from 'hooks/useWindowSize';
@@ -10,6 +15,8 @@ import { theme } from 'configs/ui.config';
 import PageContainer from 'components/templates/page-container';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
+import Typography from 'components/atoms/Typograph/typography';
+import Room from 'components/organisms/Chat/chat-room';
 
 import ChatList from './chat-list';
 import ChatRoom from './chat-room';
@@ -17,16 +24,18 @@ import ChatRoom from './chat-room';
 const ChatView = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     const windowSize = useWindowSize();
-    // const location = useLocation();
+    const location = useLocation();
 
-    // React.useEffect(() => {
-    //     chatViewModel.handleConnectSocket();
-    //     chatViewModel.handleGetQueryParams(location.search);
+    React.useEffect(() => {
+        chatViewModel.handleGetQueryParams(location.search);
+        chatViewModel.handleShowChatRoom(300);
 
-    //     return () => {
-    //         chatViewModel.handleDisconnectSocket();
-    //     };
-    // }, [location]);
+        return () => {
+            clearTimeout(chatViewModel.handleShowChatRoom(300));
+            // chatViewModel.handleDisconnectSocket();
+        };
+    }, [location]);
+
     return (
         <>
             <PageContainer
@@ -45,18 +54,30 @@ const ChatView = () => {
                         </LeftSection>
 
                         <RightSection id="chat_room_section">
-                            <ChatRoom />
+                            {!chatViewModel?.roomState.you ? (
+                                <Room currentId={chatViewModel.roomState.you} height="100%">
+                                    <Wrapper id="chat_room_wrapper">
+                                        <NoneChatRoomBody>
+                                            <Typography.ResponsiveSize variant="H2" textAlign="center">
+                                                현재 참여중인 채팅이 없습니다.
+                                            </Typography.ResponsiveSize>
+                                        </NoneChatRoomBody>
+                                    </Wrapper>
+                                </Room>
+                            ) : (
+                                <ChatRoom />
+                            )}
                         </RightSection>
                     </>
                 ) : (
                     <>
-                        {!chatViewModel.currentId && (
+                        {!chatViewModel.roomState.you && (
                             <LeftSection id="chat_list_section">
                                 <ChatList />
                             </LeftSection>
                         )}
 
-                        {chatViewModel.currentId ? (
+                        {chatViewModel.roomState.you ? (
                             <RightSection id="chat_room_section">
                                 <ChatRoom />
                             </RightSection>
@@ -69,11 +90,7 @@ const ChatView = () => {
                 <RectangleButton backgroundColor="transparent" onClick={chatViewModel.handleLeaveChatRoom}>
                     <UserIcon size={40} color="#fff" />
                 </RectangleButton>
-                <ChatIconButton
-                    backgroundColor="transparent"
-                    onClick={() => chatViewModel.handleChangeCurrentUserId(chatViewModel.prevCurrentId)}
-                    disabled={!!chatViewModel.currentId}
-                >
+                <ChatIconButton backgroundColor="transparent" disabled={!!chatViewModel.roomState.you}>
                     <ChatIcon size={40} color="#fff" />
                 </ChatIconButton>
             </ShowAtMobile>
@@ -142,4 +159,26 @@ const ChatIconButton = styled(RectangleButton)`
     &:disabled {
         background-color: transparent;
     }
+`;
+const slideInFromLeft = keyframes`
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+`;
+
+const Wrapper = styled(Room.Wrapper)`
+    opacity: 0;
+    transition: opacity 0.55s ease-in-out;
+    transform: translateX(-100%);
+    animation: ${slideInFromLeft} 0.65s ease-in-out forwards;
+`;
+const NoneChatRoomBody = styled(Room.Body)`
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
 `;

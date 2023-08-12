@@ -14,7 +14,7 @@ const ChatSend = () => {
             <Textarea
                 value={chatViewModel?.myMessage}
                 onChange={chatViewModel.handleChangeMessage}
-                onKeyDown={(e) => chatViewModel.handleSendMessageByEnter(e, 'HOST')}
+                onKeyDown={chatViewModel.handleSendMessageByEnter}
                 fontSize="md"
                 style={{ padding: '16px 24px', width: '80%', height: '100%' }}
             />
