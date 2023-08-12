@@ -42,7 +42,7 @@ const FeedDetailView = () => {
     };
 
     return (
-        <PageContainer>
+        <PageContainer style={{ paddingTop: '80px' }}>
             <UserProfile data={feedViewModel.detail.author} />
             <ImageWrap>
                 <SwiperWrap
