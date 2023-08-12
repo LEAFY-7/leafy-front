@@ -3,6 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
 import Flex from 'components/atoms/Group/flex';
+import { formatTime } from 'utils/formatDate';
 
 interface ContextProps {
     currentId: number;
@@ -20,9 +21,13 @@ interface CommonMessageProps {
 }
 interface YouMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
+    isRead: boolean;
+    createdAt: string;
 }
 interface MeMessageProps extends CommonMessageProps {
     id?: HTMLElement['id'];
+    isRead: boolean;
+    createdAt: string;
 }
 interface FooterProps extends Pick<ContextProps, 'height'> {}
 
@@ -88,26 +93,42 @@ const ChatRoomFooter = ({ children, ...rest }: ChatRoomFooterProps) => {
 };
 
 // YouMessage
-const ChatRoomYouMessage = ({ isMe = false, id = '', children, ...rest }: ChatRoomYouMessageProps) => {
+const ChatRoomYouMessage = ({
+    isRead = false,
+    isMe = false,
+    createdAt = '',
+    id = '',
+    children,
+    ...rest
+}: ChatRoomYouMessageProps) => {
+    const newCreateAt = React.useMemo(() => formatTime(createdAt), []);
     return (
-        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={id}>
             <YouMessage {...rest}>{children}</YouMessage>
-            <Flex.Default>
-                <span>시간</span>
-                <span>unread</span>
+            <Flex.Default style={{ gap: '8px' }}>
+                <CreatedAt>{newCreateAt}</CreatedAt>
+                {!isRead ? <UnRead>안읽음</UnRead> : null}
             </Flex.Default>
         </MessageWrapper>
     );
 };
 
 // MeMessage
-const ChatRoomMeMessage = ({ isMe = true, id = '', children, ...rest }: ChatRoomMeMessageProps) => {
+const ChatRoomMeMessage = ({
+    isRead = false,
+    isMe = true,
+    createdAt = '',
+    id = '',
+    children,
+    ...rest
+}: ChatRoomMeMessageProps) => {
+    const newCreateAt = React.useMemo(() => formatTime(createdAt), []);
     return (
-        <MessageWrapper isMe={isMe} id={`${id}_wrapper`}>
+        <MessageWrapper isMe={isMe} id={id}>
             <MeMessage {...rest}>{children}</MeMessage>
-            <Flex.Default>
-                <span>unread</span>
-                <span>시간</span>
+            <Flex.Default style={{ gap: '8px' }}>
+                {/* {!isRead ? <span>안읽음</span> : null} */}
+                <CreatedAt>{newCreateAt}</CreatedAt>
             </Flex.Default>
         </MessageWrapper>
     );
@@ -195,10 +216,19 @@ const MessageBase = styled.span`
     overflow-wrap: break-word;
 `;
 const YouMessage = styled(MessageBase)`
-    background-color: ${theme.colors.lgrey_50};
+    background-color: ${theme.colors.lgrey};
 `;
 
 const MeMessage = styled(MessageBase)`
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
 `;
+
+const CommonSpan = styled.span`
+    color: ${theme.colors.grey};
+    font-size: ${theme.fontSize.sm};
+`;
+const CreatedAt = styled(CommonSpan)`
+    color: ${theme.colors.grey};
+`;
+const UnRead = styled(CommonSpan)``;

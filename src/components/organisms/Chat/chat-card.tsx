@@ -104,7 +104,8 @@ export default ChatCard;
 
 const Wrapper = styled.span<WrapperProps>`
     width: ${({ width }) => width};
-    height: calc(100% + 20px);
+    //  height: calc(100% + 20px);
+    height: 300px;
     display: flex;
     border: 1px solid ${theme.colors.lgrey};
     border-radius: 8px;
