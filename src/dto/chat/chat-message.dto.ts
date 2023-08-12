@@ -14,8 +14,8 @@ export class ChatMessageDto {
     public readonly isRead: boolean = false;
 
     @Expose({ name: 'createdAt' })
-    public readonly createdAt: number = 0;
+    public readonly createdAt: string = '';
 
     @Expose({ name: 'updatedAt' })
-    public readonly updatedAt: number = 0;
+    public readonly updatedAt: string = '';
 }
