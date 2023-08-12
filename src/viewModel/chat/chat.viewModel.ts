@@ -5,37 +5,41 @@ import DefaultViewModel from 'viewModel/default.viewModel';
 import { plainToInstance } from 'class-transformer';
 import { ChatMessageDto } from 'dto/chat/chat-message.dto';
 import socketConfigs from 'configs/socket.config';
-import { timeStamp } from 'console';
 import { ChatRoomModel } from 'models/chat/chatRoom.model';
+import axios from 'axios';
 
-const tempMessage = [
-    '이것은 임시 메시지 ㅋㅋㅋㅋㅋㅋㅋㅋ',
-    '하하하하하하하 ㅋㅋㅋㅋㅋㅋㅋㅋ',
-    'ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
-    'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
-    '안녕핫게요',
-    '임시 메시지입니다. ',
-    'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
-];
+const api = axios.create({
+    baseURL: 'http://localhost:5000/api', // API의 기본 URL
+    timeout: 10000, // 타임아웃 설정
+    headers: {
+        'Content-Type': 'application/json', // 기본 Content-Type 설정
+    },
+});
 
 interface IProps {}
 
-type Message = { state: string; message: string; index: number; time: string; isRead: boolean };
-
 export default class ChatViewModel extends DefaultViewModel {
-    public socket: Socket;
-    public roomState: ChatRoomModel;
-    public newMsgs: ChatMessageDto[];
+    public chatSocket: Socket;
+    public globalSocket: Socket;
+    public roomState: ChatRoomModel; // 채팅방 상태 - 방, 나, 상대 ID
+    public newMessageList: ChatMessageDto[]; // 새로운 채팅들
+    public lastMessageId: string; // 마지막 아이디
+    public lastNextMessageId: string;
 
-    // 소켓
-    public isRoomEnter: boolean;
-    public currentId: number;
     public prevCurrentId: number;
     public myMessage: string;
     public chatContainerRef: React.RefObject<HTMLElement>;
     public endpoint: string;
 
-    public newChatList: {
+    public prevMessageList: {
+        totalPage: number;
+        currentPage: number;
+        pageSize: number;
+        loading: boolean;
+        hasMore: boolean;
+        pages: Map<number, ChatMessageDto[]>;
+    };
+    public nextMessageList: {
         totalPage: number;
         currentPage: number;
         pageSize: number;
@@ -44,78 +48,59 @@ export default class ChatViewModel extends DefaultViewModel {
         pages: Map<number, ChatMessageDto[]>;
     };
 
-    public chatList: {
-        totalPage: number;
-        currentPage: number;
-        pageSize: number;
-        loading: boolean;
-        hasMore: boolean;
-        pages: Map<number, Message[]>;
-    };
-
     constructor(props: IProps) {
         super(props);
+        this.chatSocket = null;
+        this.globalSocket = null;
+        this.endpoint = 'http://localhost:5000/';
+
         this.chatContainerRef = React.createRef<HTMLElement>();
-        this.endpoint = 'http://localhost:5000/chat';
-        this.socket = null;
-        this.roomState = {
-            roomId: '',
-            me: 0,
-            you: 0,
-        };
 
-        /**
-         *
-         */
-
-        this.newMsgs = [];
-
-        this.isRoomEnter = false;
-        this.currentId = 0;
+        this.roomState = { roomId: '', me: 0, you: 0 };
+        this.newMessageList = [];
+        this.lastMessageId = '';
+        this.lastNextMessageId = '';
         this.prevCurrentId = 0;
         this.myMessage = '';
-
-        this.newChatList = {
+        this.prevMessageList = {
             pages: new Map(),
             loading: false,
             hasMore: true,
             totalPage: 5,
-            currentPage: 1,
+            currentPage: 0,
             pageSize: 20,
         };
-
-        this.chatList = {
+        this.nextMessageList = {
             pages: new Map(),
             loading: false,
             hasMore: true,
             totalPage: 5,
-            currentPage: 1,
+            currentPage: 0,
             pageSize: 20,
         };
 
         makeObservable(this, {
-            socket: observable,
+            chatSocket: observable,
             roomState: observable,
-            newMsgs: observable,
+            newMessageList: observable,
+            prevMessageList: observable,
+            nextMessageList: observable,
 
             //
             chatContainerRef: observable,
-            isRoomEnter: observable,
-            currentId: observable,
             prevCurrentId: observable,
             myMessage: observable,
-            chatList: observable,
 
             // 소켓 관련
-            handleConnectSocket: action,
             handleDisconnectSocket: action,
+            handleGetMoreMessages: action,
+            handleGetMoreNextMessages: action,
 
             // 메시지 전송 관련
-            handleSendMessageByButton: action,
+            handleSendMessage: action,
             handleSendMessageByEnter: action,
             handleChangeMessage: action,
             // 채팅방 이동과 관련
-            handleChangeCurrentUserId: action,
             handleLeaveChatRoom: action,
         });
 
@@ -123,30 +108,62 @@ export default class ChatViewModel extends DefaultViewModel {
             this.handleScrollToBottom();
         });
     }
-
-    // 임시 - 메시지 추가
-    private createMessages = () => {
-        return new Array(20).fill(null).map((_, index) => ({
-            state: Math.random() < 0.5 ? 'HOST' : 'MEMBER',
-            message: '기존 메시지 입니다.',
-            time: `${new Date().getHours()} : ${new Date().getMinutes()} : ${new Date().getSeconds()}`,
-            index: index,
-            isRead: index > 2 ? false : true,
-        }));
+    // 채팅창 비우기
+    private handleClearTextarea = () => {
+        runInAction(() => {
+            this.myMessage = '';
+        });
     };
-    // 임시 - 역방향 메시지 추가
-    private createPrevMessages = () => {
-        return new Array(20).fill(null).map((_, index) => {
-            const randomIndex = Math.floor(Math.random() * tempMessage.length);
-            return {
-                state: Math.random() < 0.5 ? 'HOST' : 'MEMBER',
-                message: tempMessage[randomIndex] + new Date().getSeconds() + index,
-                time: `${new Date().getHours()} : ${new Date().getMinutes()} : ${new Date().getSeconds()}`,
-                index: new Date().getSeconds() + index,
-                isRead: true,
+
+    private handleClearChatMessageList = () => {
+        return runInAction(() => {
+            this.roomState.roomId = '';
+            this.roomState.you = 0;
+            this.myMessage = '';
+            this.lastMessageId = '';
+            this.lastNextMessageId = '';
+            this.newMessageList = [];
+            this.prevMessageList = {
+                pages: new Map(),
+                loading: false,
+                hasMore: true,
+                totalPage: 5,
+                currentPage: 0,
+                pageSize: 20,
+            };
+            this.nextMessageList = {
+                pages: new Map(),
+                loading: false,
+                hasMore: true,
+                totalPage: 5,
+                currentPage: 0,
+                pageSize: 20,
             };
         });
     };
+
+    // 이전 메시지 패칭
+    private getMorePrevChatMessage = async () => {
+        if (!this.prevMessageList.hasMore || !this.lastMessageId) return;
+        return await api.get(
+            `/v1/chat-message/prev/${this.roomState.roomId}?lastMessageId=${this.lastMessageId}`,
+        );
+    };
+
+    // 이후 메시지 패칭
+    private getMoreNextChatMessage = async () => {
+        if (!this.nextMessageList.hasMore || !this.lastNextMessageId) return;
+
+        return await api.get(
+            `/v1/chat-message/next/${this.roomState.roomId}?lastMessageId=${this.lastNextMessageId}`,
+        );
+    };
+
+    // 메시지 삭제
+    private deleteMessage = async () => {};
+
+    // 채팅방 삭제
+    private deleteChatRoom = () => {};
 
     // 채팅창 맽 밑으로 이동
     private handleScrollToBottom = () => {
@@ -161,7 +178,7 @@ export default class ChatViewModel extends DefaultViewModel {
         const chatContainer = this.chatContainerRef.current;
         if (chatContainer) {
             const messageElement = chatContainer.querySelector(
-                `[data-index="${this.chatList.currentPage}-${index}"]`,
+                `[data-index="${this.prevMessageList.currentPage}-${index}"]`,
             );
 
             if (messageElement) {
@@ -174,7 +191,7 @@ export default class ChatViewModel extends DefaultViewModel {
         const chatContainer = this.chatContainerRef.current;
         if (chatContainer) {
             const messageElement = chatContainer.querySelector(
-                `[data-index="${this.chatList.currentPage}-${index}"]`,
+                `[data-index="${this.prevMessageList.currentPage}-${index}"]`,
             );
 
             if (messageElement) {
@@ -184,40 +201,36 @@ export default class ChatViewModel extends DefaultViewModel {
     };
 
     // 읽지 않은 상태부터 위치
-    private handleLocateScrollToUnRead = () => {
-        const currentPageMessages = this.chatList.pages.get(this.chatList.currentPage);
-        const firstUnreadIndex = currentPageMessages?.findIndex((message) => !message.isRead);
-
+    private handleLocateScrollToUnRead = (messageList: ChatMessageDto[]) => {
+        const firstUnreadIndex = messageList?.findIndex((message) => {
+            if (message.sender === this.roomState.me) return false;
+            if (message.sender === this.roomState.you) {
+                return !message.isRead;
+            }
+        });
         if (firstUnreadIndex !== -1) {
             setTimeout(() => {
-                this.handleScrollToUnReadMessage(firstUnreadIndex);
+                this.handleScrollToUnReadMessage(firstUnreadIndex - 1);
             }, 0);
         } else {
-            this.handleScrollToBottom();
+            setTimeout(() => {
+                this.handleScrollToBottom();
+            }, 0);
         }
     };
     // 역방향 스크롤시 맨 마지막 메시지 위치
     private handleLocateScrollToPrev = () => {
-        const prevPageMessages = this.chatList.pages.get(this.chatList.currentPage);
+        if (!this.prevMessageList.hasMore) return;
+
+        const prevPageMessages = this.prevMessageList.pages.get(this.prevMessageList.currentPage);
+
         const prevLastIndex = prevPageMessages?.at(-1);
         if (!prevLastIndex) return;
-        this.handleScrollToPrevMessage(this.chatList.pageSize - 1);
+
+        setTimeout(() => {
+            this.handleScrollToPrevMessage(prevPageMessages.length - 1);
+        }, 0);
     };
-
-    // 연결 성공
-    handleConnectSocket() {
-        const socket = io(this.endpoint);
-
-        return runInAction(() => {
-            this.socket = socket;
-        });
-    }
-
-    // 연결 끊기
-    handleDisconnectSocket() {
-        this.socket.disconnect();
-        this.newMsgs = [];
-    }
 
     // 쿼리 찾기
     handleGetQueryParams(query: string) {
@@ -228,167 +241,170 @@ export default class ChatViewModel extends DefaultViewModel {
         const sortedValues = [me, you].sort();
         const roomId = sortedValues.join('_');
 
-        runInAction(() => {
+        return runInAction(() => {
             this.roomState.roomId = roomId;
             this.roomState.me = +me;
             this.roomState.you = +you;
+            this.prevCurrentId = +you;
         });
-        return roomId;
     }
 
-    // 채팅방에 들어왔을 떄
-    handleJoinRoom = async () => {
-        await this.socket.emit('join', { roomId: this.roomState.roomId, myId: this.roomState.me });
-        await this.socket.on('messageHistory', (messages) => {
-            const loadMessage = messages.map((message) => plainToInstance(ChatMessageDto, message));
-            return runInAction(() => {
-                this.newChatList.pages.set(this.newChatList.currentPage, loadMessage);
+    // 메시지 가져오기
+    private getMessages = async () => {
+        const { roomId, me, you } = this.roomState;
+        await this.chatSocket.emit('join', { roomId, me, you });
+        await this.chatSocket.on('messageHistory', (messages) => {
+            const messageSize = messages.length;
+            const messageList = messages.map((message) => plainToInstance(ChatMessageDto, message));
+
+            if (messageSize) {
+                this.lastMessageId = messageList.at(-1).id;
+                this.lastNextMessageId = messageList.at(0).id;
+            }
+
+            runInAction(() => {
+                this.prevMessageList.pages.set(this.prevMessageList.currentPage, messageList.reverse());
             });
+
+            this.handleLocateScrollToUnRead(messageList);
         });
     };
 
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     */
+    // 이전 데이터 가져오기
+    private handleGetPrvMessage = async () => {
+        if (!this.lastMessageId) return;
+        this.prevMessageList.loading = true;
+        const prevChatMessageList = await this.getMorePrevChatMessage();
 
-    // 초기 데이터 패칭
-    getMessages() {
-        const newMessages = this.createMessages();
-        return runInAction(() => {
-            this.chatList.pages.set(this.chatList.currentPage, newMessages);
-        });
-    }
-
-    // 새로운 데이터 패칭
-    getPrevMessageAtTop() {
-        this.chatList.loading = true;
-
-        const newPrevMessages = this.createPrevMessages();
-        const newCurrentPage = this.chatList.currentPage + 1;
-        if (newPrevMessages.length === 0) {
-            runInAction(() => {
-                this.chatList.hasMore = false;
-                this.chatList.loading = false;
+        if (prevChatMessageList?.data.length === 0) {
+            return runInAction(() => {
+                this.prevMessageList.hasMore = false;
+                this.prevMessageList.loading = false;
             });
-            return;
+        }
+        const newCurrentPage = this.prevMessageList.currentPage + 1;
+
+        const loadMessage = await prevChatMessageList?.data?.map((message) =>
+            plainToInstance(ChatMessageDto, message),
+        );
+        runInAction(() => {
+            this.lastMessageId = loadMessage.at(-1).id || '';
+            this.prevMessageList.pages.set(newCurrentPage, loadMessage.reverse());
+            this.prevMessageList.loading = false;
+            this.prevMessageList.currentPage = newCurrentPage;
+        });
+        this.handleLocateScrollToPrev();
+    };
+
+    // 이후 데이터 가져오기
+    private handleGetNextMessage = async () => {
+        if (!this.lastNextMessageId) return;
+        this.nextMessageList.loading = true;
+        const nextChatMessageList = await this.getMoreNextChatMessage();
+
+        if (nextChatMessageList?.data.length === 0) {
+            return runInAction(() => {
+                this.nextMessageList.hasMore = false;
+                this.nextMessageList.loading = false;
+            });
         }
 
-        runInAction(() => {
-            const currentPageMessages = this.chatList.pages.get(newCurrentPage);
-            this.chatList.pages.set(newCurrentPage, [...newPrevMessages, ...(currentPageMessages || [])]);
-            this.chatList.loading = false;
-            this.chatList.currentPage = newCurrentPage;
-        });
-    }
+        const newCurrentPage = this.nextMessageList.currentPage + 1;
 
-    // 초기 마운트 될 때,
-    handleGetMessageWhenDidMount = async () => {
+        const loadMessage = await nextChatMessageList.data?.map((message) =>
+            plainToInstance(ChatMessageDto, message),
+        );
+
+        runInAction(() => {
+            this.lastNextMessageId = loadMessage.at(-1).id;
+            this.nextMessageList.pages.set(newCurrentPage, loadMessage);
+            this.nextMessageList.loading = false;
+            this.nextMessageList.currentPage = newCurrentPage;
+        });
+    };
+
+    // 연결 성공
+    handleConnectSocket = (space: 'global' | 'chat') => {
+        return runInAction(() => {
+            this.chatSocket = io(`${this.endpoint}${space}`);
+        });
+    };
+
+    // 연결 끊기
+    handleDisconnectSocket = () => {
+        const { roomId } = this.roomState;
+        this.chatSocket.emit('roomDisconnect', { roomId });
+        this.chatSocket.off('receiveMessage', this.handleReceiveMessage);
+        this.chatSocket.disconnect();
+        this.handleClearChatMessageList();
+    };
+
+    // 처음 마운트될 때
+    handleJoinRoom = async (query) => {
+        await this.handleConnectSocket('chat');
+        await this.handleGetQueryParams(query);
         await this.getMessages();
-        this.handleLocateScrollToUnRead();
-        this.handleShowChatRoom(300);
     };
 
     // 역방향으로 스크롤
     handleGetMoreMessages = async () => {
-        await this.getPrevMessageAtTop();
-        setTimeout(() => {
-            this.handleLocateScrollToPrev();
-        }, 0);
+        if (!this.prevMessageList.hasMore && this.lastMessageId) return;
+        await this.handleGetPrvMessage();
     };
 
-    // 소켓 메시지 보내기
-    handleSendMessage = () => {
-        const socket = this.socket;
-        if (socket) {
-            socket.emit(socketConfigs.send, {
-                roomId: this.roomState.roomId,
-                myId: this.roomState.you,
-                text: this.myMessage,
-            });
-        }
-        socket.on(socketConfigs.receiveMessage, (message) => {
-            runInAction(() => {
-                const newMessage = plainToInstance(ChatMessageDto, message);
-                this.newMsgs = [...this.newMsgs, newMessage];
-            });
-        });
+    // 무한 스크롤
+    handleGetMoreNextMessages = async () => {
+        if (!this.nextMessageList.hasMore && this.lastNextMessageId) return;
+        await this.handleGetNextMessage();
     };
 
-    // 메시지 보내기 - 전송버튼
-    handleSendMessageByButton = (state: 'HOST' | 'MEMBER') => {
-        const currentPageMessages = this.chatList.pages.get(this.chatList.currentPage);
-        const newIndex = currentPageMessages ? currentPageMessages.length : 0;
-        const newMessage: Message = {
-            state,
-            message: this.myMessage,
-            index: newIndex,
-            time: `${new Date().getHours()} : ${new Date().getMinutes()} : ${new Date().getSeconds()}`,
-            isRead: true,
-        };
+    // 메시지 받기
+    handleReceiveMessage = (message) => {
+        const newMessage = plainToInstance(ChatMessageDto, message);
+
         runInAction(() => {
-            if (currentPageMessages) {
-                currentPageMessages.push(newMessage);
-            } else {
-                this.chatList.pages.set(1, [newMessage]);
-            }
-            this.myMessage = '';
+            this.newMessageList = [...this.newMessageList, newMessage];
         });
-
         setTimeout(() => {
             this.handleScrollToBottom();
         }, 0);
     };
 
+    // 메시지 보내기
+    handleSendMessage = async () => {
+        const socket = this.chatSocket;
+        if (socket) {
+            socket.emit('send', {
+                roomId: this.roomState.roomId,
+                me: this.roomState.me,
+                text: this.myMessage,
+            });
+        }
+        this.handleClearTextarea();
+        await socket.on('receiveMessage', this.handleReceiveMessage);
+    };
+
     // 메시지 보내기 - 엔터키
-    handleSendMessageByEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>, state: 'HOST' | 'MEMBER') => {
+    handleSendMessageByEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            this.handleSendMessageByButton(state);
+            this.handleSendMessage();
         }
     };
-    // 메시지 입력창
+
+    // 메시지 입력창 - onChange
     handleChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
         return runInAction(() => {
             this.myMessage = value;
         });
     };
-    // 채팅방 바꾸기
-    handleChangeCurrentUserId = (id: number) => {
-        return runInAction(() => {
-            this.currentId = id;
-            this.prevCurrentId = id;
-            this.chatList = {
-                pages: new Map(),
-                loading: false,
-                hasMore: true,
-                totalPage: 5,
-                currentPage: 1,
-                pageSize: 20,
-            };
-        });
-    };
-    // 채팅방 나가기
+
+    // 채팅방 이동
     handleLeaveChatRoom = () => {
-        return runInAction(() => {
-            this.currentId = 0;
-            this.myMessage = '';
-            this.chatList = {
-                pages: new Map(),
-                loading: false,
-                hasMore: true,
-                totalPage: 5,
-                currentPage: 1,
-                pageSize: 20,
-            };
-        });
+        this.handleClearChatMessageList();
     };
-    // 채팅방 보여주는 이벤트
+    // 채팅방 나타나기
     handleShowChatRoom = (time: number = 100) => {
         return setTimeout(() => {
             const formEl = document.getElementById('chat_room_wrapper');
