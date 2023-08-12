@@ -1,28 +1,32 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { IoIosArrowBack as BackIcon } from 'react-icons/io';
 import { GiHamburgerMenu as HamburgerIcon } from 'react-icons/gi';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+
+import { ChatMessageDto } from 'dto/chat/chat-message.dto';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import useToggle from 'hooks/useToggleProvider';
+import pageUrlConfig from 'configs/pageUrl.config';
+import { theme } from 'configs/ui.config';
 
 import Room from 'components/organisms/Chat/chat-room';
-import Typography from 'components/atoms/Typograph/typography';
+import Flyout from 'components/molecules/Flyout/default-flyout';
 import Flex from 'components/atoms/Group/flex';
+import Typography from 'components/atoms/Typograph/typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import ChatSend from './chat-send';
-import Flyout from 'components/molecules/Flyout/default-flyout';
-import useToggle from 'hooks/useToggleProvider';
-import { theme } from 'configs/ui.config';
-import pageUrlConfig from 'configs/pageUrl.config';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ChatMessageDto } from 'dto/chat/chat-message.dto';
 
 const ChatRoom = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     const { values: openState } = useToggle({});
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const targetPrevRef = useIntersectionObserver(chatViewModel.handleGetMoreMessages, {
         root: null,
         rootMargin: '200px',
@@ -33,8 +37,6 @@ const ChatRoom = () => {
         rootMargin: '50px',
         threshold: 1,
     });
-    const navigate = useNavigate();
-    const location = useLocation();
 
     React.useEffect(() => {
         chatViewModel.handleJoinRoom(location.search);
@@ -43,11 +45,6 @@ const ChatRoom = () => {
             chatViewModel.handleDisconnectSocket();
         };
     }, [location]);
-
-    const handleOutRoom = () => {
-        chatViewModel.handleLeaveChatRoom();
-        navigate('/chat');
-    };
 
     return (
         <>
@@ -63,7 +60,10 @@ const ChatRoom = () => {
                             >
                                 <RectangleButton
                                     backgroundColor="transparent"
-                                    onClick={handleOutRoom}
+                                    onClick={() => {
+                                        chatViewModel.handleLeaveChatRoom();
+                                        navigate('/chat');
+                                    }}
                                     style={{ padding: 0, margin: 0 }}
                                 >
                                     <BackIcon size={25} />

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 import ChatCard from 'components/organisms/Chat/chat-card';
 import Typography from 'components/atoms/Typograph/typography';

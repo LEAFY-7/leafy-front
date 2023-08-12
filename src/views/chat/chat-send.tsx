@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';

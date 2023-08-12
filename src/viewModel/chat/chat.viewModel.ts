@@ -1,12 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 import io, { Socket } from 'socket.io-client';
 import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
-import DefaultViewModel from 'viewModel/default.viewModel';
 import { plainToInstance } from 'class-transformer';
-import { ChatMessageDto } from 'dto/chat/chat-message.dto';
-import socketConfigs from 'configs/socket.config';
+
+import DefaultViewModel from 'viewModel/default.viewModel';
 import { ChatRoomModel } from 'models/chat/chatRoom.model';
-import axios from 'axios';
+import { ChatMessageDto } from 'dto/chat/chat-message.dto';
+
+import socketConfigs from 'configs/socket.config';
 
 const api = axios.create({
     baseURL: 'http://localhost:5000/api',
