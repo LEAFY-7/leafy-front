@@ -10,10 +10,12 @@ import Button from 'components/atoms/Button/button';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
+import Linker from 'components/atoms/Linker/linker';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -31,15 +33,20 @@ const NoticeView = () => {
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; // noticeViewModel.me.isAdmin || false;
+    const [open, setOpen] = useState<boolean>(true);
+
+    const handleClickOpenModal = (event: MouseEvent<HTMLElement>) => {
+        setOpen(true);
+    };
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
-                <LinkWrapper to="/notice">
+                <Linker href={`${pageUrlConfig.notice}`}>
                     <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
                         공지사항
                     </Typography>
-                </LinkWrapper>
+                </Linker>
                 <SearchBar placeholder="공지 검색" />
             </Box>
 
@@ -65,15 +72,17 @@ const NoticeView = () => {
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
-                    <Button
-                        type="button"
-                        state="default"
-                        variant="primary"
-                        size="l"
-                        text="등록하기"
-                        showText={true}
-                        showIcon={false}
-                    />
+                    <Linker href={`${pageUrlConfig.noticeUpload}`}>
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="등록하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </Linker>
                 )}
             </div>
         </PageContainer>

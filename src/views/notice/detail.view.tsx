@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/button';
+import Linker from 'components/atoms/Linker/linker';
 import Typography from 'components/atoms/Typograph/default-typography';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import SearchBar from 'components/molecules/Search/searchbar';
 import NoticeList from 'components/organisms/List/noticeList';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
@@ -31,15 +33,15 @@ const NoticeDetailView = () => {
     };
 
     const offset = noticeViewModel.detail;
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
-                <LinkWrapper to="/notice">
+                <Linker href={`${pageUrlConfig.notice}`}>
                     <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
                         공지사항
                     </Typography>
-                </LinkWrapper>
+                </Linker>
                 <SearchBar placeholder="공지 검색" />
             </Box>
             <Typography variant="BODY2" color="white" textAlign="center" marginBottom={25}>
@@ -54,19 +56,32 @@ const NoticeDetailView = () => {
                 <NoticeList item={offset} titleColor="black" />
             </NoticeWrap>
             <NoticeContent>{noticeViewModel.detail.content}</NoticeContent>
-            <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {isAdmin && (
-                    <Button
-                        type="button"
-                        state="default"
-                        variant="primary"
-                        size="l"
-                        text="수정하기"
-                        showText={true}
-                        showIcon={false}
-                    />
-                )}
-            </div>
+            {isAdmin && (
+                <div style={{ display: `flex`, marginLeft: `auto`, gap: `16px` }}>
+                    <Linker href={`${pageUrlConfig.noticeEdit}/${id}`}>
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="수정하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </Linker>
+                    <Linker href="">
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="삭제하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </Linker>
+                </div>
+            )}
         </PageContainer>
     );
 };
