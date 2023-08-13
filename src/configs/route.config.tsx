@@ -1,16 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import pageUrlConfig from 'configs/pageUrl.config';
-import DefaultLayout from 'components/organisms/layouts/default-layout';
-import PrivateRoute from 'components/organisms/routes/private-route';
-import NormalRoute from 'components/organisms/routes/normal-route';
 import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
+import DefaultLayout from 'components/organisms/layouts/default-layout';
+import NormalRoute from 'components/organisms/routes/normal-route';
+import PrivateRoute from 'components/organisms/routes/private-route';
+import pageUrlConfig from 'configs/pageUrl.config';
 
-import Unauthorized from 'components/organisms/Error/unauthorized';
 import NotFound from 'components/organisms/Error/notFound';
-import SignUpView from 'views/auth/signUp/index.view';
-import SignInView from 'views/auth/signIn/index.view';
+import Unauthorized from 'components/organisms/Error/unauthorized';
 import FindView from 'views/auth/find/index.view';
+import SignInView from 'views/auth/signIn/index.view';
+import SignUpView from 'views/auth/signUp/index.view';
+import ChatView from 'views/chat/index.view';
 import FeedDetailView from 'views/feed/detail.view';
 import FeedEditView from 'views/feed/edit.view';
 import FeedView from 'views/feed/index.view';
@@ -26,14 +27,15 @@ import NoticeUploadView from 'views/notice/upload.view';
 import QnaDetailView from 'views/qna/detail.view';
 import QnaUploadView from 'views/qna/upload.view';
 import SearchView from 'views/search/index.view';
+import TestView from 'views/test/index.view';
 import UserView from 'views/user/index.view';
-import ChatView from 'views/chat/index.view';
 
 const routeConfig = [
     {
         path: pageUrlConfig.main,
         element: <DefaultLayout />,
         children: [
+            { path: '/test/:id', element: <TestView /> },
             { path: '', element: <HomeView /> },
             {
                 path: `${pageUrlConfig.auth}${pageUrlConfig.signIn}`,

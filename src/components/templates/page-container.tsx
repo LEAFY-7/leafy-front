@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { theme } from 'configs/ui.config';
 import { CSSProperties, ReactElement } from 'react';
 
 interface IProps {
@@ -21,6 +20,6 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     padding: 3rem 16px;
-    direction: row;
-    overflow-x: hidden;
+    gap: 16px;
+    min-height: 100vh;
 `;

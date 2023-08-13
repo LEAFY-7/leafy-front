@@ -3,9 +3,11 @@ import uiConfigs from './ui.config';
 
 const themeConfigs = {
     custom: ({ mode }: { mode: themeModes }) => {
-        return mode === themeModes.light
-            ? { ...uiConfigs.theme, ['palette']: uiConfigs.light }
-            : { ...uiConfigs.theme, ['palette']: uiConfigs.dark };
+        return { ...uiConfigs.theme, ['palette']: uiConfigs.light };
+
+        // return mode === themeModes.light
+        //     ? { ...uiConfigs.theme, ['palette']: uiConfigs.light }
+        //     : { ...uiConfigs.theme, ['palette']: uiConfigs.dark };
     },
 };
 

@@ -37,10 +37,12 @@ export const Alert = {
     selector: selector,
 };
 
-function alert(message: string, callback?: any, closeModalOption: boolean = true) {
+function alert(message: string | HTMLElement, callback?: any, closeModalOption: boolean = true) {
     return Swal.fire({
         title: message,
         confirmButtonText: '확인',
+        showCancelButton: true,
+        cancelButtonText: '취소',
         allowOutsideClick: closeModalOption,
         allowEscapeKey: closeModalOption,
         allowEnterKey: closeModalOption,
