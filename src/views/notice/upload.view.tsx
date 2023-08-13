@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/button';
 import { Input } from 'components/atoms/Input';
+import DefaultTextarea from 'components/atoms/Textarea/default-textarea';
 import Typography from 'components/atoms/Typograph/default-typography';
 import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import TextArea from 'components/molecules/TextArea/textArea';
 import PageContainer from 'components/templates/page-container';
 import { theme } from 'configs/ui.config';
 import { useState } from 'react';
@@ -13,8 +15,12 @@ import { useState } from 'react';
  */
 const NoticeUploadView = () => {
     const [text, setText] = useState<string>('');
-    const onChange = (e) => {
+    const [content, setContent] = useState<string>('');
+    const onChangeTitle = (e) => {
         setText(e.target.value);
+    };
+    const onChangeContent = (e) => {
+        setContent(e.target.value);
     };
     return (
         <PageContainer>
@@ -45,10 +51,14 @@ const NoticeUploadView = () => {
             </Box>
             <NoticeWrap>
                 <ListStyle variant="BODY2" textAlign="center">
-                    <Input value={text} onChange={onChange} style={{ flexGrow: `1`, flexBasis: `400px` }} />
+                    <Input
+                        value={text}
+                        onChange={onChangeTitle}
+                        style={{ flexGrow: `1`, flexBasis: `400px` }}
+                    />
                 </ListStyle>
             </NoticeWrap>
-            <TextAreaStyle></TextAreaStyle>
+            <TextArea value={content} onChange={onChangeContent}></TextArea>
         </PageContainer>
     );
 };
@@ -75,14 +85,4 @@ const ListStyle = styled(Typography)`
     padding: 1em;
     color: ${theme.colors.grey};
     flex-shrink: 0;
-`;
-
-const TextAreaStyle = styled.textarea`
-    resize: none;
-    width: 100%;
-    height: 456px;
-    background-color: ${theme.colors.white};
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px 0 ${theme.colors.lgrey};
 `;

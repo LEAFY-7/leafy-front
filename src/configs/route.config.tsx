@@ -89,7 +89,7 @@ const routeConfig = [
                 element: <PrivateRoute allowedRoles={['ADMIN']} />,
                 children: [
                     { path: pageUrlConfig.noticeUpload, element: <NoticeUploadView /> },
-                    { path: pageUrlConfig.noticeEdit, element: <NoticeEditView /> },
+                    { path: `${pageUrlConfig.noticeEdit}/:id`, element: <NoticeEditView /> },
                 ],
             },
         ],

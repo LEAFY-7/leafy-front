@@ -10,8 +10,8 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
-import TextField from 'components/molecules/TextField/default-textField';
-import Flex from 'components/atoms/Group/flex';
+import TextArea from 'components/molecules/TextArea/textArea';
+import DefaultTextarea from 'components/atoms/Textarea/default-textarea';
 
 /**
  * 공지사항 수정
@@ -26,6 +26,11 @@ const NoticeEditView = () => {
     }, []);
 
     const offset = noticeViewModel.detail;
+
+    const [content, setContent] = useState<string>(offset.content);
+    const onChangeContent = (e) => {
+        setContent(e.target.value);
+    };
 
     //수정 후 저장하기 외의 페이지 이동 시 확인 모달 띄우기
     const [confirm, setConfirm] = useState<boolean>(false);
@@ -59,13 +64,10 @@ const NoticeEditView = () => {
             </Box>
             <NoticeWrap>
                 <ListStyle variant="BODY2" textAlign="center">
-                    <span>{offset.id}</span>
                     <Input value={offset.title} style={{ flexGrow: `1`, flexBasis: `400px` }} />
-                    <Count>{offset.viewCount}</Count>
-                    <Date>{offset.date}</Date>
                 </ListStyle>
             </NoticeWrap>
-            <TextAreaStyle>{offset.content}</TextAreaStyle>
+            <TextArea value={content} onChange={onChangeContent}></TextArea>
         </PageContainer>
     );
 };
@@ -98,14 +100,4 @@ const Count = styled.span`
 `;
 const Date = styled.span`
     min-width: 130px;
-`;
-
-const TextAreaStyle = styled.textarea`
-    resize: none;
-    width: 100%;
-    height: 456px;
-    background-color: ${theme.colors.white};
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px 0 ${theme.colors.lgrey};
 `;

@@ -10,11 +10,12 @@ import Button from 'components/atoms/Button/button';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import LeaveModal from 'components/organisms/LeaveModal/leaveModal';
+import Linker from 'components/atoms/Linker/linker';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -33,19 +34,19 @@ const NoticeView = () => {
 
     //getMe를 이용해서 등록하기 버튼 분기처리
     const isAdmin = true; // noticeViewModel.me.isAdmin || false;
-    const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(true);
 
-    const onOpenChange = () => {
+    const handleClickOpenModal = (event: MouseEvent<HTMLElement>) => {
         setOpen(true);
     };
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
-                <LinkWrapper to="/notice">
+                <Linker href={`${pageUrlConfig.notice}`}>
                     <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
                         공지사항
                     </Typography>
-                </LinkWrapper>
+                </Linker>
                 <SearchBar placeholder="공지 검색" />
             </Box>
 
@@ -71,7 +72,7 @@ const NoticeView = () => {
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
-                    <LinkWrapper to="/notice/upload">
+                    <Linker href={`${pageUrlConfig.noticeUpload}`}>
                         <Button
                             type="button"
                             state="default"
@@ -81,26 +82,9 @@ const NoticeView = () => {
                             showText={true}
                             showIcon={false}
                         />
-                    </LinkWrapper>
+                    </Linker>
                 )}
             </div>
-            <LeaveModal
-                open={open}
-                onOpenChange={onOpenChange}
-                toggleEl={
-                    <Button
-                        variant="primary"
-                        size="l"
-                        type="button"
-                        state="default"
-                        text="toggle"
-                        showText={true}
-                        showIcon={false}
-                        showDrop={true}
-                    />
-                }
-                onLeave={() => {}}
-            ></LeaveModal>
         </PageContainer>
     );
 };
