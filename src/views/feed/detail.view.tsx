@@ -1,15 +1,18 @@
-import { keyframes } from '@emotion/css';
 import styled from '@emotion/styled';
-import LazyImage from 'components/atoms/LazyImage/default-image';
+import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Input } from 'components/atoms/Input';
+import Feed from 'components/organisms/Feed/feed';
+import FeedButtons from 'components/organisms/Feed/feedButtons';
+import FloatingInfomation from 'components/organisms/Feed/floatingInfomation';
 import UserProfile from 'components/organisms/Profile/user-profile';
+import AlertModal from 'components/organisms/modal/alertModal';
 import PageContainer from 'components/templates/page-container';
 import { CommentDto } from 'dto/feed/comment.dto';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SwiperEventType, { FreeMode, Navigation } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import FeedViewModel from 'viewModel/feed/feed.viewModel';
 
 /**
@@ -17,103 +20,50 @@ import FeedViewModel from 'viewModel/feed/feed.viewModel';
  */
 const FeedDetailView = () => {
     const feedViewModel: FeedViewModel = useViewModel(ViewModelName.FEED);
-    const [swiperPage, setSwiperPage] = useState<number>(0);
-    const [isMove, setIsMove] = useState<boolean>(false);
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const { id } = useParams();
-    const swiperRef = useRef();
 
     useEffect(() => {
-        // feedViewModel.getMe();
         feedViewModel.getDetail(+id);
     }, []);
 
-    const handleSlidePage = (swiper: SwiperEventType) => {
-        setIsMove(true);
-        setTimeout(() => {
-            setSwiperPage(swiper.realIndex);
-            setIsMove(false);
-        }, 0.8);
-    };
-
-    const getSlideImage = (position: number): string => {
-        const positionIndex = swiperPage + position;
-        const imageIndex = positionIndex % feedViewModel.detail.imgUrl.length;
-        return feedViewModel.detail.imgUrl[imageIndex];
+    const handleClickModalClose = () => {
+        setIsOpenModal(!isOpenModal);
     };
 
     return (
         <PageContainer style={{ paddingTop: '80px' }}>
-            <UserProfile data={feedViewModel.detail.author} />
-            <ImageWrap>
-                <SwiperWrap
-                    modules={[Navigation, FreeMode]}
-                    slidesPerView={1}
-                    spaceBetween={16}
-                    navigation
-                    onSlideChange={handleSlidePage}
-                    loop
-                    imageLength={feedViewModel.detail.imgUrl.length}
-                    ref={swiperRef}
-                >
-                    {feedViewModel.detail.imgUrl.map((imageUrl: string, key: number) => {
-                        return (
-                            <SwiperSlide key={`feed_images_${key}`}>
-                                <LazyImage src={imageUrl} alt="" style={{ transition: 'all 0.3s ease' }} />
-                            </SwiperSlide>
-                        );
-                    })}
-                    {/* <SwiperSlide></SwiperSlide> */}
-                </SwiperWrap>
-                {feedViewModel.detail.imgUrl.length >= 2 && (
-                    <LazyImages
-                        src={getSlideImage(1)}
-                        alt="image"
-                        style={{ width: '100%', height: '430px', objectFit: 'cover', borderRadius: '16px' }}
-                        className="preview_cards"
-                        isMove={isMove}
-                    />
-                )}
-                {feedViewModel.detail.imgUrl.length >= 3 && (
-                    <LazyImages
-                        src={getSlideImage(2)}
-                        alt="image"
-                        style={{
-                            width: '100%',
-                            height: '430px',
-                            objectFit: 'cover',
-                            borderRadius: '16px',
-                            marginLeft: '16px',
-                        }}
-                        className="preview_cards"
-                        isMove={isMove}
-                    />
-                )}
-            </ImageWrap>
-            <Content.Title>{feedViewModel.detail.title}</Content.Title>
+            <button onClick={handleClickModalClose}>modal</button>
+            <AlertModal
+                handleClickClose={handleClickModalClose}
+                handleClickConfirm={() => {}}
+                isOpen={isOpenModal}
+            >
+                <p>children123123</p>
+                <p>children123123</p>
+            </AlertModal>
+            <FeedWrap>
+                <Feed data={feedViewModel.detail} isDetail />
+                <Content.Title>{feedViewModel.detail.title}</Content.Title>
+                <FloatingInfomation />
+            </FeedWrap>
             <Content.Desc>{feedViewModel.detail.content}</Content.Desc>
-            <Content.IconWrap>
-                <div>
-                    <Content.Icon />
-                    <Content.Desc>999+</Content.Desc>
-                </div>
-                <div>
-                    <Content.Icon />
-                    <Content.Desc>999+</Content.Desc>
-                </div>
-                <div>
-                    <Content.Icon />
-                </div>
-            </Content.IconWrap>
+            <FeedButtons />
             <Comment.Wrap>
                 <UserProfile data={feedViewModel.detail.author} style={{ width: '24px', height: '24px' }} />
-                <input value="댓글입력" onChange={() => {}} />
+                <Input
+                    value={feedViewModel.commentModel.content}
+                    onChange={feedViewModel.handleChangeComment}
+                    placeholder="댓글을 입력하세요."
+                >
+                    <Comment.Button>
+                        <FontAwesomeIcon icon={faPaperPlane} />
+                    </Comment.Button>
+                </Input>
                 {feedViewModel.commentList.map((comment: CommentDto, key: number) => {
                     return (
                         <div key={`comment_${key}`}>
-                            <UserProfile
-                                data={feedViewModel.detail.author}
-                                style={{ width: '24px', height: '24px' }}
-                            />
+                            <UserProfile data={comment.author} style={{ width: '24px', height: '24px' }} />
                             <p>{comment.content}</p>
                         </div>
                     );
@@ -125,76 +75,10 @@ const FeedDetailView = () => {
 
 export default observer(FeedDetailView);
 
-const ImageChange = keyframes`
-    from {
-        opacity:1;
-    }
-
-    to {
-        opacity:0;
-    }
-`;
-
-const ImageLoad = keyframes`
-    from {
-        
-        opacity:0;
-    }
-
-    to {
-
-        opacity:1;
-    }
-`;
-
-const ImageWrap = styled.div`
+const FeedWrap = styled.div`
+    position: Relative;
     width: 100%;
-    display: flex;
-
-    &span:nth-child(1) {
-        flex-shrink: 0;
-        width: 30%;
-    }
-    &span:nth-child(2) {
-        flex-shrink: 0;
-        width: 20%;
-    }
-`;
-
-const LazyImages = styled(LazyImage)<{ isMove: boolean }>`
-    ${({ isMove }) =>
-        isMove ? `animation: ${ImageChange} 0.8s ease;` : `animation: ${ImageLoad} 0.8s both;`}}
-`;
-
-const SwiperWrap = styled(Swiper)<{ imageLength: number }>`
-    position: relative;
-    flex-shrink: 0;
-    left: -16px;
-    height: 430px;
-    margin: 0;
-
-    & .swiper-slide,
-    & span,
-    & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 16px;
-    }
-
-    ${({ imageLength }) => {
-        switch (imageLength) {
-            case 1:
-                return `width: 100%;`;
-
-            case 2:
-                return `width: 60%;`;
-
-            default:
-                return `width: 50%;
-                max-width: 600px;`;
-        }
-    }}
+    gap: 16px;
 `;
 
 const Content = {
@@ -207,6 +91,11 @@ const Content = {
         line-height: 40px;
         text-align: center;
         margin: 0;
+
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     `,
     Desc: styled.p`
         font-family: SUIT;
@@ -254,5 +143,17 @@ const Comment = {
         display: flex;
         flex-direction: column;
         gap: 16px;
+    `,
+    Button: styled.button`
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        transition: all 0.4s ease;
+
+        border: 2px solid #d9d9d9;
+
+        &:hover {
+            background: #d9d9d9;
+        }
     `,
 };

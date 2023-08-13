@@ -3,15 +3,20 @@ import CommentData from 'db/comment.json';
 import FeedData from 'db/feed.json';
 import { CommentDto } from 'dto/feed/comment.dto';
 import { FeedDto } from 'dto/feed/feed.dto';
+import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
+import { CommentModel } from 'models/feed/comment.model';
+import { ChangeEvent } from 'react';
 import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 
 export default class FeedViewModel extends DefaultViewModel {
+    public followers: UserDto[] = [];
     public detail: FeedDto = new FeedDto();
     public list: FeedDto[] = [];
     public commentList: CommentDto[] = [];
+    public commentModel: CommentModel = new CommentModel();
     constructor(props: IProps) {
         super(props);
 
@@ -19,6 +24,8 @@ export default class FeedViewModel extends DefaultViewModel {
             detail: observable,
             list: observable,
             commentList: observable,
+            commentModel: observable,
+            followers: observable,
 
             getDetail: action,
             getList: action,
@@ -56,6 +63,21 @@ export default class FeedViewModel extends DefaultViewModel {
     getList = async () => {
         runInAction(() => {
             this.list = FeedData.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
+            // const newFollowers = [];
+            // for(let i =0; i < FeedData.data.length; i++){
+            //     const is
+            // }
+            this.followers = FeedData.data.map((feed: FeedDto) => {
+                return plainToInstance(UserDto, feed.author);
+            });
+        });
+    };
+
+    handleChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+
+        runInAction(() => {
+            this.commentModel = { content: value };
         });
     };
 }

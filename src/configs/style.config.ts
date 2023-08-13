@@ -82,5 +82,14 @@ const globalStyle = (theme: Theme) => css`
         left: 0;
         border: 0;
     }
+
+    .swal2-popup {
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+        -webkit-box-shadow: inset 32px 32px 32px 12px rgba(0, 0, 0, 0.16),
+            32px 32px 32px 12px rgba(0, 0, 0, 0.16);
+        box-shadow: inset 32px 32px 32px 12px rgba(0, 0, 0, 0.16), 32px 32px 32px 12px rgba(0, 0, 0, 0.16);
+        background: #fafafa;
+    }
 `;
 export default globalStyle;
