@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
+import LeaveModal from 'components/organisms/LeaveModal/leaveModal';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -31,7 +32,12 @@ const NoticeView = () => {
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; // noticeViewModel.me.isAdmin || false;
+    const [open, setOpen] = useState<boolean>(false);
+
+    const onOpenChange = () => {
+        setOpen(true);
+    };
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
@@ -65,17 +71,36 @@ const NoticeView = () => {
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
-                    <Button
-                        type="button"
-                        state="default"
-                        variant="primary"
-                        size="l"
-                        text="등록하기"
-                        showText={true}
-                        showIcon={false}
-                    />
+                    <LinkWrapper to="/notice/upload">
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="등록하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </LinkWrapper>
                 )}
             </div>
+            <LeaveModal
+                open={open}
+                onOpenChange={onOpenChange}
+                toggleEl={
+                    <Button
+                        variant="primary"
+                        size="l"
+                        type="button"
+                        state="default"
+                        text="toggle"
+                        showText={true}
+                        showIcon={false}
+                        showDrop={true}
+                    />
+                }
+                onLeave={() => {}}
+            ></LeaveModal>
         </PageContainer>
     );
 };

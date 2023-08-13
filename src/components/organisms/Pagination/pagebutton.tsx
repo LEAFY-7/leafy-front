@@ -10,7 +10,7 @@ interface Props {
     setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-/** target: 데이터 총 길이, limit: 한 페이지에 보여줄 리스트 길이, onClick: 페이지 이동**/
+/** target: 데이터 총 길이, limit: 한 페이지에 보여줄 리스트 길이**/
 const PageButton = ({ limit = 1, target = 0, page, setPage }: Props): ReactElement => {
     const [offset, setOffset] = useState<number>(0);
 

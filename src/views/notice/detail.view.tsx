@@ -31,7 +31,7 @@ const NoticeDetailView = () => {
     };
 
     const offset = noticeViewModel.detail;
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
@@ -54,19 +54,32 @@ const NoticeDetailView = () => {
                 <NoticeList item={offset} titleColor="black" />
             </NoticeWrap>
             <NoticeContent>{noticeViewModel.detail.content}</NoticeContent>
-            <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {isAdmin && (
-                    <Button
-                        type="button"
-                        state="default"
-                        variant="primary"
-                        size="l"
-                        text="수정하기"
-                        showText={true}
-                        showIcon={false}
-                    />
-                )}
-            </div>
+            {isAdmin && (
+                <div style={{ display: `flex`, marginLeft: `auto`, gap: `16px` }}>
+                    <LinkWrapper to="/notice/edit">
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="수정하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </LinkWrapper>
+                    <LinkWrapper to="/notice/edit">
+                        <Button
+                            type="button"
+                            state="default"
+                            variant="primary"
+                            size="l"
+                            text="삭제하기"
+                            showText={true}
+                            showIcon={false}
+                        />
+                    </LinkWrapper>
+                </div>
+            )}
         </PageContainer>
     );
 };

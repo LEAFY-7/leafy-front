@@ -45,20 +45,15 @@ export default WaterModal;
 
 const Overlay = styled(Dialog.Overlay)`
     position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    inset: 0;
+    margin: auto;
 `;
 
 const Wrapper = styled(Dialog.Content)`
     position: absolute;
     width: 350px;
     height: 350px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
 
     background: radial-gradient(
         66.35% 237.95% at 21.48% 25.52%,
@@ -76,11 +71,7 @@ const Content = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
