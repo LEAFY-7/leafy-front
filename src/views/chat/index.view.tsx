@@ -2,10 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { BiUserCircle as UserIcon } from 'react-icons/bi';
 import { BsFillChatDotsFill as ChatIcon } from 'react-icons/bs';
+import { GrHomeOption as HomeIcon } from 'react-icons/gr';
 
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
@@ -20,20 +21,21 @@ import Room from 'components/organisms/Chat/chat-room';
 
 import ChatList from './chat-list';
 import ChatRoom from './chat-room';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 const ChatView = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
     const windowSize = useWindowSize();
     const location = useLocation();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
-        chatViewModel.handleGetQueryParams(location.search);
         chatViewModel.handleShowChatRoom(300);
 
         return () => {
-            clearTimeout(chatViewModel.handleShowChatRoom(300));
+            chatViewModel.handleClear();
         };
-    }, [location]);
+    }, [, location]);
 
     return (
         <>
@@ -43,7 +45,8 @@ const ChatView = () => {
                     justifyContent: 'space-between',
                     //  alignItems: 'flex-start',
                     paddingTop: '4rem',
-                    height: '100%',
+                    height: '900px',
+                    overflow: 'hidden',
                 }}
             >
                 {windowSize.width > 575 ? (
@@ -86,12 +89,29 @@ const ChatView = () => {
             </PageContainer>
 
             <ShowAtMobile>
-                <RectangleButton backgroundColor="transparent" onClick={chatViewModel.handleLeaveChatRoom}>
-                    <UserIcon size={40} color="#fff" />
+                <RectangleButton
+                    backgroundColor="transparent"
+                    onClick={async () => {
+                        chatViewModel.handleLeaveChatRoom();
+                        await navigate('/chat');
+                    }}
+                >
+                    <UserIcon size={35} color="#fff" />
                 </RectangleButton>
-                <ChatIconButton backgroundColor="transparent" disabled={!!chatViewModel.roomState.you}>
-                    <ChatIcon size={40} color="#fff" />
-                </ChatIconButton>
+                <IconButton backgroundColor="transparent" to={pageUrlConfig.main}>
+                    <HomeIcon size={35} color="#fff" />
+                </IconButton>
+                <IconButton
+                    backgroundColor="transparent"
+                    disabled={!!chatViewModel.roomState.you}
+                    onClick={async () => {
+                        const { me, prev } = chatViewModel.roomState;
+                        chatViewModel.handleChangeCurrentId(prev);
+                        await navigate(`?me=${me}&you=${prev}`);
+                    }}
+                >
+                    <ChatIcon size={35} color="#fff" />
+                </IconButton>
             </ShowAtMobile>
         </>
     );
@@ -139,7 +159,9 @@ const RightSection = styled(CommonSection)`
 const ShowAtMobile = styled(Flex.Default)`
     background-color: ${theme.colors.primary};
     width: 100%;
-    height: 109px;
+    height: 120px;
+    padding-left: 16px;
+    padding-right: 16px;
     justify-content: center;
     align-items: center;
 
@@ -154,7 +176,9 @@ const ShowAtMobile = styled(Flex.Default)`
         display: none;
     }
 `;
-const ChatIconButton = styled(RectangleButton)`
+const IconButton = styled(RectangleButton)`
+    margin: 0;
+
     &:disabled {
         background-color: transparent;
     }

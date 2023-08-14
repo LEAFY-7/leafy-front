@@ -27,15 +27,17 @@ function App() {
     }, []);
     return (
         <>
-            <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                pauseOnFocusLoss
-                pauseOnHover
-            />
+            <div id="app-toast-container">
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnFocusLoss
+                    pauseOnHover
+                />
+            </div>
             <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
                 <RouterProvider router={routers} />
                 <Global styles={globalStyle} />

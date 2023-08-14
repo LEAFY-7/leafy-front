@@ -127,14 +127,17 @@ const LaziedImage = styled(LazyImage)<ImageProps>`
 
 const CounterDiv = styled.div`
     position: absolute;
-    transform: translate(150%, 150%);
-    width: 20px;
+    right: 10px;
+    bottom: 10px;
+    /* transform: translate(150%, 150%); */
+
+    width: 40px;
     height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    font-size: 10px;
+    border-radius: 20px;
+    font-size: ${theme.fontSize.sm};
     color: ${theme.colors.white};
     background-color: ${theme.colors.sementic};
 `;

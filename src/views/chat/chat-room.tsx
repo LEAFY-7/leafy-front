@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { ToastContainer } from 'react-toastify';
 import { IoIosArrowBack as BackIcon } from 'react-icons/io';
 import { GiHamburgerMenu as HamburgerIcon } from 'react-icons/gi';
 
@@ -20,6 +21,7 @@ import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import ChatSend from './chat-send';
+import ErrorBoundary from 'components/organisms/Error/ErrorBoundary';
 
 const ChatRoom = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
@@ -42,184 +44,196 @@ const ChatRoom = () => {
         chatViewModel.handleJoinRoom(location.search);
 
         return () => {
-            chatViewModel.handleDisconnectSocket();
+            chatViewModel.handleDisconnectChatSocket();
         };
-    }, [location]);
+    }, [chatViewModel.roomState.you]);
 
     return (
         <>
-            {chatViewModel?.roomState.you ? (
-                <Room currentId={chatViewModel.roomState.you} height="100%">
-                    <Wrapper id="chat_room_wrapper">
-                        {/* 헤더 */}
-                        <Room.Header>
-                            <Flex.Default
-                                justifyContent="center"
-                                alignItems="center"
-                                style={{ padding: '8px' }}
-                            >
-                                <RectangleButton
-                                    backgroundColor="transparent"
-                                    onClick={() => {
-                                        chatViewModel.handleLeaveChatRoom();
-                                        navigate('/chat');
-                                    }}
-                                    style={{ padding: 0, margin: 0 }}
+            <ErrorBoundary>
+                {chatViewModel?.roomState.you ? (
+                    <Room currentId={chatViewModel.roomState.you} height="100%">
+                        <Wrapper id="chat_room_wrapper">
+                            <div id="chat-toast-container">
+                                <ToastContainer
+                                    position="top-right"
+                                    autoClose={3000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    pauseOnFocusLoss
+                                    pauseOnHover
+                                    style={{ width: 'auto' }}
+                                />
+                            </div>
+                            {/* 헤더 */}
+                            <Room.Header>
+                                <Flex.Default
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    style={{ padding: '8px' }}
                                 >
-                                    <BackIcon size={25} />
-                                </RectangleButton>
-
-                                <HeaderTitle variant="BODY1" marginLeft={8} style={{ width: '100%' }}>
-                                    {chatViewModel.roomState.you}님과의 채팅
-                                </HeaderTitle>
-                            </Flex.Default>
-
-                            <Flyout isOpen={openState.isOpen} toggle={openState.toggle}>
-                                <Toggle id="user__wrapper" style={{ padding: '8px' }}>
                                     <RectangleButton
                                         backgroundColor="transparent"
+                                        onClick={() => {
+                                            chatViewModel.handleLeaveChatRoom();
+                                            navigate('/chat');
+                                        }}
                                         style={{ padding: 0, margin: 0 }}
                                     >
-                                        <HamburgerIcon size={25} />
+                                        <BackIcon size={25} />
                                     </RectangleButton>
-                                </Toggle>
-                                <OverLay />
-                                <MyMenuWrapper>
-                                    <MenuList size="md" variant="default">
-                                        <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
-                                        <UserItem to={`${pageUrlConfig.user}/1`}>내 채널 바로가기</UserItem>
-                                        <UserItem to={`${pageUrlConfig}/2`}>상대방 채널 보러가기</UserItem>
-                                        <UserItem>구독 하기</UserItem>
-                                        <UserItem>신고 하기</UserItem>
-                                    </MenuList>
-                                </MyMenuWrapper>
-                            </Flyout>
-                        </Room.Header>
-                        {/* 헤더 */}
-                        {/* 바디 */}
-                        <Room.Body id="chat_room_body" ref={chatViewModel.chatContainerRef}>
-                            <div id="prev-target" ref={targetPrevRef} style={{ height: '200px' }}></div>
-                            <>
-                                {/* .reverse() // 키를 역순으로 순회 */}
-                                {Array.from(chatViewModel?.prevMessageList.pages.keys())
-                                    .reverse()
-                                    .map((pageNumber) => {
-                                        const pageMessages =
-                                            chatViewModel?.prevMessageList.pages.get(pageNumber);
-                                        if (Array.isArray(pageMessages)) {
-                                            const currentPage = chatViewModel?.prevMessageList.currentPage;
-                                            return (
-                                                <React.Fragment key={pageNumber}>
-                                                    {pageMessages.map((message, i) => (
-                                                        <React.Fragment key={i}>
-                                                            {message.sender === chatViewModel.roomState.me ? (
+
+                                    <HeaderTitle variant="BODY1" marginLeft={8} style={{ width: '100%' }}>
+                                        {chatViewModel.roomState.you}님과의 채팅
+                                    </HeaderTitle>
+                                </Flex.Default>
+
+                                <Flyout isOpen={openState.isOpen} toggle={openState.toggle}>
+                                    <Toggle id="user__wrapper" style={{ padding: '8px' }}>
+                                        <RectangleButton
+                                            backgroundColor="transparent"
+                                            style={{ padding: 0, margin: 0 }}
+                                        >
+                                            <HamburgerIcon size={25} />
+                                        </RectangleButton>
+                                    </Toggle>
+                                    <OverLay />
+                                    <MyMenuWrapper>
+                                        <MenuList size="md" variant="default">
+                                            <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
+                                            <UserItem
+                                                to={`${pageUrlConfig.user}/${chatViewModel.roomState.me}`}
+                                            >
+                                                내 채널 가기
+                                            </UserItem>
+                                            <UserItem
+                                                to={`${pageUrlConfig.user}/${chatViewModel.roomState.you}`}
+                                            >
+                                                상대 채널 보기
+                                            </UserItem>
+                                            <UserItem>구독 하기</UserItem>
+                                            <UserItem>신고 하기</UserItem>
+                                        </MenuList>
+                                    </MyMenuWrapper>
+                                </Flyout>
+                            </Room.Header>
+                            {/* 헤더 */}
+                            {/* 바디 */}
+                            <Room.Body id="chat_room_body" ref={chatViewModel.chatContainerRef}>
+                                <div id="prev-target" ref={targetPrevRef} style={{ height: '200px' }}></div>
+                                <>
+                                    {/* .reverse() // 키를 역순으로 순회 */}
+                                    {Array.from(chatViewModel?.prevMessageList.pages.keys())
+                                        .reverse()
+                                        .map((pageNumber) => {
+                                            const pageMessages =
+                                                chatViewModel?.prevMessageList.pages.get(pageNumber);
+                                            if (Array.isArray(pageMessages)) {
+                                                const currentPage =
+                                                    chatViewModel?.prevMessageList.currentPage;
+                                                return (
+                                                    <React.Fragment key={pageNumber}>
+                                                        {pageMessages.map((message, i) =>
+                                                            message.sender === chatViewModel.roomState.me ? (
                                                                 <Room.MeMessage
-                                                                    id={message.id}
                                                                     key={message.id}
                                                                     isRead={message.isRead}
-                                                                    data-index={`${currentPage}-${i}`}
+                                                                    data-index={`${currentPage}-${message.id}`}
                                                                     createdAt={message.createdAt}
                                                                 >
                                                                     {message.text}
                                                                 </Room.MeMessage>
                                                             ) : (
                                                                 <Room.YouMessage
-                                                                    id={message.id}
                                                                     key={message.id}
                                                                     isRead={message.isRead}
-                                                                    data-index={`${currentPage}-${i}`}
+                                                                    data-index={`${currentPage}-${message.id}`}
                                                                     createdAt={message.createdAt}
                                                                 >
                                                                     {message.text}
                                                                 </Room.YouMessage>
-                                                            )}
-                                                        </React.Fragment>
-                                                    ))}
-                                                </React.Fragment>
-                                            );
-                                        }
-                                        return null;
-                                    })}
-                            </>
-                            <>
-                                {Array.from(chatViewModel?.nextMessageList.pages.keys()).map((pageNumber) => {
-                                    const pageMessages = chatViewModel?.nextMessageList.pages.get(pageNumber);
-                                    if (Array.isArray(pageMessages)) {
-                                        const currentPage = chatViewModel?.nextMessageList.currentPage;
-                                        return (
-                                            <React.Fragment key={pageNumber}>
-                                                {pageMessages.map((message, i) => (
-                                                    <React.Fragment key={i}>
-                                                        {message.sender === chatViewModel.roomState.me ? (
-                                                            <Room.MeMessage
-                                                                id={message.id}
-                                                                key={message.id}
-                                                                isRead={message.isRead}
-                                                                data-index={`${currentPage}-${i}`}
-                                                                createdAt={message.createdAt}
-                                                            >
-                                                                {message.text}
-                                                            </Room.MeMessage>
-                                                        ) : (
-                                                            <Room.YouMessage
-                                                                id={message.id}
-                                                                key={message.id}
-                                                                isRead={message.isRead}
-                                                                data-index={`${currentPage}-${i}`}
-                                                                createdAt={message.createdAt}
-                                                            >
-                                                                {message.text}
-                                                            </Room.YouMessage>
+                                                            ),
                                                         )}
                                                     </React.Fragment>
-                                                ))}
-                                            </React.Fragment>
-                                        );
-                                    }
-                                    return null;
-                                })}
-                            </>
+                                                );
+                                            }
+                                            return null;
+                                        })}
+                                </>
+                                <>
+                                    {Array.from(chatViewModel?.nextMessageList.pages.keys())
+                                        .reverse()
+                                        .map((pageNumber) => {
+                                            const pageMessages =
+                                                chatViewModel?.nextMessageList.pages.get(pageNumber);
+                                            if (Array.isArray(pageMessages)) {
+                                                const currentPage =
+                                                    chatViewModel?.nextMessageList.currentPage;
+                                                return (
+                                                    <React.Fragment key={pageNumber}>
+                                                        {pageMessages.map((message, i) =>
+                                                            message.sender === chatViewModel.roomState.me ? (
+                                                                <Room.MeMessage
+                                                                    key={message.id}
+                                                                    isRead={message.isRead}
+                                                                    data-index={`${currentPage}-${message.id}`}
+                                                                    createdAt={message.createdAt}
+                                                                >
+                                                                    {message.text}
+                                                                </Room.MeMessage>
+                                                            ) : (
+                                                                <Room.YouMessage
+                                                                    key={message.id}
+                                                                    isRead={message.isRead}
+                                                                    data-index={`${currentPage}-${message.id}`}
+                                                                    createdAt={message.createdAt}
+                                                                >
+                                                                    {message.text}
+                                                                </Room.YouMessage>
+                                                            ),
+                                                        )}
+                                                    </React.Fragment>
+                                                );
+                                            }
+                                            return null;
+                                        })}
+                                </>
 
-                            <>
-                                {chatViewModel.newMessageList.map(
-                                    (message: ChatMessageDto, index: number) => (
-                                        <React.Fragment key={index}>
-                                            <React.Fragment key={`${message.id}`}>
-                                                {message.sender === chatViewModel.roomState.me ? (
-                                                    <Room.MeMessage
-                                                        id={`${message.id}`}
-                                                        key={`${message.id}-${index}`}
-                                                        isRead={message.isRead}
-                                                        createdAt={message.createdAt}
-                                                    >
-                                                        {message.text}
-                                                    </Room.MeMessage>
-                                                ) : (
-                                                    <Room.YouMessage
-                                                        id={`${message.id}`}
-                                                        key={`${message.id}-${index}`}
-                                                        isRead={message.isRead}
-                                                        createdAt={message.createdAt}
-                                                    >
-                                                        {message.text}
-                                                    </Room.YouMessage>
-                                                )}
-                                            </React.Fragment>
-                                        </React.Fragment>
-                                    ),
-                                )}
-                                <div id="next-target" ref={targeNextRef} style={{ height: '50px' }}></div>
-                            </>
-                        </Room.Body>
-                        {/* 바디 */}
-                        {/* 푸터 */}
-                        <Room.Footer>
-                            <ChatSend />
-                        </Room.Footer>
-                        {/* 푸터 */}
-                    </Wrapper>
-                </Room>
-            ) : null}
+                                <>
+                                    {chatViewModel.newMessageList.map(
+                                        (message: ChatMessageDto, index: number) =>
+                                            message.sender === chatViewModel.roomState.me ? (
+                                                <Room.MeMessage
+                                                    key={`${message.id}-${index}`}
+                                                    isRead={message.isRead}
+                                                    createdAt={message.createdAt}
+                                                >
+                                                    {message.text}
+                                                </Room.MeMessage>
+                                            ) : (
+                                                <Room.YouMessage
+                                                    key={`${message.id}-${index}`}
+                                                    isRead={message.isRead}
+                                                    createdAt={message.createdAt}
+                                                >
+                                                    {message.text}
+                                                </Room.YouMessage>
+                                            ),
+                                    )}
+                                    <div id="next-target" ref={targeNextRef} style={{ height: '50px' }}></div>
+                                </>
+                            </Room.Body>
+                            {/* 바디 */}
+                            {/* 푸터 */}
+                            <Room.Footer>
+                                <ChatSend />
+                            </Room.Footer>
+                            {/* 푸터 */}
+                        </Wrapper>
+                    </Room>
+                ) : null}
+            </ErrorBoundary>
         </>
     );
 };
@@ -239,6 +253,9 @@ const Wrapper = styled(Room.Wrapper)`
     transition: opacity 0.55s ease-in-out;
     transform: translateX(-100%);
     animation: ${slideInFromLeft} 0.65s ease-in-out forwards;
+    .Toastify__toast-container {
+        position: absolute;
+    }
 `;
 
 const NoneChatRoomBody = styled(Room.Body)`

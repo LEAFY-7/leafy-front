@@ -97,7 +97,7 @@ const ChatRoomYouMessage = ({
     isRead = false,
     isMe = false,
     createdAt = '',
-    id = '',
+    id,
     children,
     ...rest
 }: ChatRoomYouMessageProps) => {
@@ -107,7 +107,6 @@ const ChatRoomYouMessage = ({
             <YouMessage {...rest}>{children}</YouMessage>
             <Flex.Default style={{ gap: '8px' }}>
                 <CreatedAt>{newCreateAt}</CreatedAt>
-                {!isRead ? <UnRead>안읽음</UnRead> : null}
             </Flex.Default>
         </MessageWrapper>
     );
@@ -118,7 +117,7 @@ const ChatRoomMeMessage = ({
     isRead = false,
     isMe = true,
     createdAt = '',
-    id = '',
+    id,
     children,
     ...rest
 }: ChatRoomMeMessageProps) => {
@@ -127,7 +126,7 @@ const ChatRoomMeMessage = ({
         <MessageWrapper isMe={isMe} id={id}>
             <MeMessage {...rest}>{children}</MeMessage>
             <Flex.Default style={{ gap: '8px' }}>
-                {/* {!isRead ? <span>안읽음</span> : null} */}
+                {!isRead ? <UnRead>안읽음</UnRead> : null}
                 <CreatedAt>{newCreateAt}</CreatedAt>
             </Flex.Default>
         </MessageWrapper>
