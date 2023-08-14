@@ -21,7 +21,7 @@ const DefaultFooter = () => {
                         <img src={logoPath} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
                     <LinkButton to={'/'} fontSize="sm">
-                        소개
+                        서비스 소개
                     </LinkButton>
                     <LinkButton to={pageUrlConfig.notice} fontSize="sm">
                         고객 센터

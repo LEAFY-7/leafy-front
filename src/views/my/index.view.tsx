@@ -11,6 +11,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
 import PageContainer from 'components/templates/page-container';
 import { UserDto } from 'dto/user/user.dto';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 const user = {
     name: '홍길동',
@@ -90,7 +91,16 @@ const MyView = () => {
                                     </Typography>
                                 </LabelWrapper>
                                 <Flex.Default as="div" style={{ position: 'absolute', right: 0, bottom: 0 }}>
-                                    <DropButton to={pageUrlConfig.myEdit}>내 정보 수정하러가기</DropButton>
+                                    <RectangleButton
+                                        to={pageUrlConfig.myEdit}
+                                        backgroundColor="white"
+                                        isBorder
+                                    >
+                                        내 정보 수정하러가기
+                                    </RectangleButton>
+                                    {/* <DropButton to={`${pageUrlConfig.chat}?me=123&you=460`}>
+                                        채팅 하러 가기
+                                    </DropButton> */}
                                 </Flex.Default>
                             </Div.Default>
                             <Div.Default
