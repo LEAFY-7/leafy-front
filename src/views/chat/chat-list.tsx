@@ -14,7 +14,7 @@ const noneUrl = '';
 const me = JSON.parse(localStorage.getItem('me'));
 const you = JSON.parse(localStorage.getItem('you'));
 
-const profiles = new Array(4).fill(null).map((_, index) => ({
+const profiles = new Array(6).fill(null).map((_, index) => ({
     userId: +you + index,
     url: index % 2 === 0 ? url : noneUrl,
     count: 10,
@@ -31,6 +31,14 @@ const ChatList = () => {
         chatViewModel.handleChangeCurrentId(id);
         await navigate(`?me=${+me}&you=${id}`);
     };
+
+    // React.useEffect(() => {
+    //     chatViewModel.handleJoinList();
+
+    //     return () => {
+    //         chatViewModel.handleDisconnectListSocket();
+    //     };
+    // }, []);
 
     return (
         <>

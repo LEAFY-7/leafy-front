@@ -25,7 +25,6 @@ interface IProps {}
 
 export default class ChatViewModel extends DefaultViewModel {
     public chatContainerRef: React.RefObject<HTMLElement>;
-    public isRoomEnter: boolean;
     public endpoint: string;
     public chatSocket: Socket;
     public globalSocket: Socket;
@@ -40,7 +39,6 @@ export default class ChatViewModel extends DefaultViewModel {
     constructor(props: IProps) {
         super(props);
         this.chatContainerRef = React.createRef<HTMLElement>();
-        this.isRoomEnter = false;
         this.chatSocket = null; // 채팅 소켓
         this.globalSocket = null; // 글로벌 소켓
         this.endpoint = 'http://localhost:5000/'; // 엔드포인트
@@ -207,7 +205,6 @@ export default class ChatViewModel extends DefaultViewModel {
             });
 
             this.handleScrollToUnRead(this.lastNextMessageId);
-            toast.success(`채팅방에 입장하였습니다.`, { containerId });
             toast.success(`${formatDate(readUntil)}까지 읽었습니다.`, { containerId });
         } catch (error) {
             await toast.error('에러가 발생했습니다. 다시 시도해주세요.', { containerId });
@@ -215,12 +212,12 @@ export default class ChatViewModel extends DefaultViewModel {
     };
 
     // 메시지 가져오기
-    private getMessages = async () => {
+    private handleGetMessages = async () => {
         const { roomId, me, you } = this.roomState;
         try {
             await this.chatSocket.emit(socketConfigs.join, { roomId, me, you });
+            toast(`${you}님과의 채팅방에 입장하였습니다.`, { containerId });
             await this.chatSocket.on(socketConfigs.messageHistory, ({ messages, me }) => {
-                console.log('메세지', messages);
                 // if (!messages.length) {
                 //     toast.success('새로운 채팅방을 시작하였습니다.', { containerId });
                 // }
@@ -239,7 +236,6 @@ export default class ChatViewModel extends DefaultViewModel {
                 });
 
                 this.handleScrollToUnRead(this.lastNextMessageId);
-                toast.success(`채팅방에 입장하였습니다.`, { containerId });
                 toast.success(`${formatDate(readUntil)}까지 읽었습니다.`, { containerId });
             });
         } catch {
@@ -313,14 +309,32 @@ export default class ChatViewModel extends DefaultViewModel {
         });
     };
 
+    private handleGetChatList = async () => {
+        // const { me } = this.roomState;
+        const me = 123;
+        try {
+            await this.globalSocket.emit(socketConfigs.join, { me });
+            // await this.globalSocket.on(socketConfigs.chatList, (data) => {
+            //     console.log(data);
+            // });
+        } catch {
+            console.log('에러');
+        }
+    };
+
     // 연결 성공
     handleConnectSocket = (space: 'global' | 'chat') => {
         return runInAction(() => {
-            this.chatSocket = io(`${this.endpoint}${space}`);
+            if (space === 'chat') {
+                this.chatSocket = io(`${this.endpoint}${space}`);
+            }
+            if (space === 'global') {
+                this.globalSocket = io(`${this.endpoint}${space}`);
+            }
         });
     };
 
-    // 연결 끊기
+    // 채팅방 연결 끊기
     handleDisconnectChatSocket = () => {
         const { roomId, me } = this.roomState;
         this.chatSocket.emit(socketConfigs.roomDisconnect, { roomId, me });
@@ -329,11 +343,22 @@ export default class ChatViewModel extends DefaultViewModel {
         this.handleClearChatMessageList();
     };
 
-    // 처음 마운트될 때
+    // 채팅목록 연결 끊기
+    handleDisconnectListSocket = () => {
+        // this.globalSocket.disconnect();
+    };
+
+    // 채팅 목록 조인
+    handleJoinList = async () => {
+        this.handleConnectSocket('global');
+        this.handleGetChatList();
+    };
+
+    // 채팅방 조인
     handleJoinRoom = async (query) => {
         this.handleGetQueryParams(query);
         this.handleConnectSocket('chat');
-        await this.getMessages();
+        await this.handleGetMessages();
         // await this.newGetMessage();
     };
 

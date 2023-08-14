@@ -4,14 +4,13 @@ import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 
 import Box from 'components/atoms/Box/default-box';
-import DropButton from 'components/atoms/Button/drop-button';
+import PageContainer from 'components/templates/page-container';
 import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
-import PageContainer from 'components/templates/page-container';
-import { UserDto } from 'dto/user/user.dto';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
+// import { UserDto } from 'dto/user/user.dto';
 
 const user = {
     name: '홍길동',

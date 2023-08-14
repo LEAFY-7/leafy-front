@@ -57,12 +57,13 @@ const ChatRoom = () => {
                             <div id="chat-toast-container">
                                 <ToastContainer
                                     position="top-right"
-                                    autoClose={3000}
+                                    autoClose={2000}
                                     hideProgressBar={false}
                                     newestOnTop={false}
                                     closeOnClick
                                     pauseOnFocusLoss
                                     pauseOnHover
+                                    theme={chatViewModel.themeModel}
                                     style={{ width: 'auto' }}
                                 />
                             </div>
@@ -123,7 +124,6 @@ const ChatRoom = () => {
                             <Room.Body id="chat_room_body" ref={chatViewModel.chatContainerRef}>
                                 <div id="prev-target" ref={targetPrevRef} style={{ height: '200px' }}></div>
                                 <>
-                                    {/* .reverse() // 키를 역순으로 순회 */}
                                     {Array.from(chatViewModel?.prevMessageList.pages.keys())
                                         .reverse()
                                         .map((pageNumber) => {
