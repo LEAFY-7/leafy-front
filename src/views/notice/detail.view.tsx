@@ -3,7 +3,6 @@ import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/button';
 import Linker from 'components/atoms/Linker/linker';
 import Typography from 'components/atoms/Typograph/default-typography';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import SearchBar from 'components/molecules/Search/searchbar';
 import NoticeList from 'components/organisms/List/noticeList';
 import PageContainer from 'components/templates/page-container';
@@ -24,7 +23,7 @@ const NoticeDetailView = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        noticeViewModel.getNoticeDetail(id);
+        noticeViewModel.getDetail(+id);
         noticeViewModel.getMe();
     }, []);
     //게시글 제목 클릭시 직전 페이지로 이동

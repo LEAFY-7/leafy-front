@@ -6,7 +6,6 @@ import Feed from 'components/organisms/Feed/feed';
 import FeedButtons from 'components/organisms/Feed/feedButtons';
 import FloatingInfomation from 'components/organisms/Feed/floatingInfomation';
 import UserProfile from 'components/organisms/Profile/user-profile';
-import AlertModal from 'components/organisms/modal/alertModal';
 import PageContainer from 'components/templates/page-container';
 import { CommentDto } from 'dto/feed/comment.dto';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
@@ -33,15 +32,6 @@ const FeedDetailView = () => {
 
     return (
         <PageContainer style={{ paddingTop: '80px' }}>
-            <button onClick={handleClickModalClose}>modal</button>
-            <AlertModal
-                handleClickClose={handleClickModalClose}
-                handleClickConfirm={() => {}}
-                isOpen={isOpenModal}
-            >
-                <p>children123123</p>
-                <p>children123123</p>
-            </AlertModal>
             <FeedWrap>
                 <Feed data={feedViewModel.detail} isDetail />
                 <Content.Title>{feedViewModel.detail.title}</Content.Title>
