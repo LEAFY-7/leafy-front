@@ -6,7 +6,8 @@ class SocketConfigs {
     public messageHistory = 'messageHistory';
     public receiveMessage = 'receiveMessage';
     public roomDisconnect = 'roomDisconnect';
-    public chatList = 'chatList';
+    public sendGlobal = 'sendGlobal';
+    public receiveGlobal = 'receiveGlobal';
 }
 const socketConfigs = new SocketConfigs();
 export default socketConfigs;

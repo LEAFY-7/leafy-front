@@ -30,14 +30,6 @@ const ChatView = () => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        chatViewModel.handleJoinList();
-
-        return () => {
-            chatViewModel.handleDisconnectListSocket();
-        };
-    }, []);
-
-    React.useEffect(() => {
         chatViewModel.handleGetQueryParams(location.search);
         chatViewModel.handleShowChatRoom(300);
 

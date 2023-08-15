@@ -168,10 +168,6 @@ export default class ChatViewModel extends DefaultViewModel {
     };
     // 채팅창 이동 변경 관리 - 역방향 스크롤시 맨 마지막 메시지 위치
     private handleLocateScrollToPrev = (targetId: string = '') => {
-        // const prevPageMessages = this.prevMessageList.pages.get(this.prevMessageList.currentPage);
-        // const prevLastIndex = prevPageMessages?.at(-1);
-        // if (!prevLastIndex) return;
-
         setTimeout(() => {
             this.handleFindMessageIndex(targetId);
         }, 0);
@@ -309,14 +305,14 @@ export default class ChatViewModel extends DefaultViewModel {
         });
     };
 
-    private handleGetChatList = async () => {
+    private handleGetGlobal = async () => {
         // const { me } = this.roomState;
         const me = 123;
         try {
             await this.globalSocket.emit(socketConfigs.join, { me });
-            // await this.globalSocket.on(socketConfigs.chatList, (data) => {
-            //     console.log(data);
-            // });
+            await this.globalSocket.on(socketConfigs.global, (data) => {
+                console.log(data);
+            });
         } catch {
             console.log('에러');
         }
@@ -344,14 +340,14 @@ export default class ChatViewModel extends DefaultViewModel {
     };
 
     // 채팅목록 연결 끊기
-    handleDisconnectListSocket = () => {
-        // this.globalSocket.disconnect();
+    handleDisconnectGlobalSocket = () => {
+        this.globalSocket.disconnect();
     };
 
-    // 채팅 목록 조인
-    handleJoinList = async () => {
+    // 글로벌 조인
+    handleJoinGlobal = async () => {
         this.handleConnectSocket('global');
-        this.handleGetChatList();
+        await this.handleGetGlobal();
     };
 
     // 채팅방 조인
@@ -384,6 +380,7 @@ export default class ChatViewModel extends DefaultViewModel {
         setTimeout(() => {
             this.handleScrollToBottom();
         }, 0);
+        this.handleGetGlobal();
     };
 
     // 메시지 보내기
@@ -397,6 +394,7 @@ export default class ChatViewModel extends DefaultViewModel {
                     text: this.myText,
                 });
             }
+
             this.handleClearTextarea();
         } catch {
             toast.error('에러가 발생했습니다.', { containerId });

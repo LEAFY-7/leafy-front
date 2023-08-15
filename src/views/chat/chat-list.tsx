@@ -32,13 +32,13 @@ const ChatList = () => {
         await navigate(`?me=${+me}&you=${id}`);
     };
 
-    // React.useEffect(() => {
-    //     chatViewModel.handleJoinList();
+    React.useEffect(() => {
+        chatViewModel.handleJoinGlobal();
 
-    //     return () => {
-    //         chatViewModel.handleDisconnectListSocket();
-    //     };
-    // }, []);
+        return () => {
+            chatViewModel.handleDisconnectGlobalSocket();
+        };
+    }, []);
 
     return (
         <>
