@@ -1,17 +1,15 @@
 import styled from '@emotion/styled';
 import Box from 'components/atoms/Box/default-box';
+import Button from 'components/atoms/Button/button';
 import { Input } from 'components/atoms/Input';
 import Typography from 'components/atoms/Typograph/default-typography';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
-import Button from 'components/atoms/Button/button';
+import TextArea from 'components/molecules/TextArea/textArea';
 import PageContainer from 'components/templates/page-container';
 import { theme } from 'configs/ui.config';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
-import TextArea from 'components/molecules/TextArea/textArea';
-import DefaultTextarea from 'components/atoms/Textarea/default-textarea';
 
 /**
  * 공지사항 수정
@@ -21,7 +19,7 @@ const NoticeEditView = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        noticeViewModel.getNoticeDetail(id);
+        noticeViewModel.getDetail(+id);
         noticeViewModel.getMe();
     }, []);
 

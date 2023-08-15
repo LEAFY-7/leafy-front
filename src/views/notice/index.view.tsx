@@ -1,28 +1,27 @@
-import PageContainer from 'components/templates/page-container';
+import Box from 'components/atoms/Box/default-box';
+import Button from 'components/atoms/Button/button';
 import Typography from 'components/atoms/Typograph/default-typography';
 import SearchBar from 'components/molecules/Search/searchbar';
 import NoticeList from 'components/organisms/List/noticeList';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
-import Box from 'components/atoms/Box/default-box';
 import PageButton from 'components/organisms/Pagination/pagebutton';
-import Button from 'components/atoms/Button/button';
+import PageContainer from 'components/templates/page-container';
 
-import { NoticeDto } from 'dto/notice/notice.dto';
-import NoticeViewModel from 'viewModel/notice/notice.viewModel';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { MouseEvent, useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import { theme } from 'configs/ui.config';
 import Linker from 'components/atoms/Linker/linker';
 import pageUrlConfig from 'configs/pageUrl.config';
+import { theme } from 'configs/ui.config';
+import { NoticeDto } from 'dto/notice/notice.dto';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { observer } from 'mobx-react';
+import { MouseEvent, useEffect, useState } from 'react';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
 
     useEffect(() => {
         noticeViewModel.getMe();
-        noticeViewModel.getNoticeData();
+        noticeViewModel.getList();
     }, []);
     /* 페이지네이션에 필요한 변수들 */
     //1. PageButton에 들어갈 상태 - 현재 페이지를 데려옴
@@ -60,16 +59,11 @@ const NoticeView = () => {
             </Typography>
 
             <NoticeWrap>
-                {noticeViewModel.noticeList.slice(offset, offset + limit).map((item: NoticeDto) => {
+                {noticeViewModel.list.slice(offset, offset + limit).map((item: NoticeDto) => {
                     return <NoticeList item={item} titleColor="black" />;
                 })}
             </NoticeWrap>
-            <PageButton
-                limit={limit}
-                target={noticeViewModel.noticeList.length}
-                page={page}
-                setPage={setPage}
-            />
+            <PageButton limit={limit} target={noticeViewModel.list.length} page={page} setPage={setPage} />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
                     <Linker href={`${pageUrlConfig.noticeUpload}`}>

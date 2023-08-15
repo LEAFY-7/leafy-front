@@ -3,13 +3,15 @@ import pageUrlConfig from 'configs/pageUrl.config';
 
 import { theme } from 'configs/ui.config';
 
-import PageContainer from 'components/templates/page-container';
+import Box from 'components/atoms/Box/default-box';
 import DropButton from 'components/atoms/Button/drop-button';
 import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
-import Box from 'components/atoms/Box/default-box';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
+import ProfileCard from 'components/organisms/Profile/profile-card';
+import PageContainer from 'components/templates/page-container';
+import { UserDto } from 'dto/user/user.dto';
 
 const user = {
     name: '홍길동',
@@ -23,30 +25,12 @@ const user = {
     bgImg: '',
 };
 
-const publicUrl = process.env.PUBLIC_URL;
-
 const MyView = () => {
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
-            <BoxWithBackgroundImage as="section" height="280px">
-                {user?.bgImg ? (
-                    <BgImg src={user.bgImg} alt="기본 이미지" />
-                ) : (
-                    <BgImg src={`${publicUrl}/image/default/default-user-bg.svg`} alt="기본 이미지" />
-                )}
-
-                <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
-                    {user?.img ? (
-                        <AuthImg src={user.img} alt="기본 이미지" />
-                    ) : (
-                        <AuthImg src={`${publicUrl}/image/default/default-auth-img.svg`} alt="기본 이미지" />
-                    )}
-                    <IntroductionBox>{user.simpleIntroduction}</IntroductionBox>
-                </Flex.RowToColumnOnTabletSm>
-            </BoxWithBackgroundImage>
-
+            <ProfileCard data={new UserDto()} />
             <Flex.Default
                 as="main"
                 direction="column"
