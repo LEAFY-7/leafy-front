@@ -15,6 +15,7 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { MouseEvent, useEffect, useState } from 'react';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
+import { Alert } from 'modules/alert.module';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -32,9 +33,8 @@ const NoticeView = () => {
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = true; // noticeViewModel.me.isAdmin || false;
+    const isAdmin = noticeViewModel.me.isAdmin || false;
     const [open, setOpen] = useState<boolean>(true);
-
     const handleClickOpenModal = (event: MouseEvent<HTMLElement>) => {
         setOpen(true);
     };

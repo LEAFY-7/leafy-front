@@ -32,7 +32,7 @@ const NoticeDetailView = () => {
     };
 
     const offset = noticeViewModel.detail;
-    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
+    const isAdmin = noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Box marginBottom={96} marginTop={96}>
