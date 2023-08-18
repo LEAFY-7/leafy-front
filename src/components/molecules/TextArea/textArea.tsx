@@ -5,10 +5,11 @@ import { ChangeEvent, ChangeEventHandler, FormEventHandler, ReactElement } from 
 
 interface Props {
     value: string;
+    placeholder?: string;
     onChange: FormEventHandler;
 }
 
-const TextArea = ({ value, onChange }: Props): ReactElement => {
+const TextArea = ({ value, placeholder, onChange }: Props): ReactElement => {
     return (
         <DefaultTextarea
             value={value}
@@ -22,6 +23,7 @@ const TextArea = ({ value, onChange }: Props): ReactElement => {
                 borderRadius: `12px`,
                 boxShadow: `0 5px 10px 0 ${theme.colors.lgrey}`,
             }}
+            placeholder={placeholder}
         ></DefaultTextarea>
     );
 };

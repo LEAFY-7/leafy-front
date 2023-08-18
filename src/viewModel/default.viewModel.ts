@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import { UserDto } from 'dto/user/user.dto';
-import useRouter from 'hooks/useRouter';
+//import useRouter from 'hooks/useRouter';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { ApiModule } from 'modules/api.module';
 
@@ -15,19 +15,19 @@ export default class DefaultViewModel {
     public themeModel: themeModes;
     public api: ApiModule;
     public me: UserDto = new UserDto();
-    public router: useRouter;
+    //public router: useRouter;
     constructor(props: IProps) {
         this.api = ApiModule.getInstance();
         this.themeModel = JSON.parse(window.localStorage.getItem('leafyer-Theme')) || themeModes.light;
-        this.router = useRouter.getInstance();
-        makeObservable(this, {
-            me: observable,
-            themeModel: observable,
-            router: observable,
+        // this.router = useRouter.getInstance();
+        // makeObservable(this, {
+        //     me: observable,
+        //     themeModel: observable,
+        //     router: observable,
 
-            handleThemeMode: action,
-            getMe: action,
-        });
+        //     handleThemeMode: action,
+        //     getMe: action,
+        // });
     }
 
     handleThemeMode = () => {

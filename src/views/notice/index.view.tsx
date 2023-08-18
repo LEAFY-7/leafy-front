@@ -1,7 +1,4 @@
-import Box from 'components/atoms/Box/default-box';
-import Button from 'components/atoms/Button/button';
 import Typography from 'components/atoms/Typograph/default-typography';
-import SearchBar from 'components/molecules/Search/searchbar';
 import NoticeList from 'components/organisms/List/noticeList';
 import PageButton from 'components/organisms/Pagination/pagebutton';
 import PageContainer from 'components/templates/page-container';
@@ -9,13 +6,13 @@ import PageContainer from 'components/templates/page-container';
 import styled from '@emotion/styled';
 import Linker from 'components/atoms/Linker/linker';
 import pageUrlConfig from 'configs/pageUrl.config';
+import DefaultButton from 'components/atoms/Button/default-button';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { useEffect, useState } from 'react';
 import { theme } from 'configs/ui.config';
 import { NoticeDto } from 'dto/notice/notice.dto';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
-import { MouseEvent, useEffect, useState } from 'react';
-import NoticeViewModel from 'viewModel/notice/notice.viewModel';
-import { Alert } from 'modules/alert.module';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -28,35 +25,28 @@ const NoticeView = () => {
     //1. PageButton에 들어갈 상태 - 현재 페이지를 데려옴
     const [page, setPage] = useState<number>(1);
     //2. 한번에 보여줄 리스트 개수
-    const limit = 3;
+    const limit = 10;
     //3. 한번에 보여줄 리스트의 시작지점
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = noticeViewModel.me.isAdmin || false;
-    const [open, setOpen] = useState<boolean>(true);
-    const handleClickOpenModal = (event: MouseEvent<HTMLElement>) => {
-        setOpen(true);
-    };
+    const isAdmin = true; // noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
-            <Box marginBottom={96} marginTop={96}>
-                <Linker href={`${pageUrlConfig.notice}`}>
-                    <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
-                        공지사항
-                    </Typography>
-                </Linker>
-                <SearchBar placeholder="공지 검색" />
-            </Box>
+            <Linker href={`${pageUrlConfig.notice}`}>
+                <HeaderTitle variant="H2" textAlign="center" color="primary">
+                    공지사항
+                </HeaderTitle>
+            </Linker>
 
-            <Typography variant="BODY2" color="white" textAlign="center" marginBottom={25}>
+            <Menu variant="BODY2" color="white" textAlign="center">
                 <NoticeTitle>
                     <span>게시글 번호</span>
                     <Title>제목</Title>
                     <span>조회수</span>
                     <Date>날짜</Date>
                 </NoticeTitle>
-            </Typography>
+            </Menu>
 
             <NoticeWrap>
                 {noticeViewModel.list.slice(offset, offset + limit).map((item: NoticeDto) => {
@@ -67,15 +57,7 @@ const NoticeView = () => {
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
                     <Linker href={`${pageUrlConfig.noticeUpload}`}>
-                        <Button
-                            type="button"
-                            state="default"
-                            variant="primary"
-                            size="l"
-                            text="등록하기"
-                            showText={true}
-                            showIcon={false}
-                        />
+                        <DefaultButton title="등록하기" isPositive={true} />
                     </Linker>
                 )}
             </div>
@@ -85,10 +67,24 @@ const NoticeView = () => {
 
 export default observer(NoticeView);
 
+const HeaderWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+`;
+
+const HeaderTitle = styled(Typography)`
+    width: 100%;
+    margin: 16px auto;
+`;
+const Menu = styled(Typography)`
+    width: 100%;
+    margin: 16px auto;
+`;
 const NoticeWrap = styled.div`
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
     border-radius: 12px;
     background-color: ${theme.colors.white};
     width: 100%;
