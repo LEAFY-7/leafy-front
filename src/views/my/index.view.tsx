@@ -9,7 +9,6 @@ import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
-import ProfileCard from 'components/organisms/Profile/profile-card';
 import PageContainer from 'components/templates/page-container';
 import { UserDto } from 'dto/user/user.dto';
 
@@ -30,7 +29,7 @@ const MyView = () => {
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
-            <ProfileCard data={new UserDto()} />
+            {/* <ProfileCard data={new UserDto()} /> */}
             <Flex.Default
                 as="main"
                 direction="column"

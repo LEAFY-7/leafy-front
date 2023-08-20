@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/button';
+import DefaultButton from 'components/atoms/Button/default-button';
 import Linker from 'components/atoms/Linker/linker';
 import Typography from 'components/atoms/Typograph/default-typography';
 import SearchBar from 'components/molecules/Search/searchbar';
@@ -26,59 +27,31 @@ const NoticeDetailView = () => {
         noticeViewModel.getDetail(+id);
         noticeViewModel.getMe();
     }, []);
-    //게시글 제목 클릭시 직전 페이지로 이동
-    const onClickToBack = () => {
-        navigate(-1);
-    };
-
     const offset = noticeViewModel.detail;
-    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
+    const isAdmin = noticeViewModel.me.isAdmin || false;
+
+    const handleClickDelete = () => {
+        noticeViewModel.deleteList(+id);
+    };
     return (
         <PageContainer>
-            <Box marginBottom={96} marginTop={96}>
-                <Linker href={`${pageUrlConfig.notice}`}>
-                    <Typography variant="H2" textAlign="center" color="primary" marginBottom={16}>
-                        공지사항
-                    </Typography>
-                </Linker>
-                <SearchBar placeholder="공지 검색" />
-            </Box>
-            <Typography variant="BODY2" color="white" textAlign="center" marginBottom={25}>
-                <NoticeTitle>
-                    <span>게시글 번호</span>
-                    <Title>제목</Title>
-                    <span>조회수</span>
-                    <Date>날짜</Date>
-                </NoticeTitle>
-            </Typography>
-            <NoticeWrap onClick={onClickToBack}>
-                <NoticeList item={offset} titleColor="black" />
+            <Linker href={`${pageUrlConfig.notice}`}>
+                <Typography variant="H3" textAlign="center" color="primary" marginBottom={16}>
+                    공지사항
+                </Typography>
+            </Linker>
+            <NoticeWrap>
+                <Typography variant="BODY1" textAlign="center">
+                    {offset.title}
+                </Typography>
             </NoticeWrap>
-            <NoticeContent>{noticeViewModel.detail.content}</NoticeContent>
+            <NoticeContent>{offset.content}</NoticeContent>
             {isAdmin && (
                 <div style={{ display: `flex`, marginLeft: `auto`, gap: `16px` }}>
                     <Linker href={`${pageUrlConfig.noticeEdit}/${id}`}>
-                        <Button
-                            type="button"
-                            state="default"
-                            variant="primary"
-                            size="l"
-                            text="수정하기"
-                            showText={true}
-                            showIcon={false}
-                        />
+                        <DefaultButton title="수정하기" isPositive={true} />
                     </Linker>
-                    <Linker href="">
-                        <Button
-                            type="button"
-                            state="default"
-                            variant="primary"
-                            size="l"
-                            text="삭제하기"
-                            showText={true}
-                            showIcon={false}
-                        />
-                    </Linker>
+                    <DefaultButton title="삭제하기" isPositive={false} onClick={handleClickDelete} />
                 </div>
             )}
         </PageContainer>
@@ -98,28 +71,10 @@ const NoticeContent = styled.div`
 const NoticeWrap = styled.div`
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
     border-radius: 12px;
     background-color: ${theme.colors.white};
     width: 100%;
     box-shadow: 0 5px 10px 0 ${theme.colors.lgrey};
-`;
-
-const NoticeTitle = styled.div`
-    display: flex;
-    width: 100%;
-    background-color: ${theme.colors.secondary};
-    border-radius: 12px;
-    flex-basis: 10%;
-    flex-shrink: 0;
-    gap: 16px;
     padding: 1em;
-`;
-
-const Title = styled.span`
-    flex-grow: 1;
-`;
-
-const Date = styled.span`
-    flex-grow: 0.15;
 `;
