@@ -9,8 +9,8 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 import DefaultButton from 'components/atoms/Button/default-button';
-import { CheckBox } from 'components/atoms/CheckBox/index.styles';
-import CheckboxWrapper from 'components/atoms/CheckBox/headlesst-checkBox';
+import CheckBox from 'components/atoms/CheckBox/checkBox';
+import { Alert } from 'modules/alert.module';
 
 /**
  * 공지사항 수정
@@ -26,9 +26,9 @@ const NoticeEditView = () => {
 
     const offset = noticeViewModel.detail;
 
-    const [text, setText] = useState<string>(offset.title);
+    const [title, setTitle] = useState<string>(offset.title);
     const handleChangeTitle = (e) => {
-        setText(e.target.value);
+        setTitle(e.target.value);
     };
 
     const [content, setContent] = useState<string>(offset.content);
@@ -36,11 +36,10 @@ const NoticeEditView = () => {
         setContent(e.target.value);
     };
 
-    const [check, setCheck] = useState<boolean>(false);
-    const handleChangeHideAble = (event: ChangeEvent<HTMLInputElement>) => {
-        const { checked } = event.target;
-        setCheck(checked);
-        console.log(checked);
+    //비공개 여부 체크 상태
+    const [checked, setChecked] = useState<boolean>(false);
+    const handleChangeChecked = () => {
+        checked ? setChecked(false) : setChecked(true);
     };
 
     //뒤로가기 및 새로고침 이벤트 감지
@@ -66,7 +65,24 @@ const NoticeEditView = () => {
             window.removeEventListener('beforeunload', handleLoad);
         };
     }, []);
-
+    //저장하기 버튼 클릭
+    const handleClickSave = (e) => {
+        if (title === '' || content === '') {
+            Alert.alert('제목 또는 내용이 비어있습니다');
+            return false;
+        }
+        const date = new Date();
+        const detail = {
+            id: id,
+            title: title,
+            date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+            content: content,
+            viewCount: '0',
+            isHide: `${checked}`,
+        };
+        console.log(detail);
+        noticeViewModel.updateList(detail);
+    };
     return (
         <PageContainer>
             <HeaderWrap>
@@ -78,18 +94,12 @@ const NoticeEditView = () => {
                 >
                     공지사항
                 </Typography>
-                <CheckboxWrapper.Checkbox
-                    variant="primary"
-                    id="hide"
-                    isChecked={check}
-                    onChange={handleChangeHideAble}
-                />
-                <CheckboxWrapper.Label>비공개</CheckboxWrapper.Label>
-                <DefaultButton title="저장하기" isPositive={true} />
+                <CheckBox onChange={handleChangeChecked} label="비공개" />
+                <DefaultButton title="저장하기" isPositive={true} onClick={handleClickSave} />
             </HeaderWrap>
             <NoticeWrap>
                 <Input
-                    value={text}
+                    value={title}
                     onChange={handleChangeTitle}
                     style={{ padding: `1.5em 1em`, background: ` ${theme.colors.white}` }}
                 />

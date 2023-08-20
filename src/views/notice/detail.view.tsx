@@ -29,6 +29,10 @@ const NoticeDetailView = () => {
     }, []);
     const offset = noticeViewModel.detail;
     const isAdmin = noticeViewModel.me.isAdmin || false;
+
+    const handleClickDelete = () => {
+        noticeViewModel.deleteList(+id);
+    };
     return (
         <PageContainer>
             <Linker href={`${pageUrlConfig.notice}`}>
@@ -47,9 +51,7 @@ const NoticeDetailView = () => {
                     <Linker href={`${pageUrlConfig.noticeEdit}/${id}`}>
                         <DefaultButton title="수정하기" isPositive={true} />
                     </Linker>
-                    <Linker href="">
-                        <DefaultButton title="삭제하기" isPositive={false} />
-                    </Linker>
+                    <DefaultButton title="삭제하기" isPositive={false} onClick={handleClickDelete} />
                 </div>
             )}
         </PageContainer>

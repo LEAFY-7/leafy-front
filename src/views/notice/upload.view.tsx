@@ -19,10 +19,10 @@ const NoticeUploadView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
 
     //변경 사항 감지
-    const [text, setText] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const handleChangeTitle = (e) => {
-        setText(e.target.value);
+        setTitle(e.target.value);
     };
     const handleChangeContent = (e) => {
         setContent(e.target.value);
@@ -58,21 +58,22 @@ const NoticeUploadView = () => {
         };
     }, []);
 
-    ///저장하기 버튼 클릭
+    //저장하기 버튼 클릭
     const handleClickSave = (e) => {
-        if (text === '' || content === '') {
-            Alert.alert('제목 또는 내용이 비어있습니다. \n 입력해주세요!');
+        if (title === '' || content === '') {
+            Alert.alert('제목 또는 내용이 비어있습니다');
             return false;
         }
         const date = new Date();
         const detail = {
             id: `${noticeViewModel.list.length}`,
-            title: text,
+            title: title,
             date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
             content: content,
             viewCount: '0',
             isHide: `${checked}`,
         };
+        console.log(detail);
         noticeViewModel.insertList(detail);
     };
 
@@ -103,7 +104,7 @@ const NoticeUploadView = () => {
             <NoticeWrap>
                 <Input
                     placeholder="제목을 입력해주세요"
-                    value={text}
+                    value={title}
                     onChange={handleChangeTitle}
                     style={{ padding: `1.5em 1em`, background: ` ${theme.colors.white}`, width: `100%` }}
                 />
