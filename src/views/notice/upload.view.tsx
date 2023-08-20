@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import DefaultButton from 'components/atoms/Button/default-button';
+import CheckBox from 'components/atoms/CheckBox/checkBox';
+import CheckboxWrapper from 'components/atoms/CheckBox/headlesst-checkBox';
 import { Input } from 'components/atoms/Input';
 import Typography from 'components/atoms/Typograph/default-typography';
 import TextArea from 'components/molecules/TextArea/textArea';
-import AlertModal from 'components/organisms/modal/alertModal';
 import PageContainer from 'components/templates/page-container';
 import { theme } from 'configs/ui.config';
-import useBeforeUnload from 'hooks/useBeforeUnload';
-import { Alert } from 'modules/alert.module';
 import { useEffect, useState } from 'react';
+import { BsCheck } from 'react-icons/bs';
 
 /**
  * 공지사항 업로드
@@ -23,6 +23,13 @@ const NoticeUploadView = () => {
     const handleChangeContent = (e) => {
         setContent(e.target.value);
     };
+
+    //비공개 여부 체크 상태
+    const [checked, setChecked] = useState<boolean>(false);
+    const handleChangeChecked = () => {
+        checked ? setChecked(false) : setChecked(true);
+    };
+
     //뒤로가기 및 새로고침 이벤트 감지
     const handlePopState = () => {
         const confirmResult = confirm('페이지를 떠나시겠습니까?');
@@ -57,6 +64,17 @@ const NoticeUploadView = () => {
                 >
                     공지사항
                 </Typography>
+                {/* <CheckboxWrapper.Label>
+                    <CheckboxWrapper.Checkbox
+                        id="hide"
+                        variant="primary"
+                        isChecked={checked}
+                        onChange={handleChangeChecked}
+                    />
+                    비공개
+                </CheckboxWrapper.Label> */}
+
+                <CheckBox onChange={handleChangeChecked} label="비공개" />
                 <DefaultButton title="저장하기" isPositive={true} />
             </HeaderWrap>
             <NoticeWrap>
@@ -83,6 +101,7 @@ const HeaderWrap = styled.div`
     height: fit-content;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 `;
 
 const NoticeWrap = styled.div`

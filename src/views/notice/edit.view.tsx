@@ -6,7 +6,7 @@ import PageContainer from 'components/templates/page-container';
 import { theme } from 'configs/ui.config';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 import DefaultButton from 'components/atoms/Button/default-button';
 import { CheckBox } from 'components/atoms/CheckBox/index.styles';
@@ -43,18 +43,27 @@ const NoticeEditView = () => {
         console.log(checked);
     };
 
-    //수정 후 저장하기 외의 페이지 이동 시 확인 모달 띄우기
-    const [confirm, setConfirm] = useState<boolean>(false);
-
-    const handlePageEvent = () => {
-        history.pushState(null, '', location.href);
+    //뒤로가기 및 새로고침 이벤트 감지
+    const handlePopState = () => {
+        const confirmResult = confirm('페이지를 떠나시겠습니까?');
+        if (confirmResult) {
+            history.go(-1);
+        }
     };
-
+    const handleLoad = (e) => {
+        e.preventDefault();
+        e.returnValue = '';
+    };
     useEffect(() => {
-        history.pushState(null, '', location.href);
-        window.addEventListener('popstate', handlePageEvent);
+        (() => {
+            history.pushState(null, '', location.href);
+            window.addEventListener('popstate', handlePopState);
+            window.addEventListener('beforeunload', handleLoad);
+        })();
+
         return () => {
-            window.removeEventListener('popstate', handlePageEvent);
+            window.removeEventListener('popstate', handlePopState);
+            window.removeEventListener('beforeunload', handleLoad);
         };
     }, []);
 
