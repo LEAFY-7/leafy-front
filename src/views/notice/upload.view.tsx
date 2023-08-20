@@ -7,13 +7,17 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import TextArea from 'components/molecules/TextArea/textArea';
 import PageContainer from 'components/templates/page-container';
 import { theme } from 'configs/ui.config';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { Alert } from 'modules/alert.module';
 import { useEffect, useState } from 'react';
-import { BsCheck } from 'react-icons/bs';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 /**
  * 공지사항 업로드
  */
 const NoticeUploadView = () => {
+    const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
+
     //변경 사항 감지
     const [text, setText] = useState<string>('');
     const [content, setContent] = useState<string>('');
@@ -53,6 +57,25 @@ const NoticeUploadView = () => {
             window.removeEventListener('beforeunload', handleLoad);
         };
     }, []);
+
+    ///저장하기 버튼 클릭
+    const handleClickSave = (e) => {
+        if (text === '' || content === '') {
+            Alert.alert('제목 또는 내용이 비어있습니다. \n 입력해주세요!');
+            return false;
+        }
+        const date = new Date();
+        const detail = {
+            id: `${noticeViewModel.list.length}`,
+            title: text,
+            date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+            content: content,
+            viewCount: '0',
+            isHide: `${checked}`,
+        };
+        noticeViewModel.insertList(detail);
+    };
+
     return (
         <PageContainer>
             <HeaderWrap>
@@ -75,7 +98,7 @@ const NoticeUploadView = () => {
                 </CheckboxWrapper.Label> */}
 
                 <CheckBox onChange={handleChangeChecked} label="비공개" />
-                <DefaultButton title="저장하기" isPositive={true} />
+                <DefaultButton title="저장하기" isPositive={true} onClick={handleClickSave} />
             </HeaderWrap>
             <NoticeWrap>
                 <Input

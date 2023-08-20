@@ -15,4 +15,7 @@ export class NoticeDto {
 
     @Expose({ name: 'content' })
     public readonly content: string = '';
+
+    @Expose({ name: 'isHide'})
+    public readonly isHide: string = '';
 }
