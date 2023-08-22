@@ -2,8 +2,8 @@ import type { CSSProperties, HTMLAttributes, HtmlHTMLAttributes } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
+import formatDate from 'modules/formatDate.module';
 import Flex from 'components/atoms/Group/flex';
-import { formatTime } from 'utils/formatDate';
 
 interface ContextProps {
     currentId: number;
@@ -101,7 +101,7 @@ const ChatRoomYouMessage = ({
     children,
     ...rest
 }: ChatRoomYouMessageProps) => {
-    const newCreateAt = React.useMemo(() => formatTime(createdAt), []);
+    const newCreateAt = React.useMemo(() => formatDate.AMPMHM(createdAt), []);
     return (
         <MessageWrapper isMe={isMe} id={id}>
             <YouMessage {...rest}>{children}</YouMessage>
@@ -121,7 +121,7 @@ const ChatRoomMeMessage = ({
     children,
     ...rest
 }: ChatRoomMeMessageProps) => {
-    const newCreateAt = React.useMemo(() => formatTime(createdAt), []);
+    const newCreateAt = React.useMemo(() => formatDate.AMPMHM(createdAt), []);
     return (
         <MessageWrapper isMe={isMe} id={id}>
             <MeMessage {...rest}>{children}</MeMessage>
