@@ -24,8 +24,8 @@ const DefaultHeader = () => {
 
     const auth = React.useMemo(() => tokenModule.get(), [location]);
 
-    const handleLogOut = () => {
-        tokenModule.remove();
+    const handleLogOut = async () => {
+        await tokenModule.remove();
         navigate(`${pageUrlConfig.auth}${pageUrlConfig.signIn}`);
     };
 
@@ -61,7 +61,7 @@ const DefaultHeader = () => {
                                 <Toggle id="alarm__wrapper">
                                     {/* 알람 아이콘 */}
                                     <IconWrapper>
-                                        <AlarmIcon size={20} color="grey" />
+                                        <AlarmIcon size={25} color="grey" />
                                     </IconWrapper>
                                     {/* 알람 아이콘 */}
                                 </Toggle>
@@ -84,7 +84,7 @@ const DefaultHeader = () => {
                                 <Toggle id="user__wrapper">
                                     {/* 회원정보 아이콘 */}
                                     <IconWrapper>
-                                        <UserIcon size={20} color="grey" />
+                                        <UserIcon size={25} color="grey" />
                                     </IconWrapper>
                                     {/* 회원정보 아이콘 */}
                                 </Toggle>
