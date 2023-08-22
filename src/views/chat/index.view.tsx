@@ -12,6 +12,7 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import useWindowSize from 'hooks/useWindowSize';
 import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 import PageContainer from 'components/templates/page-container';
 import Flex from 'components/atoms/Group/flex';
@@ -21,7 +22,6 @@ import Room from 'components/organisms/Chat/chat-room';
 
 import ChatList from './chat-list';
 import ChatRoom from './chat-room';
-import pageUrlConfig from 'configs/pageUrl.config';
 
 const ChatView = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
@@ -30,7 +30,7 @@ const ChatView = () => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        chatViewModel.handleGetQueryParams(location.search);
+        chatViewModel.handleQueryParams(location.search);
         chatViewModel.handleShowChatRoom(300);
 
         return () => {
@@ -46,7 +46,7 @@ const ChatView = () => {
                     justifyContent: 'space-between',
                     //  alignItems: 'flex-start',
                     paddingTop: '4rem',
-                    height: '900px',
+                    height: '100vh',
                     overflow: 'hidden',
                 }}
             >
@@ -107,7 +107,7 @@ const ChatView = () => {
                     disabled={!!chatViewModel.roomState.you}
                     onClick={async () => {
                         const { me, prev } = chatViewModel.roomState;
-                        chatViewModel.handleChangeCurrentId(prev);
+                        chatViewModel.handleChangePartner(prev);
                         await navigate(`?me=${me}&you=${prev}`);
                     }}
                 >
@@ -120,11 +120,10 @@ const ChatView = () => {
 export default observer(ChatView);
 
 const CommonSection = styled.section`
-    height: 800px;
+    height: 100%;
     display: flex;
     overflow-y: scroll;
     overflow-x: hidden;
-
     ::-webkit-scrollbar,
     ::-webkit-scrollbar-thumb {
         overflow: visible;
@@ -139,8 +138,12 @@ const CommonSection = styled.section`
 const LeftSection = styled(CommonSection)`
     flex-direction: column;
     gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
     padding-right: 8px;
-
+    border: 1px solid ${theme.colors.lgrey};
+    border-radius: 20px;
     ${theme.mediaQuery.mdMobile} {
         width: 100%;
     }

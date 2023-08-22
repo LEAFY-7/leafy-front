@@ -29,22 +29,23 @@ const ChatRoom = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const targetPrevRef = useIntersectionObserver(chatViewModel.handleGetMoreMessages, {
+    const targetPrevRef = useIntersectionObserver(chatViewModel.handleReverseScroll, {
         root: null,
         rootMargin: '200px',
         threshold: 1,
     });
-    const targeNextRef = useIntersectionObserver(chatViewModel.handleGetMoreNextMessages, {
+    const targeNextRef = useIntersectionObserver(chatViewModel.handleForwardScroll, {
         root: null,
         rootMargin: '50px',
         threshold: 1,
     });
 
     React.useEffect(() => {
-        chatViewModel.handleJoinRoom(location.search);
+        chatViewModel.handleChatRoomSocket({ query: location.search });
 
         return () => {
             chatViewModel.handleDisconnectChatSocket();
+            chatViewModel.handleClear();
         };
     }, [chatViewModel.roomState.you]);
 
@@ -63,7 +64,7 @@ const ChatRoom = () => {
                                     closeOnClick
                                     pauseOnFocusLoss
                                     pauseOnHover
-                                    theme={chatViewModel.themeModel}
+                                    // theme={chatViewModel.themeModel}
                                     style={{ width: 'auto' }}
                                 />
                             </div>
