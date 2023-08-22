@@ -1,13 +1,15 @@
 class SocketConfigs {
     public chat = 'chat';
-    public global = 'global';
+    public user = 'user';
     public join = 'join';
     public send = 'send';
-    public messageHistory = 'messageHistory';
-    public receiveMessage = 'receiveMessage';
-    public roomDisconnect = 'roomDisconnect';
-    public sendGlobal = 'sendGlobal';
-    public receiveGlobal = 'receiveGlobal';
+    public messageHistory = 'message-history';
+    public receiveMessage = 'receive-message';
+    public roomDisconnect = 'room-disconnect';
+
+    public sendUser = 'send-user';
+    public receiveUser = 'receive-user';
+    public enterRoom = 'enter-room';
 }
 const socketConfigs = new SocketConfigs();
 export default socketConfigs;
