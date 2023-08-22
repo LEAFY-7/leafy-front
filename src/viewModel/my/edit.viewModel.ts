@@ -23,7 +23,7 @@ export default class MyEditViewModel extends DefaultViewModel {
             roadAddress: '',
             addressDetail: '',
             gender: '',
-            simpleIntroduction: '',
+            introduction: '',
             email: '',
             password: '',
             addressIsHide: true,
