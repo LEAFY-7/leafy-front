@@ -30,7 +30,7 @@ const NoticeView = () => {
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Linker href={`${pageUrlConfig.notice}`}>
@@ -56,9 +56,13 @@ const NoticeView = () => {
             <PageButton limit={limit} target={noticeViewModel.list.length} page={page} setPage={setPage} />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
                 {isAdmin && (
-                    <Linker href={`${pageUrlConfig.noticeUpload}`}>
-                        <DefaultButton title="등록하기" isPositive={true} />
-                    </Linker>
+                    <DefaultButton
+                        title="등록하기"
+                        isPositive={true}
+                        onClick={() => {
+                            window.location.href = `${pageUrlConfig.noticeUpload}`;
+                        }}
+                    />
                 )}
             </div>
         </PageContainer>
