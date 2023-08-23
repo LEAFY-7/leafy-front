@@ -78,7 +78,7 @@ const NoticeEditView = () => {
             date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
             content: content,
             viewCount: '0',
-            isHide: `${checked}`,
+            isHide: checked,
         };
         console.log(detail);
         noticeViewModel.updateList(detail);

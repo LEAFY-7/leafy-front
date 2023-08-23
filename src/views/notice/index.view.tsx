@@ -25,12 +25,12 @@ const NoticeView = () => {
     //1. PageButton에 들어갈 상태 - 현재 페이지를 데려옴
     const [page, setPage] = useState<number>(1);
     //2. 한번에 보여줄 리스트 개수
-    const limit = 10;
+    let limit = 2;
     //3. 한번에 보여줄 리스트의 시작지점
     const offset = (page - 1) * limit;
 
     //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = true; // noticeViewModel.me.isAdmin || false;
+    const isAdmin = noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Linker href={`${pageUrlConfig.notice}`}>

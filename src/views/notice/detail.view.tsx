@@ -28,7 +28,7 @@ const NoticeDetailView = () => {
         noticeViewModel.getMe();
     }, []);
     const offset = noticeViewModel.detail;
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
 
     const handleClickDelete = () => {
         noticeViewModel.deleteList(+id);
