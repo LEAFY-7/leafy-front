@@ -24,7 +24,7 @@ function App() {
 
     React.useEffect(() => {
         defaultViewModel.handleThemeMode();
-        defaultViewModel.getMe();
+        // defaultViewModel.getMe();
     }, []);
 
     console.log(defaultViewModel.me);
