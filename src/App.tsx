@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import { ToastContainer } from 'react-toastify';
 import 'reflect-metadata';
-import DefaultViewModel from 'viewModel/default.viewModel';
+import DefaultViewModel, { themeModes } from 'viewModel/default.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 import routers from 'configs/route.config';
@@ -38,7 +38,7 @@ function App() {
                     pauseOnHover
                 />
             </div>
-            <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
+            <ThemeProvider theme={themeConfigs.custom({ mode: themeModes.light })}>
                 <RouterProvider router={routers} />
                 <Global styles={globalStyle} />
             </ThemeProvider>

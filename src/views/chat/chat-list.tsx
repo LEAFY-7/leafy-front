@@ -21,6 +21,7 @@ const ChatList = () => {
     const handleChangeRoom = async (you: number) => {
         if (you === chatViewModel.roomState.you) return;
         chatViewModel.handleChangePartner(you);
+        // await chatViewModel.router.go(`?me=${chatViewModel.roomState.me}&you=${you}`);
         await navigate(`?me=${chatViewModel.roomState.me}&you=${you}`);
     };
 
@@ -32,7 +33,7 @@ const ChatList = () => {
         };
     }, [, chatViewModel.myText, chatViewModel.chatSocket]);
 
-    console.log('채팅리스트', chatViewModel.chatList, chatViewModel.roomState.me);
+    // console.log('채팅리스트', chatViewModel.chatList, chatViewModel.roomState.me);
 
     return (
         <>
@@ -41,7 +42,7 @@ const ChatList = () => {
                     <ChatCard
                         key={index}
                         userId={latestMessage.sender.id}
-                        isVisit={+latestMessage.sender.id === chatViewModel.roomState.you}
+                        isVisit={+partner.id === chatViewModel.roomState.you}
                     >
                         <ChatCard.Wrapper
                             width="100%"

@@ -40,7 +40,6 @@ export default class ChatViewModel extends DefaultViewModel {
     public userSocket: Socket;
     public user: ChatUserDto = new ChatUserDto();
     public chatList: ChatListDto[] = [new ChatListDto()];
-    public router: any;
 
     public lastPrevMessageId: string;
     public lastNextMessageId: string;
@@ -114,7 +113,7 @@ export default class ChatViewModel extends DefaultViewModel {
     private handleJoinUser = async () => {
         const { me } = this.roomState;
         try {
-            console.log('조인', me);
+            // console.log('조인', me);
             await this.userSocket.emit('join', { userId: +me });
         } catch {
             console.log('에러');
@@ -137,7 +136,6 @@ export default class ChatViewModel extends DefaultViewModel {
 
         await this.userSocket.on('receive-user', ({ data, userId }) => {
             if (+userId === me) {
-                console.log('보낸 데이터', userId, data);
                 try {
                     return runInAction(() => {
                         this.chatList = data.chatList?.map((chat) => plainToInstance(ChatListDto, chat));
@@ -268,6 +266,8 @@ export default class ChatViewModel extends DefaultViewModel {
 
             const messageSize = messages.length;
             const messageList = messages.map((message) => plainToInstance(ChatMessageDto, message));
+
+            console.log('message', messageList);
             const readUntil = messageList.at(-1).createdAt;
 
             if (messageSize) {
@@ -341,14 +341,17 @@ export default class ChatViewModel extends DefaultViewModel {
         const loadMessage = await nextChatMessageList.data?.map((message) =>
             plainToInstance(ChatMessageDto, message),
         );
+
         const newLastPrevId = loadMessage.at(-1)?.id || '';
 
-        return runInAction(() => {
+        runInAction(() => {
             this.lastNextMessageId = newLastPrevId;
             this.nextMessageList.pages.set(newCurrentPage, loadMessage);
             this.nextMessageList.loading = false;
             this.nextMessageList.currentPage = newCurrentPage;
         });
+
+        await toast.success(`메시지를 불러옵니다.`, { containerId });
     };
 
     private handleGetUser = async () => {
@@ -408,7 +411,9 @@ export default class ChatViewModel extends DefaultViewModel {
             await this.handleSendRoom();
 
             await this.chatSocket.on(socketConfigs.messageHistory, ({ messages, me }) => {
+                console.log('받은 데이터', { messages, me });
                 if (me !== this.roomState.me) return;
+
                 const messageSize = messages.length;
                 const messageList = messages.map((message) => plainToInstance(ChatMessageDto, message));
                 const readUntil = messageList.at(-1).createdAt;
@@ -459,8 +464,7 @@ export default class ChatViewModel extends DefaultViewModel {
         this.handleQueryParams(query);
         await this.handleConnectChat();
         await this.handleJoinChatRoom();
-        this.handleGetMessagesHistory();
-        // await this.newGetMessage();
+        await this.handleGetMessagesHistory();
     };
 
     // 역방향으로 스크롤
@@ -550,7 +554,7 @@ export default class ChatViewModel extends DefaultViewModel {
         const sortedValues = [me, you].sort();
         const roomId = sortedValues.join('_');
 
-        return runInAction(() => {
+        runInAction(() => {
             this.roomState.roomId = roomId;
             this.roomState.me = +me;
             this.roomState.you = +you;

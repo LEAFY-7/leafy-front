@@ -126,7 +126,7 @@ const ChatRoomMeMessage = ({
         <MessageWrapper isMe={isMe} id={id}>
             <MeMessage {...rest}>{children}</MeMessage>
             <Flex.Default style={{ gap: '8px' }}>
-                {!isRead ? <UnRead>안읽음</UnRead> : null}
+                {/* {!isRead ? <UnRead>안읽음</UnRead> : null} */}
                 <CreatedAt>{newCreateAt}</CreatedAt>
             </Flex.Default>
         </MessageWrapper>

@@ -11,6 +11,9 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 // import { UserDto } from 'dto/user/user.dto';
+import DropButton from 'components/atoms/Button/drop-button';
+import UserViewModel from 'viewModel/user/user.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 const user = {
     name: '홍길동',
@@ -19,17 +22,35 @@ const user = {
     phone: '010-1234-5678',
     birthDay: '2023-07-29',
     address: '경기도 부천시',
-    simpleIntroduction: '응 어서오고~~',
+    introduction: '응 어서오고~~',
     img: '',
     bgImg: '',
 };
 
 const MyView = () => {
+    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
+
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
             {/* <ProfileCard data={new UserDto()} /> */}
+            {/* <BoxWithBackgroundImage as="section" height="280px">
+                <BgImg
+                    src={user.bgImg ? user.bgImg : `${publicUrl}/image/default/default-user-bg.svg`}
+                    alt="기본 이미지"
+                />
+
+                <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
+                    {user?.img ? (
+                        <AuthImg src={user.img} alt="기본 이미지" />
+                    ) : (
+                        <AuthImg src={`${publicUrl}/image/default/default-auth-img.svg`} alt="기본 이미지" />
+                    )}
+                    <IntroductionBox>{user.introduction}</IntroductionBox>
+                </Flex.RowToColumnOnTabletSm>
+            </BoxWithBackgroundImage> */}
+
             <Flex.Default
                 as="main"
                 direction="column"
@@ -97,9 +118,9 @@ const MyView = () => {
                                     >
                                         내 정보 수정하러가기
                                     </RectangleButton>
-                                    {/* <DropButton to={`${pageUrlConfig.chat}?me=123&you=460`}>
+                                    <DropButton to={`${pageUrlConfig.chat}?me=123&you=460`}>
                                         채팅 하러 가기
-                                    </DropButton> */}
+                                    </DropButton>
                                 </Flex.Default>
                             </Div.Default>
                             <Div.Default

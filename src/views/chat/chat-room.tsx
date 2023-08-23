@@ -47,8 +47,9 @@ const ChatRoom = () => {
             chatViewModel.handleDisconnectChatSocket();
             chatViewModel.handleClear();
         };
-    }, [chatViewModel.roomState.you]);
+    }, [, chatViewModel.roomState.you]);
 
+    //console.log('밑으로 데이터 된것들', chatViewModel.nextMessageList.pages);
     return (
         <>
             <ErrorBoundary>
@@ -164,7 +165,7 @@ const ChatRoom = () => {
                                 </>
                                 <>
                                     {Array.from(chatViewModel?.nextMessageList.pages.keys())
-                                        .reverse()
+                                        // .reverse()
                                         .map((pageNumber) => {
                                             const pageMessages =
                                                 chatViewModel?.nextMessageList.pages.get(pageNumber);

@@ -40,7 +40,7 @@ const MyEditView = () => {
             roadAddress: '',
             addressDetail: '',
             gender: '',
-            simpleIntroduction: '',
+            introduction: '',
         },
     });
 
@@ -517,10 +517,10 @@ const MyEditView = () => {
                                 </Flex.RowToColumnOnTabletMd>
                                 {/* 간단 소개 */}
                                 <Controller
-                                    name={authItemState.simpleIntroduction.property}
+                                    name={authItemState.introduction.property}
                                     control={control}
                                     defaultValue={''}
-                                    rules={authFormState.simpleIntroduction}
+                                    rules={authFormState.introduction}
                                     render={({
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
@@ -534,9 +534,7 @@ const MyEditView = () => {
                                                     <TextField.Textarea
                                                         id="address_detail"
                                                         value={value}
-                                                        placeholder={
-                                                            authItemState.simpleIntroduction.placeHolder
-                                                        }
+                                                        placeholder={authItemState.introduction.placeHolder}
                                                         onChange={(
                                                             e: React.ChangeEvent<HTMLTextAreaElement>,
                                                         ) => {
