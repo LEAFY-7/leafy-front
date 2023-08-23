@@ -28,7 +28,7 @@ const NoticeDetailView = () => {
         noticeViewModel.getMe();
     }, []);
     const offset = noticeViewModel.detail;
-    const isAdmin = noticeViewModel.me.isAdmin || false;
+    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
 
     const handleClickDelete = () => {
         noticeViewModel.deleteList(+id);
@@ -48,9 +48,13 @@ const NoticeDetailView = () => {
             <NoticeContent>{offset.content}</NoticeContent>
             {isAdmin && (
                 <div style={{ display: `flex`, marginLeft: `auto`, gap: `16px` }}>
-                    <Linker href={`${pageUrlConfig.noticeEdit}/${id}`}>
-                        <DefaultButton title="수정하기" isPositive={true} />
-                    </Linker>
+                    <DefaultButton
+                        title="수정하기"
+                        isPositive={true}
+                        onClick={() => {
+                            window.location.href = `${pageUrlConfig.noticeEdit}/${id}`;
+                        }}
+                    />
                     <DefaultButton title="삭제하기" isPositive={false} onClick={handleClickDelete} />
                 </div>
             )}

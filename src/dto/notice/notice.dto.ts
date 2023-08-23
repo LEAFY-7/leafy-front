@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 
 export class NoticeDto {
-    @Expose({ name: 'noticeId' })
+    @Expose({ name: 'id' })
     public readonly id: string = '';
 
     @Expose({ name: 'title' })
@@ -10,12 +10,12 @@ export class NoticeDto {
     @Expose({ name: 'viewCount' })
     public readonly viewCount: string = '';
     
-    @Expose({ name: 'createdAt' })
+    @Expose({ name: 'date' })
     public readonly date: string = '';
 
-    @Expose({ name: 'contents' })
+    @Expose({ name: 'content' })
     public readonly content: string = '';
 
     @Expose({ name: 'isHide'})
-    public readonly isHide: string = '';
+    public readonly isHide: boolean;
 }
