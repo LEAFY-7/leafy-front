@@ -464,7 +464,7 @@ export default class ChatViewModel extends DefaultViewModel {
         this.handleQueryParams(query);
         await this.handleConnectChat();
         await this.handleJoinChatRoom();
-        await this.handleGetMessagesHistory();
+        this.handleGetMessagesHistory();
     };
 
     // 역방향으로 스크롤

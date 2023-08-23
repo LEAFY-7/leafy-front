@@ -260,13 +260,6 @@ const Wrapper = styled(Room.Wrapper)`
     }
 `;
 
-const NoneChatRoomBody = styled(Room.Body)`
-    overflow-y: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-`;
 // Flyout - 햄버거 버튼
 const Toggle = styled(Flyout.Toggle)`
     position: relative;

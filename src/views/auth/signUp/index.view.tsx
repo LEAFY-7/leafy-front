@@ -24,7 +24,7 @@ const SignUpView = () => {
     }, [authViewModel.isActive]);
 
     return (
-        <PageContainer style={{ overflow: 'visible' }}>
+        <PageContainer style={{ overflow: 'visible', }}>
             <AuthTemplate>
                 <Typography
                     as="span"
