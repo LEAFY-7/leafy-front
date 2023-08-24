@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import DefaultViewModel from 'viewModel/default.viewModel';
 import { ChatRoomModel } from 'models/chat/chatRoom.model';
 import { ChatMessageDto } from 'dto/chat/chat-message.dto';
+import tokenModule from 'modules/token.module';
 import formatDate from 'modules/formatDate.module';
 
 import socketConfigs from 'configs/socket.config';
@@ -59,7 +60,7 @@ export default class ChatViewModel extends DefaultViewModel {
         this.lastNextMessageId = ''; // 마지막 이후 메시지 아이디
         this.newMessageList = []; // 새로운 메시지
         this.myText = ''; // 텍스트
-        this.roomState.me = +JSON.parse(localStorage.getItem('me'));
+        this.roomState.me = +tokenModule.get().leafyer.userId || 0;
 
         makeObservable(this, {
             userSocket: observable,
@@ -465,6 +466,14 @@ export default class ChatViewModel extends DefaultViewModel {
         await this.handleConnectChat();
         await this.handleJoinChatRoom();
         this.handleGetMessagesHistory();
+    };
+
+    handleInit = async () => {
+        await this.getMe;
+        const me = this.me.userId;
+        runInAction(() => {
+            this.roomState.me = me;
+        });
     };
 
     // 역방향으로 스크롤

@@ -188,10 +188,9 @@ export default class AuthViewModel extends DefaultViewModel {
             })
             .then((response: AxiosResponse<AuthDto>) => {
                 tokenModule.save({
-                    auth: {
-                        token: response.data.token,
-                        userAuth: response.data.userAuth,
-                    },
+                    token: response.data.token,
+                    userAuth: response.data.userAuth,
+                    userId: response.data.userId,
                 });
                 window.location.replace('/');
             })
@@ -215,15 +214,13 @@ export default class AuthViewModel extends DefaultViewModel {
             .then((response: AxiosResponse<AuthDto>) => {
                 console.log(response);
                 tokenModule.save({
-                    auth: {
-                        token: response.data.token,
-                        userAuth: response.data.userAuth,
-                    },
+                    token: response.data.token,
+                    userAuth: response.data.userAuth,
+                    userId: response.data.userId,
                 });
                 window.location.replace('/');
             })
             .catch((error: AxiosError) => {
-                console.log(error);
                 if (error && error.status === 400) {
                     Alert.alert('아이디 또는 비밀번호가 형식에 맞지 않습니다.');
                 } else if (error && error.status === 401) {
