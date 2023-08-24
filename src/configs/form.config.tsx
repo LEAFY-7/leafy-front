@@ -33,7 +33,7 @@ export type AuthItem =
     | 'jibunAddress'
     | 'roadAddress'
     | 'addressDetail'
-    | 'simpleIntroduction';
+    | 'introduction';
 
 export interface AuthItemType {
     type: 'number' | 'password' | 'text' | 'tel';
@@ -157,7 +157,7 @@ export const authFormState = {
             message: '상세 주소는 20자 이내까지 입력해주세요. ',
         },
     },
-    simpleIntroduction: {
+    introduction: {
         required: '30자 이내의 간단한 소개를 입력해주세요',
         minLength: {
             value: 1,
@@ -302,10 +302,10 @@ export const authItemState: AuthItemStateType = {
             helper: <AiOutlineExclamationCircle />,
         },
     },
-    simpleIntroduction: {
+    introduction: {
         type: 'text',
         label: '간단소개',
-        property: 'simpleIntroduction',
+        property: 'introduction',
         placeHolder: '상대방을 위해 간단한 소개를 입력해주세요',
         icon: {
             main: <AiOutlinePhone />,

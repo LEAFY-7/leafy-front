@@ -11,48 +11,56 @@ import { Alert } from 'modules/alert.module';
 interface IProps {}
 
 export default class AuthViewModel extends DefaultViewModel {
-    public data: SignUphModel;
-    public daum: DaumModule;
+    public isEmailCheck: boolean;
+    public isNickNameCheck: boolean;
     public isActive: boolean;
+    public authState: SignUphModel = new SignUphModel();
+    public daum: DaumModule;
 
     constructor(props: IProps) {
         super(props);
-        this.data = {
-            name: '',
-            nickName: '',
-            confirmPassword: '',
-            phone: '',
-            birthDay: '',
-            zoneCode: '',
-            address: '',
-            jibunAddress: '',
-            roadAddress: '',
-            addressDetail: '',
-            gender: '',
-            simpleIntroduction: '',
-            email: '',
-            password: '',
-            addressIsHide: true,
-        };
+        this.isEmailCheck = false;
+        this.isNickNameCheck = false;
+        // this.authState = {
+        //     name: '',
+        //     nickName: '',
+        //     confirmPassword: '',
+        //     phone: '',
+        //     birthDay: '',
+        //     zoneCode: '',
+        //     address: '',
+        //     jibunAddress: '',
+        //     roadAddress: '',
+        //     addressDetail: '',
+        //     // gender: '',
+        //     introduction: '',
+        //     email: '',
+        //     password: '',
+        //     addressIsHide: true,
+        // };
         this.daum = DaumModule.getInstance();
         this.isActive = false;
 
         makeObservable(this, {
+            isEmailCheck: observable,
+            isNickNameCheck: observable,
             isActive: observable,
-            data: observable,
+            authState: observable,
 
+            handleCheckNickName: action,
+            handleCheckEmail: action,
             handleToggle: action,
             handleSignUpNecessary: action,
             handleSignUpAdditional: action,
             handleSignIn: action,
         });
     }
-    private handleOnComplete = (data: AddressModel) => {
+    private handleOnComplete = (authState: AddressModel) => {
         runInAction(() => {
-            this.data.zoneCode = data.zonecode;
-            this.data.address = data.address;
-            this.data.jibunAddress = data.jibunAddress;
-            this.data.roadAddress = data.roadAddress;
+            this.authState.zoneCode = authState.zonecode;
+            this.authState.address = authState.address;
+            this.authState.jibunAddress = authState.jibunAddress;
+            this.authState.roadAddress = authState.roadAddress;
         });
         document.getElementById('address_detail')?.focus();
     };
@@ -75,23 +83,29 @@ export default class AuthViewModel extends DefaultViewModel {
     };
 
     handleInputChange = (key, value) => {
-        console.log(key, value);
         runInAction(() => {
-            this.data[key] = value;
+            this.authState[key] = value;
         });
     };
 
     // 닉네임 중복 체크
-    handleCheckNickName = () => {
+    handleCheckNickName = (e) => {
+        e.preventDefault();
+        const nickName = this.authState.nickName;
         return this.api
-            .post('/v1/users/check/nickname', {
-                nickName: this.data.nickName,
-            })
-            .then((response: AxiosResponse) => {
-                console.log(response);
+            .get(`/v1/users/check/nickname?nickName=${nickName}`)
+            .then(({ status }: AxiosResponse) => {
+                if (status === 204) {
+                    runInAction(() => {
+                        this.isNickNameCheck = true;
+                    });
+                    Alert.alert(`${nickName}은(는) 사용이 가능합니다.`);
+                }
             })
             .catch((error: AxiosError) => {
-                if (error && error.status === 409) {
+                if (error && error.status === 204) {
+                    Alert.alert('닉네임 형식이 맞지 않습니다.');
+                } else if (error && error.status === 409) {
                     Alert.alert('이미 사용중인 닉네임입니다.');
                 } else {
                     Alert.alert('요청이 실패했습니다. 다시 시도해주시기 바랍니다.');
@@ -99,13 +113,18 @@ export default class AuthViewModel extends DefaultViewModel {
             });
     };
     // 이메일 중복 체크
-    handleCheckEmail = () => {
+    handleCheckEmail = (e) => {
+        e.preventDefault();
+        const email = this.authState.email;
         return this.api
-            .post('/v1/users/check/email', {
-                email: this.data.email,
-            })
-            .then((response: AxiosResponse) => {
-                console.log(response);
+            .get(`/v1/users/check/email?email=${email}`)
+            .then(({ status }: AxiosResponse) => {
+                if (status === 204) {
+                    runInAction(() => {
+                        this.isEmailCheck = true;
+                    });
+                    Alert.alert(`${email}은(는) 사용이 가능합니다.`);
+                }
             })
             .catch((error: AxiosError) => {
                 if (error && error.status === 409) {
@@ -118,61 +137,60 @@ export default class AuthViewModel extends DefaultViewModel {
 
     // 회원가입
     // 1. 필수 정보 (이메일, 이름, 닉네임, 비밀번호, 비밀번호확인)
-    handleSignUpNecessary = async (data) => {
-        const { name, nickName, email, password, confirmPassword } = data;
+    handleSignUpNecessary = async (authState) => {
+        const { name, nickName, email, password, confirmPassword } = authState;
         runInAction(() => {
-            this.data.name = name;
-            this.data.nickName = nickName;
-            this.data.email = email;
-            this.data.password = password;
-            this.data.confirmPassword = confirmPassword;
+            this.authState.name = name;
+            this.authState.nickName = nickName;
+            this.authState.email = email;
+            this.authState.password = password;
+            this.authState.confirmPassword = confirmPassword;
         });
         await this.handleToggle();
         await document.getElementById('phone_input')?.focus();
     };
 
     // 2. 부가 정보 (연락처, 생년월일, 주소, 성별, 간단소개)
-    handleSignUpAdditional = async (data) => {
-        const { phone, birthDay, addressDetail, gender, simpleIntroduction } = data;
+    handleSignUpAdditional = async (authState) => {
+        const { phone, birthDay, addressDetail, introduction } = authState;
         runInAction(() => {
-            this.data.phone = phone;
-            this.data.birthDay = birthDay;
-            this.data.addressDetail = addressDetail;
-            this.data.gender = gender;
-            this.data.simpleIntroduction = simpleIntroduction;
+            this.authState.phone = phone;
+            this.authState.birthDay = birthDay;
+            this.authState.addressDetail = addressDetail;
+            // this.authState.gender = gender;
+            this.authState.introduction = introduction;
         });
         await this.handleSignUp();
     };
 
-    // 3. 제출하기
+    // 회원가입 제출
     handleSignUp = () => {
-        const phoneNumber = this.data.phone;
+        const phoneNumber = this.authState.phone;
         const phoneNumberWithoutHyphens = phoneNumber.replace(/-/g, '');
 
         return this.api
             .post('/v1/users/sign-up', {
-                name: this.data.name,
-                nickName: this.data.nickName,
-                email: this.data.email,
-                password: this.data.password,
-                confirmPassword: this.data.confirmPassword,
+                name: this.authState.name,
+                nickName: this.authState.nickName,
+                email: this.authState.email,
+                password: this.authState.password,
+                confirmPassword: this.authState.confirmPassword,
                 phone: phoneNumberWithoutHyphens,
-                zoneCode: this.data.zoneCode,
-                address: this.data.address,
-                jibunAddress: this.data.jibunAddress,
-                roadAddress: this.data.roadAddress,
-                addressDetail: this.data.addressDetail,
-                birthDay: this.data.birthDay,
-                gender: this.data.gender,
-                simpleIntroduction: this.data.simpleIntroduction,
+                zoneCode: this.authState.zoneCode,
+                address: this.authState.address,
+                jibunAddress: this.authState.jibunAddress,
+                roadAddress: this.authState.roadAddress,
+                addressDetail: this.authState.addressDetail,
+                birthDay: this.authState.birthDay,
+                // gender: this.authState.gender,
+                introduction: this.authState.introduction,
                 addressIsHide: true,
             })
             .then((response: AxiosResponse<AuthDto>) => {
                 tokenModule.save({
-                    auth: {
-                        token: response.data.token,
-                        userAuth: response.data.userAuth,
-                    },
+                    token: response.data.token,
+                    userAuth: response.data.userAuth,
+                    userId: response.data.userId,
                 });
                 window.location.replace('/');
             })
@@ -189,23 +207,20 @@ export default class AuthViewModel extends DefaultViewModel {
             });
     };
 
-    // 로그인
-    // 제출하기
-    handleSignIn = (data) => {
+    // 로그인 제출
+    handleSignIn = (authState) => {
         return this.api
-            .post('/v1/users/sign-in', data)
+            .post('/v1/users/sign-in', authState)
             .then((response: AxiosResponse<AuthDto>) => {
                 console.log(response);
                 tokenModule.save({
-                    auth: {
-                        token: response.data.token,
-                        userAuth: response.data.userAuth,
-                    },
+                    token: response.data.token,
+                    userAuth: response.data.userAuth,
+                    userId: response.data.userId,
                 });
                 window.location.replace('/');
             })
             .catch((error: AxiosError) => {
-                console.log(error);
                 if (error && error.status === 400) {
                     Alert.alert('아이디 또는 비밀번호가 형식에 맞지 않습니다.');
                 } else if (error && error.status === 401) {
@@ -220,8 +235,3 @@ export default class AuthViewModel extends DefaultViewModel {
             });
     };
 }
-
-// const zoneCodeEl = document.getElementById('zoneCode') as HTMLInputElement;
-// const addressEl = document.getElementById('address') as HTMLInputElement;
-// zoneCodeEl.value = this.data.zoneCode;
-// addressEl.value = this.data.address;

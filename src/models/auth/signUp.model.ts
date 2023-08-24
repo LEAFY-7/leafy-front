@@ -12,6 +12,6 @@ export class SignUphModel extends SignInModel {
     public roadAddress: string = '';
     public addressDetail: string = '';
     public gender: 'MALE' | 'FEMALE' | '' = '';
-    public simpleIntroduction: string = '';
+    public introduction: string = '';
     public addressIsHide: boolean = true;
 }

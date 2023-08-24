@@ -32,7 +32,7 @@ const SignInDefaultForm = () => {
                 <Controller
                     name={authItemState.email.property as 'email'}
                     control={control}
-                    defaultValue={authViewModel.data.email}
+                    defaultValue={authViewModel.authState.email}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
                             <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
@@ -66,7 +66,7 @@ const SignInDefaultForm = () => {
                 <Controller
                     name={authItemState.password.property as 'password'}
                     control={control}
-                    defaultValue={authViewModel.data.password}
+                    defaultValue={authViewModel.authState.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
                             <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>

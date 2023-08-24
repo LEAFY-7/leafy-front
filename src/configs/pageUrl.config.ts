@@ -24,6 +24,7 @@ class PageUrlConfig {
     public user = `/user`;
     public temp = '/temp';
     public admin = '/admin';
+    public intro = '/intro';
 
     addParams(url: string, params: Array<any>) {
         let querystring = [];

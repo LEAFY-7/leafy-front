@@ -27,4 +27,7 @@ export class UserDto {
 
     @Expose({ name: 'isAdmin' })
     public readonly isAdmin: boolean = false;
+
+    @Expose({ name: 'userId' })
+    public readonly userId: number = 0;
 }

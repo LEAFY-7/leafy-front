@@ -1,8 +1,8 @@
 import { AuthDto } from 'dto/auth/auth.dto';
+import { Alert } from './alert.module';
 
 enum LocalStorageKey {
-    USER_AUTH = 'userAuth',
-    TOKEN = 'token',
+    LEAFYER = 'leafyer',
 }
 enum ErrorMessage {
     GET = '로컬 스토리지에서 가져오는 도중 에러가 발생했습니다.',
@@ -11,18 +11,24 @@ enum ErrorMessage {
 }
 type ErrorMessageKey = keyof typeof ErrorMessage;
 
-interface AuthToken {
-    auth: Omit<AuthDto, 'userId'>;
-}
-
 class TokenModule {
-    private tokenKey = LocalStorageKey.TOKEN; // jwt 토큰
-    private userAuthKey = LocalStorageKey.USER_AUTH; // user 상태
+    private leafyer = LocalStorageKey.LEAFYER;
 
-    public save = ({ auth: { token, userAuth } }: AuthToken) => {
+    public save = ({ token, userAuth, userId }: AuthDto) => {
         try {
-            window.localStorage.setItem(this.tokenKey, JSON.stringify(token));
-            window.localStorage.setItem(this.userAuthKey, JSON.stringify(userAuth));
+            const defaultAuthDto = new AuthDto();
+
+            const updatedToken = token || defaultAuthDto.token;
+            const updatedUserAuth = userAuth || defaultAuthDto.userAuth;
+            const updatedUserId = userId || defaultAuthDto.userId;
+
+            const updatedLeafyerToken = {
+                token: updatedToken,
+                userAuth: updatedUserAuth,
+                userId: updatedUserId,
+            };
+
+            window.localStorage.setItem(this.leafyer, JSON.stringify(updatedLeafyerToken));
             return true;
         } catch (error) {
             this.handleError('SAVE', error);
@@ -32,11 +38,9 @@ class TokenModule {
 
     public get = () => {
         try {
-            const token = window.localStorage.getItem(this.tokenKey);
-            const userAuth = window.localStorage.getItem(this.userAuthKey);
+            const leafyer = window.localStorage.getItem(this.leafyer);
             return {
-                token: token ? JSON.parse(token) : null,
-                userAuth: token ? JSON.parse(userAuth) : null,
+                leafyer: leafyer ? JSON.parse(leafyer) : new AuthDto(),
             };
         } catch (error) {
             this.handleError('GET', error);
@@ -46,8 +50,7 @@ class TokenModule {
 
     public remove = () => {
         try {
-            window.localStorage.removeItem(this.tokenKey);
-            window.localStorage.removeItem(this.userAuthKey);
+            window.localStorage.removeItem(this.leafyer);
             return true;
         } catch (error) {
             this.handleError('REMOVE', error);
@@ -57,6 +60,7 @@ class TokenModule {
 
     private handleError = (message: ErrorMessageKey, error: Error) => {
         console.error(ErrorMessage[message], error);
+        Alert.alert(ErrorMessage[message]);
     };
 }
 

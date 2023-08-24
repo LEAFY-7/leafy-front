@@ -4,13 +4,16 @@ import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 
 import Box from 'components/atoms/Box/default-box';
-import DropButton from 'components/atoms/Button/drop-button';
+import PageContainer from 'components/templates/page-container';
 import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
-import PageContainer from 'components/templates/page-container';
-import { UserDto } from 'dto/user/user.dto';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+// import { UserDto } from 'dto/user/user.dto';
+import DropButton from 'components/atoms/Button/drop-button';
+import UserViewModel from 'viewModel/user/user.viewModel';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
 const user = {
     name: '홍길동',
@@ -19,17 +22,35 @@ const user = {
     phone: '010-1234-5678',
     birthDay: '2023-07-29',
     address: '경기도 부천시',
-    simpleIntroduction: '응 어서오고~~',
+    introduction: '응 어서오고~~',
     img: '',
     bgImg: '',
 };
 
 const MyView = () => {
+    const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
+
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
             {/* <ProfileCard data={new UserDto()} /> */}
+            {/* <BoxWithBackgroundImage as="section" height="280px">
+                <BgImg
+                    src={user.bgImg ? user.bgImg : `${publicUrl}/image/default/default-user-bg.svg`}
+                    alt="기본 이미지"
+                />
+
+                <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
+                    {user?.img ? (
+                        <AuthImg src={user.img} alt="기본 이미지" />
+                    ) : (
+                        <AuthImg src={`${publicUrl}/image/default/default-auth-img.svg`} alt="기본 이미지" />
+                    )}
+                    <IntroductionBox>{user.introduction}</IntroductionBox>
+                </Flex.RowToColumnOnTabletSm>
+            </BoxWithBackgroundImage> */}
+
             <Flex.Default
                 as="main"
                 direction="column"
@@ -90,7 +111,16 @@ const MyView = () => {
                                     </Typography>
                                 </LabelWrapper>
                                 <Flex.Default as="div" style={{ position: 'absolute', right: 0, bottom: 0 }}>
-                                    <DropButton to={pageUrlConfig.myEdit}>내 정보 수정하러가기</DropButton>
+                                    <RectangleButton
+                                        to={pageUrlConfig.myEdit}
+                                        backgroundColor="white"
+                                        isBorder
+                                    >
+                                        내 정보 수정하러가기
+                                    </RectangleButton>
+                                    <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
+                                        채팅 하러 가기
+                                    </DropButton>
                                 </Flex.Default>
                             </Div.Default>
                             <Div.Default

@@ -6,7 +6,7 @@ import { AllowedRole } from './index.types';
 
 const NormalRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
     const location = useLocation();
-    const auth = React.useMemo(() => tokenModule.get(), [location]);
+    const auth = React.useMemo(() => tokenModule.get().leafyer, [location]);
 
     if (
         location.pathname.split('/')[1] === 'auth' &&

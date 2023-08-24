@@ -1,7 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import { UserDto } from 'dto/user/user.dto';
-//import useRouter from 'hooks/useRouter';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { ApiModule } from 'modules/api.module';
 
@@ -15,19 +14,17 @@ export default class DefaultViewModel {
     public themeModel: themeModes;
     public api: ApiModule;
     public me: UserDto = new UserDto();
-    //public router: useRouter;
     constructor(props: IProps) {
         this.api = ApiModule.getInstance();
         this.themeModel = JSON.parse(window.localStorage.getItem('leafyer-Theme')) || themeModes.light;
-        // this.router = useRouter.getInstance();
-        // makeObservable(this, {
-        //     me: observable,
-        //     themeModel: observable,
-        //     router: observable,
 
-        //     handleThemeMode: action,
-        //     getMe: action,
-        // });
+        makeObservable(this, {
+            me: observable,
+            themeModel: observable,
+
+            handleThemeMode: action,
+            getMe: action,
+        });
     }
 
     handleThemeMode = () => {
@@ -44,7 +41,7 @@ export default class DefaultViewModel {
 
     getMe = async () => {
         await this.api
-            .get('/v1/users')
+            .get('/v1/users/me')
             .then((result: AxiosResponse<UserDto>) => {
                 runInAction(() => {
                     this.me = plainToInstance(UserDto, result.data);

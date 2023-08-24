@@ -24,7 +24,7 @@ const SignInView = () => {
     }, [authViewModel.isActive]);
 
     return (
-        <PageContainer style={{ overflow: 'visible', height: '100vh' }}>
+        <PageContainer style={{ overflow: 'visible', height: '100vh', minHeight: 0 }}>
             <AuthTemplate>
                 <Typography
                     as="span"

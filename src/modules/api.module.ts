@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { serialize } from 'object-to-formdata';
+import tokenModule from './token.module';
 const isServer = typeof window === 'undefined';
 
 export class ApiModule {
@@ -17,7 +18,8 @@ export class ApiModule {
     }
 
     private setToken(): void {
-        this.token = isServer ? '' : `${this.tokenType} ${window.localStorage.getItem('token')}`;
+        const { token } = tokenModule.get().leafyer;
+        this.token = isServer ? '' : token;
         this.commonHeader.Authorization = this.token;
     }
 

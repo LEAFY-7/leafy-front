@@ -40,7 +40,7 @@ const MyEditView = () => {
             roadAddress: '',
             addressDetail: '',
             gender: '',
-            simpleIntroduction: '',
+            introduction: '',
         },
     });
 
@@ -48,13 +48,15 @@ const MyEditView = () => {
         console.log(e);
     };
     return (
-        <PageContainer style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center' }}>
+        <PageContainer
+            style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center', minHeight: 0 }}
+        >
             <Container id="myInfo_edit" as="section" wrapperHeight={100}>
                 <Container.Header
                     headerHeight={'50px'}
                     fontSize="xl"
                     marginBottom={8}
-                    style={{ paddingLeft: '4px' }}
+                    style={{ paddingLeft: '4px', height: '50px' }}
                 >
                     회원 정보 수정
                 </Container.Header>
@@ -517,10 +519,10 @@ const MyEditView = () => {
                                 </Flex.RowToColumnOnTabletMd>
                                 {/* 간단 소개 */}
                                 <Controller
-                                    name={authItemState.simpleIntroduction.property}
+                                    name={authItemState.introduction.property}
                                     control={control}
                                     defaultValue={''}
-                                    rules={authFormState.simpleIntroduction}
+                                    rules={authFormState.introduction}
                                     render={({
                                         field: { value, onChange },
                                         fieldState: { error, isDirty },
@@ -534,9 +536,7 @@ const MyEditView = () => {
                                                     <TextField.Textarea
                                                         id="address_detail"
                                                         value={value}
-                                                        placeholder={
-                                                            authItemState.simpleIntroduction.placeHolder
-                                                        }
+                                                        placeholder={authItemState.introduction.placeHolder}
                                                         onChange={(
                                                             e: React.ChangeEvent<HTMLTextAreaElement>,
                                                         ) => {

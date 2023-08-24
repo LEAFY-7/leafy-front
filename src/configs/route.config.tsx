@@ -29,6 +29,7 @@ import QnaUploadView from 'views/qna/upload.view';
 import SearchView from 'views/search/index.view';
 import TestView from 'views/test/index.view';
 import UserView from 'views/user/index.view';
+import IntroView from 'views/intro/index.view';
 
 const routeConfig = [
     {
@@ -57,6 +58,7 @@ const routeConfig = [
             { path: pageUrlConfig.notice, element: <NoticeView /> },
             { path: `${pageUrlConfig.notice}/:id`, element: <NoticeDetailView /> },
             { path: `${pageUrlConfig.user}/:id`, element: <UserView /> },
+            { path: pageUrlConfig.intro, element: <IntroView /> },
             { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
             { path: pageUrlConfig.notFound, element: <NotFound /> },
             {
