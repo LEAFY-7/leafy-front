@@ -6,7 +6,7 @@ import { AllowedRole } from './index.types';
 
 const PrivateRoute = ({ allowedRoles }: { allowedRoles: AllowedRole[] }) => {
     const location = useLocation();
-    const auth = React.useMemo(() => tokenModule.get(), [location]);
+    const auth = React.useMemo(() => tokenModule.get().leafyer, [location]);
 
     return [auth.userAuth || 'NORMAL']?.some((role: AllowedRole) => allowedRoles?.includes(role)) ? (
         <Outlet />

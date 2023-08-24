@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { AiOutlineBell as AlarmIcon, AiOutlineUser as UserIcon } from 'react-icons/ai';
+// import { AiOutlineBell as AlarmIcon, AiOutlineUser as UserIcon } from 'react-icons/ai';
+// import { AiOutlineUser as UserIcon } from 'react-icons/ai';
 
 import tokenModule from 'modules/token.module';
 import { theme } from 'configs/ui.config';
@@ -14,7 +15,8 @@ import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
 import Flyout from 'components/molecules/Flyout/default-flyout';
 
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
-
+import AlarmIcon from 'components/atoms/Icon/alarm-icon';
+import UserIcon from 'components/atoms/Icon/user-icon';
 const publicURL = process.env.PUBLIC_URL;
 
 const DefaultHeader = () => {
@@ -22,7 +24,7 @@ const DefaultHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const auth = React.useMemo(() => tokenModule.get(), [location]);
+    const auth = React.useMemo(() => tokenModule.get().leafyer, [location]);
 
     const handleLogOut = async () => {
         await tokenModule.remove();
@@ -61,7 +63,7 @@ const DefaultHeader = () => {
                                 <Toggle id="alarm__wrapper">
                                     {/* 알람 아이콘 */}
                                     <IconWrapper>
-                                        <AlarmIcon size={25} color="grey" />
+                                        <AlarmIcon count={100} style={{ width: '25px', height: '25px' }} />
                                     </IconWrapper>
                                     {/* 알람 아이콘 */}
                                 </Toggle>
@@ -84,7 +86,7 @@ const DefaultHeader = () => {
                                 <Toggle id="user__wrapper">
                                     {/* 회원정보 아이콘 */}
                                     <IconWrapper>
-                                        <UserIcon size={25} color="grey" />
+                                        <UserIcon style={{ width: '25px', height: '25px' }} />
                                     </IconWrapper>
                                     {/* 회원정보 아이콘 */}
                                 </Toggle>
