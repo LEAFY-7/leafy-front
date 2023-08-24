@@ -24,10 +24,7 @@ function App() {
 
     React.useEffect(() => {
         defaultViewModel.handleThemeMode();
-        // defaultViewModel.getMe();
     }, []);
-
-    console.log(defaultViewModel.me);
     return (
         <>
             <div id="app-toast-container">
