@@ -18,7 +18,8 @@ export class ApiModule {
     }
 
     private setToken(): void {
-        this.token = isServer ? '' : `${this.tokenType} ${tokenModule.get().token}`;
+        const { token } = tokenModule.get().leafyer;
+        this.token = isServer ? '' : token;
         this.commonHeader.Authorization = this.token;
     }
 
