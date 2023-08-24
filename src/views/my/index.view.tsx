@@ -118,7 +118,7 @@ const MyView = () => {
                                     >
                                         내 정보 수정하러가기
                                     </RectangleButton>
-                                    <DropButton to={`${pageUrlConfig.chat}?me=123&you=460`}>
+                                    <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
                                         채팅 하러 가기
                                     </DropButton>
                                 </Flex.Default>

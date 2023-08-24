@@ -1,16 +1,18 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Card from 'components/organisms/Card';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 import { FeedDto } from 'dto/feed/feed.dto';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
-import { BsChatDots as ChatIcon } from 'react-icons/bs';
 
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
+import ChatIcon from 'components/atoms/Icon/chat-icon';
 /**
  * 메인페이지
  */
@@ -35,10 +37,10 @@ const HomeView = () => {
                         return <Card item={item} key={`feed_card_${key}`} />;
                     })}
                 </CardWrap>
-                <ChatIconWrapper>
-                    <ChatIcon size={30} />
-                    <Alarm>N</Alarm>
-                </ChatIconWrapper>
+
+                <IconWrapper>
+                    <ChatIcon to={pageUrlConfig.chat} count={3} />
+                </IconWrapper>
             </PageContainer>
         </>
     );
@@ -52,11 +54,11 @@ const CardWrap = styled.div`
     gap: 16px;
 `;
 
-const ChatIconWrapper = styled.div`
+const IconWrapper = styled.div`
     cursor: pointer;
     position: fixed;
     right: 5%;
-    bottom: 20%;
+    bottom: 5%;
     border-radius: 50%;
     box-shadow: 0px 0px 20px 1px rgb(200, 200, 200);
     width: 50px;
@@ -65,17 +67,5 @@ const ChatIconWrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${theme.colors.white};
-`;
-const Alarm = styled.div`
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    transform: translate(20%, -50%);
-    background-color: ${theme.colors.sementic};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${theme.colors.white};
-    font-size: ${theme.fontSize.xs};
+    z-index: 5;
 `;

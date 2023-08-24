@@ -38,6 +38,8 @@ const ChatView = () => {
         };
     }, [, location]);
 
+    console.log(chatViewModel.roomState.me);
+
     return (
         <>
             <PageContainer

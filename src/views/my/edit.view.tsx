@@ -48,13 +48,15 @@ const MyEditView = () => {
         console.log(e);
     };
     return (
-        <PageContainer style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center' }}>
+        <PageContainer
+            style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center', minHeight: 0 }}
+        >
             <Container id="myInfo_edit" as="section" wrapperHeight={100}>
                 <Container.Header
                     headerHeight={'50px'}
                     fontSize="xl"
                     marginBottom={8}
-                    style={{ paddingLeft: '4px' }}
+                    style={{ paddingLeft: '4px', height: '50px' }}
                 >
                     회원 정보 수정
                 </Container.Header>
