@@ -1,12 +1,13 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import { ServerType } from 'constants/constants';
+import { AuthDto } from 'dto/auth/auth.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import DefaultViewModel from 'viewModel/default.viewModel';
 import { AddressModel } from 'models/auth/address.model';
 import { SignUphModel } from 'models/auth/signUp.model';
+import { Alert } from 'modules/alert.module';
 import DaumModule from 'modules/daum.module';
 import tokenModule from 'modules/token.module';
-import { AuthDto } from 'dto/auth/auth.dto';
-import { Alert } from 'modules/alert.module';
+import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 
@@ -93,7 +94,7 @@ export default class AuthViewModel extends DefaultViewModel {
         e.preventDefault();
         const nickName = this.authState.nickName;
         return this.api
-            .get(`/v1/users/check/nickname?nickName=${nickName}`)
+            .get(ServerType.API, `/v1/users/check/nickname?nickName=${nickName}`)
             .then(({ status }: AxiosResponse) => {
                 if (status === 204) {
                     runInAction(() => {
@@ -117,7 +118,7 @@ export default class AuthViewModel extends DefaultViewModel {
         e.preventDefault();
         const email = this.authState.email;
         return this.api
-            .get(`/v1/users/check/email?email=${email}`)
+            .get(ServerType.API, `/v1/users/check/email?email=${email}`)
             .then(({ status }: AxiosResponse) => {
                 if (status === 204) {
                     runInAction(() => {
@@ -169,7 +170,7 @@ export default class AuthViewModel extends DefaultViewModel {
         const phoneNumberWithoutHyphens = phoneNumber.replace(/-/g, '');
 
         return this.api
-            .post('/v1/users/sign-up', {
+            .post(ServerType.API, '/v1/users/sign-up', {
                 name: this.authState.name,
                 nickName: this.authState.nickName,
                 email: this.authState.email,
@@ -210,7 +211,7 @@ export default class AuthViewModel extends DefaultViewModel {
     // 로그인 제출
     handleSignIn = (authState) => {
         return this.api
-            .post('/v1/users/sign-in', authState)
+            .post(ServerType.API, '/v1/users/sign-in', authState)
             .then((response: AxiosResponse<AuthDto>) => {
                 console.log(response);
                 tokenModule.save({

@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
+import { ServerType } from 'constants/constants';
 import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { ApiModule } from 'modules/api.module';
@@ -41,7 +42,7 @@ export default class DefaultViewModel {
 
     getMe = async () => {
         await this.api
-            .get('/v1/users/me')
+            .get(ServerType.API, '/v1/users/me')
             .then((result: AxiosResponse<UserDto>) => {
                 runInAction(() => {
                     this.me = plainToInstance(UserDto, result.data);
