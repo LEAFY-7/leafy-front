@@ -24,7 +24,6 @@ const HomeView = () => {
         mainViewModel.getMe();
         mainViewModel.test();
     }, []);
-
     return (
         <>
             <PageContainer>

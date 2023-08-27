@@ -10,13 +10,13 @@ const UserInfomation = ({ data }: IProps) => {
     return (
         <Container
             background={
-                data.backgroundImage
-                    ? data.backgroundImage
+                data.user.backgroundImage
+                    ? data.user.backgroundImage
                     : `${process.env.PUBLIC_URL}/image/default/default-user-bg.svg`
             }
         >
             {/* <Profile> */}
-            <LazyImage src={data.profileImage} alt="" />
+            <LazyImage src={data.user.profileImage} alt="" />
             {/* </Profile> */}
         </Container>
     );
