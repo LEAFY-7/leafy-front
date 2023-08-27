@@ -6,7 +6,7 @@ import * as Styled from './background.styles';
 import pageUrlConfig from 'configs/pageUrl.config';
 
 import PageContainer from 'components/templates/page-container';
-import AuthTemplate from 'components/templates/auth-template';
+import AuthTemplate from 'components/templates/auth.template';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
 
@@ -24,7 +24,7 @@ const SignUpView = () => {
     }, [authViewModel.isActive]);
 
     return (
-        <PageContainer style={{ overflow: 'visible', }}>
+        <PageContainer style={{ overflow: 'visible' }}>
             <AuthTemplate>
                 <Typography
                     as="span"
