@@ -24,7 +24,4 @@ export default class UserResponseDataDto {
 
     @Expose({ name: 'phone' })
     public readonly phone: string = '';
-
-    @Expose({ name: 'birthDay' })
-    public readonly birthDay: string = '';
 }
