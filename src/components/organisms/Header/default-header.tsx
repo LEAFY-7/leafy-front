@@ -25,7 +25,7 @@ const DefaultHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { userAuth } = React.useMemo(() => tokenModule.get().leafyer, [location]);
+    const { userAuth, userId } = React.useMemo(() => tokenModule.get().leafyer, [location]);
 
     const handleLogOut = async () => {
         await tokenModule.remove();
@@ -95,7 +95,9 @@ const DefaultHeader = () => {
                                     <Flyout.OverLay />
                                     <MenuList size="md" variant="default">
                                         <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
-                                        <UserItem to={`${pageUrlConfig.user}`}>내 피드 바로가기</UserItem>
+                                        <UserItem to={`${pageUrlConfig.user}/${userId}`}>
+                                            내 피드 바로가기
+                                        </UserItem>
                                         <UserItem to={pageUrlConfig.feed}>피드 보러가기</UserItem>
                                         <UserItem to={pageUrlConfig.chat}>채팅하러 가기</UserItem>
                                         <UserItem to={pageUrlConfig.feedUpload}>게시글 올리기</UserItem>

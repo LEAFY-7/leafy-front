@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import pageUrlConfig from 'configs/pageUrl.config';
 
@@ -14,6 +15,7 @@ import DropButton from 'components/atoms/Button/drop-button';
 import UserInfomation from 'components/organisms/Profile/user-infomation';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
+import tokenModule from 'modules/token.module';
 
 const user = {
     name: '홍길동',
@@ -29,7 +31,12 @@ const user = {
 
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
+    useEffect(() => {
+        userViewModel.getMe();
+        userViewModel.getMyPage();
+    }, []);
 
+    console.log(userViewModel.me);
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
@@ -61,7 +68,7 @@ const MyView = () => {
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         나의 정보
                     </Container.Header>
-                    <Container.Inner innerHeight={100}>
+                    <Container.Body innerHeight={100}>
                         <Flex.RowToColumnOnTabletSm
                             id="myInfo_wrapper"
                             style={{ width: '100%', height: '100%', gap: '16px' }}
@@ -134,44 +141,44 @@ const MyView = () => {
                                 그래프 위치
                             </Div.Default>
                         </Flex.RowToColumnOnTabletSm>
-                    </Container.Inner>
+                    </Container.Body>
                 </Container>
 
                 <Container id="follow" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         팔로우
                     </Container.Header>
-                    <Container.Inner innerVariant="translucent" innerHeight={100}>
+                    <Container.Body innerVariant="translucent" innerHeight={100}>
                         팔로우
-                    </Container.Inner>
+                    </Container.Body>
                 </Container>
                 <Container id="following" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         팔로잉
                     </Container.Header>
-                    <Container.Inner innerVariant="translucent" innerHeight={100}>
+                    <Container.Body innerVariant="translucent" innerHeight={100}>
                         팔로잉
-                    </Container.Inner>
+                    </Container.Body>
                 </Container>
                 <Container id="like" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         좋아요
                     </Container.Header>
-                    <Container.Inner innerVariant="translucent" innerHeight={100}>
+                    <Container.Body innerVariant="translucent" innerHeight={100}>
                         좋아요
-                    </Container.Inner>
+                    </Container.Body>
                 </Container>
                 <Container id="answer" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         질문
                     </Container.Header>
-                    <Container.Inner innerHeight={100}>질문</Container.Inner>
+                    <Container.Body innerHeight={100}>질문</Container.Body>
                 </Container>
                 <Container id="setting" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         설정
                     </Container.Header>
-                    <Container.Inner innerHeight={100}>설정</Container.Inner>
+                    <Container.Body innerHeight={100}>설정</Container.Body>
                 </Container>
             </Flex.Default>
         </PageContainer>
