@@ -17,6 +17,7 @@ import Flyout from 'components/molecules/Flyout/default-flyout';
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
 import AlarmIcon from 'components/atoms/Icon/alarm-icon';
 import UserIcon from 'components/atoms/Icon/user-icon';
+import { AuthDto } from 'dto/auth/auth.dto';
 const publicURL = process.env.PUBLIC_URL;
 
 const DefaultHeader = () => {
@@ -24,7 +25,7 @@ const DefaultHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const auth = React.useMemo(() => tokenModule.get().leafyer, [location]);
+    const { userAuth } = React.useMemo(() => tokenModule.get().leafyer, [location]);
 
     const handleLogOut = async () => {
         await tokenModule.remove();
@@ -40,7 +41,7 @@ const DefaultHeader = () => {
                     </LinkWrapper>
                 </div>
                 <Flex.Default justifyContent="center" alignItems="center" style={{ position: 'relative' }}>
-                    {!auth.userAuth ? (
+                    {userAuth === 'NORMAL' ? (
                         <>
                             <RectangleButton
                                 to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}

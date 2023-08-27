@@ -32,7 +32,7 @@ const IntroView = () => {
                     <img
                         src={`${publicUrl}intro.png`}
                         alt="메인이미지"
-                        style={{ width: '400px', height: '100%', position: 'absolute' }}
+                        style={{ width: '400px', height: '60%', position: 'absolute' }}
                     />
                     {/* <h1 style={{ fontSize: '60px', zIndex: 9, display: 'inline-block' }}>
                         초록으로 물들이는 일상
