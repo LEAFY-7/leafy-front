@@ -3,17 +3,17 @@ import pageUrlConfig from 'configs/pageUrl.config';
 
 import { theme } from 'configs/ui.config';
 
-import Box from 'components/atoms/Box/default-box';
-import PageContainer from 'components/templates/page-container';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Div from 'components/atoms/Div/div';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Container from 'components/organisms/Container/default-container';
-import RectangleButton from 'components/atoms/Button/rectangle-button';
+import PageContainer from 'components/templates/page-container';
 // import { UserDto } from 'dto/user/user.dto';
 import DropButton from 'components/atoms/Button/drop-button';
-import UserViewModel from 'viewModel/user/user.viewModel';
+import UserInfomation from 'components/organisms/Profile/user-infomation';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import UserViewModel from 'viewModel/user/user.viewModel';
 
 const user = {
     name: '홍길동',
@@ -34,7 +34,7 @@ const MyView = () => {
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
-            {/* <ProfileCard data={new UserDto()} /> */}
+            <UserInfomation data={userViewModel.me} />
             {/* <BoxWithBackgroundImage as="section" height="280px">
                 <BgImg
                     src={user.bgImg ? user.bgImg : `${publicUrl}/image/default/default-user-bg.svg`}
@@ -179,57 +179,6 @@ const MyView = () => {
 };
 
 export default MyView;
-
-const BoxWithBackgroundImage = styled(Box)`
-    border-radius: 20px;
-    /* padding: 8px; */
-    /* margin: 16px 16px; */
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 1200px;
-`;
-const AuthImg = styled.img`
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    bottom: 5%;
-    width: 250px;
-    height: 90%;
-    border-radius: 50%;
-    object-fit: cover;
-`;
-const BgImg = styled.img`
-    width: 100%;
-    height: 100%;
-    border-radius: 100px;
-    object-fit: cover;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    z-index: -1;
-`;
-
-const IntroductionBox = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    margin: auto;
-
-    width: 40%;
-    height: 70%;
-    background: rgba(245, 245, 245, 0.3);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 5px 5px 10px rgba(250, 250, 250, 0.15);
-    /* backdrop-filter: blur(15px); */
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${theme.palette.text.black};
-`;
 
 const Label = styled.label`
     width: 100px;

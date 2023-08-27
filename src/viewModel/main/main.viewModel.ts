@@ -40,4 +40,8 @@ export default class MainViewModel extends DefaultViewModel {
         //     });
         this.feedList = FeedData.data.map((feed) => plainToInstance(FeedDto, feed));
     };
+
+    test = async () => {
+        // await this.api.put(ServerType.API, '/v1/users', {});
+    };
 }

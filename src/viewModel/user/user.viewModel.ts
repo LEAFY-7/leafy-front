@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
-import { AuthDto } from 'dto/auth/auth.dto';
+import { ServerType } from 'constants/constants';
 import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
@@ -22,7 +22,7 @@ export default class UserViewModel extends DefaultViewModel {
 
     getUser = async (userId: number) => {
         await this.api
-            .get('/v1/users', userId)
+            .get(ServerType.API, '/v1/users', userId)
             .then((result: AxiosResponse<UserDto>) => {
                 runInAction(() => {
                     this.user = plainToInstance(UserDto, result.data);

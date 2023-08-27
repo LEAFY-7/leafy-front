@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Card from 'components/organisms/Card';
 import PageContainer from 'components/templates/page-container';
@@ -22,6 +21,8 @@ const HomeView = () => {
 
     useEffect(() => {
         mainViewModel.getMainData();
+        mainViewModel.getMe();
+        mainViewModel.test();
     }, []);
 
     return (
