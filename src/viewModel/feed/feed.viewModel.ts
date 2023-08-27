@@ -62,14 +62,14 @@ export default class FeedViewModel extends DefaultViewModel {
 
     getList = async () => {
         runInAction(() => {
-            this.list = FeedData.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
+            // this.list = FeedData.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
             // const newFollowers = [];
             // for(let i =0; i < FeedData.data.length; i++){
             //     const is
             // }
-            this.followers = FeedData.data.map((feed: FeedDto) => {
-                return plainToInstance(UserDto, feed.author);
-            });
+            // this.followers = FeedData.data.map((feed: FeedDto) => {
+            //     return plainToInstance(UserDto, feed.author);
+            // });
         });
     };
 

@@ -29,7 +29,7 @@ export default class NoticeViewModel extends DefaultViewModel {
 
     getList = async () => {
         runInAction(() => {
-            this.me.isAdmin
+            this.me.user.isAdmin
                 ? (this.list = NoticeData.data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice)))
                 : (this.list = NoticeData.data
                       .filter((d: NoticeDto) => !d.isHide)
@@ -40,7 +40,7 @@ export default class NoticeViewModel extends DefaultViewModel {
             .then((result: AxiosResponse<NoticeDto[]>) => {
                 const data = result.data;
                 runInAction(() => {
-                    this.list = this.me.isAdmin
+                    this.list = this.me.user.isAdmin
                         ? data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
                         : data
                               .filter((d: NoticeDto) => !d.isHide)
@@ -55,7 +55,7 @@ export default class NoticeViewModel extends DefaultViewModel {
             });
     };
     getDetail = async (id: number) => {
-        if (this.detail.isHide && !this.me.isAdmin) window.location.replace(`${pageUrlConfig.notice}`);
+        if (this.detail.isHide && !this.me.user.isAdmin) window.location.replace(`${pageUrlConfig.notice}`);
         runInAction(() => {
             this.detail = plainToInstance(
                 NoticeDto,
@@ -66,7 +66,7 @@ export default class NoticeViewModel extends DefaultViewModel {
         await this.api
             .get(ServerType.API, `/v1/notice/${id}`)
             .then((result: AxiosResponse<NoticeDto>) => {
-                if (this.detail.isHide && !this.me.isAdmin)
+                if (this.detail.isHide && !this.me.user.isAdmin)
                     window.location.replace(`${pageUrlConfig.notice}`);
                 runInAction(() => {
                     this.detail = plainToInstance(NoticeDto, result.data);

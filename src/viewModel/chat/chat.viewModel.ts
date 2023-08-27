@@ -1,20 +1,20 @@
-import React from 'react';
 import axios from 'axios';
-import io, { Socket } from 'socket.io-client';
-import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 import { plainToInstance } from 'class-transformer';
+import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
+import React from 'react';
 import { toast } from 'react-toastify';
+import io, { Socket } from 'socket.io-client';
 
-import DefaultViewModel from 'viewModel/default.viewModel';
-import { ChatRoomModel } from 'models/chat/chatRoom.model';
 import { ChatMessageDto } from 'dto/chat/chat-message.dto';
-import tokenModule from 'modules/token.module';
+import { ChatRoomModel } from 'models/chat/chatRoom.model';
 import formatDate from 'modules/formatDate.module';
+import tokenModule from 'modules/token.module';
+import DefaultViewModel from 'viewModel/default.viewModel';
 
 import socketConfigs from 'configs/socket.config';
-import { ChatMessageModel } from 'models/chat/chatMessage.model';
-import { ChatUserDto } from 'dto/chat/chat-user.dto';
 import { ChatListDto } from 'dto/chat/chat-list.dto';
+import { ChatUserDto } from 'dto/chat/chat-user.dto';
+import { ChatMessageModel } from 'models/chat/chatMessage.model';
 
 const initializeMessageModel = () => ({
     pages: new Map(),
@@ -470,7 +470,7 @@ export default class ChatViewModel extends DefaultViewModel {
 
     handleInit = async () => {
         await this.getMe;
-        const me = this.me.userId;
+        const me = this.me.user.userId;
         runInAction(() => {
             this.roomState.me = me;
         });
