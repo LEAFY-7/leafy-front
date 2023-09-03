@@ -25,22 +25,22 @@ const SignUpAdditionalForm = () => {
         formState: { isSubmitting },
     } = useForm<SignUphModel>({
         defaultValues: {
-            phone: authViewModel.data?.phone,
-            birthDay: authViewModel.data?.birthDay,
-            zoneCode: authViewModel.data?.zoneCode,
-            address: authViewModel.data?.address,
-            jibunAddress: authViewModel.data?.jibunAddress,
-            roadAddress: authViewModel.data?.roadAddress,
-            addressDetail: authViewModel.data?.addressDetail,
-            gender: authViewModel.data?.gender,
-            simpleIntroduction: authViewModel.data?.simpleIntroduction,
+            phone: authViewModel.authState?.phone,
+            birthDay: authViewModel.authState?.birthDay,
+            zoneCode: authViewModel.authState?.zoneCode,
+            address: authViewModel.authState?.address,
+            jibunAddress: authViewModel.authState?.jibunAddress,
+            roadAddress: authViewModel.authState?.roadAddress,
+            addressDetail: authViewModel.authState?.addressDetail,
+            // gender: authViewModel.authState?.gender,
+            introduction: authViewModel.authState?.introduction,
         },
     });
 
     React.useEffect(() => {
-        setValue(authItemState.zoneCode.property, authViewModel.data.zoneCode);
-        setValue(authItemState.address.property, authViewModel.data.address);
-    }, [authViewModel.data.zoneCode, authViewModel.data.address]);
+        setValue(authItemState.zoneCode.property, authViewModel.authState.zoneCode);
+        setValue(authItemState.address.property, authViewModel.authState.address);
+    }, [authViewModel.authState.zoneCode, authViewModel.authState.address]);
 
     return (
         <>
@@ -102,8 +102,8 @@ const SignUpAdditionalForm = () => {
                         {/* 생년월일 */}
                     </Flex.RowToColumnOnTabletSm>
 
-                    <Flex.Default direction="column">
-                        {/* 성별 */}
+                    {/* 성별 */}
+                    {/* <Flex.Default direction="column">
                         <label htmlFor="genderSelect">성별</label>
                         <Controller
                             name="gender"
@@ -128,15 +128,15 @@ const SignUpAdditionalForm = () => {
                                 </>
                             )}
                         />
-                        {/* 성별 */}
-                    </Flex.Default>
+                    </Flex.Default> */}
+                    {/* 성별 */}
 
                     <Flex.TextFieldFlexWrapper justifyContent="space-between" alignItems="center">
                         {/* 우편번호 */}
                         <Controller
                             name={authItemState.zoneCode.property}
                             control={control}
-                            defaultValue={authViewModel.data?.zoneCode}
+                            defaultValue={authViewModel.authState?.zoneCode}
                             rules={authFormState.zoneCode}
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <TextField error={!!error}>
@@ -150,7 +150,7 @@ const SignUpAdditionalForm = () => {
                                         >
                                             <TextField.Input
                                                 id={authItemState.zoneCode.property}
-                                                value={authViewModel.data.zoneCode}
+                                                value={authViewModel.authState.zoneCode}
                                                 type={authItemState.zoneCode.type}
                                                 placeholder={authItemState.zoneCode.placeHolder}
                                                 onClick={authViewModel.handleDaumAddress}
@@ -181,7 +181,7 @@ const SignUpAdditionalForm = () => {
                         <Controller
                             name={authItemState.address.property}
                             control={control}
-                            defaultValue={authViewModel.data?.address}
+                            defaultValue={authViewModel.authState?.address}
                             rules={authFormState.address}
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <>
@@ -195,7 +195,7 @@ const SignUpAdditionalForm = () => {
                                                 leftIcon={authItemState.address.icon.main}
                                             >
                                                 <TextField.Input
-                                                    value={authViewModel.data.address}
+                                                    value={authViewModel.authState.address}
                                                     id={authItemState.address.property}
                                                     type={authItemState.address.type}
                                                     placeholder={authItemState.address.placeHolder}
@@ -219,7 +219,7 @@ const SignUpAdditionalForm = () => {
                         <Controller
                             name={authItemState.addressDetail.property}
                             control={control}
-                            defaultValue={authViewModel.data?.addressDetail}
+                            defaultValue={authViewModel.authState?.addressDetail}
                             rules={authFormState.addressDetail}
                             render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                                 <TextField error={!!error}>
@@ -256,21 +256,21 @@ const SignUpAdditionalForm = () => {
                     </Flex.RowToColumnOnTabletSm>
                     {/* 간단소개 */}
                     <Controller
-                        name={authItemState.simpleIntroduction.property}
+                        name={authItemState.introduction.property}
                         control={control}
-                        defaultValue={authViewModel.data?.simpleIntroduction}
-                        rules={authFormState.simpleIntroduction}
+                        defaultValue={authViewModel.authState?.introduction}
+                        rules={authFormState.introduction}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <TextField error={!!error}>
                                 <ResponsiveTextFieldWrapper.AUTH style={{ width: '100%' }}>
                                     <TextField.Label required>
                                         {authItemState.addressDetail.label}
                                     </TextField.Label>
-                                    <TextField.Container id="simpleIntroduction_container">
+                                    <TextField.Container id="introduction_container">
                                         <TextField.Textarea
-                                            id="simpleIntroduction"
+                                            id="introduction"
                                             value={value}
-                                            placeholder={authItemState.simpleIntroduction.placeHolder}
+                                            placeholder={authItemState.introduction.placeHolder}
                                             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                                                 const { value } = e.target;
                                                 onChange(value);

@@ -12,7 +12,7 @@ const Followers = ({ list }: IProps) => {
             {list.map((user: UserDto, key: number) => {
                 return (
                     <LazyImage
-                        src={user.profileImage}
+                        src={user.user.profileImage}
                         alt={`follower_profile_${key}`}
                         key={`follower_profile_${key}`}
                         style={{ width: '80px', height: '80px', borderRadius: '50%' }}

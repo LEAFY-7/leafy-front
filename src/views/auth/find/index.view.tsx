@@ -12,7 +12,7 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import FindEmailForm from './find-email-form';
 import FindPwdForm from './find-pwd-form';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import AuthTemplate from 'components/templates/auth-template';
+import AuthTemplate from 'components/templates/auth.template';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 

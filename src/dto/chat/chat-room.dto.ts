@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-export class ChatDto {
+export class ChatRoomDto {
     @Expose({ name: 'host' })
     public readonly host: number = 0;
 

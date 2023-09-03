@@ -1,8 +1,11 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
+import { ServerType } from 'constants/constants';
 import CommentData from 'db/comment.json';
 import FeedData from 'db/feed.json';
 import { CommentDto } from 'dto/feed/comment.dto';
 import { FeedDto } from 'dto/feed/feed.dto';
+import FeedListDto from 'dto/feed/feedList.dto';
 import { UserDto } from 'dto/user/user.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { CommentModel } from 'models/feed/comment.model';
@@ -14,7 +17,7 @@ interface IProps {}
 export default class FeedViewModel extends DefaultViewModel {
     public followers: UserDto[] = [];
     public detail: FeedDto = new FeedDto();
-    public list: FeedDto[] = [];
+    public list: FeedListDto = new FeedListDto();
     public commentList: CommentDto[] = [];
     public commentModel: CommentModel = new CommentModel();
     constructor(props: IProps) {
@@ -61,16 +64,27 @@ export default class FeedViewModel extends DefaultViewModel {
     };
 
     getList = async () => {
-        runInAction(() => {
-            this.list = FeedData.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
-            // const newFollowers = [];
-            // for(let i =0; i < FeedData.data.length; i++){
-            //     const is
-            // }
-            this.followers = FeedData.data.map((feed: FeedDto) => {
-                return plainToInstance(UserDto, feed.author);
+        await this.api
+            .get(ServerType.API, '/v1/feeds')
+            .then((result: AxiosResponse<FeedListDto>) => {
+                runInAction(() => {
+                    this.list = plainToInstance(FeedListDto, result.data);
+                });
+            })
+            .catch((error: AxiosError) => {
+                console.log('error : ', error);
+                return false;
             });
-        });
+        // runInAction(() => {
+        //     this.list = FeedData.data.map((feed: FeedDto) => plainToInstance(FeedDto, feed));
+        // const newFollowers = [];
+        // for(let i =0; i < FeedData.data.length; i++){
+        //     const is
+        // }
+        // this.followers = FeedData.data.map((feed: FeedDto) => {
+        //     return plainToInstance(UserDto, feed.author);
+        // });
+        // });
     };
 
     handleChangeComment = (e: ChangeEvent<HTMLInputElement>) => {

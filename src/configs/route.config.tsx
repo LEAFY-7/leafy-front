@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import NormalRoute from 'components/organisms/routes/normal-route';
-import PrivateRoute from 'components/organisms/routes/private-route';
 import pageUrlConfig from 'configs/pageUrl.config';
 
 import NotFound from 'components/organisms/Error/notFound';
@@ -17,6 +16,7 @@ import FeedEditView from 'views/feed/edit.view';
 import FeedView from 'views/feed/index.view';
 import FeedUploadView from 'views/feed/upload.view';
 import HomeView from 'views/home/index.view';
+import IntroView from 'views/intro/index.view';
 import MyEditView from 'views/my/edit.view';
 import MyView from 'views/my/index.view';
 import LeaveView from 'views/my/leave.view';
@@ -57,10 +57,11 @@ const routeConfig = [
             { path: pageUrlConfig.notice, element: <NoticeView /> },
             { path: `${pageUrlConfig.notice}/:id`, element: <NoticeDetailView /> },
             { path: `${pageUrlConfig.user}/:id`, element: <UserView /> },
+            { path: pageUrlConfig.intro, element: <IntroView /> },
             { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
             { path: pageUrlConfig.notFound, element: <NotFound /> },
             {
-                element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
+                // element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
                     { path: pageUrlConfig.chat, element: <ChatView /> },
                     { path: pageUrlConfig.feed, element: <FeedView /> },
@@ -88,7 +89,7 @@ const routeConfig = [
                 ],
             },
             {
-                element: <PrivateRoute allowedRoles={['ADMIN']} />,
+                // element: <PrivateRoute allowedRoles={['ADMIN']} />,
                 children: [
                     { path: pageUrlConfig.noticeUpload, element: <NoticeUploadView /> },
                     { path: `${pageUrlConfig.noticeEdit}/:id`, element: <NoticeEditView /> },

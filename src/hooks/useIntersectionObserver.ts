@@ -12,7 +12,6 @@ const useIntersectionObserver = (callback, options) => {
         }, options);
 
         if (targetRef.current) {
-            console.log('여기');
             observer.observe(targetRef.current);
         }
 

@@ -1,25 +1,25 @@
-import React from 'react';
-import type { HTMLAttributes, ReactNode } from 'react';
 import styled from '@emotion/styled';
+import pageUrlConfig from 'configs/pageUrl.config';
+import { theme } from 'configs/ui.config';
 import { UserDto } from 'dto/user/user.dto';
 import useToggle from 'hooks/useToggleProvider';
-import { theme } from 'configs/ui.config';
-import pageUrlConfig from 'configs/pageUrl.config';
+import type { HTMLAttributes, ReactNode } from 'react';
+import React from 'react';
 
-import FlyOut from './default-flyout';
-import Flex from 'components/atoms/Group/flex';
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
+import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
+import FlyOut from './default-flyout';
 
 interface FlyoutMenuProps {
     toggleEl: ReactNode;
-    user?: UserDto;
+    data?: UserDto;
     userShowState: boolean;
 }
 
 type Props = React.PropsWithChildren<FlyoutMenuProps> & HTMLAttributes<HTMLElement>;
 
-const FlyoutMenu = ({ toggleEl, user, userShowState = true }: Props) => {
+const FlyoutMenu = ({ toggleEl, data, userShowState = true }: Props) => {
     const { values } = useToggle({});
     return (
         <FlyOut isOpen={values.isOpen} toggle={values.toggle}>
@@ -28,10 +28,10 @@ const FlyoutMenu = ({ toggleEl, user, userShowState = true }: Props) => {
                 <FlyOut.OverLay />
                 <List size="xl" variant="default">
                     <Header>
-                        <TextAvatar text={user?.name || '기본 이름'} />
+                        <TextAvatar text={data?.user.name || '기본 이름'} />
                         <Flex.Default direction="column">
                             <Typography variant="BODY2" marginLeft={8}>
-                                {user?.name || '기본 이름'}
+                                {data?.user.name || '기본 이름'}
                             </Typography>
                             <Typography variant="BODY2" marginLeft={8}>
                                 {userShowState ? '공개' : '비공개'}
@@ -79,7 +79,9 @@ const Item = styled(FlyOut.Item)`
     border-color: ${theme.palette.default.borderColor};
     background-color: transparent;
     font-size: ${theme.fontSize.lg};
-    transition: background-color 0.35s ease-in-out, color 0.25s ease-in-out;
+    transition:
+        background-color 0.35s ease-in-out,
+        color 0.25s ease-in-out;
     &:hover {
         border-color: ${theme.palette.secondary.borderColor};
         background-color: ${theme.palette.secondary.backgroundColor};

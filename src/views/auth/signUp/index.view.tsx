@@ -6,7 +6,7 @@ import * as Styled from './background.styles';
 import pageUrlConfig from 'configs/pageUrl.config';
 
 import PageContainer from 'components/templates/page-container';
-import AuthTemplate from 'components/templates/auth-template';
+import AuthTemplate from 'components/templates/auth.template';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Typography from 'components/atoms/Typograph/default-typography';
 

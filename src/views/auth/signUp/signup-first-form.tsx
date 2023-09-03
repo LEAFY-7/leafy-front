@@ -17,13 +17,15 @@ const SignUpNecessaryForm = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
     const { control, handleSubmit, watch } = useForm<SignUphModel>({
         defaultValues: {
-            name: authViewModel.data?.name,
-            nickName: authViewModel.data?.nickName,
-            email: authViewModel.data?.email,
-            password: authViewModel.data?.password,
-            confirmPassword: authViewModel.data?.confirmPassword,
+            name: authViewModel.authState?.name,
+            nickName: authViewModel.authState?.nickName,
+            email: authViewModel.authState?.email,
+            password: authViewModel.authState?.password,
+            confirmPassword: authViewModel.authState?.confirmPassword,
         },
     });
+
+    console.log(authViewModel.isEmailCheck, authViewModel.isNickNameCheck);
     return (
         <form onSubmit={handleSubmit(authViewModel.handleSignUpNecessary)} noValidate>
             <Wrapper id="form_wrapper" direction="column">
@@ -31,7 +33,7 @@ const SignUpNecessaryForm = () => {
                 <Controller
                     name={authItemState.name.property}
                     control={control}
-                    defaultValue={authViewModel.data.name}
+                    defaultValue={authViewModel.authState.name}
                     rules={authFormState.name}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
@@ -67,7 +69,7 @@ const SignUpNecessaryForm = () => {
                     <Controller
                         name={authItemState.nickName.property}
                         control={control}
-                        defaultValue={authViewModel.data.nickName}
+                        defaultValue={authViewModel.authState.nickName}
                         rules={authFormState.nickName}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <>
@@ -118,7 +120,7 @@ const SignUpNecessaryForm = () => {
                     <Controller
                         name={authItemState.email.property}
                         control={control}
-                        defaultValue={authViewModel.data.email}
+                        defaultValue={authViewModel.authState.email}
                         rules={authFormState.email}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <TextField error={!!error}>
@@ -163,7 +165,7 @@ const SignUpNecessaryForm = () => {
                 <Controller
                     name={authItemState.password.property}
                     control={control}
-                    defaultValue={authViewModel.data.password}
+                    defaultValue={authViewModel.authState.password}
                     rules={authFormState.password}
                     render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                         <TextField error={!!error}>
@@ -198,7 +200,7 @@ const SignUpNecessaryForm = () => {
                 <Controller
                     name={authItemState.confirmPassword.property}
                     control={control}
-                    defaultValue={authViewModel.data.confirmPassword}
+                    defaultValue={authViewModel.authState.confirmPassword}
                     rules={authFormState.confirmPassword(
                         (value) => value === watch(authItemState.password.property),
                     )}
@@ -242,7 +244,11 @@ const SignUpNecessaryForm = () => {
                         padding: '8px',
                     }}
                 >
-                    <SubmitButton type="submit" variant="primary">
+                    <SubmitButton
+                        type="submit"
+                        variant="primary"
+                        disabled={!(authViewModel.isEmailCheck && authViewModel.isNickNameCheck)}
+                    >
                         다음
                     </SubmitButton>
                 </div>
