@@ -1,19 +1,22 @@
 import { Expose } from 'class-transformer';
 
 export class NoticeDto {
-    @Expose({ name: 'id' })
-    public readonly id: string = '';
+    @Expose({ name: 'noticeId' })
+    public readonly id: number;
 
     @Expose({ name: 'title' })
     public readonly title: string = '';
 
     @Expose({ name: 'viewCount' })
-    public readonly viewCount: string = '';
+    public readonly viewCount?: number;
     
-    @Expose({ name: 'date' })
-    public readonly date: string = '';
+    @Expose({ name: 'createAt' })
+    public readonly date?: string;
 
-    @Expose({ name: 'content' })
+    @Expose({ name: 'modifiedAt' })
+    public readonly modified?: string;
+
+    @Expose({ name: 'contents' })
     public readonly content: string = '';
 
     @Expose({ name: 'isHide'})
