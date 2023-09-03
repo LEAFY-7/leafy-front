@@ -1,15 +1,11 @@
 import styled from '@emotion/styled';
-import Card from 'components/organisms/Card';
 import PageContainer from 'components/templates/page-container';
-import { FeedDto } from 'dto/feed/feed.dto';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
-import Button from 'components/atoms/Button/button';
 import Typography from 'components/atoms/Typograph/default-typography';
-import { theme } from 'configs/ui.config';
 
 /**
  * 메인페이지
@@ -38,9 +34,3 @@ const HomeView = () => {
 };
 
 export default observer(HomeView);
-
-const CardWrap = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-`;
