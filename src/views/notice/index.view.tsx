@@ -50,7 +50,7 @@ const NoticeView = () => {
                 onClick={noticeViewModel.handleClickPage}
             />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {noticeViewModel.me.isAdmin && (
+                {noticeViewModel.me.user.isAdmin && (
                     <DefaultButton
                         title="등록하기"
                         isPositive={true}
