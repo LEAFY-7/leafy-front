@@ -2,10 +2,9 @@
     "data": [
         {
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 1,
             "title": "delectus aut autem",
@@ -15,14 +14,15 @@
                 "https://api.slingacademy.com/public/sample-photos/1.jpeg",
                 "https://api.slingacademy.com/public/sample-photos/1.jpeg"
             ],
-            "size": "big"
+            "size": "big",
+            "userId": 313223
         },
         {
+            "userId": 313223,
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 2,
             "title": "quis ut nam facilis et officia qui",
@@ -36,11 +36,11 @@
             "size": "midium"
         },
         {
+            "userId": 313223,
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 3,
             "title": "fugiat veniam minus",
@@ -54,11 +54,11 @@
             "size": "big"
         },
         {
+            "userId": 313223,
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 4,
             "title": "et porro tempora",
@@ -72,11 +72,11 @@
             "size": "small"
         },
         {
+            "userId": 313223,
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 5,
             "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
@@ -90,11 +90,11 @@
             "size": "big"
         },
         {
+            "userId": 313223,
             "author": {
-                "name": "ohtaekwon",
-                "id": 313223,
-                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016",
-                "isAdmin": false
+                "nickName": "ohtaekwon",
+                "userId": 313223,
+                "profileImage": "https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?_v=20220426173016"
             },
             "id": 5,
             "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",

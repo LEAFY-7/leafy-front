@@ -11,7 +11,7 @@ interface CardProps {
 const Card = ({ item }: CardProps) => {
     return (
         <Linker href={`${pageUrlConfig.feedDetail}/${item.id}`}>
-            <FeedImage src={item.imgUrl[0]} size={item.size} />
+            {/* <FeedImage src={item.imgUrl[0].image} size={item.size} /> */}
         </Linker>
     );
 };
