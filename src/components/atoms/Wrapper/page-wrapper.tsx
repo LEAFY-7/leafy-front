@@ -1,33 +1,15 @@
-import React, { HTMLAttributes, useEffect } from 'react';
-import FlowerAnimation from 'components/atoms/Animation/flower-animation';
-import useToggle from 'hooks/useToggle';
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 
-interface Props extends HTMLAttributes<HTMLElement> {}
+interface PageWrapperProps {}
 
-function PageWrapper({ children }: React.PropsWithChildren<Props>) {
-    const { isOn, handler } = useToggle(hideComponent);
+type Props = React.PropsWithChildren<PageWrapperProps> & HTMLAttributes<HTMLElement>;
 
-    function hideComponent() {
-        const component = document.getElementById('flower_animate');
-        component.style.display = 'none';
-    }
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            handler();
-        }, 1500);
-
-        return () => {
-            clearTimeout(timer);
-        };
+function PageWrapper({ children }: Props) {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
     }, []);
-
-    return (
-        <>
-            {!isOn && <FlowerAnimation />}
-            {children}
-        </>
-    );
+    return <>{children}</>;
 }
 
 export default PageWrapper;

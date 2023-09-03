@@ -1,23 +1,30 @@
 class PageUrlConfig {
+    public unauthorized = '/unauthorized';
     public notFound = '*';
     public main = '/';
-    public feed = '/feed';
-    public feedDetail = `/feed/detail`;
-    public post = '/post';
-    public update = `/post/edit`;
-    public follow = '/follow';
     public auth = '/auth';
-    public user = `/user`;
-    public myPage = '/mypage';
-    public edit = '/mypage/edit';
-    public setting = '/mypage/setting';
-    public notice = '/notice';
-    public noticeDetail = `/notice/detail`;
-    public search = '/search';
+    public find = '/find';
+    public signIn = '/signin';
+    public signUp = '/signup';
     public chat = '/chat';
-    public unauthorized = '/unauthorized';
+    public feed = '/feed';
+    public feedDetail = '/feed/detail';
+    public feedUpload = '/feed/upload';
+    public feedEdit = `/feed/edit`;
+    public myPage = '/mypage';
+    public myEdit = '/mypage/edit';
+    public leave = '/leave';
+    public notice = '/notice';
+    public noticeDetail = '/notice/detail';
+    public noticeUpload = '/notice/upload';
+    public noticeEdit = '/notice/edit';
+    public qnaDetail = '/qna/detail';
+    public qnaUpload = '/qna/upload';
+    public search = '/search';
+    public user = `/user`;
     public temp = '/temp';
     public admin = '/admin';
+    public intro = '/intro';
 
     addParams(url: string, params: Array<any>) {
         let querystring = [];

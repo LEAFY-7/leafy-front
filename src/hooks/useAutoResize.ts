@@ -30,9 +30,15 @@ const useAutoResize = ({ height, width, maximumWidth = 100, maximumHeight = 100 
         }
     }, [height, maximumHeight]);
 
-    const handleChange = useCallback((event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setValue(event.target.value);
-    }, []);
+    const handleChange = useCallback(
+        (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, callback = undefined) => {
+            setValue(event.target.value);
+
+            if (!callback) return;
+            callback(event.target.value);
+        },
+        [],
+    );
 
     useEffect(() => {
         if (value && textRef.current) {

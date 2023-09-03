@@ -1,158 +1,218 @@
-/** @jsxImportSource @emotion/react */
-import React, { useState, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { css, useTheme, keyframes } from '@emotion/react';
-import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+// import { AiOutlineBell as AlarmIcon, AiOutlineUser as UserIcon } from 'react-icons/ai';
+// import { AiOutlineUser as UserIcon } from 'react-icons/ai';
 
-import DefaultViewModel from 'viewModel/default.viewModel';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { theme } from 'configs/style.config';
-import headerStyle from './header.style';
-import useMouseEvent from 'hooks/useMouseEvent';
-import useAutoResize from 'hooks/useAutoResize';
+import tokenModule from 'modules/token.module';
+import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
+import useToggle from 'hooks/useToggleProvider';
 
-import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import TextLogo from 'components/atoms/Logo/text-logo';
-import Box from 'components/atoms/Box/default-box';
-import Div from 'components/atoms/Div/default-div';
-import Toggle from 'components/atoms/Switch/default-toggle';
+import Flex from 'components/atoms/Group/flex';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import Flyout from 'components/molecules/Flyout/default-flyout';
 
-type UserInfo = {
-    email: string;
-    displayName: string;
-};
+import TextAvatar from 'components/atoms/Avatar/text-avatar';
+import AlarmIcon from 'components/atoms/Icon/alarm-icon';
+import UserIcon from 'components/atoms/Icon/user-icon';
+import { AuthDto } from 'dto/auth/auth.dto';
+const publicURL = process.env.PUBLIC_URL;
 
-const userInfo = {
-    email: 'test@test.com',
-    displayName: '홍길동',
-};
-
-const Header = () => {
-    const theme = useTheme();
-    const headerTheme = headerStyle.header(theme);
-    const [isLoggedIn, setIsLoggedIn] = useState(userInfo);
-
-    const defaultHeaderStyles = css`
-        z-index: 999;
-        top: 0;
-        position: fixed;
-        left: 0;
-        padding: 0px calc((100% - 1280px) / 2);
-        ${headerTheme}
-    `;
-    const divStyle = css`
-        padding: 0;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    `;
-
-    return (
-        <>
-            <Box as="header" width={100} css={defaultHeaderStyles}>
-                <Flex as="nav" justifyContent="space-between" alignItems="center">
-                    <Div id="left_menu" css={divStyle}>
-                        <LeftMenu />
-                    </Div>
-                    <Div id="right_menu" css={divStyle}>
-                        <RightMenu {...isLoggedIn} />
-                    </Div>
-                </Flex>
-            </Box>
-            <Div id={'temp'} height="80px" />
-        </>
-    );
-};
-export default Header;
-
-const LeftMenu = () => {
-    return (
-        <>
-            <TextLogo variant="default" fontSize="xxxl">
-                LEAFY
-            </TextLogo>
-            <RectangleButton to="/notice" size="md" fontSize="sm">
-                서비스소개
-            </RectangleButton>
-        </>
-    );
-};
-
-const RightMenu = ({ ...userInfo }: UserInfo) => {
-    const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
-
-    return (
-        <>
-            <Search />
-            <Toggle
-                variant="primary"
-                on={'☀️'}
-                off={'🌙'}
-                onToggle={defaultViewModel.handleThemeMode}
-                darkMode
-            />
-            {!userInfo && (
-                <RectangleButton variant="default" fontSize="sm" leftIcon={<AiOutlineUser />}>
-                    {userInfo.displayName}
-                </RectangleButton>
-            )}
-            {userInfo && (
-                <Flex justifyContent="right">
-                    <RectangleButton to="/auth" size="md" fontSize="sm">
-                        로그인 / 회원가입
-                    </RectangleButton>
-                </Flex>
-            )}
-        </>
-    );
-};
-
-const Search = () => {
+const DefaultHeader = () => {
+    const { values } = useToggle({});
     const navigate = useNavigate();
-    const { value: keyword, inputRef, handleChange } = useAutoResize({ width: 200, maximumWidth: 500 });
-    const { isShow, handleMouseEnter, handleMouseLeave, handleShow } = useMouseEvent();
+    const location = useLocation();
 
-    const handleSearch = () => {
-        if (!isShow) return;
-        navigate(`/search?keyword=${keyword}`);
+    const { userAuth } = React.useMemo(() => tokenModule.get().leafyer, [location]);
+
+    const handleLogOut = async () => {
+        await tokenModule.remove();
+        navigate(`${pageUrlConfig.auth}${pageUrlConfig.signIn}`);
     };
 
-    const defaultInputStyle = css`
-        display: ${isShow ? 'block' : 'none'};
-        width: calc(100%-30px);
-        height: 40px;
-        border: 1px solid ${theme.colors.green};
-        border-radius: 50px;
-        opacity: 0;
-        transform: translateX(-50%);
-        transition: opacity 0.3s, transform 0.3s;
-        animation: ${headerStyle.slideIn} 0.6s ease-out forwards;
-        flex-grow: 1;
-        padding-left: 1rem;
-        padding-right: 2rem;
-    `;
-
-    const btnStyle = css`
-        padding-left: 3rem;
-    `;
     return (
-        // onMouseLeave={handleMouseLeave}
-        <>
-            <Flex alignItems="center" onClick={handleShow} onMouseLeave={handleMouseLeave}>
-                <input
-                    value={keyword}
-                    onChange={handleChange}
-                    onMouseEnter={handleMouseEnter}
-                    placeholder={'검색어를 입력해주세요.'}
-                    onClick={handleShow}
-                    onKeyPress={handleSearch}
-                    css={defaultInputStyle}
-                    ref={inputRef}
-                />
-                <RectangleButton variant="default" type="submit" onClick={handleSearch} css={btnStyle}>
-                    <AiOutlineSearch />
-                </RectangleButton>
-            </Flex>
-        </>
+        <HeaderContainer>
+            <HeaderWrap>
+                <div>
+                    <LinkWrapper to={pageUrlConfig.main}>
+                        <img src={`${publicURL}/image/logo/header-logo.svg`} />
+                    </LinkWrapper>
+                </div>
+                <Flex.Default justifyContent="center" alignItems="center" style={{ position: 'relative' }}>
+                    {userAuth === 'NORMAL' ? (
+                        <>
+                            <RectangleButton
+                                to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}
+                                size="sm"
+                                backgroundColor="transparent"
+                            >
+                                로그인
+                            </RectangleButton>
+                            <RectangleButton
+                                to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
+                                size="sm"
+                                backgroundColor="transparent"
+                            >
+                                회원가입
+                            </RectangleButton>
+                        </>
+                    ) : (
+                        <>
+                            <Flyout isOpen={values.isOpen} toggle={values.toggle}>
+                                <Toggle id="alarm__wrapper">
+                                    {/* 알람 아이콘 */}
+                                    <IconWrapper>
+                                        <AlarmIcon count={100} style={{ width: '25px', height: '25px' }} />
+                                    </IconWrapper>
+                                    {/* 알람 아이콘 */}
+                                </Toggle>
+                                <AlarmMenuWrapper>
+                                    <Flyout.OverLay />
+                                    <MenuList size="lg" variant="default">
+                                        <AlarmItem>
+                                            알람 아이템1알람 아이템1알람 아이템1알람 아이템1알람 아이템1알람
+                                            아이템1알람 아이템1알람 아이템1알람 아이템1알람 아이템1
+                                        </AlarmItem>
+                                        <AlarmItem>알람 아이템2</AlarmItem>
+                                        <AlarmItem>알람 아이템3</AlarmItem>
+                                        <AlarmItem>알람 아이템4</AlarmItem>
+                                        <AlarmItem>알람 아이템5</AlarmItem>
+                                    </MenuList>
+                                </AlarmMenuWrapper>
+                            </Flyout>
+
+                            <Flyout isOpen={values.isOpen} toggle={values.toggle}>
+                                <Toggle id="user__wrapper">
+                                    {/* 회원정보 아이콘 */}
+                                    <IconWrapper>
+                                        <UserIcon style={{ width: '25px', height: '25px' }} />
+                                    </IconWrapper>
+                                    {/* 회원정보 아이콘 */}
+                                </Toggle>
+                                <MyMenuWrapper>
+                                    <Flyout.OverLay />
+                                    <MenuList size="md" variant="default">
+                                        <UserItem to={pageUrlConfig.myPage}>마이페이지</UserItem>
+                                        <UserItem to={`${pageUrlConfig.user}`}>내 피드 바로가기</UserItem>
+                                        <UserItem to={pageUrlConfig.feed}>피드 보러가기</UserItem>
+                                        <UserItem to={pageUrlConfig.chat}>채팅하러 가기</UserItem>
+                                        <UserItem to={pageUrlConfig.feedUpload}>게시글 올리기</UserItem>
+                                        <UserItem to={pageUrlConfig.temp}>임시 글 보기</UserItem>
+                                        <UserItem onClick={handleLogOut}>로그아웃</UserItem>
+                                    </MenuList>
+                                </MyMenuWrapper>
+                            </Flyout>
+                        </>
+                    )}
+                </Flex.Default>
+            </HeaderWrap>
+        </HeaderContainer>
     );
 };
+export default DefaultHeader;
+
+const HeaderContainer = styled.header`
+    position: fixed;
+    left: 0px;
+    width: 100vw;
+    height: 56px;
+    background: linear-gradient(180deg, #fafafa 0%, rgba(250, 250, 250, 0) 100%);
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+`;
+
+const HeaderWrap = styled.div`
+    width: 100%;
+    max-width: 1080px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & div {
+        display: flex;
+        align-items: center;
+    }
+    & img {
+        width: 100%;
+        height: 48px;
+    }
+`;
+
+const IconWrapper = styled.div`
+    width: fit-content;
+    margin-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    &:last-of-type {
+        margin-right: 0;
+    }
+`;
+
+// Flyout - 하단 메뉴
+const Toggle = styled(Flyout.Toggle)`
+    position: relative;
+    cursor: pointer;
+`;
+
+const AlarmMenuWrapper = styled(Flyout.Wrapper)`
+    position: absolute;
+    top: 48px;
+    right: 10%;
+`;
+
+const MyMenuWrapper = styled(Flyout.Wrapper)`
+    position: absolute;
+    top: 48px;
+    right: 0;
+`;
+
+const MenuList = styled(Flyout.List)`
+    overflow-y: scroll;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15);
+`;
+
+const AlarmItem = styled(Flyout.Item)`
+    cursor: pointer;
+    list-style: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    transition: background-color 0.35s ease-in-out, color 0.25s ease-in-out;
+    &:hover {
+        border-color: ${theme.palette.secondary.borderColor};
+        background-color: ${theme.palette.secondary.backgroundColor};
+        color: ${theme.palette.text.white};
+    }
+`;
+
+const UserItem = styled(Flyout.Item)`
+    cursor: pointer;
+    list-style: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.35s ease-in-out, color 0.25s ease-in-out;
+    &:hover {
+        border-color: ${theme.palette.secondary.borderColor};
+        background-color: ${theme.palette.secondary.backgroundColor};
+        color: ${theme.palette.text.white};
+    }
+`;

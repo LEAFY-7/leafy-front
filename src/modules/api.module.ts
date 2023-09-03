@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { plainToInstance } from 'class-transformer';
+import { ServerType } from 'constants/constants';
 import { serialize } from 'object-to-formdata';
+import tokenModule from './token.module';
 const isServer = typeof window === 'undefined';
 
 export class ApiModule {
@@ -10,7 +11,7 @@ export class ApiModule {
     private tokenType: string = 'Bearer';
     private token: string = '';
     private commonHeader;
-    private baseUrl = 'https://url.url/api';
+    private baseUrl = process.env.REACT_APP_BASE_URL;
     private constructor(props?) {
         this.commonHeader = {
             'Content-Type': 'application/json',
@@ -18,14 +19,15 @@ export class ApiModule {
     }
 
     private setToken(): void {
-        this.token = isServer ? '' : `${this.tokenType} ${window.localStorage.getItem('token')}`;
+        const { token } = tokenModule.get().leafyer;
+        this.token = isServer ? '' : token;
         this.commonHeader.Authorization = this.token;
     }
 
-    private setAxiosInstance() {
+    private setAxiosInstance(serverType: ServerType) {
         this.setToken();
         this.axios = axios.create({
-            baseURL: this.baseUrl,
+            baseURL: serverType,
             headers: this.commonHeader,
             responseType: 'json',
         });
@@ -35,9 +37,9 @@ export class ApiModule {
         return this.instance || (this.instance = new this());
     }
 
-    async get<T>(url: string, params?: T) {
+    async get<T>(serverType: ServerType, url: string, params?: T) {
         this.commonHeader['Content-Type'] = 'application/json';
-        this.setAxiosInstance();
+        this.setAxiosInstance(serverType);
         return await this.axios
             .get(url, {
                 params: params,
@@ -46,34 +48,44 @@ export class ApiModule {
             .catch(this.handleError);
     }
 
-    async post<T>(url: string, params?: T, config?: AxiosRequestConfig) {
+    async post<T>(serverType: ServerType, url: string, params?: T, config?: AxiosRequestConfig) {
         let data;
         data = params;
 
         // 대상이 파일이라면 콘텐츠타입을 변경해주는 로직
         if (this.isFileParams(params)) {
             data = serialize(params);
+        } else {
+            this.commonHeader['Content-Type'] = 'application/json';
         }
 
-        this.setAxiosInstance();
+        this.setAxiosInstance(serverType);
         return await this.axios.post(url, data, config).then(this.handleSuccess).catch(this.handleError);
     }
 
-    async put<T>(url: string, params?: T) {
-        this.commonHeader['Content-Type'] = 'application/json';
-        this.setAxiosInstance();
-        return await this.axios.put(url, params).then(this.handleSuccess).catch(this.handleError);
+    async put<T>(serverType: ServerType, url: string, params?: T) {
+        this.commonHeader['Content-Type'] = 'multipart/form-data';
+        this.setAxiosInstance(serverType);
+        let data;
+        data = params;
+        // 대상이 파일이라면 콘텐츠타입을 변경해주는 로직
+        data = serialize(params);
+        // if (this.isFileParams(params)) {
+        // } else {
+        //     this.commonHeader['Content-Type'] = 'application/json';
+        // }
+        return await this.axios.put(url, data).then(this.handleSuccess).catch(this.handleError);
     }
 
-    async patch<T>(url: string, params?: T) {
+    async patch<T>(serverType: ServerType, url: string, params?: T) {
         this.commonHeader['Content-Type'] = 'application/json';
-        this.setAxiosInstance();
+        this.setAxiosInstance(serverType);
         return await this.axios.patch(url, params).then(this.handleSuccess).catch(this.handleError);
     }
 
-    async delete(url: string) {
+    async delete(serverType: ServerType, url: string) {
         this.commonHeader['Content-Type'] = 'application/json';
-        this.setAxiosInstance();
+        this.setAxiosInstance(serverType);
         return await this.axios.delete(url).then(this.handleSuccess).catch(this.handleError);
     }
 
@@ -135,9 +147,8 @@ export class ApiModule {
 
     private handleError = (error): AxiosError => {
         const { data } = error.response;
-        const errorDto = plainToInstance(AxiosError, data);
 
-        throw errorDto;
+        throw error.response;
         throw '';
     };
 }

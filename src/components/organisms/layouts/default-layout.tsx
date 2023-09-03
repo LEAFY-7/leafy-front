@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from 'components/organisms/Header/default-header';
-import Footer from 'components/organisms/Footer/default-footer';
-import Flex from 'components/atoms/Group/flex';
+import DefaultHeader from '../Header/default-header';
+import DefaultFooter from 'components/organisms/Footer/default-footer';
 
 const DefaultLayout = () => {
+    const location = useLocation();
+    const notFooter = React.useMemo(() => location.pathname.split('/')[1], [location]);
     return (
         <>
-            <Flex as="div" direction="column">
-                {/* Header */}
-                <Header />
-                {/* Header */}
-                {/* Main */}
-                <Outlet />
-                {/* Main */}
-                {/* Footer */}
-                <Footer />
-                {/* Footer */}
-            </Flex>
+            <DefaultHeader />
+            <Outlet />
+            {notFooter !== 'chat' && <DefaultFooter />}
         </>
     );
 };

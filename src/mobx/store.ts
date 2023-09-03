@@ -1,9 +1,13 @@
+import { configure } from 'mobx';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
+import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import DefaultViewModel from 'viewModel/default.viewModel';
+import FeedViewModel from 'viewModel/feed/feed.viewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
+import MyEditViewModel from 'viewModel/my/edit.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
-import { configure } from 'mobx';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 let store: any = null;
 configure({ enforceActions: 'observed' });
@@ -17,6 +21,10 @@ export class RootStore {
     public searchViewModel: SearchViewModel;
     public authViewModel: AuthViewModel;
     public userViewModel: UserViewModel;
+    public feedViewModel: FeedViewModel;
+    public myEditViewModel: MyEditViewModel;
+    public noticeViewModel: NoticeViewModel;
+    public chatViewModel: ChatViewModel;
 
     constructor(initialData: MobxInitProps) {
         const initData = Object.assign(initialData, {});
@@ -26,6 +34,10 @@ export class RootStore {
         this.searchViewModel = new SearchViewModel(initData);
         this.authViewModel = new AuthViewModel(initData);
         this.userViewModel = new UserViewModel(initData);
+        this.feedViewModel = new FeedViewModel(initData);
+        this.myEditViewModel = new MyEditViewModel(initData);
+        this.noticeViewModel = new NoticeViewModel(initData);
+        this.chatViewModel = new ChatViewModel(initData);
     }
 }
 

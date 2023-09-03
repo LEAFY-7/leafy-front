@@ -1,45 +1,46 @@
-import { Global, ThemeProvider } from '@emotion/react';
-import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import React from 'react';
 import { observer } from 'mobx-react';
+import { RouterProvider } from 'react-router-dom';
+import { Global, ThemeProvider } from '@emotion/react';
 import { ToastContainer } from 'react-toastify';
 import 'reflect-metadata';
-import DefaultViewModel from 'viewModel/default.viewModel';
+import DefaultViewModel, { themeModes } from 'viewModel/default.viewModel';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 
-import styleConfig from 'configs/style.config';
+import routers from 'configs/route.config';
+import globalStyle from 'configs/style.config';
 import themeConfigs from 'configs/theme.config';
-
-import Router from 'routes/router';
 
 import 'react-calendar/dist/Calendar.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
-import { isDevelopment, isLocal, isProduction } from 'utils/env';
-import routers from 'routes/router';
+import 'swiper/css/effect-fade';
+import 'swiper/swiper-bundle.css';
 
 function App() {
     const defaultViewModel: DefaultViewModel = useViewModel(ViewModelName.DEFAULT);
-    console.log('로컬 환경 : ', isLocal);
-    console.log('개발 모드 : ', isDevelopment);
-    console.log('배포 모드 : ', isProduction);
 
+    React.useEffect(() => {
+        defaultViewModel.handleThemeMode();
+    }, []);
     return (
         <>
-            <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                pauseOnFocusLoss
-                pauseOnHover
-            />
-            <ThemeProvider theme={themeConfigs.custom({ mode: defaultViewModel.themeModel })}>
-                <RouterProvider router={routers} />;
-                <Global styles={styleConfig.globalStyle} />
+            <div id="app-toast-container">
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    pauseOnFocusLoss
+                    pauseOnHover
+                />
+            </div>
+            <ThemeProvider theme={themeConfigs.custom({ mode: themeModes.light })}>
+                <RouterProvider router={routers} />
+                <Global styles={globalStyle} />
             </ThemeProvider>
         </>
     );

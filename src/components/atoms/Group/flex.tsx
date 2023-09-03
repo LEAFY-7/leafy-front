@@ -1,49 +1,231 @@
-/** @jsxImportSource @emotion/react */
-import React, { CSSProperties, HTMLAttributes } from 'react';
-import { css } from '@emotion/react';
-import { theme } from 'configs/style.config';
+import styled from '@emotion/styled';
+import DefaultFlex from './default-flex';
+import { theme } from 'configs/ui.config';
 
-export interface FlexProps {
-    as?: 'div' | 'span' | 'main' | 'nav';
-    display?: 'flex' | 'inline-flex';
-    direction?: CSSProperties['flexDirection'];
-    wrap?: CSSProperties['flexWrap'];
-    justifyContent?: CSSProperties['justifyContent'];
-    alignItems?: CSSProperties['alignItems'];
-    alignContent?: CSSProperties['alignContent'];
-    backgroundColor?: keyof typeof theme.colors;
-}
+const RowToColumnOnMobileSm = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
 
-export interface Props extends HTMLAttributes<HTMLElement>, FlexProps {
-    id?: string;
-}
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: row;
+    }
 
-const Flex = ({
-    id,
-    as: Component = 'span',
-    display = 'flex',
-    direction = 'row',
-    wrap = 'nowrap',
-    justifyContent = 'flex-start',
-    alignItems = 'flex-start',
-    alignContent = 'normal',
-    backgroundColor = 'inherit',
-    children,
-    ...rest
-}: React.PropsWithChildren<Props>) => {
-    const defaultFlexStyle = css`
-        display: ${display};
-        flex-direction: ${direction};
-        flex-wrap: ${wrap};
-        justify-content: ${justifyContent};
-        align-items: ${alignItems};
-        align-content: ${alignContent};
-    `;
-    return (
-        <Component id={id} css={defaultFlexStyle} {...rest}>
-            {children}
-        </Component>
-    );
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+
+const RowToColumnOnMobileMd = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+
+const RowToColumnOnMobileLg = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+
+/**
+ * 테블릿 환경일 때, direction을 row -> column 변경
+ */
+const RowToColumnOnTabletSm = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: row;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+const RowToColumnOnTabletMd = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: row;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+const RowToColumnOnTabletLg = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.smMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgMobile} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.smTablet} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.mdTablet} {
+        flex-direction: column;
+    }
+
+    ${theme.mediaQuery.lgTablet} {
+        flex-direction: column;
+    }
+    ${theme.mediaQuery.desktop} {
+        flex-direction: row;
+    }
+`;
+
+const TextFieldFlexWrapper = styled(DefaultFlex)`
+    ${theme.mediaQuery.xsMobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.smMobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.mdMobile} {
+        width: 100%;
+    }
+    ${theme.mediaQuery.lgMobile} {
+        width: 300px;
+    }
+    ${theme.mediaQuery.smTablet} {
+        width: 400px;
+    }
+    ${theme.mediaQuery.mdTablet} {
+        width: 300px;
+    }
+`;
+
+const Flex = {
+    Default: DefaultFlex,
+    RowToColumnOnMobileSm,
+    RowToColumnOnMobileMd,
+    RowToColumnOnMobileLg,
+    RowToColumnOnTabletSm,
+    RowToColumnOnTabletMd,
+    RowToColumnOnTabletLg,
+    TextFieldFlexWrapper,
 };
 
 export default Flex;

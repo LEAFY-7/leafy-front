@@ -1,7 +1,8 @@
-import Box from 'components/atoms/Box/default-box';
+import styled from '@emotion/styled';
+import Linker from 'components/atoms/Linker/linker';
+import pageUrlConfig from 'configs/pageUrl.config';
 import { FeedDto } from 'dto/feed/feed.dto';
 import 'swiper/swiper-bundle.min.css';
-import * as Styled from './index.styles';
 
 interface CardProps {
     item: FeedDto;
@@ -9,22 +10,17 @@ interface CardProps {
 
 const Card = ({ item }: CardProps) => {
     return (
-        <Box display="grid" direction="column" gap="10px" width="350px">
-            <Styled.ThumbImage src={item.imgUrl} alt="" />
-            <Styled.TitleBox>
-                <p>{item.title}</p>
-            </Styled.TitleBox>
-            <Styled.AuthorBox>
-                <Styled.UserProfileImage src={item.author.profile} alt="" />
-                <p>{item.id}</p>
-            </Styled.AuthorBox>
-            <Styled.TagBox>
-                {item.tag?.map((tag: string, key: number) => {
-                    return <p key={key}>{`#${tag}`}</p>;
-                })}
-            </Styled.TagBox>
-        </Box>
+        <Linker href={`${pageUrlConfig.feedDetail}/${item.id}`}>
+            <FeedImage src={item.imgUrl[0]} size={item.size} />
+        </Linker>
     );
 };
 
 export default Card;
+
+const FeedImage = styled.img<{ size: string }>`
+    width: 200px;
+    height: ${({ size }) => (size === 'big' ? 480 : size === 'midium' ? 380 : 280)}px;
+    border-radius: 280px;
+    object-fit: cover;
+`;

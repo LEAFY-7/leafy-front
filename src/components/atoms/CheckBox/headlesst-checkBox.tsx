@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import * as Styled from './index.styles';
 
 type CheckboxContextProps = {
     id: string;
     isChecked: boolean;
-    onChange: () => void;
+    onChange: ChangeEventHandler;
 };
 
 type CheckboxProps = CheckboxContextProps &
     React.PropsWithChildren<{
-        variant?: 'primary' | 'secondary' | 'important' | 'default';
+        variant?: 'primary' | 'secondary' | 'default';
     }>;
 
 const CheckboxContext = React.createContext<Required<CheckboxContextProps>>({
