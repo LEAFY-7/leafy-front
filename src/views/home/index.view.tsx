@@ -22,7 +22,7 @@ const HomeView = () => {
     useEffect(() => {
         mainViewModel.getMainData();
         mainViewModel.getMe();
-        mainViewModel.test();
+        // mainViewModel.test();
     }, []);
     return (
         <>

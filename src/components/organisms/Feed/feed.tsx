@@ -4,6 +4,7 @@ import LazyImage from 'components/atoms/LazyImage/default-image';
 import Linker from 'components/atoms/Linker/linker';
 import pageUrlConfig from 'configs/pageUrl.config';
 import { FeedDto } from 'dto/feed/feed.dto';
+import FeedImageDto from 'dto/feed/feedImage.dto';
 import { useRef, useState } from 'react';
 import SwiperEventType, { FreeMode, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +15,7 @@ interface IProps {
     isDetail?: boolean;
 }
 
-const Feed = ({ data, isDetail }: IProps) => {
+const Feed = ({ data, isDetail = false }: IProps) => {
     const [swiperPage, setSwiperPage] = useState<number>(0);
     const [isMove, setIsMove] = useState<boolean>(false);
     const swiperRef = useRef();
@@ -29,9 +30,11 @@ const Feed = ({ data, isDetail }: IProps) => {
 
     const getSlideImage = (position: number): string => {
         const positionIndex = swiperPage + position;
-        const imageIndex = positionIndex % data.imgUrl.length;
-        return data.imgUrl[imageIndex];
+        const imageIndex = positionIndex % data.images.length;
+        return data.images[imageIndex].image;
     };
+
+    console.log(data);
 
     return (
         <Container>
@@ -45,14 +48,14 @@ const Feed = ({ data, isDetail }: IProps) => {
                         navigation
                         onSlideChange={handleSlidePage}
                         loop
-                        imageLength={data.imgUrl.length}
+                        imageLength={data.images.length}
                         ref={swiperRef}
                     >
-                        {data.imgUrl.map((imageUrl: string, key: number) => {
+                        {data.images.map((imageUrl: FeedImageDto, key: number) => {
                             return (
                                 <SwiperSlide key={`feed_images_${key}`}>
                                     <LazyImage
-                                        src={imageUrl}
+                                        src={imageUrl.image}
                                         alt=""
                                         style={{ transition: 'all 0.3s ease' }}
                                     />
@@ -60,7 +63,7 @@ const Feed = ({ data, isDetail }: IProps) => {
                             );
                         })}
                     </SwiperWrap>
-                    {data.imgUrl.length >= 2 && (
+                    {data.images.length >= 2 && (
                         <LazyImages
                             src={getSlideImage(1)}
                             alt="image"
@@ -74,7 +77,7 @@ const Feed = ({ data, isDetail }: IProps) => {
                             isMove={isMove}
                         />
                     )}
-                    {data.imgUrl.length >= 3 && (
+                    {data.images.length >= 3 && (
                         <LazyImages
                             src={getSlideImage(2)}
                             alt="image"

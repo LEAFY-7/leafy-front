@@ -64,16 +64,16 @@ export class ApiModule {
     }
 
     async put<T>(serverType: ServerType, url: string, params?: T) {
-        this.commonHeader['Content-Type'] = 'multipart/form-data';
         this.setAxiosInstance(serverType);
         let data;
         data = params;
         // 대상이 파일이라면 콘텐츠타입을 변경해주는 로직
-        data = serialize(params);
-        // if (this.isFileParams(params)) {
-        // } else {
-        //     this.commonHeader['Content-Type'] = 'application/json';
-        // }
+        if (this.isFileParams(params)) {
+            this.commonHeader['Content-Type'] = 'multipart/form-data';
+            data = serialize(params);
+        } else {
+            this.commonHeader['Content-Type'] = 'application/json';
+        }
         return await this.axios.put(url, data).then(this.handleSuccess).catch(this.handleError);
     }
 
