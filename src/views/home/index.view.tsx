@@ -27,11 +27,9 @@ const HomeView = () => {
                 식집사들의 커뮤니티
             </Typography>
             {/* 카드 리스트 */}
-            {!mainViewModel.me.name && (
-                <Typography variant="H1" color="primary" textAlign="center">
-                    로그인 후 더 많은 콘텐츠를 즐겨보세요!
-                </Typography>
-            )}
+            <Typography variant="H1" color="primary" textAlign="center">
+                로그인 후 더 많은 콘텐츠를 즐겨보세요!
+            </Typography>
         </PageContainer>
     );
 };
