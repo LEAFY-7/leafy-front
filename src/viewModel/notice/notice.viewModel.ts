@@ -1,7 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import pageUrlConfig from 'configs/pageUrl.config';
-import { ServerType } from 'constants/constants';
 import NoticeData from 'db/notice.json';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
@@ -13,10 +12,12 @@ interface IProps {}
 export default class NoticeViewModel extends DefaultViewModel {
     public list: NoticeDto[] = [];
     public detail: NoticeDto = new NoticeDto();
+    public page:number = 1;
     constructor(props: IProps) {
         super(props);
 
         makeObservable(this, {
+            page:observable,
             list: observable,
             detail: observable,
             getList: action,
@@ -28,23 +29,12 @@ export default class NoticeViewModel extends DefaultViewModel {
     }
 
     getList = async () => {
-        runInAction(() => {
-            this.me.user.isAdmin
-                ? (this.list = NoticeData.data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice)))
-                : (this.list = NoticeData.data
-                      .filter((d: NoticeDto) => !d.isHide)
-                      .map((notice: NoticeDto) => plainToInstance(NoticeDto, notice)));
-        });
         await this.api
-            .get(ServerType.API, '/v1/notice', { key: 'value' })
+            .get('/v1/notice', {page:this.page})
             .then((result: AxiosResponse<NoticeDto[]>) => {
                 const data = result.data;
                 runInAction(() => {
-                    this.list = this.me.user.isAdmin
-                        ? data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
-                        : data
-                              .filter((d: NoticeDto) => !d.isHide)
-                              .map((notice: NoticeDto) => plainToInstance(NoticeDto, notice));
+                    data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice));
                 });
             })
             .catch((error: AxiosError) => {
@@ -55,14 +45,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             });
     };
     getDetail = async (id: number) => {
-        if (this.detail.isHide && !this.me.user.isAdmin) window.location.replace(`${pageUrlConfig.notice}`);
-        runInAction(() => {
-            this.detail = plainToInstance(
-                NoticeDto,
-                NoticeData.data.find((notice: NoticeDto) => +notice.id === +id),
-            );
-        });
-
         await this.api
             .get(ServerType.API, `/v1/notice/${id}`)
             .then((result: AxiosResponse<NoticeDto>) => {
@@ -100,10 +82,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             });
     };
     insertList = async (detail: NoticeDto) => {
-        runInAction(() => {
-            this.list = [...this.list, detail];
-        });
-
         await this.api
             .post(ServerType.API, '/v1/notice', detail)
             .then((result: AxiosResponse<NoticeDto>) => {
@@ -111,29 +89,28 @@ export default class NoticeViewModel extends DefaultViewModel {
                 runInAction(() => {
                     this.list = [...this.list, detail];
                 });
-                window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
             })
-            .catch((error: AxiosError) => {
-                console.log(`error : `, error);
-
-                switch (+error.status) {
-                    case 404:
-                        Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () => {
-                            // this.router.replace(pageUrlConfig.signIn)
-                        });
-                        break;
-                    case 500:
-                        Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
-                        break;
-                }
-                return false;
-            });
-    };
-    updateList = async (detail: NoticeDto) => {
-        runInAction(() => {
-            this.detail = detail;
+            window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
+        })
+        .catch((error: AxiosError)=>{
+            console.log(`error : `, error);
+            
+            switch (+error.status){
+                case 404:
+                    Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () =>  {
+                        // this.router.replace(pageUrlConfig.signIn)
+                    });
+                    break;
+                case 500:
+                    Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
+                    break;
+            }
+            return false;
         });
+            
+    }
 
+    updateList = async (detail: NoticeDto) => {
         await this.api
             .put(ServerType.API, `/v1/notice`, detail)
             .then((result: AxiosResponse<NoticeDto>) => {
@@ -163,9 +140,6 @@ export default class NoticeViewModel extends DefaultViewModel {
     };
 
     deleteList = async (id: number) => {
-        runInAction(() => {
-            this.list = this.list.filter((d) => +d.id != id);
-        });
         await this.api
             .delete(ServerType.API, `/v1/notice/${id}`)
             .then((result: AxiosResponse<NoticeDto[]>) => {
@@ -182,17 +156,32 @@ export default class NoticeViewModel extends DefaultViewModel {
             .catch((error) => {
                 console.log('error : ', error);
 
-                switch (+error.code) {
-                    case 404:
-                        Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () => {
-                            // this.router.replace(pageUrlConfig.signIn)
-                        });
-                        break;
-                    case 500:
-                        Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
-                        break;
-                }
-                return false;
-            });
-    };
+            switch (+error.code){
+                case 404:
+                    Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () =>  {
+                        // this.router.replace(pageUrlConfig.signIn)
+                    });
+                    break;
+                case 500:
+                    Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
+                    break;
+            }
+            return false;
+        })
+    }
+
+    handleClickPage = (event: any)=>{
+        const {id} = event.currentTarget.dataset;
+
+        runInAction(()=>{
+            this.page = id;
+        });
+
+        return id;
+    }
+    
+    handleClickOffset = () =>{
+        const offset = this.page+10;
+        return offset;
+    }
 }

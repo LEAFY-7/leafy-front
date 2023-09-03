@@ -71,17 +71,13 @@ const NoticeEditView = () => {
             Alert.alert('제목 또는 내용이 비어있습니다');
             return false;
         }
-        const date = new Date();
-        const detail = {
-            id: id,
+        const data = {
+            id: +id,
             title: title,
-            date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
             content: content,
-            viewCount: '0',
             isHide: checked,
         };
-        console.log(detail);
-        noticeViewModel.updateList(detail);
+        noticeViewModel.updateList(data);
     };
     return (
         <PageContainer>

@@ -21,16 +21,7 @@ const NoticeView = () => {
         noticeViewModel.getMe();
         noticeViewModel.getList();
     }, []);
-    /* 페이지네이션에 필요한 변수들 */
-    //1. PageButton에 들어갈 상태 - 현재 페이지를 데려옴
-    const [page, setPage] = useState<number>(1);
-    //2. 한번에 보여줄 리스트 개수
-    let limit = 2;
-    //3. 한번에 보여줄 리스트의 시작지점
-    const offset = (page - 1) * limit;
 
-    //getMe를 이용해서 등록하기 버튼 분기처리
-    const isAdmin = true; //noticeViewModel.me.isAdmin || false;
     return (
         <PageContainer>
             <Linker href={`${pageUrlConfig.notice}`}>
@@ -49,13 +40,17 @@ const NoticeView = () => {
             </Menu>
 
             <NoticeWrap>
-                {noticeViewModel.list.slice(offset, offset + limit).map((item: NoticeDto) => {
+                {noticeViewModel.list.map((item: NoticeDto) => {
                     return <NoticeList item={item} titleColor="black" />;
                 })}
             </NoticeWrap>
-            <PageButton limit={limit} target={noticeViewModel.list.length} page={page} setPage={setPage} />
+            <PageButton
+                page={noticeViewModel.page}
+                totalPageCount={noticeViewModel.list.length}
+                onClick={noticeViewModel.handleClickPage}
+            />
             <div style={{ display: `flex`, marginLeft: `auto` }}>
-                {isAdmin && (
+                {noticeViewModel.me.isAdmin && (
                     <DefaultButton
                         title="등록하기"
                         isPositive={true}
