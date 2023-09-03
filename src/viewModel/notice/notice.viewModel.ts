@@ -1,7 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 import pageUrlConfig from 'configs/pageUrl.config';
-import { error } from 'console';
 import NoticeData from 'db/notice.json';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
@@ -13,10 +12,12 @@ interface IProps {}
 export default class NoticeViewModel extends DefaultViewModel {
     public list: NoticeDto[] = [];
     public detail: NoticeDto = new NoticeDto();
+    public page:number = 1;
     constructor(props: IProps) {
         super(props);
 
         makeObservable(this, {
+            page:observable,
             list: observable,
             detail: observable,
             getList: action,
@@ -28,23 +29,12 @@ export default class NoticeViewModel extends DefaultViewModel {
     }
 
     getList = async () => {
-        runInAction(() => {
-            this.me.isAdmin ?
-                this.list = NoticeData.data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
-            :
-                this.list = NoticeData.data.filter((d: NoticeDto) => !d.isHide).map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
-            ;
-        });
         await this.api
-            .get('/v1/notice', { key: 'value' })
+            .get('/v1/notice', {page:this.page})
             .then((result: AxiosResponse<NoticeDto[]>) => {
                 const data = result.data;
                 runInAction(() => {
-                    this.list = this.me.isAdmin ?
-                data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
-            :
-                data.filter((d: NoticeDto) => !d.isHide).map((notice: NoticeDto) => plainToInstance(NoticeDto, notice))
-            ;
+                    data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice));
                 });
             })
             .catch((error: AxiosError) => {
@@ -55,13 +45,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             });
     };
     getDetail = async (id: number) => {
-        if(this.detail.isHide && !this.me.isAdmin) window.location.replace(`${pageUrlConfig.notice}`);
-        runInAction(() => {
-            this.detail = plainToInstance(
-                NoticeDto,
-                NoticeData.data.find((notice: NoticeDto) => +notice.id === +id),
-            );
-        });
 
         await this.api
             .get(`/v1/notice/${id}`)
@@ -99,10 +82,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             });
     };
     insertList = async (detail: NoticeDto) => {
-        runInAction(()=>{
-            this.list = [...this.list, detail];
-        })
-        window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
         await this.api
         .post('/v1/notice', detail)
         .then((result: AxiosResponse<NoticeDto>) => {
@@ -130,10 +109,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             
     }
     updateList = async (detail:NoticeDto) => {
-        runInAction(()=>{
-            this.detail = detail;
-        })
-        window.location.replace(`${pageUrlConfig.notice}/${detail.id}`);
 
         await this.api
         .put(`/v1/notice`, detail)
@@ -166,11 +141,6 @@ export default class NoticeViewModel extends DefaultViewModel {
     }
 
     deleteList = async (id: number) => {
-
-        runInAction(() => {
-            this.list = this.list.filter(d => +d.id != id);
-        });
-        window.location.replace(`${pageUrlConfig.notice}`);
         await this.api
         .delete(`/v1/notice/${id}`)
         .then((result: AxiosResponse<NoticeDto[]>)=>{
@@ -198,5 +168,20 @@ export default class NoticeViewModel extends DefaultViewModel {
             }
             return false;
         })
+    }
+
+    handleClickPage = (event: any)=>{
+        const {id} = event.currentTarget.dataset;
+
+        runInAction(()=>{
+            this.page = id;
+        });
+
+        return id;
+    }
+    
+    handleClickOffset = () =>{
+        const offset = this.page+10;
+        return offset;
     }
 }
