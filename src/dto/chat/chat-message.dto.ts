@@ -1,6 +1,9 @@
 import { Expose } from 'class-transformer';
 
-export class MessageDto {
+export class ChatMessageDto {
+    @Expose({ name: 'id' })
+    public readonly id: string = '';
+
     @Expose({ name: 'sender' })
     public readonly sender: number = 0;
 
@@ -11,8 +14,8 @@ export class MessageDto {
     public readonly isRead: boolean = false;
 
     @Expose({ name: 'createdAt' })
-    public readonly createdAt: number = 0;
+    public readonly createdAt: string = '';
 
     @Expose({ name: 'updatedAt' })
-    public readonly updatedAt: number = 0;
+    public readonly updatedAt: string = '';
 }

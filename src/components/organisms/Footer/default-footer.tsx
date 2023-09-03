@@ -14,14 +14,14 @@ const logoPath = process.env.PUBLIC_URL + '/image/logo/default-logo.svg';
 const textPath = process.env.PUBLIC_URL + '/image/logo/text-logo.svg';
 const DefaultFooter = () => {
     return (
-        <Wrapper>
+        <Wrapper id="footer">
             <Flex.RowToColumnOnMobileLg as="nav" justifyContent="space-between" alignItems="center">
                 <Flex.RowToColumnOnMobileSm alignItems="center">
                     <LinkWrapper>
                         <img src={logoPath} style={{ width: '50px', height: '50px' }} />
                     </LinkWrapper>
-                    <LinkButton to={'/'} fontSize="sm">
-                        소개
+                    <LinkButton to={pageUrlConfig.intro} fontSize="sm">
+                        서비스 소개
                     </LinkButton>
                     <LinkButton to={pageUrlConfig.notice} fontSize="sm">
                         고객 센터
@@ -86,22 +86,22 @@ const DefaultFooter = () => {
 };
 
 export default DefaultFooter;
-
 const Wrapper = styled.footer`
     width: 100%;
-    height: 100px;
+    height: 200px;
     background-color: ${theme.palette.bgColor};
     display: flex;
     padding: 16px;
     flex-direction: column;
     z-index: 1;
+    overflow: hidden;
     &::before {
         content: '';
-        width: 100vw;
+        width: 100%;
         height: 1px;
         background-color: ${theme.colors.lgrey_50};
         left: 0;
-        transform: translateY(20%);
+        /* transform: translateY(20%); */
         position: absolute;
     }
 `;

@@ -9,11 +9,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const mobxStore = initializeStore({});
 
 root.render(
-    <React.StrictMode>
-        <Provider {...mobxStore}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <Provider {...mobxStore}>
+        <App />
+    </Provider>,
+    // </React.StrictMode>
 );
 
 reportWebVitals();

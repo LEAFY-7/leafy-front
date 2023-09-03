@@ -10,14 +10,14 @@ type Props = React.PropsWithChildren<AuthTemplateProps> & HTMLAttributes<HTMLEle
 
 const AuthTemplate = ({ children }: Props) => {
     return (
-        <WWrapper variant="translucent" direction="column">
+        <Wrapper variant="translucent" direction="column">
             {children}
-        </WWrapper>
+        </Wrapper>
     );
 };
 export default AuthTemplate;
 
-const WWrapper = styled(Div.Default)`
+const Wrapper = styled(Div.Default)`
     height: auto;
     padding-top: 24px;
     padding-bottom: 24px;

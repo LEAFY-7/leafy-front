@@ -19,13 +19,11 @@ const FeedView = () => {
         feedViewModel.getList();
     }, []);
 
-    console.log(feedViewModel.followers);
-
     return (
         <PageContainer style={{ paddingTop: '80px' }}>
             <Followers list={feedViewModel.followers} />
             <FeedListWrap>
-                {feedViewModel.list.map((feed: FeedDto, key: number) => {
+                {feedViewModel.list.data.map((feed: FeedDto, key: number) => {
                     return (
                         <>
                             <Feed key={`feed_list_${key}`} data={feed} />

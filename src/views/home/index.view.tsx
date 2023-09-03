@@ -3,10 +3,12 @@ import PageContainer from 'components/templates/page-container';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
+
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 import Typography from 'components/atoms/Typograph/default-typography';
 
+import ChatIcon from 'components/atoms/Icon/chat-icon';
 /**
  * 메인페이지
  */
@@ -16,8 +18,9 @@ const HomeView = () => {
 
     useEffect(() => {
         mainViewModel.getMainData();
+        mainViewModel.getMe();
+        // mainViewModel.test();
     }, []);
-
     return (
         <PageContainer>
             <Typography variant="H1" color="primary" textAlign="center">
