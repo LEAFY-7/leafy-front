@@ -1,6 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import pageUrlConfig from 'configs/pageUrl.config';
+import { ServerType } from 'constants/constants';
 import NoticeData from 'db/notice.json';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
@@ -30,7 +31,7 @@ export default class NoticeViewModel extends DefaultViewModel {
 
     getList = async () => {
         await this.api
-            .get('/v1/notice', {page:this.page})
+            .get('/v1/notice', `${this.page}` )
             .then((result: AxiosResponse<NoticeDto[]>) => {
                 const data = result.data;
                 runInAction(() => {
@@ -89,9 +90,8 @@ export default class NoticeViewModel extends DefaultViewModel {
                 runInAction(() => {
                     this.list = [...this.list, detail];
                 });
+                window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
             })
-            window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
-        })
         .catch((error: AxiosError)=>{
             console.log(`error : `, error);
             
