@@ -18,16 +18,16 @@ const SignUpNecessaryForm = () => {
     const { control, handleSubmit, watch } = useForm<SignUphModel>({
         defaultValues: {
             name: authViewModel.authState?.name,
-            nickName: authViewModel.authState?.nickName,
             email: authViewModel.authState?.email,
             password: authViewModel.authState?.password,
             confirmPassword: authViewModel.authState?.confirmPassword,
+            phone: authViewModel.authState?.phone,
         },
     });
 
-    console.log(authViewModel.isEmailCheck, authViewModel.isNickNameCheck);
+    console.log(authViewModel.authState);
     return (
-        <form onSubmit={handleSubmit(authViewModel.handleSignUpNecessary)} noValidate>
+        <form onSubmit={handleSubmit(authViewModel.handleSignUp)} noValidate>
             <Wrapper id="form_wrapper" direction="column">
                 {/* 이름 */}
                 <Controller
@@ -64,56 +64,6 @@ const SignUpNecessaryForm = () => {
                     )}
                 />
                 {/* 이름 */}
-                <Flex.TextFieldFlexWrapper>
-                    {/* 닉네임 */}
-                    <Controller
-                        name={authItemState.nickName.property}
-                        control={control}
-                        defaultValue={authViewModel.authState.nickName}
-                        rules={authFormState.nickName}
-                        render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
-                            <>
-                                <TextField error={!!error}>
-                                    <TextField.Wrapper style={{ height: '100px', width: '80%' }}>
-                                        <TextField.Label required>
-                                            {authItemState.nickName.label}
-                                        </TextField.Label>
-                                        <TextField.Container
-                                            id="nickName_container"
-                                            leftIcon={authItemState.nickName.icon.main}
-                                        >
-                                            <TextField.Input
-                                                value={value}
-                                                type={authItemState.nickName.type}
-                                                placeholder={authItemState.nickName.placeHolder}
-                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                    const { value } = e.target;
-                                                    onChange(value);
-                                                    authViewModel.handleInputChange('nickName', value);
-                                                }}
-                                            />
-                                        </TextField.Container>
-                                        <TextField.HelperText
-                                            leftIcon={authItemState.nickName.icon.helper}
-                                            style={{ padding: '0 8px' }}
-                                        >
-                                            {error?.message}
-                                        </TextField.HelperText>
-                                    </TextField.Wrapper>
-                                </TextField>
-                            </>
-                        )}
-                    />
-                    <RectangleButton
-                        variant="primary"
-                        size="sm"
-                        style={{ width: '15%', height: '30px', transform: 'translateY(110%)' }}
-                        onClick={authViewModel.handleCheckNickName}
-                    >
-                        확인
-                    </RectangleButton>
-                    {/* 닉네임 */}
-                </Flex.TextFieldFlexWrapper>
 
                 <Flex.TextFieldFlexWrapper>
                     {/* 이메일 */}
@@ -235,6 +185,46 @@ const SignUpNecessaryForm = () => {
                     )}
                 />
                 {/* 비밀번호 확인 */}
+
+                <Controller
+                    name={authItemState.phone.property}
+                    control={control}
+                    defaultValue=""
+                    rules={authFormState.phone}
+                    render={({ field: { value, onChange }, fieldState: { error } }) => (
+                        <TextField error={!!error}>
+                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
+                                <TextField.Label required>{authItemState.phone.label}</TextField.Label>
+                                <TextField.Container
+                                    id="phone_container"
+                                    leftIcon={authItemState.phone.icon.main}
+                                >
+                                    <TextField.Input
+                                        id="phone_input"
+                                        value={value}
+                                        type={authItemState.phone.type}
+                                        placeholder={authItemState.phone.placeHolder}
+                                        maxLength={13}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            const onlyNumber = e.target.value
+                                                .replace(/[^0-9]/g, '')
+                                                .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+                                                .replace(/(\-{1,2})$/g, '');
+                                            onChange(onlyNumber);
+                                        }}
+                                    />
+                                </TextField.Container>
+                                <TextField.HelperText
+                                    leftIcon={authItemState.phone.icon.helper}
+                                    style={{ padding: '0 8px' }}
+                                >
+                                    {error?.message}
+                                </TextField.HelperText>
+                            </ResponsiveTextFieldWrapper.AUTH>
+                        </TextField>
+                    )}
+                />
+
                 <div
                     id="submit_btn"
                     style={{
@@ -244,12 +234,8 @@ const SignUpNecessaryForm = () => {
                         padding: '8px',
                     }}
                 >
-                    <SubmitButton
-                        type="submit"
-                        variant="primary"
-                        disabled={!(authViewModel.isEmailCheck && authViewModel.isNickNameCheck)}
-                    >
-                        다음
+                    <SubmitButton type="submit" variant="primary" disabled={!authViewModel.isEmailCheck}>
+                        확인
                     </SubmitButton>
                 </div>
             </Wrapper>

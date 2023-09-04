@@ -1,7 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import AuthViewModel from 'viewModel/auth/auth.viewModel';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import * as Styled from './background.styles';
 import pageUrlConfig from 'configs/pageUrl.config';
 
@@ -11,20 +8,21 @@ import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 
+<<<<<<< HEAD
 import SignInDefaultForm from './signin-default-form';
 import { OauthType } from 'constants/constants';
 import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
+=======
+import SignInForm from './signin-form';
+>>>>>>> bdf2d5f ([REFACTOR] 로그인,회원가입,아이디찾기,비밀번호찾기 리팩토링)
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 const IconUrl = process.env.PUBLIC_URL + '/image/icons';
 const SignInView = () => {
-    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
-
     React.useEffect(() => {
-        authViewModel.handleTimeoutId();
-        return () => clearTimeout(authViewModel.handleTimeoutId());
-    }, [authViewModel.isActive]);
-
+        const code = new URL(window.location.href).searchParams.get('code');
+        console.log('리턴', code);
+    }, [, window.location.href]);
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh', minHeight: 0 }}>
             <AuthTemplate>
@@ -47,6 +45,7 @@ const SignInView = () => {
                         <img src={`${IconUrl}/kakao.svg`} style={{ width: '30px' }} />
                     </DefaultAnchor>
                 </Flex.RowToColumnOnTabletMd>
+                <SignInForm />
                 <RectangleButton
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
@@ -65,21 +64,9 @@ const SignInView = () => {
                         textAlign="center"
                         marginTop={4}
                         width="max-content"
+                        to={`${pageUrlConfig.auth}${pageUrlConfig.find}`}
                     >
                         아이디를 찾으시겠습니까?
-                    </Typography>
-                    <Typography
-                        as="p"
-                        variant="BODY3"
-                        to={`${pageUrlConfig.auth}${pageUrlConfig.find}`}
-                        color="grey"
-                        fontWeight="bold"
-                        fontSize="sm"
-                        textAlign="center"
-                        marginTop={16}
-                        width="auto"
-                    >
-                        아이디 찾기
                     </Typography>
                 </Flex.Default>
             </AuthTemplate>
@@ -89,4 +76,4 @@ const SignInView = () => {
     );
 };
 
-export default observer(SignInView);
+export default SignInView;
