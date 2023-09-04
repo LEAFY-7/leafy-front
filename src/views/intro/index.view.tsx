@@ -8,7 +8,7 @@ import PageContainer from 'components/templates/page-container';
 import Youtube from 'components/molecules/Youtube/youtube';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
-import SmoothAnchor from 'components/atoms/Anchor/smooth-anchor';
+import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
 
 const publicUrl = process.env.PUBLIC_URL + '/image/background/';
 const youtubeUrl = 'https://www.youtube.com/embed/cjieummbZeA?si=kU-aa1Xg7f6aL3z';
@@ -39,9 +39,9 @@ const IntroView = () => {
                     </h1>
                     <h3 style={{ fontSize: '48px', zIndex: 9, display: 'inline-block' }}>그린라이프</h3> */}
 
-                    <SmoothAnchor href="#section2" style={{ position: 'absolute', right: 0, bottom: 0 }}>
+                    <DefaultAnchor href="#section2" style={{ position: 'absolute', right: 0, bottom: 0 }}>
                         <BottomArrow size={30} color="gray" />
-                    </SmoothAnchor>
+                    </DefaultAnchor>
                 </CommonSection>
                 <section
                     id="section2"
@@ -71,12 +71,12 @@ const IntroView = () => {
                         }}
                     />
 
-                    <SmoothAnchor
+                    <DefaultAnchor
                         href="#section3"
                         style={{ position: 'absolute', right: 0, bottom: 0, zIndex: 90 }}
                     >
                         <BottomArrow size={30} color="gray" />
-                    </SmoothAnchor>
+                    </DefaultAnchor>
                 </section>
 
                 <CommonSection
@@ -90,9 +90,9 @@ const IntroView = () => {
                         position: 'relative',
                     }}
                 >
-                    <SmoothAnchor href="#section4" style={{ position: 'absolute', right: 0, bottom: 0 }}>
+                    <DefaultAnchor href="#section4" style={{ position: 'absolute', right: 0, bottom: 0 }}>
                         <BottomArrow size={30} color="gray" />
-                    </SmoothAnchor>
+                    </DefaultAnchor>
                 </CommonSection>
 
                 <CommonSection
