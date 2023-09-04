@@ -4,20 +4,24 @@ import styled from '@emotion/styled';
 
 interface AnchorProps {
     href?: string;
+    target?: string;
 }
 
 type Props = React.PropsWithChildren<AnchorProps> & HTMLAttributes<HTMLAnchorElement>;
 
-const SmoothAnchor = ({ href, children, ...rest }: Props) => {
+const DefaultAnchor = ({ href, target, children, ...rest }: Props) => {
     return (
-        <Anchor href={href} {...rest}>
+        <Anchor href={href} target={target} {...rest}>
             {children}
         </Anchor>
     );
 };
-export default SmoothAnchor;
+export default DefaultAnchor;
 
 const Anchor = styled.a`
     width: 50px;
     height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

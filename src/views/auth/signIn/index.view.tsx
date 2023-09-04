@@ -12,9 +12,11 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 import SignInDefaultForm from './signin-default-form';
+import { OauthType } from 'constants/constants';
+import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
-
+const IconUrl = process.env.PUBLIC_URL + '/image/icons';
 const SignInView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
@@ -37,6 +39,14 @@ const SignInView = () => {
                     식집사님 오늘은 어떤 식물을 보러 오셨나요?
                 </Typography>
                 <SignInDefaultForm />
+                <Flex.RowToColumnOnTabletMd style={{ gap: '8px' }}>
+                    <DefaultAnchor href={OauthType.GOOGLE} target="_blank" style={{ width: 'auto' }}>
+                        <img src={`${IconUrl}/google.svg`} style={{ width: '30px' }} />
+                    </DefaultAnchor>
+                    <DefaultAnchor href={OauthType.KAKAO} target="_blank" style={{ width: 'auto' }}>
+                        <img src={`${IconUrl}/kakao.svg`} style={{ width: '30px' }} />
+                    </DefaultAnchor>
+                </Flex.RowToColumnOnTabletMd>
                 <RectangleButton
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
@@ -45,6 +55,7 @@ const SignInView = () => {
                 >
                     회원가입 바로가기
                 </RectangleButton>
+
                 <Flex.Default direction="column">
                     <Typography
                         as="p"
