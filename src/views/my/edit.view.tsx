@@ -61,7 +61,7 @@ const MyEditView = () => {
                     회원 정보 수정
                 </Container.Header>
                 <Container.HeaderLine marginTop={16} marginBottom={32} />
-                <Container.Inner innerHeight={100}>
+                <Container.Body innerHeight={100}>
                     <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
                         <LeftSection className="left_section">
                             {/* 이미지 저장 */}
@@ -564,7 +564,7 @@ const MyEditView = () => {
                             </form>
                         </RightSection>
                     </Flex.RowToColumnOnTabletSm>
-                </Container.Inner>
+                </Container.Body>
             </Container>
         </PageContainer>
     );

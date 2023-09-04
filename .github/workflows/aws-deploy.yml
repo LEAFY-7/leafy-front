@@ -22,9 +22,13 @@ jobs:
               run: |
                   echo "REACT_APP_MODE=${{ secrets.REACT_APP_MODE }}" >> .env.production
                   echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env.production
+                  echo "REACT_APP_CHAT_URL=${{ secrets.REACT_APP_CHAT_URL }}" >> .env.production
+                  echo "REACT_APP_CHAT_ENDPOINT=${{ secrets.REACT_APP_CHAT_ENDPOINT }}" >> .env.production
               env:
                   REACT_APP_MODE: ${{ secrets.REACT_APP_MODE }}
                   REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+                  REACT_APP_CHAT_URL: ${{ secrets.REACT_APP_CHAT_URL }}
+                  REACT_APP_CHAT_ENDPOINT: ${{ secrets.REACT_APP_CHAT_ENDPOINT }}
 
             - name: Install Dependencies
               run: npm install
