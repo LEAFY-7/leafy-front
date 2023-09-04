@@ -1,7 +1,7 @@
 import type { HTMLAttributes, FormEventHandler, ChangeEvent } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import { SignUphModel } from 'models/auth/signUp.model';
 import { authFormState, authItemState } from 'configs/form.config';
@@ -12,18 +12,25 @@ import RectangleButton from 'components/atoms/Button/rectangle-button';
 import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 interface FormProps {
-    handleSubmit: FormEventHandler<HTMLFormElement>;
-    control: Control<SignUphModel, any>;
+    handleFindEmail: FormEventHandler<HTMLFormElement>;
     name: string;
     phone: string;
 }
 
 type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
 
-const FindEmailForm = ({ name = '', phone = '', control, handleSubmit }: Props) => {
+const FindEmailForm = ({ name = '', phone = '', handleFindEmail }: Props) => {
+    const { control, handleSubmit } = useForm<SignUphModel>({
+        defaultValues: {
+            name: '',
+            phone: '',
+            email: '',
+        },
+    });
+
     return (
         <>
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={handleSubmit(handleFindEmail)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
                     <Controller
                         name={authItemState.name.property}
