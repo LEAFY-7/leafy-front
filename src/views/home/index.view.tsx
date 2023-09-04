@@ -17,7 +17,7 @@ const HomeView = () => {
     const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
-        mainViewModel.getMainData();
+        // mainViewModel.getMainData();
         // mainViewModel.getMe();
         //mainViewModel.test();
     }, []);
