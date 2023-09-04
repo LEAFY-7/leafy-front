@@ -17,6 +17,8 @@ import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
+import FindEmailForm from 'components/organisms/Form/find-email-form';
+import FindPwdForm from 'components/organisms/Form/find-pwd-form';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 
@@ -51,100 +53,12 @@ const FindView = () => {
                             이메일을 찾으시겠습니까?
                         </Typography>
 
-                        <form onSubmit={handleSubmit(authViewModel.handleFindEmail)} noValidate>
-                            <Wrapper id="form_wrapper" direction="column">
-                                <Controller
-                                    name={authItemState.name.property}
-                                    control={control}
-                                    defaultValue={''}
-                                    rules={authFormState.name}
-                                    render={({
-                                        field: { value, onChange },
-                                        fieldState: { error, isDirty },
-                                    }) => (
-                                        <TextField error={!!error}>
-                                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
-                                                <TextField.Label required>
-                                                    {authItemState.name.label}
-                                                </TextField.Label>
-                                                <TextField.Container
-                                                    id="name_container"
-                                                    leftIcon={authItemState.name.icon.main}
-                                                >
-                                                    <TextField.Input
-                                                        value={value}
-                                                        type={authItemState.name.type}
-                                                        placeholder={authItemState.name.placeHolder}
-                                                        onChange={(
-                                                            e: React.ChangeEvent<HTMLInputElement>,
-                                                        ) => {
-                                                            const { value } = e.target;
-                                                            onChange(value);
-                                                        }}
-                                                    />
-                                                </TextField.Container>
-                                                <TextField.HelperText
-                                                    leftIcon={authItemState.name.icon.helper}
-                                                    style={{ padding: '0 8px' }}
-                                                >
-                                                    {error?.message}
-                                                </TextField.HelperText>
-                                            </ResponsiveTextFieldWrapper.AUTH>
-                                        </TextField>
-                                    )}
-                                />
-                                <Controller
-                                    name={authItemState.phone.property}
-                                    control={control}
-                                    defaultValue=""
-                                    rules={authFormState.phone}
-                                    render={({ field: { value, onChange }, fieldState: { error } }) => (
-                                        <TextField error={!!error}>
-                                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
-                                                <TextField.Label required>
-                                                    {authItemState.phone.label}
-                                                </TextField.Label>
-                                                <TextField.Container
-                                                    id="phone_container"
-                                                    leftIcon={authItemState.phone.icon.main}
-                                                >
-                                                    <TextField.Input
-                                                        id="phone_input"
-                                                        value={value}
-                                                        type={authItemState.phone.type}
-                                                        placeholder={authItemState.phone.placeHolder}
-                                                        maxLength={13}
-                                                        onChange={(
-                                                            e: React.ChangeEvent<HTMLInputElement>,
-                                                        ) => {
-                                                            const onlyNumber = e.target.value
-                                                                .replace(/[^0-9]/g, '')
-                                                                .replace(
-                                                                    /^(\d{0,3})(\d{0,4})(\d{0,4})$/g,
-                                                                    '$1-$2-$3',
-                                                                )
-                                                                .replace(/(\-{1,2})$/g, '');
-                                                            onChange(onlyNumber);
-                                                        }}
-                                                    />
-                                                </TextField.Container>
-                                                <TextField.HelperText
-                                                    leftIcon={authItemState.phone.icon.helper}
-                                                    style={{ padding: '0 8px' }}
-                                                >
-                                                    {error?.message}
-                                                </TextField.HelperText>
-                                            </ResponsiveTextFieldWrapper.AUTH>
-                                        </TextField>
-                                    )}
-                                />
-                                <ButtonWrapper>
-                                    <SubmitButton type="submit" variant="primary">
-                                        이메일 찾기
-                                    </SubmitButton>
-                                </ButtonWrapper>
-                            </Wrapper>
-                        </form>
+                        <FindEmailForm
+                            handleSubmit={handleSubmit(authViewModel.handleFindEmail)}
+                            control={control}
+                            name={authViewModel.authState.name}
+                            phone={authViewModel.authState.phone}
+                        />
 
                         <RectangleButton
                             size="md"
@@ -170,100 +84,14 @@ const FindView = () => {
                         >
                             비밀번호를 찾으시겠습니까?
                         </Typography>
-                        <form aria-label="find-pwd" noValidate>
-                            <Wrapper id="form_wrapper" direction="column">
-                                <Controller
-                                    name={authItemState.name.property}
-                                    control={control}
-                                    defaultValue={''}
-                                    rules={authFormState.name}
-                                    render={({
-                                        field: { value, onChange },
-                                        fieldState: { error, isDirty },
-                                    }) => (
-                                        <TextField error={!!error}>
-                                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
-                                                <TextField.Label required>
-                                                    {authItemState.name.label}
-                                                </TextField.Label>
-                                                <TextField.Container
-                                                    id="name_container"
-                                                    leftIcon={authItemState.name.icon.main}
-                                                >
-                                                    <TextField.Input
-                                                        value={value}
-                                                        type={authItemState.name.type}
-                                                        placeholder={authItemState.name.placeHolder}
-                                                        onChange={(
-                                                            e: React.ChangeEvent<HTMLInputElement>,
-                                                        ) => {
-                                                            const { value } = e.target;
-                                                            onChange(value);
-                                                        }}
-                                                    />
-                                                </TextField.Container>
-                                                <TextField.HelperText
-                                                    leftIcon={authItemState.name.icon.helper}
-                                                    style={{ padding: '0 8px' }}
-                                                >
-                                                    {error?.message}
-                                                </TextField.HelperText>
-                                            </ResponsiveTextFieldWrapper.AUTH>
-                                        </TextField>
-                                    )}
-                                />
-                                <Controller
-                                    name={authItemState.phone.property}
-                                    control={control}
-                                    defaultValue=""
-                                    rules={authFormState.phone}
-                                    render={({ field: { value, onChange }, fieldState: { error } }) => (
-                                        <TextField error={!!error}>
-                                            <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
-                                                <TextField.Label required>
-                                                    {authItemState.phone.label}
-                                                </TextField.Label>
-                                                <TextField.Container
-                                                    id="phone_container"
-                                                    leftIcon={authItemState.phone.icon.main}
-                                                >
-                                                    <TextField.Input
-                                                        id="phone_input"
-                                                        value={value}
-                                                        type={authItemState.phone.type}
-                                                        placeholder={authItemState.phone.placeHolder}
-                                                        maxLength={13}
-                                                        onChange={(
-                                                            e: React.ChangeEvent<HTMLInputElement>,
-                                                        ) => {
-                                                            const onlyNumber = e.target.value
-                                                                .replace(/[^0-9]/g, '')
-                                                                .replace(
-                                                                    /^(\d{0,3})(\d{0,4})(\d{0,4})$/g,
-                                                                    '$1-$2-$3',
-                                                                )
-                                                                .replace(/(\-{1,2})$/g, '');
-                                                            onChange(onlyNumber);
-                                                        }}
-                                                    />
-                                                </TextField.Container>
-                                                <TextField.HelperText
-                                                    leftIcon={authItemState.phone.icon.helper}
-                                                    style={{ padding: '0 8px' }}
-                                                >
-                                                    {error?.message}
-                                                </TextField.HelperText>
-                                            </ResponsiveTextFieldWrapper.AUTH>
-                                        </TextField>
-                                    )}
-                                />
-                                <ButtonWrapper>
-                                    <SubmitButton type="submit" variant="primary">
-                                        비밀번호 찾기
-                                    </SubmitButton>
-                                </ButtonWrapper>
-                            </Wrapper>
-                        </form>
+
+                        <FindPwdForm
+                            handleSubmit={handleSubmit(authViewModel.handleFindEmail)}
+                            control={control}
+                            name={authViewModel.authState.name}
+                            phone={authViewModel.authState.phone}
+                            email={authViewModel.authState.email}
+                        />
                         <RectangleButton
                             size="md"
                             backgroundColor="transparent"
