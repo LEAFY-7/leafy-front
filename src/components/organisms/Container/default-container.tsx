@@ -41,7 +41,7 @@ interface HeaderLineProps {
     marginLeft?: number;
 }
 
-interface InnerProps {
+interface BodyProps {
     innerVariant?: 'default' | 'primary' | 'secondary' | 'translucent';
     justifyContent?: CSSProperties['justifyContent'];
     alignItems?: CSSProperties['alignItems'];
@@ -52,7 +52,7 @@ interface InnerProps {
 type ContainerWrapperProps = React.PropsWithChildren<WrapperProps> & HTMLAttributes<HTMLElement>;
 type ContainerHeaderProps = React.PropsWithChildren<HeaderProps>;
 type ContainerHeaderLineProps = React.PropsWithChildren<HeaderLineProps> & HTMLAttributes<HTMLHRElement>;
-type ContainerInnerProps = React.PropsWithChildren<InnerProps>;
+type ContainerBodyProps = React.PropsWithChildren<BodyProps>;
 
 // Wrapper
 const ContainerWrapper = ({
@@ -150,14 +150,14 @@ const ContainerHeaderLine = ({
 };
 
 // Inner
-const ContainerInner = ({
+const ContainerBody = ({
     innerHeight = 'inherit',
     innerVariant = 'default',
     justifyContent = 'flex-start',
     alignItems = 'center',
     children,
     ...rest
-}: ContainerInnerProps) => {
+}: ContainerBodyProps) => {
     const newInnerHeight = innerHeight === 'number' ? `${innerHeight}%` : innerHeight;
 
     return (
@@ -177,7 +177,7 @@ const ContainerInner = ({
 const Container = Object.assign(ContainerWrapper, {
     Header: ContainerHeader,
     HeaderLine: ContainerHeaderLine,
-    Inner: ContainerInner,
+    Body: ContainerBody,
 });
 
 export default Container;

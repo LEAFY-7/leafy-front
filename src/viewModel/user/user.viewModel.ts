@@ -19,11 +19,22 @@ export default class UserViewModel extends DefaultViewModel {
             getUser: action,
         });
     }
+    getMyPage = () => {
+        return this.api
+            .get(ServerType.API, '/v1/users/my-page')
+            .then((result: AxiosResponse<any>) => {
+                console.log(result);
+            })
+            .catch((error: AxiosError) => {
+                console.log(error);
+            });
+    };
 
     getUser = async (userId: number) => {
         await this.api
             .get(ServerType.API, '/v1/users', userId)
             .then((result: AxiosResponse<UserDto>) => {
+                console.log('받은 데이터', result.data);
                 runInAction(() => {
                     this.user = plainToInstance(UserDto, result.data);
                 });
