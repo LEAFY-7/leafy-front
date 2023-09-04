@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React, { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { css } from '@emotion/react';
 import { theme } from 'configs/ui.config';
 
@@ -8,7 +9,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     size?: 'sm' | 'md' | 'lg';
 }
 
-const TextAvatar = React.forwardRef(function TextAvatar(
+const TextAvatar = forwardRef(function TextAvatar(
     { text, size = 'md' }: Props,
     forwardedRef: React.Ref<HTMLDivElement>,
 ) {
