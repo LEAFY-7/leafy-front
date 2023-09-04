@@ -32,8 +32,8 @@ const user = {
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
     useEffect(() => {
-        userViewModel.getMe();
-        userViewModel.getMyPage();
+        // userViewModel.getMe();
+        // userViewModel.getMyPage();
     }, []);
 
     console.log(userViewModel.me);

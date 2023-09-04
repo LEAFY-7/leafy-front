@@ -18,8 +18,8 @@ const HomeView = () => {
 
     useEffect(() => {
         mainViewModel.getMainData();
-        mainViewModel.getMe();
-        // mainViewModel.test();
+        // mainViewModel.getMe();
+        //mainViewModel.test();
     }, []);
     return (
         <PageContainer>
