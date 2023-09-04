@@ -8,20 +8,17 @@ import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 
-<<<<<<< HEAD
-import SignInDefaultForm from './signin-default-form';
 import { OauthType } from 'constants/constants';
 import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
-=======
-import SignInForm from './signin-form';
->>>>>>> bdf2d5f ([REFACTOR] 로그인,회원가입,아이디찾기,비밀번호찾기 리팩토링)
+import SigninForm from './signin-form';
 
 const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 const IconUrl = process.env.PUBLIC_URL + '/image/icons';
 const SignInView = () => {
     React.useEffect(() => {
         const code = new URL(window.location.href).searchParams.get('code');
-        console.log('리턴', code);
+        if (!code) return;
+        //
     }, [, window.location.href]);
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh', minHeight: 0 }}>
@@ -36,7 +33,7 @@ const SignInView = () => {
                 >
                     식집사님 오늘은 어떤 식물을 보러 오셨나요?
                 </Typography>
-                <SignInDefaultForm />
+                <SigninForm />
                 <Flex.RowToColumnOnTabletMd style={{ gap: '8px' }}>
                     <DefaultAnchor href={OauthType.GOOGLE} target="_blank" style={{ width: 'auto' }}>
                         <img src={`${IconUrl}/google.svg`} style={{ width: '30px' }} />
@@ -45,7 +42,6 @@ const SignInView = () => {
                         <img src={`${IconUrl}/kakao.svg`} style={{ width: '30px' }} />
                     </DefaultAnchor>
                 </Flex.RowToColumnOnTabletMd>
-                <SignInForm />
                 <RectangleButton
                     size="md"
                     to={`${pageUrlConfig.auth}${pageUrlConfig.signUp}`}
