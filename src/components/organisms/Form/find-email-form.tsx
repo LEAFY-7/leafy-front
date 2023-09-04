@@ -24,7 +24,6 @@ const FindEmailForm = ({ name = '', phone = '', handleFindEmail }: Props) => {
         defaultValues: {
             name: '',
             phone: '',
-            email: '',
         },
     });
 
