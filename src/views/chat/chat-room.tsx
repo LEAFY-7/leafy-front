@@ -21,7 +21,7 @@ import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import ChatSend from './chat-send';
-import ErrorBoundary from 'components/organisms/Error/ErrorBoundary';
+import ErrorBoundary from 'components/organisms/Error/errorBoundary';
 
 const ChatRoom = () => {
     const chatViewModel: ChatViewModel = useViewModel(ViewModelName.CHAT);
