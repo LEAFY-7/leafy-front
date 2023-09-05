@@ -23,7 +23,7 @@ export default class UserViewModel extends DefaultViewModel {
         return this.api
             .get(ServerType.API, '/v1/users/my-page')
             .then((result: AxiosResponse<any>) => {
-                console.log(result);
+                console.log('마이', result);
             })
             .catch((error: AxiosError) => {
                 console.log(error);

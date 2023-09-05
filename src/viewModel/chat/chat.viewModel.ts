@@ -7,7 +7,7 @@ import io, { Socket } from 'socket.io-client';
 
 import { ChatMessageDto } from 'dto/chat/chat-message.dto';
 import { ChatRoomModel } from 'models/chat/chatRoom.model';
-import formatDate from 'modules/formatDate.module';
+import formatDate from 'utils/formatDate';
 import tokenModule from 'modules/token.module';
 import DefaultViewModel from 'viewModel/default.viewModel';
 

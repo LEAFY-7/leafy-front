@@ -1,8 +1,8 @@
 import { Theme, css } from '@emotion/react';
 
 export const variantStyles = {
-    default: ({ palette }: Theme) => css`
-        background-color: ${palette.default.backgroundColor};
+    default: ({ palette, colors }: Theme) => css`
+        background-color: ${colors.transparent};
         color: ${palette.text.black};
     `,
     primary: ({ palette }: Theme) => css`

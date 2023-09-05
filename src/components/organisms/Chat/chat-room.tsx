@@ -2,7 +2,7 @@ import type { CSSProperties, HTMLAttributes, HtmlHTMLAttributes } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import formatDate from 'modules/formatDate.module';
+import formatDate from 'utils/formatDate';
 import Flex from 'components/atoms/Group/flex';
 
 interface ContextProps {
