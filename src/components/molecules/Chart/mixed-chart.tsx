@@ -10,7 +10,6 @@ const MixedChart = ({ chartList, ...rest }: Props) => {
     const chartRef = React.useRef(null);
     const chartInstanceRef = React.useRef(null);
 
-    console.log('프롭', chartList);
     React.useEffect(() => {
         const year = new Date().getFullYear();
         const canvas = chartRef.current;
@@ -22,7 +21,6 @@ const MixedChart = ({ chartList, ...rest }: Props) => {
         if (chartInstanceRef.current) {
             chartInstanceRef.current.destroy();
         }
-        console.log(labels, data);
 
         const newChart = new Chart(ctx, {
             type: 'bar',
