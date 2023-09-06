@@ -8,5 +8,5 @@ export default class FeedActivityDto {
     public readonly month: number = 0;
 
     @Expose({ name: 'count' })
-    public readonly count: number = 0;
+    public count: number = 0;
 }

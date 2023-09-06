@@ -19,19 +19,7 @@ import UserViewModel from 'viewModel/user/user.viewModel';
 import tokenModule from 'modules/token.module';
 import UserLabel from 'components/organisms/Profile/user-label';
 import Table from 'components/molecules/Table/default-table';
-import MixedChart from 'components/molecules/Cart/mixed-chart';
-
-const user = {
-    name: '홍길동',
-    nickName: '홍__길__동123',
-    email: 'test@test.com',
-    phone: '010-1234-5678',
-    birthDay: '2023-07-29',
-    address: '경기도 부천시',
-    introduction: '응 어서오고~~',
-    img: '',
-    bgImg: '',
-};
+import MixedChart from 'components/molecules/Chart/mixed-chart';
 
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
@@ -39,7 +27,8 @@ const MyView = () => {
         userViewModel.getMe();
         userViewModel.getMyPage();
     }, []);
-    console.log(userViewModel.me);
+
+    console.log('차트', userViewModel.chartList);
 
     return (
         <PageContainer
@@ -52,26 +41,34 @@ const MyView = () => {
                 alignItems="center"
                 style={{ width: '100%', gap: '16px' }}
             >
-                <Container id="myInfo" as="section" wrapperHeight={'540px'}>
+                <Container id="myInfo" as="section" wrapperHeight={'650px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         나의 정보
                     </Container.Header>
                     <Container.Body innerHeight={100}>
                         <Flex.RowToColumnOnTabletSm
                             id="myInfo_wrapper"
-                            style={{ width: '100%', height: '100%', gap: '16px' }}
+                            as="div"
+                            style={{ height: '100%', width: '100%', gap: '16px' }}
                         >
-                            <Div.Default
+                            <MyInfoContent
                                 id="myInfo_left"
-                                width={100}
-                                height={100}
-                                direction="column"
-                                alignItems="flex-start"
-                                // justifyContent='flex-start'
-                                style={{ position: 'relative' }}
+                                style={{
+                                    justifyContent: 'space-around',
+                                    position: 'relative',
+                                }}
                             >
                                 <UserLabel user={userViewModel.me.user} />
-                                <Flex.Default as="div" style={{ position: 'absolute', right: 0, bottom: 0 }}>
+                                <Flex.Default
+                                    as="div"
+                                    direction="row-reverse"
+                                    style={{
+                                        width: 'max-content',
+                                        position: 'absolute',
+                                        right: 0,
+                                        bottom: 0,
+                                    }}
+                                >
                                     <RectangleButton
                                         to={pageUrlConfig.myEdit}
                                         backgroundColor="white"
@@ -79,21 +76,10 @@ const MyView = () => {
                                     >
                                         내 정보 수정하러가기
                                     </RectangleButton>
-                                    {/* <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
-                                        채팅 하러 가기
-                                    </DropButton> */}
                                 </Flex.Default>
-                            </Div.Default>
+                            </MyInfoContent>
 
-                            <div
-                                id="myInfo_right"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                }}
-                            >
+                            <MyInfoContent id="myInfo_right">
                                 <Table id="myData_table">
                                     <Table.Head>
                                         <Table.Tr
@@ -122,8 +108,8 @@ const MyView = () => {
                                         </Table.Tr>
                                     </Table.Body>
                                 </Table>
-                                <MixedChart />
-                            </div>
+                                <MixedChart chartList={userViewModel.chartList} />
+                            </MyInfoContent>
                         </Flex.RowToColumnOnTabletSm>
                     </Container.Body>
                 </Container>
@@ -171,12 +157,15 @@ const MyView = () => {
 
 export default observer(MyView);
 
-const Label = styled.label`
-    width: 100px;
-    font-size: ${theme.fontSize.lg};
-    color: ${theme.colors.grey};
+const MyInfoContent = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
-const LabelWrapper = styled(Flex.Default)`
-    margin-bottom: 16px;
-`;
+{
+    /* <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
+                                        채팅 하러 가기
+                                    </DropButton> */
+}
