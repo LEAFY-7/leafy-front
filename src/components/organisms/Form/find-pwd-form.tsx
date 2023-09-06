@@ -1,6 +1,6 @@
 import type { HTMLAttributes, FormEventHandler, ChangeEvent } from 'react';
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 
 import { SignUphModel } from 'models/auth/signUp.model';
@@ -12,8 +12,7 @@ import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 
 interface FormProps {
-    handleSubmit: FormEventHandler<HTMLFormElement>;
-    control: Control<SignUphModel, any>;
+    handleFindPwd: FormEventHandler<HTMLFormElement>;
     email: string;
     name: string;
     phone: string;
@@ -21,9 +20,17 @@ interface FormProps {
 
 type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
 
-const FindPwdForm = ({ handleSubmit, control, email = '', name = '', phone = '' }: Props) => {
+const FindPwdForm = ({ handleFindPwd = undefined, email = '', name = '', phone = '' }: Props) => {
+    const { control, handleSubmit } = useForm<SignUphModel>({
+        defaultValues: {
+            name: '',
+            phone: '',
+            email: '',
+        },
+    });
+
     return (
-        <form aria-label="find-pwd" noValidate>
+        <form aria-label="find-pwd" onSubmit={handleSubmit(handleFindPwd)} noValidate>
             <Wrapper id="form_wrapper" direction="column">
                 <Controller
                     name={authItemState.name.property}

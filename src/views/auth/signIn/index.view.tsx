@@ -1,9 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { useForm } from 'react-hook-form';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
-import { SignInModel } from 'models/auth/signIn.model';
 
 import pageUrlConfig from 'configs/pageUrl.config';
 import { OauthType } from 'constants/constants';
@@ -21,13 +19,6 @@ const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 const IconUrl = process.env.PUBLIC_URL + '/image/icons';
 const SignInView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
-
-    const { control, handleSubmit } = useForm<SignInModel>({
-        defaultValues: {
-            email: '',
-            password: '',
-        },
-    });
 
     React.useEffect(() => {
         const code = new URL(window.location.href).searchParams.get('code');
@@ -49,10 +40,9 @@ const SignInView = () => {
                     식집사님 오늘은 어떤 식물을 보러 오셨나요?
                 </Typography>
                 <SignInForm
-                    handleSubmit={handleSubmit(authViewModel.handleSignIn)}
-                    control={control}
                     email={authViewModel.authState.email}
                     password={authViewModel.authState.password}
+                    handleSignIn={authViewModel.handleSignIn}
                 />
                 <Flex.RowToColumnOnTabletMd style={{ gap: '8px' }}>
                     <DefaultAnchor href={OauthType.GOOGLE} target="_blank" style={{ width: 'auto' }}>

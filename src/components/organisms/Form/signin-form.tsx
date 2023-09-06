@@ -1,6 +1,6 @@
 import type { FormEventHandler, HTMLAttributes, ChangeEvent } from 'react';
 import styled from '@emotion/styled';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, useForm } from 'react-hook-form';
 import { SignInModel } from 'models/auth/signIn.model';
 import { authItemState } from 'configs/form.config';
 
@@ -10,18 +10,23 @@ import TextField from 'components/molecules/TextField/default-textField';
 import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 interface FormProps {
-    handleSubmit: FormEventHandler<HTMLFormElement>;
-    control: Control<SignInModel, any>;
+    handleSignIn: FormEventHandler<HTMLFormElement>;
     email: string;
     password: string;
 }
 
 type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
 
-const SignInForm = ({ control, email = '', password = '', handleSubmit }: Props) => {
+const SignInForm = ({ email = '', password = '', handleSignIn }: Props) => {
+    const { control, handleSubmit } = useForm<SignInModel>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
     return (
         <>
-            <form aria-label="signin" onSubmit={handleSubmit} noValidate>
+            <form aria-label="signin" onSubmit={handleSubmit(handleSignIn)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
                     {/* 이메일 */}
                     <Controller

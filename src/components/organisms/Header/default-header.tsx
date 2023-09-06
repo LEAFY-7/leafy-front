@@ -176,6 +176,7 @@ const MenuList = styled(Flyout.List)`
     position: relative;
     border-radius: 4px;
     box-shadow: 5px 5px 10px rgba(14, 17, 27, 0.15);
+    background-color: white;
 `;
 
 const AlarmItem = styled(Flyout.Item)`

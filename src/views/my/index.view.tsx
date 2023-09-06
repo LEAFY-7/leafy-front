@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import pageUrlConfig from 'configs/pageUrl.config';
 
@@ -16,6 +17,9 @@ import UserInfomation from 'components/organisms/Profile/user-infomation';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
 import tokenModule from 'modules/token.module';
+import UserLabel from 'components/organisms/Profile/user-label';
+import Table from 'components/molecules/Table/default-table';
+import MixedChart from 'components/molecules/Cart/mixed-chart';
 
 const user = {
     name: '홍길동',
@@ -32,32 +36,16 @@ const user = {
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
     useEffect(() => {
-        // userViewModel.getMe();
-        // userViewModel.getMyPage();
+        userViewModel.getMe();
+        userViewModel.getMyPage();
     }, []);
-
     console.log(userViewModel.me);
+
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
         >
             <UserInfomation data={userViewModel.me} />
-            {/* <BoxWithBackgroundImage as="section" height="280px">
-                <BgImg
-                    src={user.bgImg ? user.bgImg : `${publicUrl}/image/default/default-user-bg.svg`}
-                    alt="기본 이미지"
-                />
-
-                <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
-                    {user?.img ? (
-                        <AuthImg src={user.img} alt="기본 이미지" />
-                    ) : (
-                        <AuthImg src={`${publicUrl}/image/default/default-auth-img.svg`} alt="기본 이미지" />
-                    )}
-                    <IntroductionBox>{user.introduction}</IntroductionBox>
-                </Flex.RowToColumnOnTabletSm>
-            </BoxWithBackgroundImage> */}
-
             <Flex.Default
                 as="main"
                 direction="column"
@@ -79,44 +67,10 @@ const MyView = () => {
                                 height={100}
                                 direction="column"
                                 alignItems="flex-start"
+                                // justifyContent='flex-start'
                                 style={{ position: 'relative' }}
                             >
-                                <LabelWrapper>
-                                    <Label htmlFor="name">이름</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.name}
-                                    </Typography>
-                                </LabelWrapper>
-                                <LabelWrapper>
-                                    <Label htmlFor="nickName">닉네임</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.nickName}
-                                    </Typography>
-                                </LabelWrapper>
-                                <LabelWrapper>
-                                    <Label htmlFor="eamil">이메일</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.email}
-                                    </Typography>
-                                </LabelWrapper>
-                                <LabelWrapper>
-                                    <Label htmlFor="phone">연락처</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.phone}
-                                    </Typography>
-                                </LabelWrapper>
-                                <LabelWrapper>
-                                    <Label htmlFor="birth">생년월일</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.birthDay}
-                                    </Typography>
-                                </LabelWrapper>
-                                <LabelWrapper>
-                                    <Label htmlFor="address">주소</Label>
-                                    <Typography variant="BODY2" marginLeft={16}>
-                                        {user.address}
-                                    </Typography>
-                                </LabelWrapper>
+                                <UserLabel user={userViewModel.me.user} />
                                 <Flex.Default as="div" style={{ position: 'absolute', right: 0, bottom: 0 }}>
                                     <RectangleButton
                                         to={pageUrlConfig.myEdit}
@@ -125,21 +79,51 @@ const MyView = () => {
                                     >
                                         내 정보 수정하러가기
                                     </RectangleButton>
-                                    <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
+                                    {/* <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
                                         채팅 하러 가기
-                                    </DropButton>
+                                    </DropButton> */}
                                 </Flex.Default>
                             </Div.Default>
-                            <Div.Default
+
+                            <div
                                 id="myInfo_right"
-                                width={100}
-                                height={100}
-                                variant="translucent"
-                                padding={'8px'}
-                                justifyContent="center"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
                             >
-                                그래프 위치
-                            </Div.Default>
+                                <Table id="myData_table">
+                                    <Table.Head>
+                                        <Table.Tr
+                                            style={{
+                                                backgroundColor: `${theme.colors.secondary}`,
+                                                borderRadius: '8px',
+                                            }}
+                                        >
+                                            <Table.Th>팔로잉</Table.Th>
+                                            <Table.Th>팔로우</Table.Th>
+                                            <Table.Th>게시글</Table.Th>
+                                            <Table.Th>좋아요</Table.Th>
+                                        </Table.Tr>
+                                    </Table.Head>
+                                    <Table.Body>
+                                        <Table.Tr
+                                            style={{
+                                                backgroundColor: `${theme.colors.lgrey_50}`,
+                                                borderRadius: '8px',
+                                            }}
+                                        >
+                                            <Table.Td>{userViewModel.totalCount.followingCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.followerCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.feedCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.likeCount}</Table.Td>
+                                        </Table.Tr>
+                                    </Table.Body>
+                                </Table>
+                                <MixedChart />
+                            </div>
                         </Flex.RowToColumnOnTabletSm>
                     </Container.Body>
                 </Container>
@@ -185,7 +169,7 @@ const MyView = () => {
     );
 };
 
-export default MyView;
+export default observer(MyView);
 
 const Label = styled.label`
     width: 100px;

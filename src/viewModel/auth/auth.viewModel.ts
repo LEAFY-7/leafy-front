@@ -1,12 +1,13 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { ServerType } from 'constants/constants';
-import { AuthDto } from 'dto/auth/auth.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import DefaultViewModel from 'viewModel/default.viewModel';
+
 import { SignUphModel } from 'models/auth/signUp.model';
+import { AuthDto } from 'dto/auth/auth.dto';
+import DefaultViewModel from 'viewModel/default.viewModel';
 import tokenModule from 'modules/token.module';
 import { Alert } from 'modules/alert.module';
 
+import { ServerType } from 'constants/constants';
 interface IProps {}
 
 export default class AuthViewModel extends DefaultViewModel {

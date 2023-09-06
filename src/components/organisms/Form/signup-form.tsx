@@ -1,8 +1,8 @@
 import type { ChangeEvent, FormEventHandler, HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
-import { Control, Controller, RegisterOptions } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { SignUphModel } from 'models/auth/signUp.model';
-import { AuthItem, authFormState, authItemState } from 'configs/form.config';
+import { authFormState, authItemState } from 'configs/form.config';
 
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
@@ -10,38 +10,41 @@ import TextField from 'components/molecules/TextField/default-textField';
 import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
 interface FormProps {
-    handleSubmit: FormEventHandler<HTMLFormElement>;
+    handleSignUp: FormEventHandler<HTMLFormElement>;
     handleCheckEmail: (e: any) => Promise<void>;
     handleInputChange: (key: any, value: any) => void;
-    control: Control<SignUphModel, any>;
     name: string;
     email: string;
     password: string;
     confirmPassword: string;
-    confirmPasswordRule: Omit<
-        RegisterOptions<SignUphModel, AuthItem>,
-        'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-    >;
     disabled: boolean;
 }
 
 type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
 
 const SignUpForm = ({
-    control,
     name = '',
     email = '',
     password = '',
     confirmPassword = '',
-    confirmPasswordRule,
     handleCheckEmail,
     handleInputChange,
-    handleSubmit,
+    handleSignUp,
     disabled = false,
 }: Props) => {
+    const { control, handleSubmit, watch } = useForm<SignUphModel>({
+        defaultValues: {
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            phone: '',
+        },
+    });
+
     return (
         <>
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={handleSubmit(handleSignUp)} noValidate>
                 <Wrapper id="form_wrapper" direction="column">
                     {/* 이름 */}
                     <Controller
@@ -167,7 +170,9 @@ const SignUpForm = ({
                         name={authItemState.confirmPassword.property}
                         control={control}
                         defaultValue={confirmPassword}
-                        rules={confirmPasswordRule}
+                        rules={authFormState.confirmPassword(
+                            (value) => value === watch(authItemState.password.property),
+                        )}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <TextField error={!!error}>
                                 <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>

@@ -1,22 +1,16 @@
-import React from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import { Controller, useForm } from 'react-hook-form';
 
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import pageUrlConfig from 'configs/pageUrl.config';
-import { SignUphModel } from 'models/auth/signUp.model';
-import { authFormState, authItemState } from 'configs/form.config';
 import * as Styled from './background.styles';
 
 import PageContainer from 'components/templates/page-container';
 import AuthTemplate from 'components/templates/auth.template';
-import TextField from 'components/molecules/TextField/default-textField';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
-import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 import FindEmailForm from 'components/organisms/Form/find-email-form';
 import FindPwdForm from 'components/organisms/Form/find-pwd-form';
 
@@ -25,17 +19,6 @@ const Image = process.env.PUBLIC_URL + '/image/background/plant_01.png';
 const FindView = () => {
     const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
 
-    const {
-        control,
-        handleSubmit,
-        formState: { isSubmitting, dirtyFields },
-    } = useForm<SignUphModel>({
-        defaultValues: {
-            name: '',
-            phone: '',
-            email: '',
-        },
-    });
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh', minHeight: 0 }}>
             <AuthTemplate isActive={authViewModel.isActive}>
@@ -54,8 +37,7 @@ const FindView = () => {
                         </Typography>
 
                         <FindEmailForm
-                            handleSubmit={handleSubmit(authViewModel.handleFindEmail)}
-                            control={control}
+                            handleFindEmail={authViewModel.handleFindEmail}
                             name={authViewModel.authState.name}
                             phone={authViewModel.authState.phone}
                         />
@@ -86,8 +68,7 @@ const FindView = () => {
                         </Typography>
 
                         <FindPwdForm
-                            handleSubmit={handleSubmit(authViewModel.handleFindEmail)}
-                            control={control}
+                            handleFindPwd={authViewModel.handleFindEmail}
                             name={authViewModel.authState.name}
                             phone={authViewModel.authState.phone}
                             email={authViewModel.authState.email}
