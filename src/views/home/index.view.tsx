@@ -1,16 +1,17 @@
-import styled from '@emotion/styled';
-import PageContainer from 'components/templates/page-container';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
-
+import styled from '@emotion/styled';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
-import Typography from 'components/atoms/Typograph/default-typography';
-
-import ChatIcon from 'components/atoms/Icon/chat-icon';
-import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
+import { theme } from 'configs/ui.config';
+import tokenModule from 'modules/token.module';
+
+import PageContainer from 'components/templates/page-container';
+import Typography from 'components/atoms/Typograph/default-typography';
+import ChatIcon from 'components/atoms/Icon/chat-icon';
+
 /**
  * 메인페이지
  */
@@ -20,7 +21,7 @@ const HomeView = () => {
 
     useEffect(() => {
         // mainViewModel.getMainData();
-        // mainViewModel.getMe();
+        mainViewModel.getMe();
         //mainViewModel.test();
     }, []);
     return (
@@ -33,9 +34,11 @@ const HomeView = () => {
                 로그인 후 더 많은 콘텐츠를 즐겨보세요!
             </Typography>
 
-            <IconWrapper>
-                <ChatIcon to={pageUrlConfig.chat} count={3} />
-            </IconWrapper>
+            {mainViewModel.me.user.userId ? (
+                <IconWrapper>
+                    <ChatIcon to={pageUrlConfig.chat} count={3} />
+                </IconWrapper>
+            ) : null}
         </PageContainer>
     );
 };
