@@ -18,6 +18,8 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
 import tokenModule from 'modules/token.module';
 import UserLabel from 'components/organisms/Profile/user-label';
+import Table from 'components/molecules/Table/default-table';
+import MixedChart from 'components/molecules/Cart/mixed-chart';
 
 const user = {
     name: '홍길동',
@@ -37,8 +39,8 @@ const MyView = () => {
         userViewModel.getMe();
         userViewModel.getMyPage();
     }, []);
+    console.log(userViewModel.me);
 
-    console.log('겟미', userViewModel.me.user);
     return (
         <PageContainer
             style={{ height: 'auto', overflow: 'visible', justifyContent: 'center', alignItems: 'center' }}
@@ -82,16 +84,46 @@ const MyView = () => {
                                     </DropButton> */}
                                 </Flex.Default>
                             </Div.Default>
-                            <Div.Default
+
+                            <div
                                 id="myInfo_right"
-                                width={100}
-                                height={100}
-                                variant="translucent"
-                                padding={'8px'}
-                                justifyContent="center"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
                             >
-                                그래프 위치
-                            </Div.Default>
+                                <Table id="myData_table">
+                                    <Table.Head>
+                                        <Table.Tr
+                                            style={{
+                                                backgroundColor: `${theme.colors.secondary}`,
+                                                borderRadius: '8px',
+                                            }}
+                                        >
+                                            <Table.Th>팔로잉</Table.Th>
+                                            <Table.Th>팔로우</Table.Th>
+                                            <Table.Th>게시글</Table.Th>
+                                            <Table.Th>좋아요</Table.Th>
+                                        </Table.Tr>
+                                    </Table.Head>
+                                    <Table.Body>
+                                        <Table.Tr
+                                            style={{
+                                                backgroundColor: `${theme.colors.lgrey_50}`,
+                                                borderRadius: '8px',
+                                            }}
+                                        >
+                                            <Table.Td>{userViewModel.totalCount.followingCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.followerCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.feedCount}</Table.Td>
+                                            <Table.Td>{userViewModel.totalCount.likeCount}</Table.Td>
+                                        </Table.Tr>
+                                    </Table.Body>
+                                </Table>
+                                <MixedChart />
+                            </div>
                         </Flex.RowToColumnOnTabletSm>
                     </Container.Body>
                 </Container>
