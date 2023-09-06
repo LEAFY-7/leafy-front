@@ -16,7 +16,7 @@ const UserInfomation = ({ data }: IProps) => {
             }
         >
             {/* <Profile> */}
-            <LazyImage src={data.user.profileImage} alt="" />
+            <LazyImage src={data.user.profileImage} alt="" style={{ width: '30%' }} />
             {/* </Profile> */}
         </Container>
     );

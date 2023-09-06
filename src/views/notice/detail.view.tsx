@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import Box from 'components/atoms/Box/default-box';
 import Button from 'components/atoms/Button/button';
 import DefaultButton from 'components/atoms/Button/default-button';
 import Linker from 'components/atoms/Linker/linker';

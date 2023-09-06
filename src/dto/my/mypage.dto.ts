@@ -2,14 +2,9 @@ import { Expose, Type } from 'class-transformer';
 import PreviewFeedDto from 'dto/feed/previewFeed.dto';
 import FollowDto from 'dto/user/follow.dto';
 import FeedActivityDto from './feedActivity.dto';
+import TotalCountDto from './totalCount.dto';
 
-export default class MypageDto {
-    @Expose({ name: 'followerCount' })
-    public readonly followerCount: number = 0;
-
-    @Expose({ name: 'followingCount' })
-    public readonly followingCount: number = 0;
-
+export default class MyPageDto {
     @Expose({ name: 'feedMonthlyActivity' })
     @Type(() => FeedActivityDto)
     public readonly feedMonthlyActivity: FeedActivityDto[] = [];
@@ -25,4 +20,10 @@ export default class MypageDto {
     @Expose({ name: 'feeds' })
     @Type(() => PreviewFeedDto)
     public readonly feeds: PreviewFeedDto[] = [];
+
+    @Expose({ name: 'qnas' })
+    public readonly qnas = [];
+
+    @Expose({ name: 'totalCountResponse' })
+    public readonly totalCountResponse: TotalCountDto = new TotalCountDto();
 }
