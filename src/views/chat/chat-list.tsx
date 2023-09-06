@@ -7,7 +7,7 @@ import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/typography';
 import ChatCard from 'components/organisms/Chat/chat-card';
-import formatDate from 'modules/formatDate.module';
+import formatDate from 'utils/formatDate';
 
 const url =
     'https://img.khan.co.kr/news/2023/04/04/news-p.v1.20230404.57d4bed2d0b4401f83dff7102d430885_P1.png';
