@@ -1,45 +1,35 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import pageUrlConfig from 'configs/pageUrl.config';
-
-import { theme } from 'configs/ui.config';
-
-import RectangleButton from 'components/atoms/Button/rectangle-button';
-import Div from 'components/atoms/Div/div';
-import Flex from 'components/atoms/Group/flex';
-import Typography from 'components/atoms/Typograph/default-typography';
-import Container from 'components/organisms/Container/default-container';
-import PageContainer from 'components/templates/page-container';
-// import { UserDto } from 'dto/user/user.dto';
-import DropButton from 'components/atoms/Button/drop-button';
-import UserInfomation from 'components/organisms/Profile/user-infomation';
+import { FaUserEdit as UserIcon } from 'react-icons/fa';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
-import tokenModule from 'modules/token.module';
-import UserLabel from 'components/organisms/Profile/user-label';
-import Table from 'components/molecules/Table/default-table';
-import MixedChart from 'components/molecules/Cart/mixed-chart';
+import { theme } from 'configs/ui.config';
+import pageUrlConfig from 'configs/pageUrl.config';
 
-const user = {
-    name: '홍길동',
-    nickName: '홍__길__동123',
-    email: 'test@test.com',
-    phone: '010-1234-5678',
-    birthDay: '2023-07-29',
-    address: '경기도 부천시',
-    introduction: '응 어서오고~~',
-    img: '',
-    bgImg: '',
-};
+import PageContainer from 'components/templates/page-container';
+import UserInfomation from 'components/organisms/Profile/user-infomation';
+import UserLabel from 'components/organisms/Profile/user-label';
+import Container from 'components/organisms/Container/default-container';
+import MixedChart from 'components/molecules/Chart/mixed-chart';
+import Table from 'components/molecules/Table/default-table';
+import Flex from 'components/atoms/Group/flex';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
+import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import Switch from 'components/atoms/Switch/default-switch';
+import useToggle from 'hooks/useToggle';
+import PageButton from 'components/organisms/Pagination/pagebutton';
+import { ChangeHandler } from 'react-hook-form';
 
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
+    const [page, setPage] = useState(1);
+    const { isOpen, toggle, handler } = useToggle({});
     useEffect(() => {
         userViewModel.getMe();
         userViewModel.getMyPage();
     }, []);
-    console.log(userViewModel.me);
 
     return (
         <PageContainer
@@ -52,48 +42,40 @@ const MyView = () => {
                 alignItems="center"
                 style={{ width: '100%', gap: '16px' }}
             >
-                <Container id="myInfo" as="section" wrapperHeight={'540px'}>
-                    <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
-                        나의 정보
-                    </Container.Header>
+                <Container id="myInfo" as="section" wrapperHeight={100}>
+                    <Flex.RowToColumnOnMobileSm justifyContent="space-between" style={{ width: '100%' }}>
+                        <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
+                            나의 정보
+                        </Container.Header>
+                        <Flex.Default as="div" direction="row-reverse" style={{ width: 'max-content' }}>
+                            <RectangleButton
+                                to={pageUrlConfig.myEdit}
+                                backgroundColor="white"
+                                color="grey"
+                                rightIcon={<UserIcon color="gray" size={15} />}
+                            >
+                                회원정보수정
+                            </RectangleButton>
+                        </Flex.Default>
+                    </Flex.RowToColumnOnMobileSm>
                     <Container.Body innerHeight={100}>
                         <Flex.RowToColumnOnTabletSm
                             id="myInfo_wrapper"
-                            style={{ width: '100%', height: '100%', gap: '16px' }}
+                            as="div"
+                            style={{ height: '100%', width: '100%', gap: '16px' }}
                         >
-                            <Div.Default
+                            <MyInfoContent
                                 id="myInfo_left"
-                                width={100}
-                                height={100}
-                                direction="column"
-                                alignItems="flex-start"
-                                // justifyContent='flex-start'
-                                style={{ position: 'relative' }}
-                            >
-                                <UserLabel user={userViewModel.me.user} />
-                                <Flex.Default as="div" style={{ position: 'absolute', right: 0, bottom: 0 }}>
-                                    <RectangleButton
-                                        to={pageUrlConfig.myEdit}
-                                        backgroundColor="white"
-                                        isBorder
-                                    >
-                                        내 정보 수정하러가기
-                                    </RectangleButton>
-                                    {/* <DropButton to={`${pageUrlConfig.chat}?me=13&you=456`}>
-                                        채팅 하러 가기
-                                    </DropButton> */}
-                                </Flex.Default>
-                            </Div.Default>
-
-                            <div
-                                id="myInfo_right"
                                 style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
+                                    height: '620px',
+                                    justifyContent: 'space-around',
+                                    position: 'relative',
                                 }}
                             >
+                                <UserLabel user={userViewModel.me.user} />
+                            </MyInfoContent>
+
+                            <MyInfoContent id="myInfo_right">
                                 <Table id="myData_table">
                                     <Table.Head>
                                         <Table.Tr
@@ -102,10 +84,38 @@ const MyView = () => {
                                                 borderRadius: '8px',
                                             }}
                                         >
-                                            <Table.Th>팔로잉</Table.Th>
-                                            <Table.Th>팔로우</Table.Th>
-                                            <Table.Th>게시글</Table.Th>
-                                            <Table.Th>좋아요</Table.Th>
+                                            <Table.Th>
+                                                <DefaultAnchor
+                                                    href="#following__container"
+                                                    style={{ width: 'auto', height: 'auto' }}
+                                                >
+                                                    팔로잉
+                                                </DefaultAnchor>
+                                            </Table.Th>
+
+                                            <Table.Th>
+                                                <DefaultAnchor
+                                                    href="#follow__container"
+                                                    style={{ width: 'auto', height: 'auto' }}
+                                                >
+                                                    팔로우
+                                                </DefaultAnchor>
+                                            </Table.Th>
+                                            <Table.Th>
+                                                <LinkWrapper
+                                                    to={`${pageUrlConfig.user}/${userViewModel.me.user.userId}`}
+                                                >
+                                                    게시글
+                                                </LinkWrapper>
+                                            </Table.Th>
+                                            <Table.Th>
+                                                <DefaultAnchor
+                                                    href="#like__container"
+                                                    style={{ width: 'auto', height: 'auto' }}
+                                                >
+                                                    좋아요
+                                                </DefaultAnchor>
+                                            </Table.Th>
                                         </Table.Tr>
                                     </Table.Head>
                                     <Table.Body>
@@ -122,10 +132,17 @@ const MyView = () => {
                                         </Table.Tr>
                                     </Table.Body>
                                 </Table>
-                                <MixedChart />
-                            </div>
+                                <MixedChart chartList={userViewModel.chartList} />
+                            </MyInfoContent>
                         </Flex.RowToColumnOnTabletSm>
                     </Container.Body>
+                </Container>
+
+                <Container id="following" as="section" wrapperHeight={'540px'}>
+                    <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
+                        팔로잉
+                    </Container.Header>
+                    <Container.Body innerVariant="translucent" innerHeight={100}></Container.Body>
                 </Container>
 
                 <Container id="follow" as="section" wrapperHeight={'540px'}>
@@ -136,14 +153,7 @@ const MyView = () => {
                         팔로우
                     </Container.Body>
                 </Container>
-                <Container id="following" as="section" wrapperHeight={'540px'}>
-                    <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
-                        팔로잉
-                    </Container.Header>
-                    <Container.Body innerVariant="translucent" innerHeight={100}>
-                        팔로잉
-                    </Container.Body>
-                </Container>
+
                 <Container id="like" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         좋아요
@@ -156,13 +166,65 @@ const MyView = () => {
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         질문
                     </Container.Header>
-                    <Container.Body innerHeight={100}>질문</Container.Body>
+                    <Container.Body innerHeight={100} alignItems="flex-start">
+                        <Table id="qna_table">
+                            <Table.Head>
+                                <Table.Tr
+                                    style={{
+                                        backgroundColor: `${theme.colors.secondary}`,
+                                        borderRadius: '8px',
+                                    }}
+                                >
+                                    <Table.Th style={{ width: '10%' }}>번호</Table.Th>
+                                    <Table.Th style={{ width: '50%' }}>제목</Table.Th>
+                                    <Table.Th style={{ width: '20%' }}>날짜</Table.Th>
+                                    <Table.Th style={{ width: '20%' }}>답변 상태</Table.Th>
+                                </Table.Tr>
+                            </Table.Head>
+                            <Table.Body>
+                                {Array.from({ length: 6 }).map((_, index) => (
+                                    <Table.Tr
+                                        key={index}
+                                        style={{
+                                            backgroundColor: `${theme.colors.lgrey_50}`,
+                                        }}
+                                    >
+                                        <Table.Td style={{ width: '10%' }}>{index + 1}</Table.Td>
+                                        <Table.Td style={{ width: '50%' }}>임시 제목입니다.</Table.Td>
+                                        <Table.Td style={{ width: '20%' }}>2023-09-07</Table.Td>
+                                        <Table.Td style={{ width: '20%' }}>답변 예정</Table.Td>
+                                    </Table.Tr>
+                                ))}
+                            </Table.Body>
+                        </Table>
+                    </Container.Body>
                 </Container>
                 <Container id="setting" as="section" wrapperHeight={'540px'}>
                     <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8}>
                         설정
                     </Container.Header>
-                    <Container.Body innerHeight={100}>설정</Container.Body>
+                    <Container.Body innerHeight={100} alignItems="flex-start">
+                        <Flex.RowToColumnOnMobileMd justifyContent="space-around" style={{ width: '100%' }}>
+                            <Switch isOn={isOpen} toggle={handler}>
+                                <Switch.Title>계정 공개</Switch.Title>
+                                <Switch.Wrapper>
+                                    <Switch.Toggle />
+                                </Switch.Wrapper>
+                            </Switch>
+                            <Switch isOn={isOpen} toggle={handler}>
+                                <Switch.Title>전체 알람</Switch.Title>
+                                <Switch.Wrapper>
+                                    <Switch.Toggle />
+                                </Switch.Wrapper>
+                            </Switch>
+                            <Switch isOn={isOpen} toggle={handler}>
+                                <Switch.Title>댓글 알람</Switch.Title>
+                                <Switch.Wrapper>
+                                    <Switch.Toggle />
+                                </Switch.Wrapper>
+                            </Switch>
+                        </Flex.RowToColumnOnMobileMd>
+                    </Container.Body>
                 </Container>
             </Flex.Default>
         </PageContainer>
@@ -171,12 +233,9 @@ const MyView = () => {
 
 export default observer(MyView);
 
-const Label = styled.label`
-    width: 100px;
-    font-size: ${theme.fontSize.lg};
-    color: ${theme.colors.grey};
-`;
-
-const LabelWrapper = styled(Flex.Default)`
-    margin-bottom: 16px;
+const MyInfoContent = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
