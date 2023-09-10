@@ -1,53 +1,44 @@
+import type { HTMLAttributes, FormEventHandler, ChangeEvent } from 'react';
 import React from 'react';
-import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { Controller, useForm } from 'react-hook-form';
 
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import AuthViewModel from 'viewModel/auth/auth.viewModel';
 import { SignUphModel } from 'models/auth/signUp.model';
 import { authFormState, authItemState } from 'configs/form.config';
 
 import TextField from 'components/molecules/TextField/default-textField';
 import Flex from 'components/atoms/Group/flex';
-import Typography from 'components/atoms/Typograph/default-typography';
+import RectangleButton from 'components/atoms/Button/rectangle-button';
+import ResponsiveTextFieldWrapper from 'components/molecules/TextField/textField';
 
-const FindEmailForm = () => {
-    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
+interface FormProps {
+    handleFindEmail: FormEventHandler<HTMLFormElement>;
+    name: string;
+    phone: string;
+}
 
-    const {
-        control,
-        handleSubmit,
-        formState: { isSubmitting, dirtyFields },
-    } = useForm<SignUphModel>({
+type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
+
+const FindEmailForm = ({ name = '', phone = '', handleFindEmail }: Props) => {
+    const { control, handleSubmit } = useForm<SignUphModel>({
         defaultValues: {
             name: '',
             phone: '',
         },
     });
+
     return (
         <>
-            <Typography
-                as="span"
-                textAlign="center"
-                variant="H3"
-                color="grey"
-                marginTop={16}
-                marginBottom={16}
-            >
-                이메일을 찾으시겠습니까?
-            </Typography>
-
-            <form aria-label="find-email" noValidate>
-                <FormContainer id="form_wrapper" direction="column">
+            <form onSubmit={handleSubmit(handleFindEmail)} noValidate>
+                <Wrapper id="form_wrapper" direction="column">
                     <Controller
                         name={authItemState.name.property}
                         control={control}
-                        defaultValue={''}
+                        defaultValue={name}
                         rules={authFormState.name}
                         render={({ field: { value, onChange }, fieldState: { error, isDirty } }) => (
                             <TextField error={!!error}>
-                                <TextField.Wrapper style={{ height: '100px' }}>
+                                <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                     <TextField.Label required>{authItemState.name.label}</TextField.Label>
                                     <TextField.Container
                                         id="name_container"
@@ -57,11 +48,10 @@ const FindEmailForm = () => {
                                             value={value}
                                             type={authItemState.name.type}
                                             placeholder={authItemState.name.placeHolder}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                                 const { value } = e.target;
                                                 onChange(value);
                                             }}
-                                            style={{ width: '300px' }}
                                         />
                                     </TextField.Container>
                                     <TextField.HelperText
@@ -70,18 +60,18 @@ const FindEmailForm = () => {
                                     >
                                         {error?.message}
                                     </TextField.HelperText>
-                                </TextField.Wrapper>
+                                </ResponsiveTextFieldWrapper.AUTH>
                             </TextField>
                         )}
                     />
                     <Controller
                         name={authItemState.phone.property}
                         control={control}
-                        defaultValue=""
+                        defaultValue={phone}
                         rules={authFormState.phone}
                         render={({ field: { value, onChange }, fieldState: { error } }) => (
                             <TextField error={!!error}>
-                                <TextField.Wrapper style={{ height: '100px' }}>
+                                <ResponsiveTextFieldWrapper.AUTH style={{ height: '100px' }}>
                                     <TextField.Label required>{authItemState.phone.label}</TextField.Label>
                                     <TextField.Container
                                         id="phone_container"
@@ -93,14 +83,13 @@ const FindEmailForm = () => {
                                             type={authItemState.phone.type}
                                             placeholder={authItemState.phone.placeHolder}
                                             maxLength={13}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                                 const onlyNumber = e.target.value
                                                     .replace(/[^0-9]/g, '')
                                                     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
                                                     .replace(/(\-{1,2})$/g, '');
                                                 onChange(onlyNumber);
                                             }}
-                                            style={{ width: '300px' }}
                                         />
                                     </TextField.Container>
                                     <TextField.HelperText
@@ -109,18 +98,32 @@ const FindEmailForm = () => {
                                     >
                                         {error?.message}
                                     </TextField.HelperText>
-                                </TextField.Wrapper>
+                                </ResponsiveTextFieldWrapper.AUTH>
                             </TextField>
                         )}
                     />
-                </FormContainer>
+                    <ButtonWrapper>
+                        <SubmitButton type="submit" variant="primary">
+                            이메일 찾기
+                        </SubmitButton>
+                    </ButtonWrapper>
+                </Wrapper>
             </form>
         </>
     );
 };
-export default observer(FindEmailForm);
+export default FindEmailForm;
 
-const FormContainer = styled(Flex.Default)`
+const Wrapper = styled(Flex.Default)`
     opacity: 0;
     transition: opacity 0.35s ease-in-out;
+`;
+const ButtonWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    padding: 8px;
+`;
+const SubmitButton = styled(RectangleButton)`
+    width: 100%;
 `;

@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import pageUrlConfig from 'configs/pageUrl.config';
 import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import NormalRoute from 'components/organisms/routes/normal-route';
-import pageUrlConfig from 'configs/pageUrl.config';
+import PrivateRoute from 'components/organisms/routes/private-route';
 
 import NotFound from 'components/organisms/Error/notFound';
 import Unauthorized from 'components/organisms/Error/unauthorized';
@@ -61,7 +62,7 @@ const routeConfig = [
             { path: pageUrlConfig.unauthorized, element: <Unauthorized /> },
             { path: pageUrlConfig.notFound, element: <NotFound /> },
             {
-                // element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN', 'MEMBER']} />,
                 children: [
                     { path: pageUrlConfig.chat, element: <ChatView /> },
                     { path: pageUrlConfig.feed, element: <FeedView /> },
@@ -89,7 +90,7 @@ const routeConfig = [
                 ],
             },
             {
-                // element: <PrivateRoute allowedRoles={['ADMIN']} />,
+                element: <PrivateRoute allowedRoles={['ADMIN']} />,
                 children: [
                     { path: pageUrlConfig.noticeUpload, element: <NoticeUploadView /> },
                     { path: `${pageUrlConfig.noticeEdit}/:id`, element: <NoticeEditView /> },

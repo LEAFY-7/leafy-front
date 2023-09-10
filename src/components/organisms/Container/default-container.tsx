@@ -1,20 +1,14 @@
-import type { ReactNode, ElementType, CSSProperties, HTMLAttributes, HtmlHTMLAttributes } from 'react';
+import type { CSSProperties, HTMLAttributes } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import Box from 'components/atoms/Box/default-box';
 import Div from 'components/atoms/Div/div';
 import Hr from 'components/atoms/Hr/default-hr';
 import Typography from 'components/atoms/Typograph/default-typography';
 
 interface WrapperProps {
     as?: 'div' | 'main' | 'nav' | 'section' | 'article' | 'header';
-    divVariant?: 'default' | 'primary' | 'secondary' | 'translucent';
-    header?: string;
-    isHeaderLine?: boolean;
     wrapperHeight?: CSSProperties['height'];
-    justifyContent?: CSSProperties['justifyContent'];
-    alignItems?: CSSProperties['alignItems'];
 }
 
 interface HeaderProps {
@@ -58,32 +52,16 @@ type ContainerBodyProps = React.PropsWithChildren<BodyProps>;
 const ContainerWrapper = ({
     id = '',
     as = 'article',
-    divVariant = 'default',
-    header,
     wrapperHeight = '540px',
-    isHeaderLine = false,
-    justifyContent = 'center',
-    alignItems = 'center',
     children,
     ...rest
 }: ContainerWrapperProps) => {
     const newWrapperHeight = wrapperHeight === 'number' ? `${wrapperHeight}%` : wrapperHeight;
 
     return (
-        <Box
-            id={`${id}__container`}
-            as={as}
-            width={100}
-            height={newWrapperHeight}
-            padding="8px"
-            display="flex"
-            direction="column"
-            justifyContent={justifyContent}
-            alignItems={alignItems}
-            {...rest}
-        >
+        <Wrapper id={`${id}__container`} as={as} height={newWrapperHeight} {...rest}>
             {children}
-        </Box>
+        </Wrapper>
     );
 };
 
@@ -181,6 +159,16 @@ const Container = Object.assign(ContainerWrapper, {
 });
 
 export default Container;
+
+const Wrapper = styled.div<{ height: string | number }>`
+    width: 100%;
+    height: ${({ height }) => height};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+`;
 
 const HeaderWrapper = styled(Div.Default)`
     ${theme.mediaQuery.xsMobile} {
