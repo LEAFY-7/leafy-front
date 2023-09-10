@@ -11,6 +11,10 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import ChatIcon from 'components/atoms/Icon/chat-icon';
 import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
+import Feed from 'components/organisms/Feed/feed';
+import { FeedDto } from 'dto/feed/feed.dto';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import { Link } from 'react-router-dom';
 /**
  * 메인페이지
  */
@@ -19,19 +23,36 @@ const HomeView = () => {
     const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
-        // mainViewModel.getMainData();
+        mainViewModel.getMainData();
         // mainViewModel.getMe();
         //mainViewModel.test();
     }, []);
+
+    const ref = useIntersectionObserver(mainViewModel.getMainData);
     return (
         <PageContainer>
             <Typography variant="H1" color="primary" textAlign="center">
                 식집사들의 커뮤니티
             </Typography>
-            {/* 카드 리스트 */}
-            <Typography variant="H1" color="primary" textAlign="center">
-                로그인 후 더 많은 콘텐츠를 즐겨보세요!
-            </Typography>
+            <>
+                {mainViewModel.feedList.map((feed: FeedDto, key: number) => {
+                    return <Feed data={feed} key={`home_list_${key}`} />;
+                })}
+                <Target ref={ref} />
+            </>
+
+            {mainViewModel.me.user.userId ? (
+                <Typography variant="H1" color="primary" textAlign="center">
+                    피드를 업로드 해주세요!
+                </Typography>
+            ) : (
+                <>
+                    <Typography variant="H1" color="primary" textAlign="center">
+                        로그인 후 더 많은 콘텐츠를 즐겨보세요!
+                    </Typography>
+                    <Link to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}>로그인 / 회원가입</Link>
+                </>
+            )}
 
             <IconWrapper>
                 <ChatIcon to={pageUrlConfig.chat} count={3} />
@@ -56,4 +77,8 @@ const IconWrapper = styled.div`
     align-items: center;
     background-color: ${theme.colors.white};
     z-index: 5;
+`;
+
+const Target = styled.div`
+    height: 1px;
 `;
