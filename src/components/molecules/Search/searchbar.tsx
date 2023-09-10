@@ -78,7 +78,7 @@ const SearchStyle = styled.form`
     border-radius: 20px;
     overflow: hidden;
     padding: 0 0.5em;
-    margin: auto;
+    margin: 0 auto;
 `;
 const SearchBtnStyle = styled.button`
     background: ${theme.colors.white};
