@@ -22,7 +22,8 @@ const HomeView = () => {
 
     useEffect(() => {
         mainViewModel.getMainData();
-        mainViewModel.getMe();
+        // mainViewModel.getMe();
+        //mainViewModel.test();
     }, []);
 
     const ref = useIntersectionObserver(mainViewModel.getMainData);
@@ -50,7 +51,6 @@ const HomeView = () => {
                     <Link to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}>로그인 / 회원가입</Link>
                 </>
             )}
-
             {mainViewModel.me.user.userId ? (
                 <IconWrapper>
                     <ChatIcon to={pageUrlConfig.chat} count={3} />
