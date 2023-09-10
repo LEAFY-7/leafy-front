@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
 import Button from 'components/atoms/Button/button';
 import { Input } from 'components/atoms/Input';
 import { theme } from 'configs/ui.config';
-import { ChangeEventHandler, ReactElement, useEffect, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, ReactElement, useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { Pathname, useLocation, useNavigate } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ interface IProps {
     value?: string | number;
     required?: boolean;
     onChange?: ChangeEventHandler;
+    onSubmit?: FormEventHandler<HTMLFormElement>;
     dataset?: { [key: string]: string | number };
     name?: string;
     placeholder?: string;
@@ -19,17 +19,13 @@ interface IProps {
 }
 
 const SearchBar = (props: IProps): ReactElement => {
-    const [search, setSearch] = useState('');
     // const [searchResults, setSearchResults] = useState([]);
     // const navigate = useNavigate();
     // const { pathname } = useLocation();
 
-    const { isFilter = false, value, required, dataset, name, placeholder } = props;
+    const { isFilter = false, value, required, onChange, onSubmit, dataset, name, placeholder } = props;
 
     const icon = <AiOutlineSearch />;
-    const onChange = (e) => {
-        setSearch(`${e.target.value}`);
-    };
     // const onSubmit = (e) => {
     //     e.preventDefault();
     //     navigate(`${pathname}?q=${search}`);
@@ -56,28 +52,16 @@ const SearchBar = (props: IProps): ReactElement => {
     // };
 
     return (
-        <SearchStyle /*onSubmit={onSubmit}*/>
+        <SearchStyle onSubmit={onSubmit}>
             {isFilter && <></>}
-            <Input
+            <SearchInputStyle
                 value={value}
                 required={required}
                 onChange={onChange}
-                dataset={dataset}
                 name={name}
                 placeholder={placeholder}
-                style={{ flexGrow: `1`, flexBasis: `90%`, height: `100%`, border: 'none' }}
             />
-
-            <Button
-                variant="primary"
-                state="default"
-                size="l"
-                type="submit"
-                showText={false}
-                showIcon={true}
-                text="검색"
-                leftIcon={icon}
-            />
+            <SearchBtnStyle>{icon}</SearchBtnStyle>
         </SearchStyle>
     );
 };
@@ -87,6 +71,7 @@ export default SearchBar;
 const SearchStyle = styled.form`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 400px;
     color: ${theme.colors.black};
     background: ${theme.colors.white};
