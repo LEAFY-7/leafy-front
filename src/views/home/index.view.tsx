@@ -4,10 +4,6 @@ import styled from '@emotion/styled';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
-import pageUrlConfig from 'configs/pageUrl.config';
-import { theme } from 'configs/ui.config';
-import tokenModule from 'modules/token.module';
-
 import PageContainer from 'components/templates/page-container';
 import Typography from 'components/atoms/Typograph/default-typography';
 import ChatIcon from 'components/atoms/Icon/chat-icon';
