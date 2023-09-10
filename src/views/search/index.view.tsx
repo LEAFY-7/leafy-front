@@ -3,12 +3,15 @@ import Typography from 'components/atoms/Typograph/default-typography';
 import SearchBar from 'components/molecules/Search/searchbar';
 import Feed from 'components/organisms/Feed/feed';
 import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
 import { FeedDto } from 'dto/feed/feed.dto';
 import SearchDto from 'dto/search/search.dto';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MainViewModel from 'viewModel/main/main.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 
@@ -30,6 +33,9 @@ const SearchView = () => {
         const searchQuery = query.value;
     };
     const [query, setQuery] = useState<string>('');
+
+    const ref = useIntersectionObserver(mainViewModel.getMainData);
+
     return (
         <PageContainer>
             <SearchBar
@@ -65,46 +71,64 @@ const SearchView = () => {
                 </Typography>
             </PlantTitle>
             <>
-                {searchViewModel.list?.map((list: SearchDto, key: number) => {
-                    return (
-                        <PlantList key={`plant_list_${key}`}>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.saleDate}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.flowerGubn}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.goodName}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.pumName}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.lv}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.maxAmt}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.minAmt}
-                            </Typography>
-                            <Typography variant="BODY1" textAlign="center">
-                                {list.avgAmt}
-                            </Typography>
-                        </PlantList>
-                    );
-                })}
+                {searchViewModel.list ? (
+                    searchViewModel.list.map((list: SearchDto, key: number) => {
+                        return (
+                            <PlantList key={`plant_list_${key}`}>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.saleDate}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.flowerGubn}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.goodName}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.pumName}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.lv}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.maxAmt}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.minAmt}
+                                </Typography>
+                                <Typography variant="BODY1" textAlign="center">
+                                    {list.avgAmt}
+                                </Typography>
+                            </PlantList>
+                        );
+                    })
+                ) : (
+                    <>
+                        <Typography variant="H3">식물 거래 정보를 불러오지 못했습니다</Typography>
+                        <Typography variant="BODY2">식집사들의 이야기에서 찾아보아요!</Typography>
+                    </>
+                )}
             </>
             <>
-                {mainViewModel.feedList.map((feed: FeedDto, key: number) => {
-                    return (
-                        <>
-                            <Feed data={feed} key={`feed_list_${key}`} />
-                            <Title>{feed.title}</Title>
-                        </>
-                    );
-                })}
+                <>
+                    {mainViewModel.feedList.map((feed: FeedDto, key: number) => {
+                        return <Feed data={feed} key={`home_list_${key}`} />;
+                    })}
+                    <Target ref={ref} />
+                </>
+
+                {mainViewModel.me.user.userId ? (
+                    <Typography variant="H1" color="primary" textAlign="center">
+                        피드를 업로드 해주세요!
+                    </Typography>
+                ) : (
+                    <>
+                        <Typography variant="H1" color="primary" textAlign="center">
+                            로그인 후 더 많은 콘텐츠를 즐겨보세요!
+                        </Typography>
+                        <Link to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}>로그인 / 회원가입</Link>
+                    </>
+                )}
             </>
         </PageContainer>
     );
@@ -156,4 +180,8 @@ const Title = styled.h4`
     display: flex;
     align-items: center;
     justify-content: center;
+`;
+
+const Target = styled.div`
+    height: 1px;
 `;
