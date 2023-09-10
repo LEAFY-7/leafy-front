@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useIntersectionObserver = (callback, options) => {
+const useIntersectionObserver = (callback, options?) => {
     const targetRef = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
