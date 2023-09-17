@@ -91,6 +91,13 @@ const globalStyle = (theme: Theme) => css`
             32px 32px 32px 12px rgba(0, 0, 0, 0.16);
         box-shadow: inset 32px 32px 32px 12px rgba(0, 0, 0, 0.16), 32px 32px 32px 12px rgba(0, 0, 0, 0.16);
         background: #fafafa;
+        grid-template-rows: 1fr 0.5fr;
+    }
+    .swal2-title {
+        margin: auto;
+    }
+    .swal2-actions{
+        
     }
 `;
 export default globalStyle;
