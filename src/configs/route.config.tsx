@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import pageUrlConfig from 'configs/pageUrl.config';
 import PageWrapper from 'components/molecules/Wrapper/page-wrapper';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import NormalRoute from 'components/organisms/routes/normal-route';
 import PrivateRoute from 'components/organisms/routes/private-route';
+import pageUrlConfig from 'configs/pageUrl.config';
 
 import NotFound from 'components/organisms/Error/notFound';
 import Unauthorized from 'components/organisms/Error/unauthorized';
@@ -87,6 +87,10 @@ const routeConfig = [
                     { path: pageUrlConfig.leave, element: <LeaveView /> },
                     { path: pageUrlConfig.qnaUpload, element: <QnaUploadView /> },
                     { path: `${pageUrlConfig.qnaDetail}/:id`, element: <QnaDetailView /> },
+                    
+                    //임시
+                    { path: pageUrlConfig.noticeUpload, element: <NoticeUploadView /> },
+                    { path: `${pageUrlConfig.noticeEdit}/:id`, element: <NoticeEditView /> },
                 ],
             },
             {

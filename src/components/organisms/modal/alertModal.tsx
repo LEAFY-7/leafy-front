@@ -31,7 +31,7 @@ const AlertModal = ({ isOpen, handleClickClose, handleClickConfirm, children, st
 export default AlertModal;
 
 const Container = styled.div<{ isOpen: boolean }>`
-z-index: 1000;
+    z-index: 1000;
     border-radius: 50%;
     aspect-ratio: 1/1;
 
