@@ -13,3 +13,11 @@ export const OauthType = {
     GOOGLE: `http://www.leafyer.com:8080/oauth2/authorization/google`,
     KAKAO: `http://www.leafyer.com:8080/oauth2/authorization/kakao`,
 };
+
+/**
+ * 페이지네이션 갯수
+ */
+export const PageNationCount = {
+    NOTICE: 10
+} as const;
+export type PageNationCount = (typeof PageNationCount)[keyof typeof PageNationCount];

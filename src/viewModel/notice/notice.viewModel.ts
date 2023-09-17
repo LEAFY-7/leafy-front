@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import pageUrlConfig from 'configs/pageUrl.config';
-import { ServerType } from 'constants/constants';
+import { PageNationCount, ServerType } from 'constants/constants';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { Alert } from 'modules/alert.module';
@@ -13,6 +13,7 @@ export default class NoticeViewModel extends DefaultViewModel {
     public list: NoticeDto[] = [];
     public detail: NoticeDto = new NoticeDto();
     public page: number = 1;
+    // public viewPage: number[] = [1, 2, 3, 4, 5];
     constructor(props: IProps) {
         super(props);
 
@@ -177,13 +178,38 @@ export default class NoticeViewModel extends DefaultViewModel {
     };
 
     handleClickPage = (event: any) => {
-        const { id } = event.currentTarget.dataset;
+        const { id, name } = event.currentTarget.dataset;
 
-        runInAction(() => {
-            this.page = id;
-        });
-
-        return id;
+        switch (name) {
+            case 'page':
+                runInAction(() => {
+                    this.page = id;
+                });
+                break;
+            case 'prev':
+                runInAction(() => {
+                    this.page = this.page--;
+                });
+                break;
+            case 'prevEnd':
+                runInAction(() => {
+                    this.page = 1;
+                });
+                break;
+            case 'next':
+                runInAction(() => {
+                    this.page = this.page++;
+                });
+                break;
+            case 'nextEnd':
+                const newPage = Math.ceil(this.list.length / PageNationCount.NOTICE);
+                runInAction(() => {
+                    this.page = newPage;
+                });
+                break;
+            default:
+                break;
+        }
     };
 
     handleClickOffset = () => {
