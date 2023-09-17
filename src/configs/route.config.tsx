@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import PageWrapper from 'components/atoms/Wrapper/page-wrapper';
+import pageUrlConfig from 'configs/pageUrl.config';
+import PageWrapper from 'components/molecules/Wrapper/page-wrapper';
 import DefaultLayout from 'components/organisms/layouts/default-layout';
 import NormalRoute from 'components/organisms/routes/normal-route';
 import PrivateRoute from 'components/organisms/routes/private-route';
-import pageUrlConfig from 'configs/pageUrl.config';
 
 import NotFound from 'components/organisms/Error/notFound';
 import Unauthorized from 'components/organisms/Error/unauthorized';

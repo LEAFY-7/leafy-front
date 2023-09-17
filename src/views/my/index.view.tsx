@@ -16,7 +16,7 @@ import Table from 'components/molecules/Table/default-table';
 import Flex from 'components/atoms/Group/flex';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import DefaultAnchor from 'components/atoms/Anchor/default-anchor';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import LinkWrapper from 'components/molecules/Wrapper/link-wrapper';
 import Switch from 'components/atoms/Switch/default-switch';
 import useToggle from 'hooks/useToggle';
 import PageButton from 'components/organisms/Pagination/pagebutton';
