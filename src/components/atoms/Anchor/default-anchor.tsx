@@ -9,13 +9,17 @@ interface AnchorProps {
 
 type Props = React.PropsWithChildren<AnchorProps> & HTMLAttributes<HTMLAnchorElement>;
 
-const DefaultAnchor = ({ href, target, children, ...rest }: Props) => {
+const DefaultAnchor = React.forwardRef(function DefaultAnchor(
+    { href, target, children, ...rest }: Props,
+    forwardedRef: React.Ref<HTMLAnchorElement>,
+) {
     return (
-        <Anchor href={href} target={target} {...rest}>
+        <Anchor href={href} target={target} ref={forwardedRef} {...rest}>
             {children}
         </Anchor>
     );
-};
+});
+
 export default DefaultAnchor;
 
 const Anchor = styled.a`

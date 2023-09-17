@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react';
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import LinkWrapper from '../Wrapper/link-wrapper';
+import LinkWrapper from '../../molecules/Wrapper/link-wrapper';
 
 interface IconProps {
     count?: number;

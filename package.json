@@ -82,5 +82,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "proxy": "http://www.leafyer.com:8080/api"
 }

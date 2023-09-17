@@ -11,7 +11,7 @@ import useToggle from 'hooks/useToggleProvider';
 
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import LinkWrapper from 'components/molecules/Wrapper/link-wrapper';
 import Flyout from 'components/molecules/Flyout/default-flyout';
 
 import TextAvatar from 'components/atoms/Avatar/text-avatar';
@@ -34,7 +34,7 @@ const DefaultHeader = () => {
 
     return (
         <HeaderContainer>
-            <HeaderWrap>
+            <HeaderWrap id="header">
                 <div>
                     <LinkWrapper to={pageUrlConfig.main}>
                         <img src={`${publicURL}/image/logo/header-logo.svg`} />
@@ -126,7 +126,7 @@ const HeaderContainer = styled.header`
     z-index: 3;
 `;
 
-const HeaderWrap = styled.div`
+const HeaderWrap = styled.section`
     width: 100%;
     max-width: 1080px;
     padding: 16px;
