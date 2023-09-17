@@ -4,15 +4,15 @@ import PageButton from 'components/organisms/Pagination/pagebutton';
 import PageContainer from 'components/templates/page-container';
 
 import styled from '@emotion/styled';
+import DefaultButton from 'components/atoms/Button/default-button';
 import Linker from 'components/atoms/Linker/linker';
 import pageUrlConfig from 'configs/pageUrl.config';
-import DefaultButton from 'components/atoms/Button/default-button';
-import NoticeViewModel from 'viewModel/notice/notice.viewModel';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import { useEffect, useState } from 'react';
 import { theme } from 'configs/ui.config';
 import { NoticeDto } from 'dto/notice/notice.dto';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
 import { observer } from 'mobx-react';
+import { useEffect } from 'react';
+import NoticeViewModel from 'viewModel/notice/notice.viewModel';
 
 const NoticeView = () => {
     const noticeViewModel: NoticeViewModel = useViewModel(ViewModelName.NOTICE);
@@ -40,8 +40,8 @@ const NoticeView = () => {
             </Menu>
 
             <NoticeWrap>
-                {noticeViewModel.list.map((item: NoticeDto) => {
-                    return <NoticeList item={item} titleColor="black" />;
+                {noticeViewModel.list.map((item: NoticeDto, key: number) => {
+                    return <NoticeList item={item} titleColor="black" key={`notice_list_item_${key}`} />;
                 })}
             </NoticeWrap>
             <PageButton

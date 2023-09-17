@@ -1,8 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
 import pageUrlConfig from 'configs/pageUrl.config';
-import { ServerType } from 'constants/constants';
-import NoticeData from 'db/notice.json';
+import { PageNationCount, ServerType } from 'constants/constants';
 import { NoticeDto } from 'dto/notice/notice.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import { Alert } from 'modules/alert.module';
@@ -13,12 +12,13 @@ interface IProps {}
 export default class NoticeViewModel extends DefaultViewModel {
     public list: NoticeDto[] = [];
     public detail: NoticeDto = new NoticeDto();
-    public page:number = 1;
+    public page: number = 1;
+    // public viewPage: number[] = [1, 2, 3, 4, 5];
     constructor(props: IProps) {
         super(props);
 
         makeObservable(this, {
-            page:observable,
+            page: observable,
             list: observable,
             detail: observable,
             getList: action,
@@ -30,12 +30,20 @@ export default class NoticeViewModel extends DefaultViewModel {
     }
 
     getList = async () => {
+        // runInAction(() => {
+        //     this.me.user.isAdmin
+        //         ? (this.list = NoticeData.data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice)))
+        //         : (this.list = NoticeData.data
+        //               .filter((d: NoticeDto) => !d.isHide)
+        //               .map((notice: NoticeDto) => plainToInstance(NoticeDto, notice)));
+        // });
         await this.api
-            .get('/v1/notice', `${this.page}` )
-            .then((result: AxiosResponse<NoticeDto[]>) => {
-                const data = result.data;
+            .get(ServerType.API, '/v1/notice', { key: 'value' })
+            .then((result: AxiosResponse<any>) => {
+                const data = result.data.body;
+
                 runInAction(() => {
-                    data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice));
+                    this.list = data.map((notice: NoticeDto) => plainToInstance(NoticeDto, notice));
                 });
             })
             .catch((error: AxiosError) => {
@@ -92,23 +100,22 @@ export default class NoticeViewModel extends DefaultViewModel {
                 });
                 window.location.replace(`${pageUrlConfig.noticeDetail}/${detail.id}`);
             })
-        .catch((error: AxiosError)=>{
-            console.log(`error : `, error);
-            
-            switch (+error.status){
-                case 404:
-                    Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () =>  {
-                        // this.router.replace(pageUrlConfig.signIn)
-                    });
-                    break;
-                case 500:
-                    Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
-                    break;
-            }
-            return false;
-        });
-            
-    }
+            .catch((error: AxiosError) => {
+                console.log(`error : `, error);
+
+                switch (+error.status) {
+                    case 404:
+                        Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () => {
+                            // this.router.replace(pageUrlConfig.signIn)
+                        });
+                        break;
+                    case 500:
+                        Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
+                        break;
+                }
+                return false;
+            });
+    };
 
     updateList = async (detail: NoticeDto) => {
         await this.api
@@ -156,32 +163,57 @@ export default class NoticeViewModel extends DefaultViewModel {
             .catch((error) => {
                 console.log('error : ', error);
 
-            switch (+error.code){
-                case 404:
-                    Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () =>  {
-                        // this.router.replace(pageUrlConfig.signIn)
-                    });
-                    break;
-                case 500:
-                    Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
-                    break;
-            }
-            return false;
-        })
-    }
+                switch (+error.code) {
+                    case 404:
+                        Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () => {
+                            // this.router.replace(pageUrlConfig.signIn)
+                        });
+                        break;
+                    case 500:
+                        Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
+                        break;
+                }
+                return false;
+            });
+    };
 
-    handleClickPage = (event: any)=>{
-        const {id} = event.currentTarget.dataset;
+    handleClickPage = (event: any) => {
+        const { id, name } = event.currentTarget.dataset;
 
-        runInAction(()=>{
-            this.page = id;
-        });
+        switch (name) {
+            case 'page':
+                runInAction(() => {
+                    this.page = id;
+                });
+                break;
+            case 'prev':
+                runInAction(() => {
+                    this.page = this.page--;
+                });
+                break;
+            case 'prevEnd':
+                runInAction(() => {
+                    this.page = 1;
+                });
+                break;
+            case 'next':
+                runInAction(() => {
+                    this.page = this.page++;
+                });
+                break;
+            case 'nextEnd':
+                const newPage = Math.ceil(this.list.length / PageNationCount.NOTICE);
+                runInAction(() => {
+                    this.page = newPage;
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
-        return id;
-    }
-    
-    handleClickOffset = () =>{
-        const offset = this.page+10;
+    handleClickOffset = () => {
+        const offset = this.page + 10;
         return offset;
-    }
+    };
 }

@@ -1,10 +1,7 @@
 import styled from '@emotion/styled';
-import Button from 'components/atoms/Button/button';
 import DefaultButton from 'components/atoms/Button/default-button';
 import Linker from 'components/atoms/Linker/linker';
 import Typography from 'components/atoms/Typograph/default-typography';
-import SearchBar from 'components/molecules/Search/searchbar';
-import NoticeList from 'components/organisms/List/noticeList';
 import PageContainer from 'components/templates/page-container';
 import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
@@ -23,8 +20,8 @@ const NoticeDetailView = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        noticeViewModel.getDetail(+id);
         noticeViewModel.getMe();
+        noticeViewModel.getDetail(+id);
     }, []);
     const offset = noticeViewModel.detail;
     const isAdmin = true; //noticeViewModel.me.isAdmin || false;
