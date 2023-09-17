@@ -111,7 +111,7 @@ const SearchView = () => {
             </>
             <>
                 <>
-                    {mainViewModel.feedList.map((feed: FeedDto, key: number) => {
+                    {mainViewModel.feedList.data.map((feed: FeedDto, key: number) => {
                         return <Feed data={feed} key={`home_list_${key}`} />;
                     })}
                     <Target ref={ref} />

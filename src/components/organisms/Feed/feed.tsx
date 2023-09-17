@@ -34,65 +34,67 @@ const Feed = ({ data, isDetail = false }: IProps) => {
         return data.images[imageIndex].image;
     };
 
-    console.log(data);
-
     return (
         <Container>
             <UserProfile data={data.author} />
             <Linker href={isDetail ? null : `${pageUrlConfig.feedDetail}/${data.id}`}>
-                <ImageWrap>
-                    <SwiperWrap
-                        modules={[Navigation, FreeMode]}
-                        slidesPerView={1}
-                        spaceBetween={16}
-                        navigation
-                        onSlideChange={handleSlidePage}
-                        loop
-                        imageLength={data.images.length}
-                        ref={swiperRef}
-                    >
-                        {data.images.map((imageUrl: FeedImageDto, key: number) => {
-                            return (
-                                <SwiperSlide key={`feed_images_${key}`}>
-                                    <LazyImage
-                                        src={imageUrl.image}
-                                        alt=""
-                                        style={{ transition: 'all 0.3s ease' }}
-                                    />
-                                </SwiperSlide>
-                            );
-                        })}
-                    </SwiperWrap>
-                    {data.images.length >= 2 && (
-                        <LazyImages
-                            src={getSlideImage(1)}
-                            alt="image"
-                            style={{
-                                width: '100%',
-                                height: '430px',
-                                objectFit: 'cover',
-                                borderRadius: '16px',
-                            }}
-                            className="preview_cards"
-                            isMove={isMove}
-                        />
-                    )}
-                    {data.images.length >= 3 && (
-                        <LazyImages
-                            src={getSlideImage(2)}
-                            alt="image"
-                            style={{
-                                width: '100%',
-                                height: '430px',
-                                objectFit: 'cover',
-                                borderRadius: '16px',
-                                marginLeft: '16px',
-                            }}
-                            className="preview_cards"
-                            isMove={isMove}
-                        />
-                    )}
-                </ImageWrap>
+                {data.images.length > 0 ? (
+                    <ImageWrap>
+                        <SwiperWrap
+                            modules={[Navigation, FreeMode]}
+                            slidesPerView={1}
+                            spaceBetween={16}
+                            navigation
+                            onSlideChange={handleSlidePage}
+                            loop
+                            imagelength={data.images.length}
+                            ref={swiperRef}
+                        >
+                            {data.images.map((imageUrl: FeedImageDto, key: number) => {
+                                return (
+                                    <SwiperSlide key={`feed_images_${key}`}>
+                                        <LazyImage
+                                            src={imageUrl.image}
+                                            alt=""
+                                            style={{ transition: 'all 0.3s ease' }}
+                                        />
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </SwiperWrap>
+                        {data.images.length >= 2 && (
+                            <LazyImages
+                                src={getSlideImage(1)}
+                                alt="image"
+                                style={{
+                                    width: '100%',
+                                    height: '430px',
+                                    objectFit: 'cover',
+                                    borderRadius: '16px',
+                                }}
+                                className="preview_cards"
+                                isMove={isMove}
+                            />
+                        )}
+                        {data.images.length >= 3 && (
+                            <LazyImages
+                                src={getSlideImage(2)}
+                                alt="image"
+                                style={{
+                                    width: '100%',
+                                    height: '430px',
+                                    objectFit: 'cover',
+                                    borderRadius: '16px',
+                                    marginLeft: '16px',
+                                }}
+                                className="preview_cards"
+                                isMove={isMove}
+                            />
+                        )}
+                    </ImageWrap>
+                ) : (
+                    <img src="" />
+                )}
             </Linker>
         </Container>
     );
@@ -142,7 +144,7 @@ const LazyImages = styled(LazyImage)<{ isMove: boolean }>`
         isMove ? `animation: ${ImageChange} 0.8s ease;` : `animation: ${ImageLoad} 0.8s both;`}}
 `;
 
-const SwiperWrap = styled(Swiper)<{ imageLength: number }>`
+const SwiperWrap = styled(Swiper)<{ imagelength: number }>`
     position: relative;
     flex-shrink: 0;
     left: -16px;
@@ -158,8 +160,8 @@ const SwiperWrap = styled(Swiper)<{ imageLength: number }>`
         border-radius: 16px;
     }
 
-    ${({ imageLength }) => {
-        switch (imageLength) {
+    ${({ imagelength }) => {
+        switch (imagelength) {
             case 1:
                 return `width: 100%;`;
 

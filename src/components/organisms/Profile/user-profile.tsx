@@ -41,5 +41,8 @@ const Profile = {
         font-weight: 500;
         height: fit-content;
     `,
-    Image: styled(LazyImage)``,
+    Image: styled(LazyImage)`
+        border-radius: 50%;
+        object-fit: cover;
+    `,
 };

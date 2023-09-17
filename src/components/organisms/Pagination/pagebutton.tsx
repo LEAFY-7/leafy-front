@@ -1,37 +1,50 @@
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import { ReactElement, useState } from 'react';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { PageNationCount } from 'constants/constants';
+import { ReactElement } from 'react';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-/** page: 한 페이지에 보여줄 리스트 길이, totalPageCount: 데이터 총 길이, onClick: viewModel 클릭이벤트**/
+/**
+ * 페이지네이션 공통 컴포넌트
+ * @param page 현재 페이지
+ * @param totalPageCount 총 페이지 갯수
+ * @param onClick 페이지 이동 마우스 이벤트
+ * @returns
+ */
 const PageButton = ({ page, totalPageCount, onClick }): ReactElement => {
+    const pageCount = [...Array(Math.ceil(totalPageCount / PageNationCount.NOTICE))].map(
+        (value, index: number) => index + 1,
+    );
+
     return (
         <PageButtonContainer>
-            <ArrowButton type="button" disabled={onClick} onClick={onClick}>
+            <ArrowButton type="button" onClick={onClick} data-name={'prevEnd'}>
                 <MdKeyboardDoubleArrowLeft />
             </ArrowButton>
-            <ArrowButton type="button" disabled={page === 1} onClick={onClick}>
+            <ArrowButton type="button" onClick={onClick} data-name={'prev'}>
                 <IoIosArrowBack />
             </ArrowButton>
-            {[...Array(totalPageCount)].map((e) => {
+            {pageCount.map((count: number) => {
                 return (
                     <p
-                        data-id={e}
+                        data-id={count}
+                        data-name={'page'}
                         onClick={onClick}
                         style={
                             //현재 페이지는 굵게 표시
-                            e === page ? { fontWeight: `700` } : { fontWeight: `500` }
+                            count === page ? { fontWeight: `700` } : { fontWeight: `500` }
                         }
+                        key={`pagenation_button_${count}`}
                     >
-                        {e}
+                        {count}
                     </p>
                 );
             })}
-            <ArrowButton type="button" disabled={page === onClick} onClick={onClick}>
+            <ArrowButton type="button" onClick={onClick} data-name={'next'}>
                 <IoIosArrowForward />
             </ArrowButton>
-            <ArrowButton type="button" disabled={onClick} onClick={onClick}>
+            <ArrowButton type="button" onClick={onClick} data-name={'nextEnd'}>
                 <MdKeyboardDoubleArrowRight />
             </ArrowButton>
         </PageButtonContainer>
