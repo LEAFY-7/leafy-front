@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import ChatIcon from 'components/atoms/Icon/chat-icon';
 import Typography from 'components/atoms/Typograph/default-typography';
 import Feed from 'components/organisms/Feed/feed';
+import FeedButtons from 'components/organisms/Feed/feedButtons';
 import PageContainer from 'components/templates/page-container';
 import pageUrlConfig from 'configs/pageUrl.config';
 import { theme } from 'configs/ui.config';
@@ -12,17 +13,16 @@ import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MainViewModel from 'viewModel/main/main.viewModel';
-import SearchViewModel from 'viewModel/search/search.viewModel';
 /**
  * 메인페이지
  */
 const HomeView = () => {
     const mainViewModel: MainViewModel = useViewModel(ViewModelName.MAIN);
-    const searchViewModel: SearchViewModel = useViewModel(ViewModelName.SEARCH);
 
     useEffect(() => {
         mainViewModel.getMainData();
-        mainViewModel.getMe();
+        // mainViewModel.getMe();
+        //mainViewModel.test();
     }, []);
 
     const ref = useIntersectionObserver(mainViewModel.getMainData);
@@ -31,12 +31,18 @@ const HomeView = () => {
             <Typography variant="H1" color="primary" textAlign="center">
                 식집사들의 커뮤니티
             </Typography>
-            <>
+            <div>
                 {mainViewModel.feedList.data.map((feed: FeedDto, key: number) => {
-                    return <Feed data={feed} key={`home_list_${key}`} />;
+                    return (
+                        <div key={`feed_list_${key}`}>
+                            <Feed data={feed} />
+                            <Title>{feed.title}</Title>
+                            <FeedButtons />
+                        </div>
+                    );
                 })}
                 <Target ref={ref} />
-            </>
+            </div>
 
             {mainViewModel.me.user.userId ? (
                 <Typography variant="H1" color="primary" textAlign="center">
@@ -50,7 +56,6 @@ const HomeView = () => {
                     <Link to={`${pageUrlConfig.auth}${pageUrlConfig.signIn}`}>로그인 / 회원가입</Link>
                 </>
             )}
-
             {mainViewModel.me.user.userId ? (
                 <IconWrapper>
                     <ChatIcon to={pageUrlConfig.chat} count={3} />
@@ -80,4 +85,20 @@ const IconWrapper = styled.div`
 
 const Target = styled.div`
     height: 1px;
+`;
+
+const Title = styled.h4`
+    width: 100%;
+    font-family: SUIT;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    margin: 0;
+
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
