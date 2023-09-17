@@ -31,7 +31,7 @@ const AlertModal = ({ isOpen, handleClickClose, handleClickConfirm, children, st
 export default AlertModal;
 
 const Container = styled.div<{ isOpen: boolean }>`
-z-index: 1000;
+    z-index: 1000;
     border-radius: 50%;
     aspect-ratio: 1/1;
 
@@ -58,8 +58,6 @@ z-index: 1000;
     
     display:flex;
     flex-direction: column;
-    justify-content:space-around;
-    align-items:center;
     
     transition: all 0.2s ease;
     
@@ -87,11 +85,13 @@ const BackGround = styled.div<{ isOpen: boolean }>`
 const ChildrenWrap = styled.div`
     font-size: 24px;
     font-weight: ${theme.fontWeight.bold};
-    margin: 0 auto;
+    margin: auto;
+    flex-grow: 1;
 `;
 
 const ButtonWrap = styled.div`
     margin-top: 80px;
     display: flex;
     gap: 16px;
+    flex-grow: 0;
 `;
