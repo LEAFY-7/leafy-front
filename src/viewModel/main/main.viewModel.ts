@@ -1,13 +1,14 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import { plainToInstance } from 'class-transformer';
 import { ServerType } from 'constants/constants';
-import { FeedDto } from 'dto/feed/feed.dto';
+import FeedListDto from 'dto/feed/feedList.dto';
 import { action, makeObservable, observable, runInAction } from 'mobx';
 import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 
 export default class MainViewModel extends DefaultViewModel {
-    public feedList: FeedDto[] = [];
+    public feedList: FeedListDto = new FeedListDto();
     public hashTag: [] = [];
 
     constructor(props: IProps) {
@@ -22,7 +23,9 @@ export default class MainViewModel extends DefaultViewModel {
     }
 
     saveMainData = (result) => {
-        runInAction(() => {});
+        runInAction(() => {
+            this.feedList = plainToInstance(FeedListDto, result.data.scrollResponse);
+        });
     };
 
     getMainData = async () => {
@@ -30,7 +33,7 @@ export default class MainViewModel extends DefaultViewModel {
         await this.api
             .get(ServerType.API, `/v1/main`)
             .then((result: AxiosResponse<any[]>) => {
-                // this.saveMainData(result);
+                this.saveMainData(result);
             })
             .catch((error: AxiosError) => {
                 console.log('error : ', error);

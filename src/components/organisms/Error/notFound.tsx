@@ -1,8 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Div from 'components/atoms/Div/default-div';
 import Typography from 'components/atoms/Typograph/default-typography';
 import PageContainer from 'components/templates/page-container';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
     const navigate = useNavigate();
@@ -17,9 +16,7 @@ const NotFound = () => {
 
     return (
         <PageContainer>
-            <Div id="notfound" height={100}>
-                <Typography variant="H1">페이지를 찾을 수 없습니다.</Typography>
-            </Div>
+            <Typography variant="H1">페이지를 찾을 수 없습니다.</Typography>
         </PageContainer>
     );
 };

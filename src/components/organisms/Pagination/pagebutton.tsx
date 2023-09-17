@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from 'configs/ui.config';
-import { ReactElement, useState } from 'react';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { ReactElement } from 'react';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 /** page: 한 페이지에 보여줄 리스트 길이, totalPageCount: 데이터 총 길이, onClick: viewModel 클릭이벤트**/
@@ -21,10 +21,11 @@ const PageButton = ({ page, totalPageCount, onClick }): ReactElement => {
                         onClick={onClick}
                         style={
                             //현재 페이지는 굵게 표시
-                            e === page ? { fontWeight: `700` } : { fontWeight: `500` }
+                            naviButton === page ? { fontWeight: `700` } : { fontWeight: `500` }
                         }
+                        key={`pagenation_button_${naviButton}`}
                     >
-                        {e}
+                        {naviButton}
                     </p>
                 );
             })}

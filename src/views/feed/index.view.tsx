@@ -25,11 +25,11 @@ const FeedView = () => {
             <FeedListWrap>
                 {feedViewModel.list.data.map((feed: FeedDto, key: number) => {
                     return (
-                        <>
-                            <Feed key={`feed_list_${key}`} data={feed} />
+                        <div key={`feed_list_${key}`}>
+                            <Feed data={feed} />
                             <Title>{feed.title}</Title>
                             <FeedButtons />
-                        </>
+                        </div>
                     );
                 })}
             </FeedListWrap>

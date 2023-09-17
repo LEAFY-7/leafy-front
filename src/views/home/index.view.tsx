@@ -1,18 +1,18 @@
-import { useEffect, useMemo } from 'react';
-import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import useViewModel, { ViewModelName } from 'hooks/useViewModel';
-import MainViewModel from 'viewModel/main/main.viewModel';
-import SearchViewModel from 'viewModel/search/search.viewModel';
-import PageContainer from 'components/templates/page-container';
-import Typography from 'components/atoms/Typograph/default-typography';
 import ChatIcon from 'components/atoms/Icon/chat-icon';
-import { theme } from 'configs/ui.config';
-import pageUrlConfig from 'configs/pageUrl.config';
+import Typography from 'components/atoms/Typograph/default-typography';
 import Feed from 'components/organisms/Feed/feed';
+import PageContainer from 'components/templates/page-container';
+import pageUrlConfig from 'configs/pageUrl.config';
+import { theme } from 'configs/ui.config';
 import { FeedDto } from 'dto/feed/feed.dto';
 import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import useViewModel, { ViewModelName } from 'hooks/useViewModel';
+import { observer } from 'mobx-react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import MainViewModel from 'viewModel/main/main.viewModel';
+import SearchViewModel from 'viewModel/search/search.viewModel';
 /**
  * 메인페이지
  */
