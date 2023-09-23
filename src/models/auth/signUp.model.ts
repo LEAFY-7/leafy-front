@@ -6,12 +6,5 @@ export class SignUphModel extends SignInModel {
     public confirmPassword: string = '';
     public phone: string = '';
     public birthDay: string = '';
-    public zoneCode: string = '';
-    public address: string = '';
-    public jibunAddress: string = '';
-    public roadAddress: string = '';
-    public addressDetail: string = '';
-    public gender: 'MALE' | 'FEMALE' | '' = '';
     public introduction: string = '';
-    public addressIsHide: boolean = true;
 }

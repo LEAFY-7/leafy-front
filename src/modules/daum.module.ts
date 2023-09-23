@@ -1,5 +1,3 @@
-import { AddressModel } from 'models/auth/address.model';
-
 declare global {
     interface Window {
         daum: any;
@@ -15,7 +13,7 @@ export default class DaumModule {
         return this.instance || (this.instance = new this());
     }
 
-    public openPostcode(oncomplete: (data: AddressModel) => void) {
+    public openPostcode(oncomplete: (data) => void) {
         new window.daum.Postcode({
             oncomplete: oncomplete,
         }).open();
@@ -25,7 +23,7 @@ export default class DaumModule {
         this.openPostcode(this.handleOnComplete);
     };
 
-    private handleOnComplete = (data: AddressModel) => {
+    private handleOnComplete = (data) => {
         const { zonecode, address, jibunAddress, roadAddress } = data;
         return {
             zoneCode: zonecode,

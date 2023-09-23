@@ -1,12 +1,15 @@
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import { AxiosError, AxiosResponse } from 'axios';
 import { plainToInstance } from 'class-transformer';
+
+import { SignUphModel } from 'models/auth/signUp.model';
+import DefaultViewModel from 'viewModel/default.viewModel';
 import { ServerType } from 'constants/constants';
+
 import FeedActivityDto from 'dto/my/feedActivity.dto';
 import MyPageDto from 'dto/my/mypage.dto';
 import TotalCountDto from 'dto/my/totalCount.dto';
 import { UserDto } from 'dto/user/user.dto';
-import { action, makeObservable, observable, runInAction } from 'mobx';
-import DefaultViewModel from 'viewModel/default.viewModel';
 
 interface IProps {}
 
@@ -14,12 +17,14 @@ export default class UserViewModel extends DefaultViewModel {
     public user: UserDto = new UserDto();
     public totalCount: TotalCountDto = new TotalCountDto();
     public chartList: FeedActivityDto[] = [new FeedActivityDto()];
+    public userInformation: SignUphModel = new SignUphModel();
 
     constructor(props: IProps) {
         super(props);
 
         makeObservable(this, {
             user: observable,
+            userInformation: observable,
             totalCount: observable,
             chartList: observable,
 

@@ -4,7 +4,6 @@ import ChatViewModel from 'viewModel/chat/chat.viewModel';
 import DefaultViewModel from 'viewModel/default.viewModel';
 import FeedViewModel from 'viewModel/feed/feed.viewModel';
 import MainViewModel from 'viewModel/main/main.viewModel';
-import MyEditViewModel from 'viewModel/my/edit.viewModel';
 import SearchViewModel from 'viewModel/search/search.viewModel';
 import UserViewModel from 'viewModel/user/user.viewModel';
 import NoticeViewModel from 'viewModel/notice/notice.viewModel';
@@ -22,7 +21,6 @@ export class RootStore {
     public authViewModel: AuthViewModel;
     public userViewModel: UserViewModel;
     public feedViewModel: FeedViewModel;
-    public myEditViewModel: MyEditViewModel;
     public noticeViewModel: NoticeViewModel;
     public chatViewModel: ChatViewModel;
 
@@ -35,7 +33,6 @@ export class RootStore {
         this.authViewModel = new AuthViewModel(initData);
         this.userViewModel = new UserViewModel(initData);
         this.feedViewModel = new FeedViewModel(initData);
-        this.myEditViewModel = new MyEditViewModel(initData);
         this.noticeViewModel = new NoticeViewModel(initData);
         this.chatViewModel = new ChatViewModel(initData);
     }

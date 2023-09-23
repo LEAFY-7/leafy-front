@@ -26,13 +26,6 @@ export type AuthItem =
     | 'password'
     | 'confirmPassword'
     | 'phone'
-    | 'birthDay'
-    | 'zoneCode'
-    | 'address'
-    | 'gender'
-    | 'jibunAddress'
-    | 'roadAddress'
-    | 'addressDetail'
     | 'introduction';
 
 export interface AuthItemType {
@@ -134,29 +127,7 @@ export const authFormState = {
             message: '최대 12자리 이하의 핸드폰 번호만 사용 가능합니다.',
         },
     },
-    birthDay: {
-        required: '생년월일은 필수입니다.',
-        format: 'YYYY-MM-DD',
-    },
-    zoneCode: {
-        required: '우편 번호는 필수 입니다.',
-    },
-    address: {
-        required: '주소는 필수 입니다.',
-    },
-    jibunAddress: {},
-    roadAddress: {},
-    addressDetail: {
-        required: '상세 주소를 입력해주세요',
-        minLength: {
-            value: 1,
-            message: '최소 1글자 이상의 상세 주소를 입력해주세요.',
-        },
-        maxLength: {
-            value: 20,
-            message: '상세 주소는 20자 이내까지 입력해주세요. ',
-        },
-    },
+
     introduction: {
         required: '30자 이내의 간단한 소개를 입력해주세요',
         minLength: {
@@ -231,77 +202,7 @@ export const authItemState: AuthItemStateType = {
             helper: <AiOutlineExclamationCircle />,
         },
     },
-    birthDay: {
-        type: 'text',
-        label: '생년월일',
-        property: 'birthDay',
-        placeHolder: '날짜를 입력해주세요',
-        icon: {
-            main: <SlCalender />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    gender: {
-        type: 'text',
-        label: '성별',
-        property: 'gender',
-        placeHolder: '성별을 선택해주세요.',
-        icon: {
-            main: <BsGenderAmbiguous />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    zoneCode: {
-        type: 'text',
-        label: '우편번호',
-        property: 'zoneCode',
-        placeHolder: '우편번호를 입력해주세요',
-        icon: {
-            main: <GiPostOffice />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    address: {
-        type: 'text',
-        label: '주소',
-        property: 'address',
-        placeHolder: '주소를 입력해주세요',
-        icon: {
-            main: <BsHouseDoor />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    jibunAddress: {
-        type: 'text',
-        label: '지번주소',
-        property: 'jibunAddress',
-        placeHolder: '주소를 입력해주세요',
-        icon: {
-            main: <BsHouseDoor />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    roadAddress: {
-        type: 'text',
-        label: '도로명 주소',
-        property: 'roadAddress',
-        placeHolder: '주소를 입력해주세요',
-        icon: {
-            main: <BsHouseDoor />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
-    addressDetail: {
-        type: 'text',
-        label: '상세주소',
-        property: 'addressDetail',
-        placeHolder: '상세 주소를 입력해주세요',
 
-        icon: {
-            main: <CgDetailsLess />,
-            helper: <AiOutlineExclamationCircle />,
-        },
-    },
     introduction: {
         type: 'text',
         label: '간단소개',
