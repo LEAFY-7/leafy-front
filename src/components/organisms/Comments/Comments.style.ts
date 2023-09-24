@@ -24,5 +24,6 @@ const Comment = {
     `,
 };
 
+const Menus = styled.ul``;
 
-export default Comment;
+export  {Comment, Menus};
