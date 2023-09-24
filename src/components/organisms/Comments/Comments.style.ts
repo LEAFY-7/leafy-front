@@ -23,7 +23,13 @@ const Comment = {
         }
     `,
 };
+const Menu = styled.div`
+    position: relative;
+`;
+const Menus = styled.ul`
+    position: absolute;
+    right: 0;
+    top: 0;
+`;
 
-const Menus = styled.ul``;
-
-export  {Comment, Menus};
+export  {Comment, Menu, Menus};
