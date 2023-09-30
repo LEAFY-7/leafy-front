@@ -18,6 +18,19 @@ export const OauthType = {
  * 페이지네이션 갯수
  */
 export const PageNationCount = {
-    NOTICE: 10
+    NOTICE: 10,
+    MY_FOLLOWS: 5,
+    MY_FOLLOWINGS: 5,
+    MY_QNAS: 5,
+    MY_LIKES: 5,
 } as const;
 export type PageNationCount = (typeof PageNationCount)[keyof typeof PageNationCount];
+
+export const publicUrl = process.env.PUBLIC_URL;
+export const publicUrlConstants = {
+    image: publicUrl + '/image',
+    logo: publicUrl + '/image/logo',
+    default: publicUrl + '/image/default',
+    background: publicUrl + '/image/background',
+    icon: publicUrl + '/image/icons',
+};
