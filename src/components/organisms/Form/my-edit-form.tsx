@@ -14,8 +14,6 @@ import DropButton from 'components/atoms/Button/drop-button';
 interface FormProps {}
 type Props = React.PropsWithChildren<FormProps> & HTMLAttributes<HTMLFormElement>;
 
-const publicURL = process.env.PUBLIC_URL;
-
 const MyEditForm = ({}: Props) => {
     const { control, handleSubmit, watch } = useForm<SignUphModel>({
         defaultValues: {
