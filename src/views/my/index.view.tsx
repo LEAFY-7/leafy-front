@@ -22,6 +22,13 @@ import useToggle from 'hooks/useToggle';
 import PageButton from 'components/organisms/Pagination/pagebutton';
 import { ChangeHandler } from 'react-hook-form';
 
+/**
+ * PageButton 컴포넌트 Props
+ * @argument page number타입
+ * @argument totalPageCount list의 길이?
+ * @onClick
+ */
+
 const MyView = () => {
     const userViewModel: UserViewModel = useViewModel(ViewModelName.USER);
     const [page, setPage] = useState(1);
@@ -76,6 +83,7 @@ const MyView = () => {
                             </MyInfoContent>
 
                             <MyInfoContent id="myInfo_right">
+                                <MixedChart chartList={userViewModel.chartList} />
                                 <Table id="myData_table">
                                     <Table.Head>
                                         <Table.Tr
@@ -132,7 +140,6 @@ const MyView = () => {
                                         </Table.Tr>
                                     </Table.Body>
                                 </Table>
-                                <MixedChart chartList={userViewModel.chartList} />
                             </MyInfoContent>
                         </Flex.RowToColumnOnTabletSm>
                     </Container.Body>
