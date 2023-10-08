@@ -160,10 +160,10 @@ export default class NoticeViewModel extends DefaultViewModel {
                 });
                 window.location.replace(`${pageUrlConfig.notice}`);
             })
-            .catch((error) => {
+            .catch((error:AxiosError) => {
                 console.log('error : ', error);
 
-                switch (+error.code) {
+                switch (+error.status) {
                     case 404:
                         Alert.alert('인증에 실패했습니다. 다시 로그인해주세요.', () => {
                             // this.router.replace(pageUrlConfig.signIn)
