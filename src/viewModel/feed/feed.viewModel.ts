@@ -35,32 +35,32 @@ export default class FeedViewModel extends DefaultViewModel {
         });
     }
 
-    getDetail = async (id: number) => {
-        // await this.api
-        //     .get('/v1/feeds', { id: id })
-        //     .then((result: AxiosResponse<FeedDto>) => {
-        //         runInAction(() => {
-        //             this.detail = plainToInstance(FeedDto, result.data);
-        //         });
-        //     })
-        //     .catch((error: AxiosError) => {
-        //         console.log('error : ', error);
-        //         return false;
-        //     });
+    getDetail = async (id: string) => {
+        await this.api
+            .get('/v1/feeds', id)
+            .then((result: AxiosResponse<FeedDto>) => {
+                runInAction(() => {
+                    this.detail = plainToInstance(FeedDto, result.data);
+                });
+            })
+            .catch((error: AxiosError) => {
+                console.log('error : ', error);
+                return false;
+            });
 
-        runInAction(() => {
-            this.detail = plainToInstance(
-                FeedDto,
-                FeedData.data.find((feed) => feed.id === id),
-            );
-            let newComment = [];
-            for (let i = 0; i < CommentData.data.length; i++) {
-                if (CommentData.data[i].parantId === this.detail.id) {
-                    newComment.push(plainToInstance(CommentDto, CommentData.data[i]));
-                }
-            }
-            this.commentList = newComment;
-        });
+        // runInAction(() => {
+        //     this.detail = plainToInstance(
+        //         FeedDto,
+        //         FeedData.data.find((feed) => feed.id === id),
+        //     );
+        //     let newComment = [];
+        //     for (let i = 0; i < CommentData.data.length; i++) {
+        //         if (CommentData.data[i].parantId === this.detail.id) {
+        //             newComment.push(plainToInstance(CommentDto, CommentData.data[i]));
+        //         }
+        //     }
+        //     this.commentList = newComment;
+        // });
     };
 
     getList = async () => {

@@ -1,5 +1,6 @@
+import styled from '@emotion/styled';
 import DefaultButton from 'components/atoms/Button/default-button';
-import TextArea from 'components/molecules/TextArea/textArea';
+import { Input } from 'components/atoms/Input';
 import React, { useState } from 'react';
 
 interface Props {
@@ -16,13 +17,18 @@ const EditComment = ({ comment, getComment }: Props) => {
         getComment(content);
     };
     return (
-        <>
-            <div>
-                <TextArea value={content} onChange={handleChangeContent}></TextArea>
-            </div>
+        <EditWrapper>
+            <Input value={content} onChange={handleChangeContent} placeholder="댓글을 입력하세요." />
             <DefaultButton title="등록하기" isPositive={true} onClick={handleClickContent}></DefaultButton>
-        </>
+        </EditWrapper>
     );
 };
 
 export default EditComment;
+
+const EditWrapper = styled.div`
+    display: flex;
+    & :first-child {
+        flex-grow: 1;
+    }
+`;
