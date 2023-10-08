@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Input } from 'components/atoms/Input';
+import InputComment from 'components/organisms/Comments/InputComment';
 import Feed from 'components/organisms/Feed/feed';
 import FeedButtons from 'components/organisms/Feed/feedButtons';
 import FloatingInfomation from 'components/organisms/Feed/floatingInfomation';
@@ -23,7 +24,7 @@ const FeedDetailView = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        feedViewModel.getDetail(+id);
+        feedViewModel.getDetail(id);
     }, []);
 
     const handleClickModalClose = () => {
@@ -39,6 +40,7 @@ const FeedDetailView = () => {
             </FeedWrap>
             <Content.Desc>{feedViewModel.detail.content}</Content.Desc>
             <FeedButtons />
+            <InputComment userData={feedViewModel.detail.author} />
             <Comment.Wrap>
                 <UserProfile data={feedViewModel.detail.author} style={{ width: '24px', height: '24px' }} />
                 <Input
