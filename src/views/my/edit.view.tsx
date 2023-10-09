@@ -22,31 +22,25 @@ const MyEditView = () => {
     React.useEffect(() => {
         userViewModel.getMe();
     }, []);
+
     return (
-        <PageContainer
-            style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center', minHeight: 0 }}
-        >
+        <PageContainer style={{ overflow: 'visible', justifyContent: 'flex-start', alignItems: 'center', minHeight: 0 }}>
             <Container id="myInfo_edit" as="section" wrapperHeight={100}>
-                <Container.Header
-                    headerHeight={'50px'}
-                    fontSize="xl"
-                    marginBottom={8}
-                    style={{ paddingLeft: '4px', height: '50px' }}
-                >
+                <Container.Header headerHeight={'50px'} fontSize="xl" marginBottom={8} style={{ paddingLeft: '4px', height: '50px' }}>
                     회원 정보 수정
                 </Container.Header>
                 <Container.HeaderLine marginTop={16} marginBottom={32} />
                 <Container.Body innerHeight={100}>
                     <Flex.RowToColumnOnTabletSm style={{ width: '100%' }}>
                         <LeftSection className="left_section">
-                            {/* 이미지 수정 컴포넌트 */}
+                            {/* Profile 이미지 컴포넌트 */}
                             <ImageContainer
-                                userDto={userViewModel.me.user}
+                                userImageDto={userViewModel.me.user.profileImage}
                                 handleSaveImage={userViewModel.updateMyImage}
                                 handlePostMyImageFile={userViewModel.postMyImage}
                                 handleDeleteMyImage={userViewModel.deleteMyImage}
                             />
-                            {/* 이미지 수정 컴포넌트 */}
+                            {/* Profile 이미지 컴포넌트 */}
                         </LeftSection>
                         <RightSection width={65} direction="column">
                             {/* 회원 정보 수정 Form 컴포넌트 */}

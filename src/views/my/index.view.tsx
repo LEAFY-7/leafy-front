@@ -214,19 +214,19 @@ const MyView = () => {
                         <Flex.RowToColumnOnMobileMd justifyContent="space-around" style={{ width: '100%' }}>
                             <Switch isOn={isOpen} toggle={handler}>
                                 <Switch.Title>계정 공개</Switch.Title>
-                                <Switch.Wrapper>
+                                <Switch.Wrapper handleClick={userViewModel.patchMemberDisclosure}>
                                     <Switch.Toggle />
                                 </Switch.Wrapper>
                             </Switch>
                             <Switch isOn={isOpen} toggle={handler}>
                                 <Switch.Title>전체 알람</Switch.Title>
-                                <Switch.Wrapper>
+                                <Switch.Wrapper handleClick={userViewModel.patchAllAlarm}>
                                     <Switch.Toggle />
                                 </Switch.Wrapper>
                             </Switch>
                             <Switch isOn={isOpen} toggle={handler}>
                                 <Switch.Title>댓글 알람</Switch.Title>
-                                <Switch.Wrapper>
+                                <Switch.Wrapper handleClick={userViewModel.patchReviewAlarm}>
                                     <Switch.Toggle />
                                 </Switch.Wrapper>
                             </Switch>

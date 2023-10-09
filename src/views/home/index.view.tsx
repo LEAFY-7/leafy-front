@@ -21,11 +21,13 @@ const HomeView = () => {
 
     useEffect(() => {
         mainViewModel.getMainData();
-        // mainViewModel.getMe();
+        mainViewModel.getMe();
         //mainViewModel.test();
     }, []);
 
     const ref = useIntersectionObserver(mainViewModel.getMainData);
+
+    console.log('미', mainViewModel.me);
     return (
         <PageContainer>
             <Typography variant="H1" color="primary" textAlign="center">
