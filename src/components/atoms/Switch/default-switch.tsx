@@ -7,7 +7,9 @@ interface ContextProps {
     isOn: boolean;
     toggle: React.Dispatch<SetStateAction<boolean>>;
 }
-interface WrapperProps {}
+interface WrapperProps {
+    handleClick?: () => void;
+}
 interface ToggleProps {}
 interface TitleProps {}
 
@@ -32,10 +34,19 @@ const SwitchProvider = ({ children }: SwitchProviderProps) => {
     return <SwitchContext.Provider value={providerValue}>{children}</SwitchContext.Provider>;
 };
 
-const SwitchWrapper = ({ children, ...rest }: SwitchWrapperProps) => {
+const SwitchWrapper = ({ handleClick = undefined, children, ...rest }: SwitchWrapperProps) => {
     const { isOn, toggle } = React.useContext(SwitchContext);
     return (
-        <Wrapper onClick={() => toggle(!isOn)} isOn={isOn} {...rest}>
+        <Wrapper
+            onClick={() => {
+                toggle(!isOn);
+                if (handleClick) {
+                    handleClick();
+                }
+            }}
+            isOn={isOn}
+            {...rest}
+        >
             {children}
         </Wrapper>
     );

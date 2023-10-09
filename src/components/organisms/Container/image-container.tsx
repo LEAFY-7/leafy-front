@@ -2,22 +2,18 @@ import type { HTMLAttributes, FormEventHandler, ChangeEvent } from 'react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { FcAddImage as ImageIcon } from 'react-icons/fc';
+import { AiOutlineDelete as CancelIcon } from 'react-icons/ai';
 import { theme } from 'configs/ui.config';
+import UserResponseDataDto from 'dto/user/userResponseData.dto';
+import useImageController from 'hooks/useImageController';
+import { publicUrlConstants } from 'constants/constants';
 
 import Flex from 'components/atoms/Group/flex';
 import RoundButton from 'components/atoms/Button/round-button';
 import Div from 'components/atoms/Div/div';
-import axios from 'axios';
-import tokenModule from 'modules/token.module';
-import { UserDto } from 'dto/user/user.dto';
-import UserResponseDataDto from 'dto/user/userResponseData.dto';
-import { Alert } from 'modules/alert.module';
-import useImageController from 'hooks/useImageController';
-
-const publicURL = process.env.PUBLIC_URL;
 
 interface ContainerProps {
-    userDto: UserResponseDataDto;
+    userImageDto: UserResponseDataDto['profileImage'];
     handlePostMyImageFile: (imageFile: FormData) => void;
     handleSaveImage: (imageFile: File) => void;
     handleDeleteMyImage?: () => void;
@@ -25,92 +21,49 @@ interface ContainerProps {
 
 type Props = React.PropsWithChildren<ContainerProps> & HTMLAttributes<HTMLElement>;
 
-/**
- * 1. make Multiple's state about image or custom hooks
- * 2. make image-container as reuseable Components
- * 3.
- */
-
-const DEFAULT_IMAGE_URL = `${publicURL}/image/default/default-user-img.svg`;
-const ImageContainer = ({ userDto, handleSaveImage, handlePostMyImageFile, handleDeleteMyImage }: Props) => {
-    const { inputImageRef, imageState, handleRemoveImage } = useImageController(
-        {
-            previewImage: '',
-            imageFile: null,
-            imageFormData: null,
-        },
-        {
-            deleteHandler: handleDeleteMyImage,
-        },
-    );
-
-    // 없음
-    const [imageFormData, setImageFormData] = React.useState<FormData>(null);
-    // 없음
-
-    const [imageFile, setImageFile] = React.useState<File>(null);
-    const [image, setImage] = React.useState<string>('');
-    let inputRef = React.useRef<HTMLInputElement | null>(null);
-
-    const handleUpdateImage = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        try {
-            if (!e.target.files) return;
-            const { files } = e.target;
-            const file = files[0];
-
-            const formData: any = new FormData();
-            formData.append('file', file);
-            setImageFile(formData);
-
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = () => {
-                if (typeof reader.result !== 'string') return;
-                setImage(reader.result);
-                setImageFile(file);
-            };
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
-    const handleSave = () => {
-        if (!imageFormData) {
-            Alert.alert('이미지 파일이 없습니다. ');
-        }
-        handlePostMyImageFile(imageFormData);
-    };
-    const handleDeleteImage = () => {
-        if (!inputRef.current) return;
-        setImage('');
-        inputRef.current.value = '';
-    };
+const DEFAULT_IMAGE_URL = `${publicUrlConstants.default}/default-user-img.svg`;
+const ImageContainer = ({ userImageDto, handleSaveImage, handlePostMyImageFile, handleDeleteMyImage }: Props) => {
+    const {
+        inputImageRef,
+        imageState: { previewImage, imageFile, imageFormData },
+        onRemoveImage,
+        onUpdateImage,
+        onOpenImageUploader,
+    } = useImageController({
+        initialImage: userImageDto,
+        deleteHandler: handleDeleteMyImage, // 삭제 API 요청
+    });
 
     return (
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                console.log(imageFile);
-                handleSaveImage(imageFile);
+                handlePostMyImageFile(imageFormData);
             }}
+            style={{ position: 'relative' }}
         >
-            <Flex.Default
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                style={{ width: '100%' }}
-            >
-                <input type="file" accept="image/*" ref={inputRef} onChange={handleUpdateImage} />
-                <button onClick={() => handleRemoveImage('previewImage')}>삭제</button>
+            <Flex.Default direction="column" justifyContent="center" alignItems="center" style={{ width: '100%' }}>
                 {/* 유저 이미지가 없을 경우  */}
-                {!userDto.profileImage && <Image src={image ? image : DEFAULT_IMAGE_URL} />}
+                {!userImageDto && <Image src={previewImage ? previewImage : DEFAULT_IMAGE_URL} />}
                 {/* 유저 이미지가 없을 경우 */}
+
                 {/* 유저 이미지가 있을 경우 */}
-                {userDto.profileImage && <Image src={userDto.profileImage} />}
+                {userImageDto && <Image src={previewImage ? previewImage : userImageDto} />}
                 {/* 유저 이미지가 있을 경우 */}
-                <ImageBubbleButton size="xxs" onClick={handleSave}>
+
+                {/* 이미지 업로드 */}
+                <input type="file" accept="image/*" ref={inputImageRef} multiple onChange={onUpdateImage} style={{ display: 'none' }} />
+                {/* 이미지 업로드 */}
+
+                <ImageAddButton size="xxs" onClick={onOpenImageUploader}>
                     <ImageIcon />
-                </ImageBubbleButton>
+                </ImageAddButton>
+                {/* 삭제 버튼 */}
+                <ImageDeleteButton size="xxs" onClick={onRemoveImage}>
+                    <CancelIcon />
+                </ImageDeleteButton>
+                {/* 삭제 버튼 */}
+
                 <RoundButton variant="default" isBorder type="submit">
                     사진 저장
                 </RoundButton>
@@ -120,6 +73,7 @@ const ImageContainer = ({ userDto, handleSaveImage, handlePostMyImageFile, handl
 };
 
 export default ImageContainer;
+
 const Image = styled.img`
     border: 1px solid ${theme.colors.grey};
     border-radius: 50%;
@@ -133,11 +87,13 @@ const Image = styled.img`
         height: 250px;
     }
 `;
-
-const ImageBubbleButton = styled(Div.Drop)`
+const DefaultIconButton = styled(Div.Drop)`
     position: absolute;
-    transform: translate(160%, 160%);
     cursor: pointer;
+`;
+
+const ImageAddButton = styled(DefaultIconButton)`
+    transform: translate(190%, 170%);
 
     ${theme.mediaQuery.xsMobile} {
         display: none;
@@ -146,4 +102,9 @@ const ImageBubbleButton = styled(Div.Drop)`
     ${theme.mediaQuery.smMobile} {
         display: block;
     }
+`;
+
+const ImageDeleteButton = styled(DefaultIconButton)`
+    right: 10%;
+    top: 5%;
 `;

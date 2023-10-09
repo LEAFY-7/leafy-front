@@ -28,7 +28,7 @@ enum ImageState {
     IMAGE_FORM_DATA = 'imageFormData',
 }
 
-export default function useImageController({ deleteHandler = undefined, updateHandler = undefined }) {
+export default function useImageController({ initialImage = '', deleteHandler = undefined, updateHandler = undefined }) {
     const inputImageRef = React.useRef<HTMLInputElement | null>(null);
     const [imageState, dispatch, onChange] = useMultipleState({
         previewImage: '', // 미리보기 이미지
@@ -61,11 +61,6 @@ export default function useImageController({ deleteHandler = undefined, updateHa
         if (!isRef) return;
         dispatch({ name: ImageState.PREVIEW_IMAGE, value: '' });
         inputImageRef.current.value = '';
-
-        // delete 핸들러가 있을 경우에 실행 (API 요청)
-        if (deleteHandler()) {
-            deleteHandler();
-        }
     };
 
     /**
@@ -85,6 +80,14 @@ export default function useImageController({ deleteHandler = undefined, updateHa
         });
     };
 
+    /**
+     * 초기에 이미지가 있을 경우
+     */
+    React.useEffect(() => {
+        dispatch({ name: ImageState.PREVIEW_IMAGE, value: initialImage });
+    }, [initialImage]);
+
+    console.log('초기 이미지', imageState);
     return {
         inputImageRef,
         imageState,
