@@ -21,11 +21,9 @@ const QnaDetailView = () => {
     const detail = qnaViewModel.detail;
     return (
         <PageContainer>
-            <Linker href={`${pageUrlConfig.notice}`}>
-                <Typography variant="H3" textAlign="center" color="primary" marginBottom={16}>
-                    공지사항
-                </Typography>
-            </Linker>
+            <Typography variant="H3" textAlign="center" color="primary" marginBottom={16}>
+                QnA
+            </Typography>
             <QnaWrap>
                 <Typography variant="BODY1" textAlign="center">
                     {detail.title}
@@ -49,6 +47,7 @@ const QnaDetailView = () => {
 export default QnaDetailView;
 
 const QnaContent = styled.div`
+    width: 100%;
     padding: 16px;
     margin: 8px auto;
     border-radius: 12px;

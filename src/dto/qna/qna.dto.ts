@@ -2,23 +2,23 @@ import { Expose } from 'class-transformer';
 
 export class QnaDto {
     @Expose({ name: 'qnaId' })
-    public readonly id: number;
+    public readonly id?: number;
     @Expose({ name: 'createdAt' })
-    public readonly createdAt: number;
+    public readonly createdAt?: string;
     @Expose({ name: 'modifiedAt' })
-    public readonly modifiedAt: number;
+    public readonly modifiedAt?: string;
     @Expose({ name: 'isDelete' })
-    public readonly isDelete: number;
+    public readonly isDelete?: boolean;
     @Expose({ name: 'contents' })
-    public readonly contents: number;
+    public readonly contents: string;
     @Expose({ name: 'title' })
-    public readonly title: number;
+    public readonly title: string;
     @Expose({ name: 'viewCount' })
-    public readonly viewCount: number;
+    public readonly viewCount?: number;
     @Expose({ name: 'userId' })
-    public readonly userId: number;
+    public readonly userId?: number;
     @Expose({ name: 'comments' })
-    public readonly comments: number;
+    public readonly comments?: string;
     @Expose({ name: 'replies' })
-    public readonly replies: number;
+    public readonly replies?: string;
 }
