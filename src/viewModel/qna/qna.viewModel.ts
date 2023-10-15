@@ -85,4 +85,16 @@ export default class QnaViewModel extends DefaultViewModel {
             }
         });
     }
+
+    insertList = async (detail:QnaDto) => {
+        await this.api.post(ServerType.API, `v1/qna`)
+        .then((result: AxiosResponse<QnaDto>)=>{
+            runInAction(()=>{
+                this.list = [...this.list, detail]; 
+            })
+        })
+        .catch((error: AxiosError)=>{
+            console.log(error);
+        });
+    }
 }

@@ -21,10 +21,10 @@ const NoticeUploadView = () => {
     //변경 사항 감지
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
-    const handleChangeTitle = (e) => {
+    const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
-    const handleChangeContent = (e) => {
+    const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
 
@@ -84,15 +84,6 @@ const NoticeUploadView = () => {
                 >
                     공지사항
                 </Typography>
-                {/* <CheckboxWrapper.Label>
-                    <CheckboxWrapper.Checkbox
-                        id="hide"
-                        variant="primary"
-                        isChecked={checked}
-                        onChange={handleChangeChecked}
-                    />
-                    비공개
-                </CheckboxWrapper.Label> */}
 
                 <CheckBox onChange={handleChangeChecked} label="비공개" />
                 <DefaultButton title="저장하기" isPositive={true} onClick={handleClickSave} />

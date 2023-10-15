@@ -28,6 +28,13 @@ const LeaveView = () => {
         if (!code) return;
         //
     }, [window.location.href]);
+    const authViewModel: AuthViewModel = useViewModel(ViewModelName.AUTH);
+
+    useEffect(() => {
+        const code = new URL(window.location.href).searchParams.get('code');
+        if (!code) return;
+        //
+    }, [window.location.href]);
 
     return (
         <PageContainer style={{ overflow: 'visible', height: '100vh', minHeight: 0 }}>
@@ -47,29 +54,6 @@ const LeaveView = () => {
                     password={authViewModel.authState.password}
                     handleSignIn={authViewModel.handleSignIn}
                 />
-                <Flex.RowToColumnOnTabletMd style={{ gap: '8px' }}>
-                    <DefaultAnchor href={OauthType.GOOGLE} target="_blank" style={{ width: 'auto' }}>
-                        <img src={`${IconUrl}/google.svg`} style={{ width: '30px' }} />
-                    </DefaultAnchor>
-                    <DefaultAnchor href={OauthType.KAKAO} target="_blank" style={{ width: 'auto' }}>
-                        <img src={`${IconUrl}/kakao.svg`} style={{ width: '30px' }} />
-                    </DefaultAnchor>
-                </Flex.RowToColumnOnTabletMd>
-
-                <Flex.Default direction="column">
-                    <Typography
-                        as="p"
-                        variant="BODY3"
-                        color="grey"
-                        fontSize="sm"
-                        textAlign="center"
-                        marginTop={4}
-                        width="max-content"
-                        to={`${pageUrlConfig.auth}${pageUrlConfig.find}`}
-                    >
-                        아이디를 찾으시겠습니까?
-                    </Typography>
-                </Flex.Default>
             </AuthTemplate>
             <Styled.SignInPlantImage src={Image} />
             <Styled.SignInPlantImage src={Image} />
