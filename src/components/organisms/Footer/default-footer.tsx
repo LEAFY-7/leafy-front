@@ -4,7 +4,7 @@ import { AiFillFacebook as FaceBookIcon, AiFillGithub as GithubIcon } from 'reac
 import { theme } from 'configs/ui.config';
 import pageUrlConfig from 'configs/pageUrl.config';
 
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import LinkWrapper from 'components/molecules/Wrapper/link-wrapper';
 import RectangleButton from 'components/atoms/Button/rectangle-button';
 import Flex from 'components/atoms/Group/flex';
 import Typography from 'components/atoms/Typograph/default-typography';

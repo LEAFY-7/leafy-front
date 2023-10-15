@@ -73,7 +73,7 @@ const Feed = ({ data, isDetail = false }: IProps) => {
                                     borderRadius: '16px',
                                 }}
                                 className="preview_cards"
-                                isMove={isMove}
+                                ismove={isMove}
                             />
                         )}
                         {data.images.length >= 3 && (
@@ -88,7 +88,7 @@ const Feed = ({ data, isDetail = false }: IProps) => {
                                     marginLeft: '16px',
                                 }}
                                 className="preview_cards"
-                                isMove={isMove}
+                                ismove={isMove}
                             />
                         )}
                     </ImageWrap>
@@ -126,22 +126,23 @@ const ImageLoad = keyframes`
 `;
 
 const ImageWrap = styled.div`
+    max-width: 1080px;
     width: 100%;
     display: flex;
 
-    &span:nth-child(1) {
+    &span:nth-of-type(1) {
         flex-shrink: 0;
         width: 30%;
     }
-    &span:nth-child(2) {
+    &span:nth-of-type(2) {
         flex-shrink: 0;
         width: 20%;
     }
 `;
 
-const LazyImages = styled(LazyImage)<{ isMove: boolean }>`
-    ${({ isMove }) =>
-        isMove ? `animation: ${ImageChange} 0.8s ease;` : `animation: ${ImageLoad} 0.8s both;`}}
+const LazyImages = styled(LazyImage)<{ ismove: boolean }>`
+    ${({ ismove }) =>
+        ismove ? `animation: ${ImageChange} 0.8s ease;` : `animation: ${ImageLoad} 0.8s both;`}}
 `;
 
 const SwiperWrap = styled(Swiper)<{ imagelength: number }>`

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { theme } from 'configs/ui.config';
 import Div from 'components/atoms/Div/div';
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import LinkWrapper from 'components/molecules/Wrapper/link-wrapper';
 
 interface FlyoutContextProps {
     isOpen: boolean;

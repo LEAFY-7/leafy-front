@@ -7,7 +7,6 @@ interface Props {
     comment: string;
     getComment: any;
 }
-
 // 수정 혹은 등록을 위한 입력 컴포넌트
 const EditComment = ({ comment, getComment }: Props) => {
     const [content, setContent] = useState<string>(comment ?? '');

@@ -6,7 +6,7 @@ import { theme } from 'configs/ui.config';
 import { variantStyles } from './typography.style';
 import useVariant from 'hooks/useVariant';
 
-import LinkWrapper from 'components/atoms/Wrapper/link-wrapper';
+import LinkWrapper from 'components/molecules/Wrapper/link-wrapper';
 
 export type TypographyVariant = 'H1' | 'H2' | 'H3' | 'BODY1' | 'BODY2' | 'BODY3';
 export type TypographyAs = 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'label';
