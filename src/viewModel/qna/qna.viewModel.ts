@@ -57,7 +57,21 @@ export default class QnaViewModel extends DefaultViewModel {
             }
         })
     }
+    updateList = async (detail:QnaDto) => {
+        await this.api.put(ServerType.API, `v1/qna`, detail)
+        .then((result: AxiosResponse<QnaDto>)=>{
+            Alert.alert('수정을 완료했습니다!');
+            const data = result.data;
+            runInAction(() => {
+                this.detail = data;
+            });
 
+            window.location.replace(`${pageUrlConfig.notice}/${data.id}`);
+        })
+        .catch(()=>{
+
+        });
+    }
     deleteList = async (id:number) => {
         await this.api.delete(ServerType.API, `/v1/qna/${id}`)
         .then((result: AxiosResponse<QnaDto[]>) => {
