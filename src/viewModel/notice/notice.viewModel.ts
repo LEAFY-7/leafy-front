@@ -48,7 +48,6 @@ export default class NoticeViewModel extends DefaultViewModel {
             })
             .catch((error: AxiosError) => {
                 console.log('error : ', error);
-
                 Alert.alert('서버에 문제가 발생했습니다. \n 잠시 후 다시 시도해주세요.');
                 return false;
             });

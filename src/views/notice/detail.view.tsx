@@ -61,6 +61,7 @@ const NoticeDetailView = () => {
 export default observer(NoticeDetailView);
 
 const NoticeContent = styled.div`
+    width: 100%;
     padding: 16px;
     margin: 8px auto;
     border-radius: 12px;
